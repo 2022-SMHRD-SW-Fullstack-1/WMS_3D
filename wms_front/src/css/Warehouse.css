@@ -1,3 +1,49 @@
 .wh_top_div{
     display: flex;
+    width: 99.5vw;
+    height: 50vw;
+    background-color: gray;
+    font-size: 1.5vw;
+}
+.wh_top_div button{
+    width: 10%;
+    height: 60%;
+    font-size: 1.5vw;
+}
+.wh_management_div{
+    margin-top: 20%;
+    width:750%;
+    height: 10%;
+    background-color: white;
+}
+.wh_button_div{
+    width: 750%;
+    height: 10%;
+    background-color: yellow;
+}
+.wh_main_div{
+    display: flex;
+    width: 750%;
+    height: 75%;
+    background-color: aliceblue;
+}
+.wh_graph{
+    width: 75%;
+    height: 100%;
+    background-color: aqua;
+}
+.wh_mini_div{
+    width: 25%;
+    height: 100%;
+    background-color: blueviolet;
+}
+.wh_mini_diagram{
+    width: 100%;
+    height: 40%;
+    background-color: brown;
+}
+.wh_mini_graph{
+    width: 100%;
+    height: 60%;
+    background-color: antiquewhite;
 }
