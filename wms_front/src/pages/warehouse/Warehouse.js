@@ -5,7 +5,9 @@ const Warehouse = () => {
   return (
     <div>
       <SideBar/>
-      Warehouse</div>
+      Warehouse
+      안녕하세요
+      </div>
   )
 }
 
