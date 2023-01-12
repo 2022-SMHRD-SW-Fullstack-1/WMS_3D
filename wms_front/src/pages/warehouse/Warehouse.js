@@ -1,13 +1,15 @@
 import React from 'react'
+import '../../css/Warehouse.css'
 import SideBar from '../../components/SideBar'
 
 const Warehouse = () => {
   return (
-    <div>
+    <div className='wh_top_div'>
       <SideBar/>
-      Warehouse
-      안녕하세요
+      <div >
+          창고입니다
       </div>
+    </div>
   )
 }
 

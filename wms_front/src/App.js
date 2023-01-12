@@ -1,5 +1,4 @@
-import logo from './logo.svg';
-import './App.css';
+
 import { Routes, Route, useLocation } from 'react-router-dom'
 import SideBar from './components/SideBar'
 import Main from './pages/Main'
@@ -17,7 +16,7 @@ import Warehouse from './pages/warehouse/Warehouse'
 
 function App() {
   return (
-    <div className="App">
+    <div >
       <Routes>
         <Route path='/login' element={<Login/>}/>
         <Route path='/' element={<Main/>}/>
