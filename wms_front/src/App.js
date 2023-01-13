@@ -13,6 +13,7 @@ import RegisterCom from './pages/user/RegisterCom'
 import RegisterUser from './pages/user/RegisterUser'
 import Shelf from './pages/warehouse/Shelf'
 import Warehouse from './pages/warehouse/Warehouse'
+import Warehouse3d from './pages/warehouse/Warehouse3d'
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
         <Route path='outputHistory/' element={<OutputHistory/>}/>
         <Route path='shelf/' element={<Shelf/>}/>
         <Route path='warehouse/' element={<Warehouse/>}/>
+        <Route path='warehouse3d/' element={<Warehouse3d/>}/>
       </Routes>
         
     </div>
