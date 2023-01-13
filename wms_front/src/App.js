@@ -17,6 +17,7 @@ import Warehouse from './pages/warehouse/Warehouse'
 function App() {
   return (
     <div >
+        <SideBar>
       <Routes>
         <Route path='/login' element={<Login/>}/>
         <Route path='/' element={<Main/>}/>
@@ -30,6 +31,7 @@ function App() {
         <Route path='shelf/' element={<Shelf/>}/>
         <Route path='warehouse/' element={<Warehouse/>}/>
       </Routes>
+        </SideBar>
     </div>
   );
 }
