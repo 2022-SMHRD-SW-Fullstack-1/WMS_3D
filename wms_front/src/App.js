@@ -19,6 +19,7 @@ function App() {
 
   return (
     <div className='App'>
+
       <Routes>
         <Route path='/login' element={<Login/>}/>
         <Route path='/' element={<Main/>}/>
@@ -32,6 +33,7 @@ function App() {
         <Route path='shelf/' element={<Shelf/>}/>
         <Route path='warehouse/' element={<Warehouse/>}/>
       </Routes>
+        
     </div>
   );
 }
