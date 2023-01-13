@@ -1,4 +1,5 @@
 
+import './App.css'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import SideBar from './components/SideBar'
 import Main from './pages/Main'
@@ -15,9 +16,9 @@ import Warehouse from './pages/warehouse/Warehouse'
 
 
 function App() {
+
   return (
-    <div >
-        <SideBar>
+    <div className='App'>
       <Routes>
         <Route path='/login' element={<Login/>}/>
         <Route path='/' element={<Main/>}/>
@@ -31,7 +32,6 @@ function App() {
         <Route path='shelf/' element={<Shelf/>}/>
         <Route path='warehouse/' element={<Warehouse/>}/>
       </Routes>
-        </SideBar>
     </div>
   );
 }
