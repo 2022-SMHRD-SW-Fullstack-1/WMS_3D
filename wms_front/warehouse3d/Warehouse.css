@@ -1,0 +1,73 @@
+.wh_top_div{
+    
+    /* 창고 가장 큰 div  */
+    background-color: var(--mainNavy);
+    display: flex;
+    height: 969px;
+}
+.wh_second_div{
+    /* 창고 사이드바를 뺀 가장 큰 div */
+    background-color: aliceblue;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.wh_management_div{
+    background-color: aqua;
+    width: 100%;
+    height: 5%;
+    margin-top: 2%;
+    display: flex;
+    align-items: center;
+}
+.wh_management_div span{
+    /* 창고관리 , 선반관리 버튼 */
+    background-color: bisque;
+    margin-right: 5%;
+}
+.wh_management_div span:hover{
+    cursor: pointer;
+}
+.horizonLine{
+    width:94%;
+    height: 1px;
+    background-color: black;
+    margin: 1%;
+}
+.wh_button_div{
+    background-color: blueviolet;
+    width: 100%;
+    height: 5%;
+    display: flex;
+    align-items: center;
+}
+.wh_main_div{
+    background-color: aquamarine;
+    display: flex;
+    width: 100%;
+    height: 80%;
+}
+.wh_graph{
+    background-color: beige;
+    width: 68%;
+    height: 98%;
+    margin: 1%;
+}
+.wh_mini_div{
+    background-color: blue;
+    width: 28%;
+    height: 96%;
+    margin: 1%;
+}
+.wh_mini_diagram{
+    background-color: brown;
+    width: 98%;
+    height: 38%;
+    margin: 1%;
+}
+.wh_mini_graph{
+    background-color: aliceblue;
+    width: 98%;
+    height: 58%;
+    margin: 1%;
+}
