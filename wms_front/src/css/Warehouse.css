@@ -1,3 +1,9 @@
-.wh_top_div{
-    display: flex;
+.wh_top_div {
+  display: flex;
+  background-color: aquamarine;
+}
+
+/* 임시로 공간 확인 위해 만든 css */
+.wh_ex_div {
+  background-color: blueviolet;
 }
