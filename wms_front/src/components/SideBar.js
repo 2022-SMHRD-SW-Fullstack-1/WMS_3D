@@ -1,53 +1,28 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
-import SidebarMenue from "./SideBarMenue"
-import { useLocation } from 'react-router-dom';
+import { SideBarMenue } from './SideBarMenue';
 import '../App.css';
-
-
+ 
 const SideBar = () => {
-
-  const pathName = useLocation().pathname;
-
-
-  const menus = [
   
-  {
-    name: "창고",
-    path: "warehouse/"
-  },
-  {
-    name: "입고",
-    path: "input/"
-  },
-  {
-    name: "출고",
-    path: "output/"
-  },
-  {
-    name: "stock",
-    path: "stock/"
-  },
-];
-
-
-
   return (
-    <div className="sidebar">
-      {menus.map((menu, index) => {
-        return (
-          <Link to={menu.path} key={index}>
-            
-            <SidebarMenue
-              menu={menu}
-              isActive={pathName === menu.path ? true : false}	// 현재 URL pathname과 객체에 담긴 path값 일치 여부 확인
-            />
-
-          </Link>
-        );
-      })}
-    </div>
-  )
+  <div className="SideBar">
+  <ul className="SideBarList">
+  {SideBarMenue.map((val, key) => {
+  return (
+    <li 
+    key={key} 
+    className="row"
+    onClick={()=> {
+    window.location.pathname = val.link
+  }}
+  >
+  <div>{val.icon}</div> <div>{val.title}</div>
+  </li>
+  );
+  })}
+  </ul>
+  </div>
+  );
 }
-
-export default SideBar
+  
+export default SideBar;
