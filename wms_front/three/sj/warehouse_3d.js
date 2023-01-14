@@ -190,6 +190,7 @@ class App{
             100
         );
         // camera.rotation.x = 30;
+        camera.position.y = 1;
         camera.position.z = 10;
         
         this._camera = camera;
