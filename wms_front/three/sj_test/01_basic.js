@@ -3,8 +3,8 @@ import { OrbitControls } from "../examples/jsm/controls/OrbitControls.js"
 
 
 
-let width = Number(prompt("창고의 너비를 입력하세요"))
-let length = Number(prompt("창고의 길이를 입력하세요"))
+// let width = Number(prompt("창고의 너비를 입력하세요"))
+// let length = Number(prompt("창고의 길이를 입력하세요"))
 
 class App{
     constructor() {
@@ -45,8 +45,8 @@ class App{
             100
         );
 
-        camera.position.y = 1;
-        camera.position.z = length/2;
+        camera.position.y = 10;
+        camera.position.z = 10;
         this._camera = camera;
     }
     _setupLight(){
@@ -59,8 +59,8 @@ class App{
     // 파란색 정육면체 mesh 생성
     _setupModel(){
         
-        const watehouse_x = width;
-        const watehouse_y = length;
+        const watehouse_x = 10;
+        const watehouse_y = 20;
         const wareHouse = new THREE.Object3D();
         const planeGeometry = new THREE.PlaneGeometry(watehouse_x,watehouse_y,watehouse_x,watehouse_y)
     
@@ -78,6 +78,19 @@ class App{
          // WireframeGeometry : 모델의 외각선 표시
          new THREE.WireframeGeometry(planeGeometry),lineMaterial);
         
+         group1.add(wareHouseMesh);
+         group1.add(line);
+         // 판 돌리기
+        group1.rotation.x = -Math.PI/2;
+ 
+ 
+         wareHouse.add(group1);
+     
+         const mesh = wareHouse
+         mesh.position.set(0,0,0);
+ 
+         this._scene.add(mesh);
+
         
         //=====================================================================
         // 하이라이트 모양과 위치 잡기 
@@ -89,10 +102,11 @@ class App{
                 side : THREE.DoubleSide
             })
         )
-        highlightMesh.position.set(0.5,0.5,0)
+        highlightMesh.position.set(0.5,0,0.5)
+        highlightMesh.rotation.x = -Math.PI/2;
 
         // 마우스 호버 이벤트 넣기
-        group1.add(highlightMesh)
+        this._scene.add(highlightMesh)
         
         const mousePosition = new THREE.Vector2();
         const raycaster = new THREE.Raycaster();
@@ -109,7 +123,7 @@ class App{
             intersects.forEach(function(intersect){
                 if(intersect.object.name === 'ground'){
                     const highlightPos = new THREE.Vector3().copy(intersect.point).floor().addScalar(0.5);
-                    highlightMesh.position.set(highlightPos.x,-highlightPos.z,0)
+                    highlightMesh.position.set(highlightPos.x,0,highlightPos.z)
                 }
             })
         })
@@ -118,18 +132,33 @@ class App{
         //=====================================================================
         
         
-         group1.add(wareHouseMesh);
-        group1.add(line);
-        // 판 돌리기
-        group1.rotation.x =-Math.PI/2;
+        //------------------------
+        // 클릭한 곳에 선반 생성
+        const sphereMesh = new THREE.Mesh(
+            new THREE.SphereGeometry(0.4,4,2),
+            new THREE.MeshBasicMaterial({
+                wireframe : true,
+                color : 0xffEA00
+            })
+        )
+        window.addEventListener('mousedown',function(){
+            intersects.forEach(function(intersect){
+                if(intersect.object.name === 'ground'){
+                    const sphereClone = sphereMesh.clone();
+                    sphereClone.position.copy(highlightMesh.position);
+                    console.log(highlightMesh.position)
+                    hover_scene.add(sphereClone);
+                }
+            })
+            console.log(hover_scene.children.length)
+        })
+
+        //------------------------
 
 
-        wareHouse.add(group1);
-    
-        const mesh = wareHouse
-        mesh.position.set(0,0,0);
 
-        this._scene.add(mesh);
+
+ 
     
         this._warehouse = wareHouse
         // this._createShelfs(watehouse_x,watehouse_y);
