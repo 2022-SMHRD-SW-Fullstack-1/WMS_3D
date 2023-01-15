@@ -7,9 +7,10 @@ import { OrbitControls } from "../examples/jsm/controls/OrbitControls.js"
 // let length = Number(prompt("창고의 길이를 입력하세요"))
 
 
-const shelf_width = Number(prompt("선반의 너비를 입력하세요"))
-const shelf_length = Number(prompt("선반의 길이를 입력하세요"))
-const shelf_floor = Number(prompt("선반의 층을 입력하세요"))
+let shelf_width = Number(prompt("선반의 너비를 입력하세요"))
+let shelf_length = Number(prompt("선반의 길이를 입력하세요"))
+let shelf_floor = Number(prompt("선반의 층을 입력하세요"))
+
 
 class App{
     constructor() {
@@ -112,6 +113,8 @@ class App{
          wareHouseMesh.name = 'ground'
 
          this._warehouse = wareHouse
+
+        
 
          this._createShelf();
     }
@@ -263,9 +266,13 @@ class App{
                         // console.log(highlightMesh.position)
                         hover_scene.add(shelfClone);
                         objects.push(shelfClone)
-                        group2.name = meshName;
+
+                        group2.name = prompt("선반의 이름을 정해주세요");
+
                         shelf_info.push({x:shelfClone.position.x,y:shelfClone.position.y,z:shelfClone.position.z,rotation:rotation,width:shelf_width,
-                                            length:shelf_length,floor:shelf_floor})
+                            length:shelf_length,floor:shelf_floor,name:group2.name})
+                            
+                            
                     }
                 })
             }
