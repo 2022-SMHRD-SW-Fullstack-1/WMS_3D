@@ -7,9 +7,10 @@ import { OrbitControls } from "../examples/jsm/controls/OrbitControls.js"
 // let length = Number(prompt("창고의 길이를 입력하세요"))
 
 
-const shelf_width = Number(prompt("선반의 너비를 입력하세요"))
-const shelf_length = Number(prompt("선반의 길이를 입력하세요"))
-const shelf_floor = Number(prompt("선반의 층을 입력하세요"))
+let shelf_width = Number(prompt("선반의 너비를 입력하세요"))
+let shelf_length = Number(prompt("선반의 길이를 입력하세요"))
+let shelf_floor = Number(prompt("선반의 층을 입력하세요"))
+
 
 class App{
     constructor() {
@@ -113,6 +114,8 @@ class App{
 
          this._warehouse = wareHouse
 
+        
+
          this._createShelf();
     }
 
@@ -123,9 +126,10 @@ class App{
         // const shelf_width = 1;
         // const shelf_length = 7;
         // const shelf_floor = 4;
-        const rotation = true;
+        let rotation = true;
         const meshName = "A선반"
         //
+
         
 
 
@@ -141,12 +145,12 @@ class App{
         )
         highlightMesh.position.set(0.5,0,0.5)
         highlightMesh.rotation.x = -Math.PI/2;
+
         if(rotation==true){
-            highlightMesh.rotation.z = -Math.PI/2;
+            
         }
 
-        // 마우스 호버 이벤트 넣기
-        this._scene.add(highlightMesh)
+        
         
         const mousePosition = new THREE.Vector2();
         const raycaster = new THREE.Raycaster();
@@ -188,6 +192,9 @@ class App{
         // 클릭한 곳에 선반 생성
         const objects = [];
 
+        // 선반들의 정보를 담는 배열
+        const shelf_info = [];
+
         const group2 = new THREE.Group();
         // 기본 바 생성
         const shelfBarGeometry = new THREE.CylinderGeometry(0.03,0.03,shelf_floor-1+0.2)
@@ -224,11 +231,28 @@ class App{
             shelfFloorMesh.position.y = (i*1)+0.1;
             group2.add(shelfFloorMesh);
         }
-        if(rotation==true){
-            group2.rotation.y =-Math.PI/2;
-        }
+
+        // 선반 버튼 회전 기능
+        window.addEventListener('contextmenu',function(){
+            if(rotation==true){
+                rotation = false
+                highlightMesh.rotation.z = -Math.PI/2;
+                group2.rotation.y =-Math.PI/2;
+
+            }else{
+                rotation =true
+                highlightMesh.rotation.z = 0
+                group2.rotation.y =0
+
+            }
+        })
+
+
+        // 마우스 호버 이벤트 넣기
+        this._scene.add(highlightMesh)
+
         
-        window.addEventListener('mousedown',function(){
+        window.addEventListener('dblclick',function(){
             const objectExist = objects.find(function(object){
                 return(object.position.x === highlightMesh.position.x)
                 && (object.position.z === highlightMesh.position.z)
@@ -239,14 +263,22 @@ class App{
                     if(intersect.object.name === 'ground'){
                         const shelfClone = group2.clone();
                         shelfClone.position.copy(highlightMesh.position);
-                        console.log(highlightMesh.position)
+                        // console.log(highlightMesh.position)
                         hover_scene.add(shelfClone);
                         objects.push(shelfClone)
-                        group2.name = meshName;
+
+                        group2.name = prompt("선반의 이름을 정해주세요");
+
+                        shelf_info.push({x:shelfClone.position.x,y:shelfClone.position.y,z:shelfClone.position.z,rotation:rotation,width:shelf_width,
+                            length:shelf_length,floor:shelf_floor,name:group2.name})
+                            
+                            
                     }
                 })
             }
-            console.log(hover_scene.children.length)
+            // console.log(hover_scene.children)
+
+            console.log(shelf_info)
         })
 
         //------------------------
