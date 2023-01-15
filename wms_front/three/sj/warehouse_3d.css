@@ -1,0 +1,72 @@
+*{
+    outline :none;
+    margin : 0;
+}
+
+body{
+    /* 만약 스크롤바가 생길 경우 스크롤바 숨기기 */
+    overflow: hidden;
+}
+
+#webgl-container{
+    /* 해당 div를 화면에 꽉차게 설정 */
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+
+
+/* 여기서 부턴 3d 화면 위에 띄우는 부분 */
+
+/* 상단 바 전체  */
+#sub-container {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5%;
+    background-color: yellow;
+
+    justify-content: space-between;
+}
+/* 이동 버튼 */
+#btn-container{
+    width: 10%;
+    height: 100%;
+    text-align: center;
+    
+}
+/* 온/습도 컨테이너 */
+#tem_hum{
+    display: flex;
+    flex-direction: column;
+    font-size: 80%;
+    font-weight: 600;
+}
+#move{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-align: center;
+    border: none;
+    display: inline-block;
+    padding: 5% 5%;
+    border-radius: 5px;
+    font-family: "paybooc-Light", sans-serif;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1vw;
+    transition: 0.25s;
+}
+.btn_on{
+    background-color: rgb(24, 0, 96);
+    color: white;
+
+}
+  
