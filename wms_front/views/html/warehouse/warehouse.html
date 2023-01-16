@@ -179,7 +179,7 @@
             <input type="text" />
             <button id="search_btn">검색</button>
           </div>
-          <button id="add_warehouse_btn">+ 창고 추가</button>
+          <button id="add_warehouse_btn" onclick="goToCreateWarehouse()">+ 창고 추가</button>
         </div>
 
         <div class="graph_top_div">
@@ -236,7 +236,7 @@
                               <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
                             </div>
                             <div class="modal-footer">
-                              <button type="button" class="btn btn-primary">
+                              <button id="add_warehouse_btn" onclick="goToWarehouse()">
                                 3D창고보기
                               </button>
                             </div>
@@ -459,9 +459,9 @@
                 신석 식품 냉장 창고 입니다
               </div>
               <div class="choice_option_div">
-                <span onclick="option_one()">선반 정보</span
-                ><span onclick="option_two()">온 / 습도</span
-                ><span onclick="option_three()">창고 정보</span>
+                <span onclick="optionOne()">선반 정보</span
+                ><span onclick="optionTwo()">온 / 습도</span
+                ><span onclick="optionThree()">창고 정보</span>
               </div>
             </div>
           </div>

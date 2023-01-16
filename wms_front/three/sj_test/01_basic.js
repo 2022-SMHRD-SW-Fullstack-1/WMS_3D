@@ -75,8 +75,8 @@ class App{
     _createBoard(){
         
         // 창고 data
-        const watehouse_x = 30;
-        const watehouse_y = 60;
+        const watehouse_x = 20;
+        const watehouse_y = 40;
         //
 
 
