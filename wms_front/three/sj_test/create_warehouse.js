@@ -7,6 +7,15 @@ let warehouse_width = Number(prompt("창고의 너비를 입력하세요"))
 let warehouse_length = Number(prompt("창고의 길이를 입력하세요"))
 
 
+// 선반 생성 페이지로 이동
+const btn_create = document.getElementById('btn_create')
+btn_create.addEventListener('click',()=>{
+    location.href = "../sj_test/01_basic.html"
+})
+
+
+
+
 class App{
     constructor() {
         const divContainer = document.querySelector("#webgl-container");
