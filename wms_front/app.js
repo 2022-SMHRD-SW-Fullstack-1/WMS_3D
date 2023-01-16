@@ -51,8 +51,8 @@ app.get("/register_user.html", (req, res) => {
 });
 
 // 3D 창고 페이지
-app.get("/three/sj/05_warehouse.html", (req, res) => {
-  res.sendFile(__dirname + "/three/sj/05_warehouse.html");
+app.get("/three/sj/warehouse_3d.html", (req, res) => {
+  res.sendFile(__dirname + "/three/sj/warehouse_3d.html");
 });
 
 app.get("/output", (req, res) => {
