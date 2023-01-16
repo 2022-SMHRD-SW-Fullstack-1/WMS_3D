@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="views/css/main.css" />
+    <script
+      type="text/javascript"
+      src="../../js/stock/output.js"
+      defer
+    ></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <h1 id="test">output테스트</h1>
+    <div class="container">
+      <!-- method : 정보를 어떤 형태로 전달할건지 지정 -->
+      <form action="/outputForm" method="POST">
+        <div class="form-group">
+          <label>com_pw</label>
+          <input type="text" class="form-control" name="pw" />
+        </div>
+
+        <div class="form-group">
+          <label>com_name</label>
+          <input type="text" class="form-control" name="name" />
+        </div>
+        <div class="form-group">
+          <label>bsn</label>
+          <input type="text" class="form-control" name="bsn" />
+        </div>
+        <div class="form-group">
+          <label>com_tel</label>
+          <input type="text" class="form-control" name="tel" />
+        </div>
+        <div class="form-group">
+          <label>com_addr</label>
+          <input type="text" class="form-control" name="addr" />
+        </div>
+        <button type="submit" class="btn">Submit</button>
+      </form>
+    </div>
+  </body>
+</html>

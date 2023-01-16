@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="views/css/main.css" />
+    <!--  type="text/javascript" defer src="../../js/stock/input.js" -->
+    <script>
+      let mydata = JSON.parse('<%- JSON.stringify(data) %>');
+      console.log(mydata)
+    </script>
+    <title>Document</title>
+  </head>
+  <body>
+    <h1 id="test">input 테스트</h1>
+    <h3>data 가져오기</h3>
+    <% for(var i = 0; i<data.length; i++){%>
+      <p>
+        <p><%- JSON.stringify(data[i]) %></p>
+      </p>
+    <% } %>  
+    }
+  </body>
+</html>
