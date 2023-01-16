@@ -9,11 +9,148 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <script type="text/javascript" src="../../js/warehouse/warehouse.js" defer></script>
+    
+    
+    <!-- 사이드바 -->
+    <link rel="stylesheet" href="../../css/stock/input_history.css" />
+    <link
+    href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+    rel="stylesheet"
+  />
+    <!-- 사이드바 -->
+    
+    
+    
     <title>Document</title>
 </head>
 <body>
     <div class="top_div">
-        <div class="side_bar">사이드바</div>
+      <!-- 사이드바 == -->
+      <div class="sidebar close">
+        <div class="logo-details">
+          <i class="bx bxs-package"></i>
+          <span class="logo_name">WMS</span>
+        </div>
+        <ul class="nav-links">
+          <li>
+            <i class="bx bx-menu"></i>
+          </li>
+  
+          <li>
+            <a href="#">
+              <i class="bx bx-grid-alt"></i>
+              <span class="link_name">홈</span>
+            </a>
+            <ul class="sub-menu blank">
+              <!-- 사이드바 닫혀있을 때 목록 없을 때 옆에 이름 설정 -->
+              <li><a class="link_name" href="#">홈</a></li>
+            </ul>
+          </li>
+  
+          <li>
+            <div class="iocn-link">
+              <a href="#">
+                <i class="bx bxs-city"></i>
+                <span class="link_name">창고</span>
+              </a>
+              <!-- 사이드바 목록 화살표 -->
+              <i class="bx bxs-chevron-down arrow"></i>
+            </div>
+  
+            <!-- 사이드바 서브 메뉴설정 -->
+            <ul class="sub-menu">
+              <li><a class="link_name" href="#"></a></li>
+              <li><a href="#">창고생성</a></li>
+              <li><a href="#">창고</a></li>
+            </ul>
+          </li>
+  
+          <li>
+            <div class="iocn-link">
+              <a href="#">
+                <i class="bx bx-package"></i>
+                <span class="link_name">입고</span>
+              </a>
+              <i class="bx bxs-chevron-down arrow"></i>
+            </div>
+            <ul class="sub-menu">
+              <li><a class="link_name" href="#">입고</a></li>
+              <li><a href="#">입고현황</a></li>
+              <li><a href="#">입고내역</a></li>
+            </ul>
+          </li>
+  
+          <li>
+            <div class="iocn-link">
+              <a href="#">
+                <i class="bx bx-archive-out"></i>
+                <span class="link_name">출고</span>
+              </a>
+              <i class="bx bxs-chevron-down arrow"></i>
+            </div>
+            <ul class="sub-menu">
+              <li><a class="link_name" href="#">출고</a></li>
+              <li><a href="#">출고현황</a></li>
+              <li><a href="#">출고내역</a></li>
+            </ul>
+          </li>
+  
+          <li>
+            <a href="#">
+              <i class="bx bx-box"></i>
+              <span class="link_name">재고</span>
+            </a>
+            <ul class="sub-menu blank">
+              <li><a class="link_name" href="#">재고현황</a></li>
+              <li><a class="link_name" href="#">재고</a></li>
+            </ul>
+          </li>
+  
+          <li>
+            <div class="iocn-link">
+              <a href="#">
+                <i class="bx bx-bell"></i>
+                <span class="link_name">알림</span>
+              </a>
+            </div>
+            <ul class="sub-menu">
+              <li><a class="link_name" href="#">알림</a></li>
+            </ul>
+          </li>
+  
+          <li>
+            <a href="#">
+              <i class="bx bxs-user"></i>
+              <span class="link_name">사용자</span>
+            </a>
+            <ul class="sub-menu blank">
+              <li><a class="link_name" href="#">사용자</a></li>
+            </ul>
+          </li>
+  
+          <li>
+            <div class="profile-details">
+              <div class="profile-content">
+                <img src="../../image/profile.jpg" alt="profileImg" />
+              </div>
+              <div class="name-job">
+                <div class="profile_name">김정우</div>
+                <div class="job"></div>
+              </div>
+              <i class="bx bx-log-out"></i>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- == 사이드바 -->
+
+
+
+
+
+
+
         <div class="main_div">
             <div class="management_div">
                 <a href="#">창고 관리</a>
@@ -177,18 +314,78 @@
                 </div>
                 <div class="sub_graph_div">
                     <div class="diagram_div">
-                      <div>A창고</div>
+                      <div class="wh_name_div">A창고</div>
                       <div class="circle_progress_container">
                         <div class="circle_progress_item">
                           <div class="value_container">0%</div>
                         </div>
                       </div>
-                      
+                      <div class = "circle_progress_info">
+                        <span>남은 공간 : 30</span><span>총 공간 : 60</span>
+                      </div>
 
                     </div>
-                    <div class="three_option_div">3가지 항목 창
-                      
+                    <div class="three_option_div">
+                      <div id="first_option" >
+                        <div >
+                          <span>A 선반 : 2 / 10</span>
+                          <div class="progress">
+                            <div class="progress-bar" id="bg_black" role="progressbar" aria-label="Basic example" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                          </div>
+                        </div>
 
+                        <div >
+                          <span>B 선반 : 5 / 10</span>
+                          <div class="progress">
+                            <div class="progress-bar" id="bg_black" role="progressbar" aria-label="Basic example" style="width: 50%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                          </div>
+                        </div>
+
+                        <div >
+                          <span>C 선반 : 5 / 10</span>
+                          <div class="progress">
+                            <div class="progress-bar" id="bg_black" role="progressbar" aria-label="Basic example" style="width: 50%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                          </div>
+                        </div>
+
+                        <div >
+                          <span>D 선반 : 10 / 10</span>
+                          <div class="progress">
+                            <div class="progress-bar" id="bg_black" role="progressbar" aria-label="Basic example" style="width: 100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                          </div>
+                        </div>
+
+                        
+                      </div>
+                      <div id="second_option" class="none_view">
+                        <div>
+                          창고 온도
+                          
+                          <div class="progress">
+                            <div class="progress-bar" id="bg_red" role="progressbar" aria-label="Basic example" style="width: 50%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                          </div>
+                          <div class="temp_text_div">
+                            <span>-5°C</span><span>now : 0°C </span><span>5°C</span>
+                          </div>
+                        </div>
+
+
+                        <div>
+                          창고 습도
+                          <div class="progress">
+                            <div class="progress-bar" id="bg_green" role="progressbar" aria-label="Basic example" style="width: 20%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                          </div>
+                          <div class="temp_text_div">
+                            <span>0%</span><span>now : 5% </span><span>20%</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div id="third_option" class="none_view">
+                        신석 식품 냉장 창고 입니다
+                      </div>
+                      <div class="choice_option_div">
+                        <span onclick="option_one()">선반 정보</span><span onclick="option_two()">온 / 습도</span><span onclick="option_three()">창고 정보</span>
+                      </div>
                     </div>
                 </div>
             </div>

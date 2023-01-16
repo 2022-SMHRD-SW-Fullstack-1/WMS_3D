@@ -5,21 +5,23 @@ body{
 }
 
 .top_div{
+    margin-left: 78px;
     width: 1700px;
     display: flex;
     flex-shrink: unset;
 }
-.side_bar{
+/* .side_bar{
     width: 78px;
     height: 969px;
     background-color: #11101D;
-}
+} */
 .main_div{
     background-color: white;
-    width: 1600px;
+    width: 1450px;
     height: 869px;
+
     margin-top: 50px;
-    margin-left: 50px;
+    margin-left: 200px;
 }
 .management_div{
     height: 5%;
@@ -40,7 +42,6 @@ body{
     justify-content: space-between;
 }
 .graph_top_div{
-    background-color: beige;
     width: 100%;
     height: 80%;
     display: flex;
@@ -50,28 +51,104 @@ body{
 .main_graph_div{
     
     width: 70%;
-    background-color: aliceblue;
+    /* background-color: aliceblue; */
 }
 
 .sub_graph_div{
     width: 30%;
     height: 100%;
-    background-color: aqua;
 }
 
 .diagram_div{
     margin: 5%;
     width: 90%;
     height: 40%;
-    background-color: blanchedalmond;
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+    font-weight: 600;
+}
+.wh_name_div{
+    text-align: center;
+}
+
+.circle_progress_info{
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-around;
 }
 
 .three_option_div{
     margin: 5%;
     width: 90%;
-    height: 50%;
-    background-color: aquamarine;
+    height: 40%;
+    font-weight: 600;
 }
+
+.choice_option_div{
+    margin-top: 10%;
+    margin-bottom: 5%;
+    display: flex;
+    justify-content: space-around;
+    font-size: 20px;
+    font-weight: 600;
+    color: #11101D;
+}
+.choice_option_div span:hover{
+    cursor: pointer;
+}
+
+.none_view{
+    display: none !important;
+}
+.none_view div{
+    display: none !important;
+}
+
+#first_option{
+    margin-left: 10%;
+    width: 80%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    font-size: 20px;
+    text-align: center;
+    
+}
+
+#second_option{
+    margin-left: 10%;
+    width: 80%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    font-size: 20px;
+    text-align: center;
+    
+}
+
+.temp_text_div{
+    display: flex;
+    justify-content: space-between;
+}
+
+#third_option{
+    margin-left: 10%;
+    width: 80%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    font-size: 20px;
+    text-align: center;
+    
+}
+
 
 /* --초기 설정 */
 
@@ -181,7 +258,6 @@ td{
 .circle_progress_container{
     height: 200px;
     width: 200px;
-    background-color: white;
     position: relative;
     top: 45%;
     left: 50%;
@@ -214,9 +290,39 @@ td{
     font-size: 30px;
     color: #11101D;
 }
+#bg_black{
+    background-color: #11101D;
+}
+#bg_red{
+    background-color: rgb(255, 68, 68);
+}
+#bg_green{
 
+    background-color: rgb(52, 185, 47);
+}
 
 
 /* 서클 프로그래스 바 */
+
+
+
+/* 일반 프로그래스 바 */
+
+.bg-success{
+    background-color: #11101D !important;
+}
+
+
+/* 일반 프로그래스 바 */
+
+/* 페이지 네이션 */
+
+.pagination{
+    --bs-pagination-color : #11101D !important;
+}
+/* 페이지 네이션 */
+
+
+
 
 
