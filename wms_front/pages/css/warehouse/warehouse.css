@@ -160,6 +160,12 @@ table{
 :root{
     --bs-body-line-height: 1 !important;
 }
+th{
+    vertical-align: middle;
+}
+td{
+    vertical-align: middle;
+}
 /* 테이블 + 디자인 */
 
 
