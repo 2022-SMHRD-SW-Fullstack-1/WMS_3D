@@ -1,0 +1,197 @@
+/* ====Google Font Import - Poformsins ==== */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #11101d;
+}
+
+.yucontainer {
+  position: relative;
+  max-width: 430px;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.yucontainer .yuforms {
+  display: flex;
+  align-items: center;
+  height: 530px;
+  width: 200%;
+  transition: height 0.2x ease;
+}
+
+.yucontainer.active .yuforms {
+  height: 600px;
+}
+
+.yucontainer .yuform {
+  width: 50%;
+  padding: 30px;
+}
+
+.yucontainer .yuform .yutitle {
+  position: relative;
+  font-size: 27px;
+  font-weight: 600;
+}
+
+.yuform .yutitle::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 30px;
+  background-color: #11101d;
+  border-radius: 25px;
+}
+
+.yuform .yuinput-field {
+  position: relative;
+  height: 50px;
+  width: 100%;
+  margin-top: 30px;
+}
+
+.yuinput-field input {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  padding: 0 35px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  border-bottom: 2px solid #ccc;
+  border-top: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+.yuinput-field input:is(:focus, :valid) {
+  border-bottom-color: #11101d;
+}
+
+.yuinput-field i {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+  fost-size: 23px;
+  transition: all 0.2s ease;
+}
+
+.yuinput-field input:is(:focus, :valid) ~ i {
+  color: #11101d;
+}
+
+.yuinput-field i.icon {
+  left: 0;
+}
+.yuinput-field i.showHidePw {
+  right: 0;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.yuform .yucheckbox-text {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.yucheckbox-text .yucheckbox-content {
+  display: flex;
+  align-items: center;
+}
+
+.yucheckbox-content input {
+  margin: 0 8px -2px 4px;
+  accent-color: #11101d;
+}
+
+.yuform .text {
+  color: #333;
+  font-size: 14px;
+}
+
+.yuform a.text {
+  color: #11101d;
+  text-decoration: none;
+}
+
+.yuform a:hover {
+  text-decoration: underline;
+}
+
+.yuform .button {
+  margin-top: 35px;
+}
+
+.yuform .button input {
+  border: none;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  border-radius: 6px;
+  background-color: #11101d;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.button input:hover {
+  background-color: #11101d;
+}
+
+.yuform .yulogin-signup {
+  margin-top: 30px;
+  text-align: center;
+}
+
+/* 모달창 */
+.yupopup {
+  width: 400px;
+  background: #fff;
+  border-radius: 6px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.1);
+  text-align: center;
+  padding: 0 30px 30px;
+  color: #333;
+  visibility: hidden;
+  transition: transform 0.4s, top 0.4s;
+}
+.open-popup {
+  visibility: visible;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  border: solid;
+  padding: 30px;
+}
+/* 모달 */
+.yupopup button {
+  border: none;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  border-radius: 6px;
+  background-color: #11101d;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 10px;
+}
