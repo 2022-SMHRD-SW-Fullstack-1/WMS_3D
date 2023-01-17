@@ -59,6 +59,11 @@ app.get("/output", (req, res) => {
   res.sendFile(__dirname + "/views/html/stock/output.html");
 });
 
+app.get("/warehouse", (req, res) => {
+  res.sendFile(__dirname + "/views/html/warehouse/warehouse.html");
+});
+
+// DB에 받아온 값 Insert
 app.post("/outputForm", (req, res) => {
   // console.log(req.body.pw);
   // console.log(req.body);
