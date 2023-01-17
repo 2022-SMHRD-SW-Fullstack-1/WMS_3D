@@ -203,7 +203,7 @@ body {
   padding-top: 10px;
 }
 
-.yudoublecheck {
+.yuinput-field .yudoublecheck {
   border: none;
   color: #fff;
   font-size: 12px;
@@ -214,4 +214,7 @@ body {
   cursor: pointer;
   transition: all 0.3s ease;
   padding: 5px;
+  position: absolute;
+  top: 13px;
+  right: 0;
 }
