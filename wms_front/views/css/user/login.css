@@ -182,6 +182,7 @@ body {
   border: solid;
   padding: 30px;
 }
+
 /* 모달 */
 .yupopup button {
   border: none;
@@ -194,4 +195,23 @@ body {
   cursor: pointer;
   transition: all 0.3s ease;
   padding: 10px;
+}
+
+/* 중복확인 */
+
+.yubtn {
+  padding-top: 10px;
+}
+
+.yudoublecheck {
+  border: none;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  border-radius: 6px;
+  background-color: #11101d;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 5px;
 }
