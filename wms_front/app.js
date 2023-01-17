@@ -64,7 +64,6 @@ app.get("/warehouse", (req, res) => {
   mdbConn
     .getWarehouseList()
     .then((rows) => {
-      // console.log(rows);
       res.render(
         "views/html/warehouse/warehouse.ejs",
         {
@@ -74,7 +73,7 @@ app.get("/warehouse", (req, res) => {
           if (err) {
             console.log(err);
           }
-          console.log(rows);
+          // console.log(rows);
           res.end(html);
         }
       );
@@ -120,7 +119,7 @@ app.get("/input", (req, res) => {
         },
         function (err, html) {
           if (err) {
-            console.log(err);
+            // console.log(err);
           }
           // console.log(rows);
           res.end(html);
