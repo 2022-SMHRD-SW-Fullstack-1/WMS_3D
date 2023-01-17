@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> 
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -105,6 +105,7 @@
             </ul>
           </li>
 
+          
           <li>
             <a href="#">
               <i class="bx bx-box"></i>
@@ -155,6 +156,10 @@
 
       <!-- == 사이드바 -->
 
+
+
+
+
       <div class="main_div">
         <div class="management_div">
           <a href="#">창고 관리</a>
@@ -178,9 +183,9 @@
             <input type="text" />
             <button id="search_btn">검색</button>
           </div>
-          <button id="add_warehouse_btn">+ 창고 추가</button>
+          <button id="add_warehouse_btn" onclick="goToCreateWarehouse()">+ 창고 추가</button>
         </div>
-
+        
         <div class="graph_top_div">
           <div class="main_graph_div">
             <div class="bd-example">
@@ -195,127 +200,82 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td><input type="checkbox" /></td>
-                    <td>A창고</td>
-                    <td>100 / 200</td>
-                    <td>30 / 60</td>
-                    <td>
-                      <div
-                        class="modal fade"
-                        id="exampleModalCenteredScrollable"
-                        tabindex="-1"
-                        aria-labelledby="exampleModalCenteredScrollableTitle"
-                        aria-hidden="true"
-                      >
+
+
+                  <% for(var i = 0; i<data.length; i++){%>
+                    <tr>
+                      <td><input type="checkbox" /></td>
+                      <td><%- data[i].wh_name%></td>
+                      <td><%- data[i].wh_width %>   /   <%- data[i].wh_length %></td>
+                      <td>30   /   60</td>
+                      <td>
                         <div
-                          class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+                        class="modal fade"
+                        id="exampleModalCenteredScrollable<%- i%>"
+                        tabindex="-1"
+                          aria-labelledby="exampleModalCenteredScrollableTitle"
+                          aria-hidden="true"
                         >
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h1
-                                class="modal-title fs-5"
-                                id="exampleModalCenteredScrollableTitle"
-                              >
-                                창고 상세 정보
-                              </h1>
-                              <button
-                                type="button"
-                                class="btn-close"
-                                data-bs-dismiss="modal"
-                                aria-label="Close"
-                              ></button>
-                            </div>
-                            <div class="modal-body">
-                              <span>창고 명 : </span><span>A창고</span><br />
-                              <span>창고 명 : </span><span>A창고</span><br />
-                              <span>창고 명 : </span><span>A창고</span><br />
-                              <span>창고 명 : </span><span>A창고</span><br />
-                              <span>창고 명 : </span><span>A창고</span><br />
-                              <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-primary">
-                                3D창고보기
-                              </button>
+                          <div
+                            class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+                          >
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h1
+                                  class="modal-title fs-5"
+                                  id="exampleModalCenteredScrollableTitle"
+                                >
+                                  창고 상세 정보
+                                </h1>
+                                <button
+                                  type="button"
+                                  class="btn-close"
+                                  data-bs-dismiss="modal"
+                                  aria-label="Close"
+                                ></button>
+                              </div>
+                              <div class="modal-body">
+                                <div>
+                                  <span>창고 명 : </span><span><%- data[i].wh_name%></span>
+                                </div>
+                                <div>
+                                  <span>창고 너비 : </span><span><%- data[i].wh_width%> m</span>
+                                </div>
+                                <div>
+                                  <span>창고 길이 : </span><span><%- data[i].wh_length%> m</span>
+                                </div>
+                                <div>
+                                  <span>권장 온도 : </span><span><%- data[i].wh_min_temp%> ~ <%- data[i].wh_max_temp%> °C</span>
+                                </div>
+                                <div>
+                                  <span>권장 습도 : </span><span><%- data[i].wh_min_humid%> ~ <%- data[i].wh_max_humid%> %</span>
+                                </div>
+                                <div><span>창고 정보 : </span></div>
+                                <div><span></span><span> <%- data[i].wh_info%></span> </div>
+                                
+                              </div>
+                              <div class="modal-footer">
+                                <button id="add_warehouse_btn" onclick="goToWarehouse()">
+                                  3D창고보기
+                                </button>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="bd-example">
-                        <button
-                          type="button"
-                          data-bs-toggle="modal"
-                          data-bs-target="#exampleModalCenteredScrollable"
-                        >
-                          상세보기
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" /></td>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>상세보기</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" /></td>
-                    <td>Jacob</td>
-                    <td>Larry the Bird</td>
-                    <td>@twitter</td>
-                    <td>상세보기</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" /></td>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>상세보기</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" /></td>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>상세보기</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" /></td>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>상세보기</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" /></td>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>상세보기</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" /></td>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>상세보기</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" /></td>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>상세보기</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox" /></td>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>상세보기</td>
-                  </tr>
+                        <div class="bd-example">
+                          <button
+                            type="button"
+                            data-bs-toggle="modal"
+                            data-bs-target="#exampleModalCenteredScrollable<%- i%>"
+                          >
+                            상세보기
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  <% } %>  
+
+
                 </tbody>
               </table>
 
@@ -458,9 +418,9 @@
                 신석 식품 냉장 창고 입니다
               </div>
               <div class="choice_option_div">
-                <span onclick="option_one()">선반 정보</span
-                ><span onclick="option_two()">온 / 습도</span
-                ><span onclick="option_three()">창고 정보</span>
+                <span onclick="optionOne()">선반 정보</span
+                ><span onclick="optionTwo()">온 / 습도</span
+                ><span onclick="optionThree()">창고 정보</span>
               </div>
             </div>
           </div>

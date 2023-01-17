@@ -60,7 +60,7 @@ sidebarBtn.addEventListener("click", () => {
 
 // 3가지 옵션
 
-function option_one() {
+function optionOne() {
   let first_option = document.querySelector("#first_option");
   let second_option = document.querySelector("#second_option");
   let third_option = document.querySelector("#third_option");
@@ -68,7 +68,7 @@ function option_one() {
   second_option.className = "none_view";
   third_option.className = "none_view";
 }
-function option_two() {
+function optionTwo() {
   let first_option = document.querySelector("#first_option");
   let second_option = document.querySelector("#second_option");
   let third_option = document.querySelector("#third_option");
@@ -76,7 +76,7 @@ function option_two() {
   second_option.className = "";
   third_option.className = "none_view";
 }
-function option_three() {
+function optionThree() {
   let first_option = document.querySelector("#first_option");
   let second_option = document.querySelector("#second_option");
   let third_option = document.querySelector("#third_option");
@@ -85,3 +85,14 @@ function option_three() {
   third_option.className = "";
 }
 // 3가지 옵션
+
+// 페이지 이동 기능
+
+function goToCreateWarehouse() {
+  location.href = "../../../three/sj_test/create_warehouse.html";
+}
+function goToWarehouse() {
+  location.href = "../../../three/sj/warehouse_3D.html";
+}
+
+// 페이지 이동 기능
