@@ -32,7 +32,7 @@ async function GetWarehouseList() {
   try {
     conn = await pool.getConnection();
     conn.query("USE wms");
-    rows = await conn.query("select * from tbl_warehouse");
+    rows = await conn.query("SELECT w.wh_num,w.com_num,w.wh_name,w.wh_width,w.wh_length,w.wh_min_temp,w.wh_max_temp,w.wh_min_humid,w.wh_max_humid,w.wh_info ,floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0))) wh_max_avl,(floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0))) - count(st.stock_name)) wh_now_avl from tbl_warehouse w left JOIN tbl_shelf s ON w.wh_num = s.wh_num LEFT join tbl_stock st ON s.shelf_num = st.shelf_num GROUP BY wh_num ");
   } catch (err) {
     throw err;
   } finally {
