@@ -67,13 +67,14 @@ app.get("/warehouse", (req, res) => {
       res.render(
         "views/html/warehouse/warehouse.ejs",
         {
-          data: rows,
+          data: rows[0],
+          shelf_data : rows[1]
         },
         function (err, html) {
           if (err) {
             console.log(err);
           }
-          // console.log(rows);
+          console.log(rows);
           res.end(html);
         }
       );
@@ -82,7 +83,6 @@ app.get("/warehouse", (req, res) => {
       //   console.log(errMsg);
       err;
     });
-
 });
 
 app.post("/outputForm", (req, res) => {
