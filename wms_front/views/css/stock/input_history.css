@@ -292,20 +292,8 @@
   font-size: 12px;
 }
 
-.home-content {
-  width: 100%;
-  height: 910px;
-}
-.video {
-  /* position: relative; */
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-  padding-left: 0;
-  padding-right: 0;
-}
 /* 사이드바 제외한 공간생성 */
-/* .home-section {
+.home-section {
   position: relative;
   background: #e4e9f7;
   height: 100vh;
@@ -313,10 +301,10 @@
   width: calc(100% - 260px);
   transition: all 0.5s ease;
   padding: 12px;
-} */
+}
 
 /* 사이드바 닫힌 상태 사이즈  */
-/* .sidebar.close ~ .home-section {
+.sidebar.close ~ .home-section {
   left: 78px;
   width: calc(100% - 78px);
 }
@@ -325,28 +313,6 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-} */
-
-/* 메뉴 버튼 설정 */
-
-/* .sidebar .logo-details i {
-  font-size: 30px;
-  color: #fff;
-  height: 50px;
-  min-width: 78px;
-  text-align: center;
-  line-height: 50px;
-}
-
-.home-section .home-content .bx-menu,
-.home-section .home-content .text {
-  color: #11101d;
-  font-size: 35px;
-}
-
-.home-section .home-content .bx-menu {
-  cursor: pointer;
-  margin-right: 10px;
 }
 
 .home-section .home-content .text {
