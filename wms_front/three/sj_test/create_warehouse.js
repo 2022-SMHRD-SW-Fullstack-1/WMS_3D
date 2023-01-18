@@ -2,9 +2,29 @@ import * as THREE from "../build/three.module.js";
 import { OrbitControls } from "../examples/jsm/controls/OrbitControls.js"
 
 
-
 let warehouse_width = Number(prompt("창고의 너비를 입력하세요"))
 let warehouse_length = Number(prompt("창고의 길이를 입력하세요"))
+
+app.post("/outputForm", (req, res) => {
+    // console.log(req.body.pw);
+    // console.log(req.body);
+    // insert로 데이터 넣기
+    async function InsertCompanyData() {
+      let conn, rows;
+      let sql = "insert into tbl_company values(null,?,?,?,?,?)";
+      conn = await pool.getConnection();
+      conn.query("USE wms");
+      rows = await conn.query(sql, [
+        req.body.pw,
+        req.body.name,
+        req.body.bsn,
+        req.body.tel,
+        req.body.addr,
+      ]);
+    }
+    InsertCompanyData();
+  });
+
 
 
 // 선반 생성 페이지로 이동
