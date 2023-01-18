@@ -212,6 +212,18 @@ button{
     font-weight: 600;
     margin: 0px;
 }
+
+.btn_small{
+    width: 80px;
+    height: 40px;
+    border-radius: 5px;
+    border-color: #11101D;
+    background-color: white;
+    color: #11101D;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0px;
+}
 /* -- 버튼 모양 */
 
 /* 인풋창 모양 -- */

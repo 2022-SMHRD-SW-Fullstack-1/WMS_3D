@@ -1,5 +1,6 @@
 // var test = document.getElementById('test');
 
+
 // test.addEventListener('click',function(){
 //     alert('ok')
 // })
@@ -85,14 +86,54 @@ function goToWarehouse(){
   location.href = "../../../three/sj/warehouse_3D.html"
 }
 
+function goToShelf(e){
+  console.log(e);
+  const num = {num:e}
+   let url = "/shelf"
+
+  let form = document.createElement('form');
+  form.setAttribute('method','post')
+  form.setAttribute('action',url);
+  document.characterSet = "utf-8";
+  for(let key in num){
+    let hiddenField = document.createElement('input');
+    hiddenField.setAttribute('type','hidden');
+    hiddenField.setAttribute('name',key);
+    hiddenField.setAttribute('value',num[key]);
+    form.appendChild(hiddenField);
+  }
+  document.body.appendChild(form);
+  form.submit();
+
+
+
+
+  //  axios
+  //     .post(url, num,{
+  //       headers: {
+  //         "Content-Type": `application/json`,
+  //       },
+  //     })
+  //     .then((res) => {
+  //       console.log(res);
+  //     })
+  //     .catch(() => {
+  //       console.log("catch");
+  //     });
+
+
+
+}
+
+
 // 페이지 이동 기능
 
 
 // 서브 div 띄우는 기능
 
 function changeSub(e){
-  console.log(e)
-  console.log(e.shelf_info)
+  // console.log(e)
+  // console.log(e.shelf_info)
 
   // 온도 바
   let min_temp = document.querySelector("#min_temp")

@@ -1,6 +1,7 @@
 const mariadb = require("mariadb");
 const vals = require("./const");
 
+
 const pool = mariadb.createPool({
   host: vals.DBHost,
   port: vals.DBPort,
