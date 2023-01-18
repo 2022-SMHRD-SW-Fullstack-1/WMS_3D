@@ -92,6 +92,7 @@ function goToWarehouse(){
 
 function changeSub(e){
   console.log(e)
+  console.log(e.shelf_info)
 
   // 온도 바
   let min_temp = document.querySelector("#min_temp")
