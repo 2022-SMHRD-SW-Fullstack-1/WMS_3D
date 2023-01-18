@@ -34,11 +34,31 @@ app.use(express.static(__dirname + "/"));
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/");
 
-// 메인페이지
-app.get("/", (req, res) => {
-  // 요청 패스에 대한 콜백 함수를 넣어줌
-  res.sendFile(__dirname + "/views/html/main.html");
+
+// 출고 페이지
+app.get("/output", (req, res) => {
+  res.render("views/html/stock/output.ejs");
 });
+
+
+//입고 내역 페이지
+app.get("/input_history", (req, res) => {
+  res.render("views/html/stock/input_history.ejs");
+});
+
+//출고 내역 페이지
+app.get("/output_history", (req, res) => {
+  res.render("views/html/stock/output_history.ejs");
+});
+
+
+
+
+// 재고 페이지
+app.get("/stock", (req, res) => {
+  res.render("views/html/stock/stock.ejs");
+});
+
 
 // 로그인페이지
 app.get("/login", (req, res) => {
@@ -55,67 +75,30 @@ app.get("/register_user.html", (req, res) => {
   res.sendFile(__dirname + "/views/html/user/register_user.html");
 });
 
-// 3D 창고 페이지
-app.get("/three/sj/warehouse_3d.html", (req, res) => {
-  res.sendFile(__dirname + "/three/sj/warehouse_3d.html");
-});
 
-app.get("/output", (req, res) => {
-  res.sendFile(__dirname + "/views/html/stock/output.html");
-});
 
-app.get('/shelf', (req, res) => {
-  res.render("views/html/warehouse/shelf.ejs")
-})
-
-// 선반 관리 페이지
-app.post("/shelf", (req, res) => {
-  const val = Number(req.body.num)
-  console.log(val);
-  async function getShelfList(){
-    let conn, rows;
-    conn = await pool.getConnection();
-    conn.query("USE wms");
-    rows = await conn.query(`SELECT * FROM tbl_shelf WHERE wh_num = ${val}`);
-    return rows
-  }
-    getShelfList()
+// 선반 페이지
+app.get("/shelf", (req, res) => {
+  mdbConn
+    .getWarehouseList()
     .then((rows) => {
-      res.render(
-        "views/html/warehouse/shelf.ejs",
-        {
-          data: rows,
-        },
-        function (err, html) {
-          if (err) {
-            console.log(err);
-          }
-          // console.log(rows);
-          res.end(html);
-        }
-        );
-    })
-    .catch((errMsg) => {
-      console.log(errMsg);
-    });
-  })
-  
-
-// 창고 생성 페이지
-app.post("/three/sj_test/create_warehouse.html", (req, res) => {
-  async function InsertWarehouseData(){
-    let conn, rows;
-    let sql = "INSERT INTO tbl_warehouse(com_num,wh_name,wh_width,wh_length) VALUES(?,?,?,?)"
-    conn = await pool.getConnection();
-    conn.query("USE wms");
-    rows = await conn.query(sql, [
-      req.body.com_num,
-      req.body.name,
-      req.body.width,
-      req.body.length
-    ]);
+  res.render("views/html/warehouse/shelf.ejs",
+  {
+    data: rows[0],
+    shelf_data : rows[1]
+  },
+  function (err, html) {
+    if (err) {
+      console.log(err);
+    }
+    console.log(rows);
+    res.end(html);
   }
-  InsertWarehouseData();
+);
+})
+.catch((errMsg) => {
+  //   console.log(errMsg);
+  err;
 });
 
 // 창고 관리 페이지
@@ -143,10 +126,6 @@ app.get("/warehouse", (req, res) => {
       err;
     });
 });
-
-
-
-
 
 app.post("/outputForm", (req, res) => {
   // console.log(req.body.pw);
