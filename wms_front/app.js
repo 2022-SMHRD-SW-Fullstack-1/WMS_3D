@@ -35,20 +35,34 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/views/html/main.html");
 });
 
-// 로그인페이지
+// 로그인페이지  연결
 app.get("/login", (req, res) => {
   res.render("views/html/user/login.ejs");
 });
 
 //로그인 데이터 값 넣기
 app.post("/login", (req, res) => {
-  console.log(req.body.com_num);
-  console.log(req.body);
+  //console.log(req.body.pw);
+  // console.log(req.body);
+  // insert로 데이터 넣기
+  async function InsertuserData() {
+    let conn, rows;
+    let sql = "insert into tbl_user values(?,?,?,?)";
+    conn = await pool.getConnection();
+    conn.query("USE wms");
+    rows = await conn.query(sql, [
+      req.body.id,
+      req.body.pw,
+      req.body.num,
+      req.body.joindate,
+    ]);
+  }
+  InsertuserData();
 });
 
 // 회사 등록 페이지
-app.get("/register_com.html", (req, res) => {
-  res.sendFile(__dirname + "/views/html/user/register_com.html");
+app.get("/register_com", (req, res) => {
+  res.render("views/html/user/register_com.ejs");
 });
 
 // 유저 등록 페이지
@@ -97,15 +111,14 @@ app.post("/outputForm", (req, res) => {
   // insert로 데이터 넣기
   async function InsertCompanyData() {
     let conn, rows;
-    let sql = "insert into tbl_company values(null,?,?,?,?,?)";
+    let sql = "insert into tbl_company values(?,?,?,?)";
     conn = await pool.getConnection();
     conn.query("USE wms");
     rows = await conn.query(sql, [
+      req.body.id,
       req.body.pw,
-      req.body.name,
-      req.body.bsn,
-      req.body.tel,
-      req.body.addr,
+      req.body.num,
+      req.body.joindate,
     ]);
   }
   InsertCompanyData();

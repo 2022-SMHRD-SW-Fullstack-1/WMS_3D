@@ -3,16 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="/js/user/login.js" defer></script>
+
         <!-- === Iconscout CSS === -->
         <link
         rel="stylesheet"
         href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
-      />
+        />
       <!-- ==== CSS ==== -->
       <link rel="stylesheet" href="views/css/user/login.css" />
-      <!-- <script type="text/javascript" src="../../js/user/login.js" defer></script> -->
-  
+      <script type="text/javascript" src="../../js/user/login.js" defer></script>
       <title>Login</title>
 </head>
 <body>
@@ -20,42 +19,43 @@
         <div class="yuforms">
           <div class="yuform login">
             <span class="yutitle">Login</span>
-  
+            <!-- method : 정보를 어떤 형태로 전달할건지 지정 -->
             <form action="/login" method="POST">
               <div class="yuinput-field">
                 <input
                   type="text"
+                  name="com_num"
                   placeholder="사업자 번호를 입력해주세요"
                   required
                 />
                 <i class="yuuil uil-building"></i>
               </div>
               <div class="yuinput-field">
-                <input type="text" placeholder="아이디를 입력해주세요" required />
+                <input type="text" name="id" placeholder="아이디를 입력해주세요" required />
                 <i class="yuuil uil-user icon"></i>
               </div>
               <div class="yuinput-field">
                 <input
                   type="password"
-                  class="password"
+                  name="pw"
                   placeholder="비밀번호를 입력해주세요"
                   required
                 />
                 <i class="uil uil-lock icon"></i>
               </div>
-              <div class="yuinput-field button">
-                <input type="button" value="Login Now" />
+
+              <div class="yulogin button">
+              <button type="submit" class="btn">Login Now</button>
               </div>
             </form>
             <div class="yulogin-signup">
               <span class="yutext"
                 >Not a member?
-                <a href="./register_com.html" class="text signup-link"
+                <a href="./register_com.ejs" class="text signup-link"
                   >Signup now</a
                 >
               </span>
             </div>
           </div>
-      <script src="views/html/user/login.js"></script>
 </body>
 </html>

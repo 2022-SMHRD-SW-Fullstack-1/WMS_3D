@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
         <!-- === Iconscout CSS === -->
         <link
         rel="stylesheet"
         href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
-      />
+        />
       <!-- ==== CSS ==== -->
       <link rel="stylesheet" href="views/css/user/login.css" />
-      <!-- <script type="text/javascript" src="../../js/user/login.js" defer></script> -->
-  
-      <title>Login & Registeration Form</title>
+      <script type="text/javascript" src="../../js/user/register_com.js" defer></script>
+      <title>register_com</title>
   </head>
   <body>
     <div class="yucontainer">
         <div class="yuforms">
           <div class="yuform login">
             <span class="yutitle">Company registration</span>
-  
-            <form action="#">
-              <div class="yuinput-field">
+            <!-- method : 정보를 어떤 형태로 전달할건지 지정 -->
+            <form action="/register_com" method="POST">
+             <div class="yuinput-field">
                 <input
                   type="text"
+                  name="com_name"
                   placeholder="회사명을 입력해주세요"
                   required
                 />
@@ -32,7 +32,7 @@
               </div>
   
               <div class="yuinput-field">
-                <input type="text" name="name" placeholder="사업자 번호를 입력해주세요" required />
+                <input type="text" name="com_num" placeholder="사업자 번호를 입력해주세요" required />
                 <i class="uil uil-bag"></i>
                 <button class="yudoublecheck">중복확인</button>
               </div>
@@ -40,7 +40,7 @@
               <div class="yuinput-field">
                 <input
                   type="password"
-                  class="password"
+                  name="pw"
                   placeholder="비밀번호를 입력해주세요"
                   required
                 />

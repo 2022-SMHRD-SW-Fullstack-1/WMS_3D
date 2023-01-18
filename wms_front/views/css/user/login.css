@@ -151,6 +151,32 @@ body {
   transition: all 0.3s ease;
 }
 
+.yulogin button {
+  border: none;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  border-radius: 6px;
+  background-color: #11101d;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 370px;
+  height: 50px;
+}
+
+.yuinput-field button {
+  border: none;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  border-radius: 6px;
+  background-color: #11101d;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
 .button input:hover {
   background-color: #11101d;
 }

@@ -1,5 +1,3 @@
-"use strict";
-
 const com_num = document.querySelector("#com_num"),
   id = document.querySelector("#id"),
   password = document.querySelector("#password"),
