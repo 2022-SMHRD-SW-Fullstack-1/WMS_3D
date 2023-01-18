@@ -59,6 +59,32 @@ app.get("/output", (req, res) => {
   res.sendFile(__dirname + "/views/html/stock/output.html");
 });
 
+// 창고 관리 페이지
+app.get("/warehouse", (req, res) => {
+  mdbConn
+    .getWarehouseList()
+    .then((rows) => {
+      res.render(
+        "views/html/warehouse/warehouse.ejs",
+        {
+          data: rows[0],
+          shelf_data : rows[1]
+        },
+        function (err, html) {
+          if (err) {
+            console.log(err);
+          }
+          console.log(rows);
+          res.end(html);
+        }
+      );
+    })
+    .catch((errMsg) => {
+      //   console.log(errMsg);
+      err;
+    });
+});
+
 app.post("/outputForm", (req, res) => {
   // console.log(req.body.pw);
   // console.log(req.body);
@@ -93,7 +119,7 @@ app.get("/input", (req, res) => {
         },
         function (err, html) {
           if (err) {
-            console.log(err);
+            // console.log(err);
           }
           // console.log(rows);
           res.end(html);
