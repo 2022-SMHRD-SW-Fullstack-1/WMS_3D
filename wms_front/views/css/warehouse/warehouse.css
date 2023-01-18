@@ -183,7 +183,7 @@ body {
   position: absolute;
   z-index: 1;
 }
-#drop-content a {
+#drop-content p {
   display: block;
   font-size: 16px;
   background-color: #dfdfdf;

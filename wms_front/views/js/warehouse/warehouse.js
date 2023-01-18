@@ -13,6 +13,53 @@ function dp_menu() {
   }
 }
 
+function searchText() {
+  const searchText = document.getElementById("search_text").value;
+  console.log(searchText);
+}
+
+let catevalText = {};
+let cateText = "";
+
+function getCateValue(e) {
+  // console.log("event:", e);
+  cateText = e;
+  let cateName = document.getElementById(e).innerText;
+  console.log(cateName);
+  document.getElementById("drop_cate").innerText = cateName;
+}
+
+// 카테고리 선택값 가져오기 & 카테고리 선택값으로 변경
+function sendSearchText() {
+  // let cateVal = document
+  //   .getElementById(e.getAttribute("id"))
+  //   .getAttribute("id");
+
+  // console.log(cateVal);
+
+  const searchText = document.getElementById("search_text").value;
+  console.log(searchText);
+
+  catevalText = { cate: cateText, word: searchText };
+
+  // document.getElementById("drop_cate").innerText = cateText;
+
+  let url = "http://localhost:3002/warehouse";
+
+  axios
+    .post(url, catevalText, {
+      headers: {
+        "Content-Type": `application/json`,
+      },
+    })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch(() => {
+      console.log("catch");
+    });
+}
+
 // 서클 프로그래스바
 
 let progressBar = document.querySelector(".circle_progress_item");

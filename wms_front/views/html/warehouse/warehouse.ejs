@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html>req.body
 <html lang="en"> 
   <head>
     <meta charset="UTF-8" />
@@ -12,6 +12,7 @@
       integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
       crossorigin="anonymous"
     />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
@@ -173,15 +174,17 @@
 
           <div class="search_div">
             <div class="dropdown">
-              <button onclick="dp_menu()" class="button">창고명 ▼</button>
+              <button onclick="dp_menu()" class="button" id="drop_cate">카테고리 선택　▼</button>
               <div style="display: none" id="drop-content">
-                <a href="#">창고 명</a>
-                <a href="#">창고 너비 / 길이</a>
-                <a href="#">적재 가능/ 총 공간</a>
+                <p onclick="getCateValue('wh_name')" id="wh_name" >창고 명</p>
+                <p onclick="getCateValue('wh_width')" id="wh_width" >창고 너비</p>
+                <p onclick="getCateValue('wh_length')" id="wh_length" >길이</p>
+                <p onclick="getCateValue(this)" >적재 가능</p>
+                <p onclick="getCateValue(this)" >총 공간</p>
               </div>
             </div>
-            <input type="text" />
-            <button id="search_btn">검색</button>
+            <input type="text" id="search_text" onkeyup="searchText()" />
+            <button onclick="sendSearchText()" id="search_btn" >검색</button>
           </div>
           <button id="add_warehouse_btn" onclick="goToCreateWarehouse()">+ 창고 추가</button>
         </div>
@@ -194,8 +197,10 @@
                   <tr>
                     <th><input type="checkbox" /></th>
                     <th scope="col">창고 명</th>
-                    <th scope="col">창고 너비 / 길이</th>
-                    <th scope="col">적재 가능 / 총 공간</th>
+                    <th scope="col">창고 너비</th>
+                    <th scope="col">창고 길이</th>
+                    <th scope="col">적재 가능</th>
+                    <th scope="col">총 공간</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -205,9 +210,11 @@
                   <% for(var i = 0; i<data.length; i++){%>
                     <tr>
                       <td><input type="checkbox" /></td>
-                      <td><%- data[i].wh_name%></td>
-                      <td><%- data[i].wh_width %>   /   <%- data[i].wh_length %></td>
-                      <td>30   /   60</td>
+                      <td><%- data[i].wh_name %></td>
+                      <td><%- data[i].wh_width %></td>
+                      <td><%- data[i].wh_length %></td>
+                      <td>30</td>
+                      <td>60</td>
                       <td>
                         <div
                         class="modal fade"

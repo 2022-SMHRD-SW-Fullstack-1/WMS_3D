@@ -23,6 +23,10 @@ const server = require("http").createServer(app);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(express.json());
+var cors = require("cors");
+app.use(cors());
+
 app.use(express.static(__dirname + "/"));
 
 // ejs
@@ -75,7 +79,51 @@ app.get("/warehouse", (req, res) => {
           if (err) {
             console.log(err);
           }
-          console.log(rows);
+          // console.log(rows);
+          res.end(html);
+        }
+      );
+    })
+    .catch((errMsg) => {
+      //   console.log(errMsg);
+      err;
+    });
+});
+
+app.post("/warehouse", (req, res) => {
+  // console.log(req.body.cate);
+  // console.log(req.body.word);
+  const cate = req.body.cate;
+  const word = req.body.word;
+  async function GetSearchData() {
+    let conn, rows;
+    try {
+      conn = await pool.getConnection();
+      conn.query("USE wms");
+      rows = await conn.query(
+        `select * from tbl_warehouse where ${cate} like '%${word}%'`
+      );
+    } catch (err) {
+      throw err;
+    } finally {
+      // console.log(rows);
+      if (conn) conn.end();
+      return rows;
+    }
+  }
+  GetSearchData()
+    .then((rows) => {
+      console.log(rows);
+      res.render(
+        "views/html/warehouse/warehouse.ejs",
+        {
+          data: rows,
+        },
+        function (err, html) {
+          if (err) {
+            console.log("err: ", err);
+          }
+          // console.log(rows);
           res.end(html);
         }
       );
