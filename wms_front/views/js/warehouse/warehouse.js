@@ -1,5 +1,6 @@
 // var test = document.getElementById('test');
 
+
 // test.addEventListener('click',function(){
 //     alert('ok')
 // })
@@ -85,13 +86,54 @@ function goToWarehouse(){
   location.href = "../../../three/sj/warehouse_3D.html"
 }
 
+function goToShelf(e){
+  console.log(e);
+  const num = {num:e}
+   let url = "/shelf"
+
+  let form = document.createElement('form');
+  form.setAttribute('method','post')
+  form.setAttribute('action',url);
+  document.characterSet = "utf-8";
+  for(let key in num){
+    let hiddenField = document.createElement('input');
+    hiddenField.setAttribute('type','hidden');
+    hiddenField.setAttribute('name',key);
+    hiddenField.setAttribute('value',num[key]);
+    form.appendChild(hiddenField);
+  }
+  document.body.appendChild(form);
+  form.submit();
+
+
+
+
+  //  axios
+  //     .post(url, num,{
+  //       headers: {
+  //         "Content-Type": `application/json`,
+  //       },
+  //     })
+  //     .then((res) => {
+  //       console.log(res);
+  //     })
+  //     .catch(() => {
+  //       console.log("catch");
+  //     });
+
+
+
+}
+
+
 // 페이지 이동 기능
 
 
 // 서브 div 띄우는 기능
 
 function changeSub(e){
-  console.log(e)
+  // console.log(e)
+  // console.log(e.shelf_info)
 
   // 온도 바
   let min_temp = document.querySelector("#min_temp")
@@ -144,12 +186,12 @@ function changeSub(e){
   sub_warehouse_name.innerText = e.name;
 
   let sub_now_avl = document.querySelector("#sub_now_avl")
-  sub_now_avl.innerText = "남은 공간 : "+(Number(e.max_avl)-Number(e.now_avl))
+  sub_now_avl.innerText = "사용 공간 : "+(Number(e.max_avl)-Number(e.now_avl))
 
   let sub_max_avl = document.querySelector("#sub_max_avl")
   sub_max_avl.innerText = "총 공간 : "+ e.max_avl
 
-  if(e.now_avl!=0){
+  if(e.now_avl!= e.max_avl){
     let progressBar = document.querySelector(".circle_progress_item")
     let valueContainer = document.querySelector(".value_container")
     let progressValue = 0;

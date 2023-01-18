@@ -4,6 +4,7 @@ const router = express.Router();
 const vals = require("./const");
 const mariadb = require("mariadb");
 
+
 const pool = mariadb.createPool({
   host: vals.DBHost,
   port: vals.DBPort,
@@ -18,6 +19,10 @@ const bodyParser = require("body-parser");
 const { InsertCompanyData } = require("./mariaDBConn");
 
 const app = express();
+
+app.use(express.json());
+var cors = require("cors");
+app.use(cors());
 
 const server = require("http").createServer(app);
 
@@ -71,31 +76,59 @@ app.get("/register_user.html", (req, res) => {
 });
 
 
+app.get('/shelf', (req, res) => {
+  res.render("views/html/warehouse/shelf.ejs")
+})
 
-// 선반 페이지
-app.get("/shelf", (req, res) => {
-  mdbConn
-    .getWarehouseList()
-    .then((rows) => {
-  res.render("views/html/warehouse/shelf.ejs",
-  {
-    data: rows[0],
-    shelf_data : rows[1]
-  },
-  function (err, html) {
-    if (err) {
-      console.log(err);
-    }
-    console.log(rows);
-    res.end(html);
+// 선반 관리 페이지
+app.post("/shelf", (req, res) => {
+  const val = Number(req.body.num)
+  console.log(val);
+  async function getShelfList(){
+    let conn, rows;
+    conn = await pool.getConnection();
+    conn.query("USE wms");
+    rows = await conn.query(`SELECT * FROM tbl_shelf WHERE wh_num = ${val}`);
+    return rows
   }
-);
-})
-.catch((errMsg) => {
-  //   console.log(errMsg);
-  err;
+    getShelfList()
+    .then((rows) => {
+      res.render(
+        "views/html/warehouse/shelf.ejs",
+        {
+          data: rows,
+        },
+        function (err, html) {
+          if (err) {
+            console.log(err);
+          }
+          // console.log(rows);
+          res.end(html);
+        }
+        );
+    })
+    .catch((errMsg) => {
+      console.log(errMsg);
+    });
+  })
+  
+
+// 창고 생성 페이지
+app.post("/three/sj_test/create_warehouse.html", (req, res) => {
+  async function InsertWarehouseData(){
+    let conn, rows;
+    let sql = "INSERT INTO tbl_warehouse(com_num,wh_name,wh_width,wh_length) VALUES(?,?,?,?)"
+    conn = await pool.getConnection();
+    conn.query("USE wms");
+    rows = await conn.query(sql, [
+      req.body.com_num,
+      req.body.name,
+      req.body.width,
+      req.body.length
+    ]);
+  }
+  InsertWarehouseData();
 });
-})
 
 // 창고 관리 페이지
 app.get("/warehouse", (req, res) => {
@@ -112,7 +145,7 @@ app.get("/warehouse", (req, res) => {
           if (err) {
             console.log(err);
           }
-          console.log(rows);
+          // console.log(rows);
           res.end(html);
         }
       );

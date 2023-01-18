@@ -22,6 +22,8 @@
       src="views/js/warehouse/warehouse.js"
       defer
     ></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js" integrity="sha512-f8mwTB+Bs8a5c46DEm7HQLcJuHMBaH/UFlcgyetMqqkvTcYg4g5VXsYR71b3qC82lZytjNYvBj2pf0VekA9/FQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- 사이드바 -->
     <link rel="stylesheet" href="views/css/stock/input_history.css" />
@@ -32,7 +34,7 @@
     <!-- 사이드바 -->
 
 
-    
+
     <title>Document</title>
   </head>
   <body>
@@ -210,7 +212,9 @@
                 </thead>
                 <tbody>
 
-                  <% for(var i = 0; i<data.length; i++){%>
+
+
+                  <% for(var i = 0; i<10; i++){%>
                     <tr onclick="changeSub(
                       {
                         name:'<%- data[i].wh_name %>', 
@@ -221,6 +225,7 @@
                         now_avl : '<%- data[i].wh_now_avl %>',
                         max_avl : '<%- data[i].wh_max_avl %>',
                         info : '<%- data[i].wh_info %>',
+                        shelf_info : '<%- shelf_data %>'
                       }
                       )">
                       <td><input type="checkbox" /></td>
@@ -286,9 +291,11 @@
                             type="button"
                             data-bs-toggle="modal"
                             data-bs-target="#exampleModalCenteredScrollable<%- i%>"
+                            class = "btn_small"
                           >
                             상세보기
                           </button>
+                          <button class = "btn_small" onclick="goToShelf('<%- data[i].wh_num%>')"> 선반보기</button>
                         </div>
                       </td>
                     </tr>
@@ -324,25 +331,21 @@
                 </div>
               </div>
               <div class="circle_progress_info">
-                <span id="sub_now_avl">남은 공간 : 0</span><span id="sub_max_avl">총 공간 : 0</span>
+                <span id="sub_now_avl">사용 공간 : 0</span><span id="sub_max_avl">총 공간 : 0</span>
               </div>
             </div>
             <div class="three_option_div">
               <div id="first_option">
 
-                <% if (shelf_data.length < 4) {%>
+                <!-- <% if (shelf_data.length < 4) {%>
                   <% for(var i = 0; i<shelf_data.length; i++){%>
-                    
-
-                    
+                    <p><%- shelf_data[i].shelf_name %></p>
                   <% } %>
                 <% } else{%>
                   <% for(var i = 0; i<4; i++){%>
-                    
-
-
+                    <p><%- shelf_data[i]%></p>
                   <% } %>
-                <% } %>
+                <% } %> -->
 
                 <div>
                   <span>A 선반 : 2 / 10</span>

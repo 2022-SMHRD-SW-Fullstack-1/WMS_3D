@@ -210,18 +210,6 @@
                 <tbody>
 
                   <% for(var i = 0; i<data.length; i++){%>
-                    <!-- <tr onclick="changeSub(
-                      {
-                        name:'<%- data[i].wh_name %>', 
-                        min_temp : '<%- data[i].wh_min_temp %>',
-                        max_temp : '<%- data[i].wh_max_temp %>',
-                        min_humid : '<%- data[i].wh_min_humid %>',
-                        max_humid : '<%- data[i].wh_max_humid %>',
-                        now_avl : '<%- data[i].wh_now_avl %>',
-                        max_avl : '<%- data[i].wh_max_avl %>',
-                        info : '<%- data[i].wh_info %>',
-                      }
-                      )"> -->
                       <td><input type="checkbox" /></td>
                       <td><%- data[i].shelf_name%></td>
                       <td><%- data[i].shelf_width %>   /   <%- data[i].shelf_length %></td>
@@ -309,6 +297,12 @@
               <!-- 페이지 바 -->
             </div>
           </div>
+
+          <!-- <% for(var i = 0; i<data.length; i++){%>
+            <p><%- data[i].wh_num%></p>
+        <%}%> -->
+
+
           <!-- <div class="sub_graph_div">
             <div class="diagram_div">
               <div class="wh_name_div" id="sub_warehouse_name">창고를 선택 해주세요</div>
@@ -323,20 +317,6 @@
             </div>
             <div class="three_option_div">
               <div id="first_option">
-
-                <% if (shelf_data.length < 4) {%>
-                  <% for(var i = 0; i<shelf_data.length; i++){%>
-                    
-
-                    
-                  <% } %>
-                <% } else{%>
-                  <% for(var i = 0; i<4; i++){%>
-                    
-
-
-                  <% } %>
-                <% } %>
 
                 <div>
                   <span>A 선반 : 2 / 10</span>
