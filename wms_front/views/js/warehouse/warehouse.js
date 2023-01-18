@@ -186,12 +186,12 @@ function changeSub(e){
   sub_warehouse_name.innerText = e.name;
 
   let sub_now_avl = document.querySelector("#sub_now_avl")
-  sub_now_avl.innerText = "남은 공간 : "+(Number(e.max_avl)-Number(e.now_avl))
+  sub_now_avl.innerText = "사용 공간 : "+(Number(e.max_avl)-Number(e.now_avl))
 
   let sub_max_avl = document.querySelector("#sub_max_avl")
   sub_max_avl.innerText = "총 공간 : "+ e.max_avl
 
-  if(e.now_avl!=0){
+  if(e.now_avl!= e.max_avl){
     let progressBar = document.querySelector(".circle_progress_item")
     let valueContainer = document.querySelector(".value_container")
     let progressValue = 0;

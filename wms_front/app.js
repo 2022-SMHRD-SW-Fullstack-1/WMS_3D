@@ -76,31 +76,6 @@ app.get("/register_user.html", (req, res) => {
 });
 
 
-
-// 선반 페이지
-app.get("/shelf", (req, res) => {
-  mdbConn
-    .getWarehouseList()
-    .then((rows) => {
-  res.render("views/html/warehouse/shelf.ejs",
-  {
-    data: rows[0],
-    shelf_data : rows[1]
-  },
-  function (err, html) {
-    if (err) {
-      console.log(err);
-    }
-    console.log(rows);
-    res.end(html);
-  }
-);
-})
-.catch((errMsg) => {
-  //   console.log(errMsg);
-  err;
-});
-
 app.get('/shelf', (req, res) => {
   res.render("views/html/warehouse/shelf.ejs")
 })
