@@ -4,7 +4,6 @@ const router = express.Router();
 const vals = require("./const");
 const mariadb = require("mariadb");
 
-
 const pool = mariadb.createPool({
   host: vals.DBHost,
   port: vals.DBPort,
@@ -34,12 +33,10 @@ app.use(express.static(__dirname + "/"));
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/");
 
-
 // 출고 페이지
 app.get("/output", (req, res) => {
   res.render("views/html/stock/output.ejs");
 });
-
 
 //입고 내역 페이지
 app.get("/input_history", (req, res) => {
@@ -51,14 +48,10 @@ app.get("/output_history", (req, res) => {
   res.render("views/html/stock/output_history.ejs");
 });
 
-
-
-
 // 재고 페이지
 app.get("/stock", (req, res) => {
   res.render("views/html/stock/stock.ejs");
 });
-
 
 // 로그인페이지
 app.get("/login", (req, res) => {
@@ -75,32 +68,6 @@ app.get("/register_user.html", (req, res) => {
   res.sendFile(__dirname + "/views/html/user/register_user.html");
 });
 
-
-
-// 선반 페이지
-app.get("/shelf", (req, res) => {
-  mdbConn
-    .getWarehouseList()
-    .then((rows) => {
-  res.render("views/html/warehouse/shelf.ejs",
-  {
-    data: rows[0],
-    shelf_data : rows[1]
-  },
-  function (err, html) {
-    if (err) {
-      console.log(err);
-    }
-    console.log(rows);
-    res.end(html);
-  }
-);
-})
-.catch((errMsg) => {
-  //   console.log(errMsg);
-  err;
-});
-
 // 창고 관리 페이지
 app.get("/warehouse", (req, res) => {
   mdbConn
@@ -110,7 +77,7 @@ app.get("/warehouse", (req, res) => {
         "views/html/warehouse/warehouse.ejs",
         {
           data: rows[0],
-          shelf_data : rows[1]
+          shelf_data: rows[1],
         },
         function (err, html) {
           if (err) {
