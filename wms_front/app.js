@@ -37,7 +37,13 @@ app.get("/", (req, res) => {
 
 // 로그인페이지
 app.get("/login", (req, res) => {
-  res.sendFile(__dirname + "/views/html/user/login.html");
+  res.render("views/html/user/login.ejs");
+});
+
+//로그인 데이터 값 넣기
+app.post("/login", (req, res) => {
+  console.log(req.body.com_num);
+  console.log(req.body);
 });
 
 // 회사 등록 페이지
@@ -68,7 +74,7 @@ app.get("/warehouse", (req, res) => {
         "views/html/warehouse/warehouse.ejs",
         {
           data: rows[0],
-          shelf_data : rows[1]
+          shelf_data: rows[1],
         },
         function (err, html) {
           if (err) {
@@ -86,7 +92,7 @@ app.get("/warehouse", (req, res) => {
 });
 
 app.post("/outputForm", (req, res) => {
-  // console.log(req.body.pw);
+  //console.log(req.body.pw);
   // console.log(req.body);
   // insert로 데이터 넣기
   async function InsertCompanyData() {
