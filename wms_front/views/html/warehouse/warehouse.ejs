@@ -22,6 +22,8 @@
       src="views/js/warehouse/warehouse.js"
       defer
     ></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js" integrity="sha512-f8mwTB+Bs8a5c46DEm7HQLcJuHMBaH/UFlcgyetMqqkvTcYg4g5VXsYR71b3qC82lZytjNYvBj2pf0VekA9/FQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- 사이드바 -->
     <link rel="stylesheet" href="views/css/stock/input_history.css" />
@@ -220,7 +222,7 @@
 
 
 
-                  <% for(var i = 0; i<data.length; i++){%>
+                  <% for(var i = 0; i<10; i++){%>
                     <tr onclick="changeSub(
                       {
                         name:'<%- data[i].wh_name %>', 
@@ -297,9 +299,11 @@
                             type="button"
                             data-bs-toggle="modal"
                             data-bs-target="#exampleModalCenteredScrollable<%- i%>"
+                            class = "btn_small"
                           >
                             상세보기
                           </button>
+                          <button class = "btn_small" onclick="goToShelf('<%- data[i].wh_num%>')"> 선반보기</button>
                         </div>
                       </td>
                     </tr>
