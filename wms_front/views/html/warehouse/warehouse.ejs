@@ -31,6 +31,8 @@
     />
     <!-- 사이드바 -->
 
+
+    
     <title>Document</title>
   </head>
   <body>
@@ -201,13 +203,23 @@
                 </thead>
                 <tbody>
 
-
                   <% for(var i = 0; i<data.length; i++){%>
-                    <tr>
+                    <tr onclick="changeSub(
+                      {
+                        name:'<%- data[i].wh_name %>', 
+                        min_temp : '<%- data[i].wh_min_temp %>',
+                        max_temp : '<%- data[i].wh_max_temp %>',
+                        min_humid : '<%- data[i].wh_min_humid %>',
+                        max_humid : '<%- data[i].wh_max_humid %>',
+                        now_avl : '<%- data[i].wh_now_avl %>',
+                        max_avl : '<%- data[i].wh_max_avl %>',
+                        info : '<%- data[i].wh_info %>',
+                      }
+                      )">
                       <td><input type="checkbox" /></td>
                       <td><%- data[i].wh_name%></td>
                       <td><%- data[i].wh_width %>   /   <%- data[i].wh_length %></td>
-                      <td>30   /   60</td>
+                      <td><%- data[i].wh_now_avl%>   /   <%- data[i].wh_max_avl%></td>
                       <td>
                         <div
                         class="modal fade"
@@ -298,18 +310,33 @@
           </div>
           <div class="sub_graph_div">
             <div class="diagram_div">
-              <div class="wh_name_div">A창고</div>
+              <div class="wh_name_div" id="sub_warehouse_name">창고를 선택 해주세요</div>
               <div class="circle_progress_container">
                 <div class="circle_progress_item">
                   <div class="value_container">0%</div>
                 </div>
               </div>
               <div class="circle_progress_info">
-                <span>남은 공간 : 30</span><span>총 공간 : 60</span>
+                <span id="sub_now_avl">남은 공간 : 0</span><span id="sub_max_avl">총 공간 : 0</span>
               </div>
             </div>
             <div class="three_option_div">
               <div id="first_option">
+
+                <% if (shelf_data.length < 4) {%>
+                  <% for(var i = 0; i<shelf_data.length; i++){%>
+                    
+
+                    
+                  <% } %>
+                <% } else{%>
+                  <% for(var i = 0; i<4; i++){%>
+                    
+
+
+                  <% } %>
+                <% } %>
+
                 <div>
                   <span>A 선반 : 2 / 10</span>
                   <div class="progress">
@@ -378,7 +405,7 @@
                 <div>
                   창고 온도
 
-                  <div class="progress">
+                  <div class="progress" id="temp_bar">
                     <div
                       class="progress-bar"
                       id="bg_red"
@@ -391,13 +418,13 @@
                     ></div>
                   </div>
                   <div class="temp_text_div">
-                    <span>-5°C</span><span>now : 0°C </span><span>5°C</span>
+                    <span id="min_temp">-5°C</span><span id="now_temp">now : 0°C </span><span id="max_temp">5°C</span>
                   </div>
                 </div>
 
                 <div>
                   창고 습도
-                  <div class="progress">
+                  <div class="progress" id="humid_bar">
                     <div
                       class="progress-bar"
                       id="bg_green"
@@ -410,7 +437,7 @@
                     ></div>
                   </div>
                   <div class="temp_text_div">
-                    <span>0%</span><span>now : 5% </span><span>20%</span>
+                    <span id="min_humid">0%</span><span id="now_humid">now : 5% </span><span id="max_humid">20%</span>
                   </div>
                 </div>
               </div>

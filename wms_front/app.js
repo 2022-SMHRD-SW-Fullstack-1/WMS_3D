@@ -64,11 +64,11 @@ app.get("/warehouse", (req, res) => {
   mdbConn
     .getWarehouseList()
     .then((rows) => {
-      // console.log(rows);
       res.render(
         "views/html/warehouse/warehouse.ejs",
         {
-          data: rows,
+          data: rows[0],
+          shelf_data : rows[1]
         },
         function (err, html) {
           if (err) {
@@ -83,7 +83,6 @@ app.get("/warehouse", (req, res) => {
       //   console.log(errMsg);
       err;
     });
-
 });
 
 app.post("/outputForm", (req, res) => {
@@ -120,7 +119,7 @@ app.get("/input", (req, res) => {
         },
         function (err, html) {
           if (err) {
-            console.log(err);
+            // console.log(err);
           }
           // console.log(rows);
           res.end(html);
