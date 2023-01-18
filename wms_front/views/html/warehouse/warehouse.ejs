@@ -38,6 +38,7 @@
     <title>Document</title>
   </head>
   <body>
+
     <div class="sidebar close">
       <div class="logo-details">
         <i class="bx bxs-package"></i>
@@ -73,9 +74,8 @@
 
             <!-- 사이드바 서브 메뉴설정 -->
             <ul class="sub-menu">
-              <li><a class="link_name" href="#"></a></li>
-              <li><a href="#">창고생성</a></li>
-              <li><a href="#">창고</a></li>
+              <li><a class="link_name" href="#">창고</a></li>
+              <li><a href="#">창고관리</a></li>
             </ul>
           </li>
 
@@ -83,14 +83,15 @@
             <div class="icon-link">
               <a href="#">
                 <i class="bx bx-package"></i>
-                <span class="link_name">입고</span>
+                <span class="link_name">입/출고</span>
               </a>
               <i class="bx bxs-chevron-down arrow"></i>
             </div>
             <ul class="sub-menu">
-              <li><a class="link_name" href="#">입고</a></li>
+              <li><a class="link_name" href="#">입/출고</a></li>
               <li><a href="#">입고현황</a></li>
-              <li><a href="#">입고내역</a></li>
+              <li><a href="#">출고현황</a></li>
+              <li><a href="#">입출고내역</a></li>
             </ul>
           </li>
 
@@ -98,25 +99,26 @@
             <div class="icon-link">
               <a href="#">
                 <i class="bx bx-archive-out"></i>
-                <span class="link_name">출고</span>
+                <span class="link_name">재고</span>
               </a>
-              <i class="bx bxs-chevron-down arrow"></i>
             </div>
             <ul class="sub-menu">
-              <li><a class="link_name" href="#">출고</a></li>
-              <li><a href="#">출고현황</a></li>
-              <li><a href="#">출고내역</a></li>
+              <li><a class="link_name" href="#">재고</a></li>
             </ul>
           </li>
 
           <li>
-            <a href="#">
-              <i class="bx bx-box"></i>
-              <span class="link_name">재고</span>
-            </a>
-            <ul class="sub-menu blank">
-              <li><a class="link_name" href="#">재고현황</a></li>
-              <li><a class="link_name" href="#">재고</a></li>
+            <div class="icon-link">
+              <a href="#">
+                <i class="bx bx-box"></i>
+                <span class="link_name">작업관리</span>
+              </a>
+              <i class="bx bxs-chevron-down arrow"></i>
+            </div>
+              <ul class="sub-menu">
+              <li><a class="link_name" href="#">작업관리</a></li>
+              <li><a href="#">작업내역</a></li>
+              <li><a href="#">관리자</a></li>
             </ul>
           </li>
         </div>
@@ -129,7 +131,7 @@
                 <span class="link_name">알림</span>
               </a>
             </div>
-            <ul class="sub-menu">
+            <ul class="sub-menu blank">
               <li><a class="link_name" href="#">알림</a></li>
             </ul>
           </li>
@@ -163,16 +165,6 @@
     <script src="input_history.js"></script>
   </body>
     
-        <!-- <section class="home-section">
-          <div class="home-content">
-            <video autoplay muted loop class="video">
-              <source src="../../image/video.mp4" type="video/mp4" />
-            </video>
-          </div>
-        </section>
-     -->
-        <script src="input_history.js"></script>
-      </body>
       <!-- == 사이드바 -->
 
 
@@ -182,7 +174,7 @@
       <div class="main_div">
         <div class="management_div">
           <a href="#">창고 관리</a>
-          <a href="./shelf.html"> 선반 관리</a>
+          <a href="../warehouse/shelf.ejs"> 선반 관리</a>
         </div>
         <hr />
         <div class="btn_div">
