@@ -111,6 +111,40 @@ app.post("/shelf", (req, res) => {
       console.log(errMsg);
     });
   })
+
+// 선반 관리 페이지 -> 선반 생성 페이지
+app.post("/createShelf", (req, res) => {
+  const val = Number(req.body.num)
+  // console.log(val);
+  async function getShelfList(){
+    let conn, rows;
+    conn = await pool.getConnection();
+    conn.query("USE wms");
+    rows = await conn.query(`SELECT * FROM tbl_warehouse WHERE wh_num = ${val}`);
+    return rows
+  }
+    // getShelfList()
+    // .then((rows) => {
+    //   res.render(
+    //     "views/html/warehouse/shelf.ejs",
+    //     {
+    //       data: rows,
+    //     },
+    //     function (err, html) {
+    //       if (err) {
+    //         console.log(err);
+    //       }
+    //       // console.log(rows);
+    //       res.end(html);
+    //     }
+    //     );
+    // })
+    // .catch((errMsg) => {
+    //   console.log(errMsg);
+    // });
+  })
+
+
   
 
 // 창고 생성 페이지
