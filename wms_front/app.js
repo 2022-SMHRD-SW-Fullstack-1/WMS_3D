@@ -96,7 +96,7 @@ app.post("/register_user", (req, res) => {
   // insert로 데이터 넣기
   async function InsertuserData() {
     let conn, rows;
-    let sql = "insert into tbl_user(user_id, user_pw, com_num) values(?,?,?)";
+    let sql = "insert into tbl_user(user_id,user_pw,com_num) values(?,?,?)";
     conn = await pool.getConnection();
     conn.query("USE wms");
     rows = await conn.query(sql, [req.body.id, req.body.pw, req.body.com_num]);
