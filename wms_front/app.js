@@ -116,32 +116,32 @@ app.post("/shelf", (req, res) => {
 app.post("/createShelf", (req, res) => {
   const val = Number(req.body.num)
   // console.log(val);
-  async function getShelfList(){
+  async function getWarehouseForShelf(){
     let conn, rows;
     conn = await pool.getConnection();
     conn.query("USE wms");
     rows = await conn.query(`SELECT * FROM tbl_warehouse WHERE wh_num = ${val}`);
     return rows
   }
-    // getShelfList()
-    // .then((rows) => {
-    //   res.render(
-    //     "views/html/warehouse/shelf.ejs",
-    //     {
-    //       data: rows,
-    //     },
-    //     function (err, html) {
-    //       if (err) {
-    //         console.log(err);
-    //       }
-    //       // console.log(rows);
-    //       res.end(html);
-    //     }
-    //     );
-    // })
-    // .catch((errMsg) => {
-    //   console.log(errMsg);
-    // });
+  getWarehouseForShelf()
+    .then((rows) => {
+      res.render(
+        "views/render/create_shelf.ejs",
+        {
+          data: rows,
+        },
+        function (err, html) {
+          if (err) {
+            console.log(err);
+          }
+          // console.log(rows);
+          res.end(html);
+        }
+        );
+    })
+    .catch((errMsg) => {
+      console.log(errMsg);
+    });
   })
 
 

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <span id="width"><%- data[0].wh_width%></span>
+    <span id="length"><%- data[0].wh_length%></span>
+
+
+    <script>
+        let width = Number(document.getElementById("width").innerText)
+        let length = Number(document.getElementById("length").innerText)
+
+        location.href ="../../three/sj_test/create_shelf.html?"+width+","+length;
+    </script>
+</body>
+</html>

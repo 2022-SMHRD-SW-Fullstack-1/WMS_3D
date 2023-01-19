@@ -11,6 +11,11 @@ let shelf_width = Number(prompt("선반의 너비를 입력하세요"))
 let shelf_length = Number(prompt("선반의 길이를 입력하세요"))
 let shelf_floor = Number(prompt("선반의 층을 입력하세요"))
 
+let temp = location.href.split("?");
+let data = temp[1].split(",");
+let watehouse_x = data[0];
+let watehouse_y = data[1];
+
 
 class App{
     constructor() {
@@ -73,12 +78,6 @@ class App{
     }
 
     _createBoard(){
-        
-        // 창고 data
-        const watehouse_x = 20;
-        const watehouse_y = 40;
-        //
-
 
         const wareHouse = new THREE.Object3D();
         const planeGeometry = new THREE.PlaneGeometry(watehouse_x,watehouse_y,watehouse_x,watehouse_y)
