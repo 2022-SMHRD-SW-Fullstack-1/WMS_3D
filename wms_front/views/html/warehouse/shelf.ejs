@@ -32,8 +32,6 @@
     <!-- 사이드바 -->
 
 
-    
-    <title>Document</title>
   </head>
   <body>
 
@@ -210,18 +208,6 @@
                 <tbody>
 
                   <% for(var i = 0; i<data.length; i++){%>
-                    <!-- <tr onclick="changeSub(
-                      {
-                        name:'<%- data[i].wh_name %>', 
-                        min_temp : '<%- data[i].wh_min_temp %>',
-                        max_temp : '<%- data[i].wh_max_temp %>',
-                        min_humid : '<%- data[i].wh_min_humid %>',
-                        max_humid : '<%- data[i].wh_max_humid %>',
-                        now_avl : '<%- data[i].wh_now_avl %>',
-                        max_avl : '<%- data[i].wh_max_avl %>',
-                        info : '<%- data[i].wh_info %>',
-                      }
-                      )"> -->
                       <td><input type="checkbox" /></td>
                       <td><%- data[i].shelf_name%></td>
                       <td><%- data[i].shelf_width %>   /   <%- data[i].shelf_length %></td>
