@@ -28,6 +28,11 @@ function createWarehouse() {
       });
   }
 
+  const btn_create = document.getElementById('btn_create')
+  btn_create.addEventListener('click',()=>{
+      createWarehouse()
+      location.href = "http://localhost:3002/warehouse"
+  })
 
 
 
@@ -38,11 +43,6 @@ function createWarehouse() {
 //     location.href = "../sj_test/01_basic.html"
 // })
 
-const btn_create = document.getElementById('btn_create')
-btn_create.addEventListener('click',()=>{
-    createWarehouse()
-    location.href = "http://localhost:3002/warehouse"
-})
 
 class App{
     constructor() {
