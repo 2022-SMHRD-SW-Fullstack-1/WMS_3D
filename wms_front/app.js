@@ -83,7 +83,7 @@ app.get('/shelf', (req, res) => {
 // 선반 관리 페이지
 app.post("/shelf", (req, res) => {
   const val = Number(req.body.num)
-  console.log(val);
+  // console.log(val);
   async function getShelfList(){
     let conn, rows;
     conn = await pool.getConnection();
