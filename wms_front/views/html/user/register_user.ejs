@@ -1,35 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- === Iconscout CSS === -->
         <link
         rel="stylesheet"
         href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
-      />
+        />
       <!-- ==== CSS ==== -->
       <link rel="stylesheet" href="views/css/user/login.css" />
-      <!-- <script type="text/javascript" src="../../js/user/login.js" defer></script> -->
-  
-      <title>Login & Registeration Form</title>
+      <script type="text/javascript" src="views/js/user/register_user.js" defer></script>
+      <title>register_user</title>
 </head>
 <body>
     <div class="yucontainer">
         <div class="yuforms">
           <div class="yuform login">
             <span class="yutitle">Register</span>
-  
-            <form action="#">
+            <!-- method : 정보를 어떤 형태로 전달할건지 지정 -->
+            <form action="/register_user" method="POST">
               <div class="yuinput-field">
-                <input type="text" placeholder="아이디를 입력해주세요" required />
+                <input type="text" name="id" placeholder="아이디를 입력해주세요" required />
                 <i class="yuuil uil-user icon"></i>
               </div>
               <div class="yuinput-field">
                 <input
                   type="password"
-                  class="password"
+                  name="pw"
                   placeholder="비밀번호를 입력해주세요"
                   required
                 />
@@ -38,18 +36,21 @@
               <div class="yuinput-field">
                 <input
                   type="text"
+                  name="com_num"
                   placeholder="사업자 번호를 입력해주세요"
                   required
                 />
                 <i class="yuuil uil-building"></i>
               </div>      
-              <div class="yuinput-field button">
-                <input type="button" value="Check" onclick="openPopup()" />
+              <div class="yulogin button">
+                <a href="./login">
+                <button type="submit" class="btn" onclick="openPopup()">Login Now</button>
+                </a>  
               </div>
             </form>
           </div>
           
-          <div class="yupopup" id="popup">
+          <!-- <div class="yupopup" id="popup">
             <h2>회원가입이 완료되었습니다. WMS를 시작해주세요</h2>
             <a href="./login" class="text signup-link"><button type="button" onclick="closePopup()">Signup now</button></a>
           </div>
@@ -62,6 +63,6 @@
         function closePopup(){
           popup.classList.remove("open-popup")
         }
-      </script>
+      </script> -->
 </body>
 </html>

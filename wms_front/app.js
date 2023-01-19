@@ -40,34 +40,68 @@ app.get("/login", (req, res) => {
   res.render("views/html/user/login.ejs");
 });
 
-//로그인 데이터 값 넣기
-app.post("/login", (req, res) => {
-  //console.log(req.body.pw);
-  // console.log(req.body);
-  // insert로 데이터 넣기
-  async function InsertuserData() {
-    let conn, rows;
-    let sql = "insert into tbl_user values(?,?,?,?)";
-    conn = await pool.getConnection();
-    conn.query("USE wms");
-    rows = await conn.query(sql, [
-      req.body.id,
-      req.body.pw,
-      req.body.num,
-      req.body.joindate,
-    ]);
-  }
-  InsertuserData();
-});
+// //로그인 데이터 값 넣기
+// app.post("/login", (req, res) => {
+//   //console.log(req.body.pw);
+//   console.log(req.body);
+//   // insert로 데이터 넣기
+//   async function InsertuserData() {
+//     let conn, rows;
+//     let sql = "insert into tbl_user(user_id, user_pw, com_num) values(?,?,?)";
+//     conn = await pool.getConnection();
+//     conn.query("USE wms");
+//     rows = await conn.query(sql, [
+//       req.body.id,
+//       req.body.pw,
+//       req.body.com_num,
+//     ]);
+//   }
+//   InsertuserData();
+// });
 
 // 회사 등록 페이지
 app.get("/register_com", (req, res) => {
   res.render("views/html/user/register_com.ejs");
 });
 
+//회사 등록 데이터 값 넣기
+app.post("/register_com", (req, res) => {
+  //console.log(req.body.pw);
+  console.log(req.body);
+  // insert로 데이터 넣기
+  async function InsertcomData() {
+    let conn, rows;
+    let sql =
+      "insert into tbl_company(com_num, com_pw, com_name) values(?,?,?)";
+    conn = await pool.getConnection();
+    conn.query("USE wms");
+    rows = await conn.query(sql, [
+      req.body.com_num,
+      req.body.com_pw,
+      req.body.com_name,
+    ]);
+  }
+  InsertcomData();
+});
+
 // 유저 등록 페이지
-app.get("/register_user.html", (req, res) => {
-  res.sendFile(__dirname + "/views/html/user/register_user.html");
+app.get("/register_user", (req, res) => {
+  res.render("views/html/user/register_user.ejs");
+});
+
+// 유저 데이터 값 넣기
+app.post("/register_user", (req, res) => {
+  //console.log(req.body.pw);
+  console.log(req.body);
+  // insert로 데이터 넣기
+  async function InsertuserData() {
+    let conn, rows;
+    let sql = "insert into tbl_user(user_id, user_pw, com_num) values(?,?,?)";
+    conn = await pool.getConnection();
+    conn.query("USE wms");
+    rows = await conn.query(sql, [req.body.id, req.body.pw, req.body.com_num]);
+  }
+  InsertuserData();
 });
 
 // 3D 창고 페이지
