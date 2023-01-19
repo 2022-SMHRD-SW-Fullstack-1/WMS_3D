@@ -35,7 +35,7 @@ function sendSearchText() {
   //   .getElementById(e.getAttribute("id"))
   //   .getAttribute("id");
 
-  // console.log(cateVal);
+  console.log(cateVal);
 
   const searchText = document.getElementById("search_text").value;
   console.log(searchText);

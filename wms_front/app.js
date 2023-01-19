@@ -66,7 +66,7 @@ app.get("/output", (req, res) => {
 // DB에 받아온 값 Insert
 // 창고 관리 페이지
 app.get("/warehouse", (req, res) => {
-  console.log(req.query.num);
+  // console.log(req.query.num);
   mdbConn
     .getWarehouseList()
     .then((rows) => {
@@ -74,7 +74,8 @@ app.get("/warehouse", (req, res) => {
       res.render(
         "views/html/warehouse/warehouse.ejs",
         {
-          data: rows,
+          data: rows[0],
+          shelf_data: rows[1],
         }
         // function (err, html) {
         //   if (err) {
@@ -125,7 +126,7 @@ app.post("/warehouse", (req, res) => {
       res.render(
         "views/html/warehouse/warehouse.ejs",
         {
-          data: rows,
+          data: rows[0],
         },
         function (err, html) {
           if (err) {

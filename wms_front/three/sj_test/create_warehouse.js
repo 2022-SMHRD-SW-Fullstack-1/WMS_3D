@@ -2,19 +2,47 @@ import * as THREE from "../build/three.module.js";
 import { OrbitControls } from "../examples/jsm/controls/OrbitControls.js"
 
 
+let com_num = 1123456789;
 
 let warehouse_width = Number(prompt("창고의 너비를 입력하세요"))
 let warehouse_length = Number(prompt("창고의 길이를 입력하세요"))
 
+function createWarehouse() {
+    let warehouse_name = prompt("창고명을 입력 해주세요")
+    const warehouse_info = {com_num:com_num,name:warehouse_name,width:warehouse_width,length:warehouse_length}
+    console.log(warehouse_info);
+  
+    let url = "http://localhost:3002/three/sj_test/create_warehouse.html";
+
+    axios
+      .post(url, JSON.stringify(warehouse_info), {
+        headers: {
+          "Content-Type": `application/json`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch(() => {
+        console.log("catch");
+      });
+  }
+
+
+
+
 
 // 선반 생성 페이지로 이동
+// const btn_create = document.getElementById('btn_create')
+// btn_create.addEventListener('click',()=>{
+//     location.href = "../sj_test/01_basic.html"
+// })
+
 const btn_create = document.getElementById('btn_create')
 btn_create.addEventListener('click',()=>{
-    location.href = "../sj_test/01_basic.html"
+    createWarehouse()
+    location.href = "http://localhost:3002/warehouse"
 })
-
-
-
 
 class App{
     constructor() {

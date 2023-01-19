@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <% for(var i = 0; i<data.length; i++){%>
+        <span class="wh_name"><%- data[i].wh_name%></span>
+        <span class="wh_width"><%- data[i].wh_width%></span>
+        <span class="wh_length"><%- data[i].wh_length%></span>
+        <span class="shelf_x"><%- data[i].shelf_x%></span>
+        <span class="shelf_z"><%- data[i].shelf_z%></span>
+        <span class="shelf_name"><%- data[i].shelf_name%></span>
+        <span class="shelf_width"><%- data[i].shelf_width%></span>
+        <span class="shelf_length"><%- data[i].shelf_length%></span>
+        <span class="shelf_floor"><%- data[i].shelf_floor%></span>
+        <span class="shelf_rotation"><%- data[i].shelf_rotation_yn%></span>
+    <% } %>
+
+
+    <script>
+        let wh_name_arr = []
+        let wh_width_arr = []
+        let wh_length_arr = []
+        let shelf_x_arr = []
+        let shelf_z_arr = []
+        let shelf_name_arr = []
+        let shelf_width_arr = []
+        let shelf_length_arr = []
+        let shelf_floor_arr = []
+        let shelf_rotation_arr = []
+
+        let wh_name = document.querySelectorAll(".wh_name")
+        let wh_width =document.querySelectorAll(".wh_width")
+        let wh_length =document.querySelectorAll(".wh_length")
+        let shelf_x =document.querySelectorAll(".shelf_x")
+        let shelf_z =document.querySelectorAll(".shelf_z")
+        let shelf_name =document.querySelectorAll(".shelf_name")
+        let shelf_width =document.querySelectorAll(".shelf_width")
+        let shelf_length =document.querySelectorAll(".shelf_length")
+        let shelf_floor =document.querySelectorAll(".shelf_floor")
+        let shelf_rotation =document.querySelectorAll(".shelf_rotation")
+
+
+        wh_name.forEach((item)=>{
+            wh_name_arr.push((item.innerText))
+        })
+        wh_width.forEach((item)=>{
+            wh_width_arr.push(Number(item.innerText))
+        })
+        wh_length.forEach((item)=>{
+            wh_length_arr.push(Number(item.innerText))
+        })
+        shelf_x.forEach((item)=>{
+            shelf_x_arr.push(Number(item.innerText))
+        })
+        shelf_z.forEach((item)=>{
+            shelf_z_arr.push(Number(item.innerText))
+        })
+        shelf_name.forEach((item)=>{
+            shelf_name_arr.push(item.innerText)
+        })
+        shelf_width.forEach((item)=>{
+            shelf_width_arr.push(Number(item.innerText))
+        })
+        shelf_length.forEach((item)=>{
+            shelf_length_arr.push(Number(item.innerText))
+        })
+        shelf_floor.forEach((item)=>{
+            shelf_floor_arr.push(Number(item.innerText))
+        })
+        shelf_rotation.forEach((item)=>{
+            shelf_rotation_arr.push(item.innerText)
+        })
+
+        localStorage.setItem("wh_name",wh_name_arr)
+        localStorage.setItem("wh_width",wh_width_arr)
+        localStorage.setItem("wh_length",wh_length_arr)
+        localStorage.setItem("shelf_x",shelf_x_arr)
+        localStorage.setItem("shelf_z",shelf_z_arr)
+        localStorage.setItem("shelf_name",shelf_name_arr)
+        localStorage.setItem("shelf_width",shelf_width_arr)
+        localStorage.setItem("shelf_length",shelf_length_arr)
+        localStorage.setItem("shelf_floor",shelf_floor_arr)
+        localStorage.setItem("shelf_rotation",shelf_rotation_arr)
+
+        location.href ="../../three/sj_test/create_shelf.html"
+
+
+    </script>
+</body>
+</html>

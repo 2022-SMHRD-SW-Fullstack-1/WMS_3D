@@ -122,6 +122,9 @@ body {
   font-size: 20px;
   text-align: center;
 }
+#first_option + span {
+  margin-bottom: 10px;
+}
 
 #second_option {
   margin-left: 10%;
@@ -198,6 +201,18 @@ body {
 /* 버튼 모양 -- */
 button {
   width: 120px;
+  height: 40px;
+  border-radius: 5px;
+  border-color: #11101d;
+  background-color: white;
+  color: #11101d;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0px;
+}
+
+.btn_small {
+  width: 80px;
   height: 40px;
   border-radius: 5px;
   border-color: #11101d;
@@ -294,6 +309,14 @@ td {
 #bg_green {
   background-color: rgb(52, 185, 47);
 }
+<<<<<<< HEAD ======= #bg_red {
+  background-color: rgb(255, 68, 68);
+}
+#bg_green {
+  background-color: rgb(72, 40, 201);
+}
+
+>>>>>>> f6d7623900256fb8ca76c89d5bae7b5f6a59b9d9
 
 /* 서클 프로그래스 바 */
 
