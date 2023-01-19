@@ -58,7 +58,14 @@ function sendSearchText() {
     .catch(() => {
       console.log("catch");
     });
+
+  location.href = "http://localhost:3002/warehouse/search";
+  if (document.location.href == "http://localhost:3002/warehouse/search") {
+    location.reload(true);
+  }
 }
+
+function orderList() {}
 
 // 서클 프로그래스바
 

@@ -22,7 +22,7 @@ const app = express();
 const server = require("http").createServer(app);
 
 app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use(bodyParser.json()); // body-parser 모듈을 사용해서 파싱
 app.use(express.json());
 var cors = require("cors");
 app.use(cors());
@@ -74,14 +74,14 @@ app.get("/warehouse", (req, res) => {
         "views/html/warehouse/warehouse.ejs",
         {
           data: rows,
-        },
-        function (err, html) {
-          if (err) {
-            console.log(err);
-          }
-          // console.log(rows);
-          res.end(html);
         }
+        // function (err, html) {
+        //   if (err) {
+        //     console.log(err);
+        //   }
+        //   // console.log(rows);
+        //   res.end(html);
+        // }
       );
     })
     .catch((errMsg) => {
@@ -90,11 +90,16 @@ app.get("/warehouse", (req, res) => {
     });
 });
 
+let cate = "";
+let word = "";
+
+let rowsResult;
+
 app.post("/warehouse", (req, res) => {
   // console.log(req.body.cate);
   // console.log(req.body.word);
-  const cate = req.body.cate;
-  const word = req.body.word;
+  cate = req.body.cate;
+  word = req.body.word;
   async function GetSearchData() {
     let conn, rows;
     try {
@@ -111,9 +116,11 @@ app.post("/warehouse", (req, res) => {
       return rows;
     }
   }
+
   GetSearchData()
     .then((rows) => {
-      console.log(rows);
+      rowsResult = rows;
+      console.log(rowsResult);
       res.render(
         "views/html/warehouse/warehouse.ejs",
         {
@@ -132,6 +139,20 @@ app.post("/warehouse", (req, res) => {
       //   console.log(errMsg);
       err;
     });
+});
+
+app.get("/warehouse/search", (req, res) => {
+  res.render(
+    "views/html/warehouse/warehouse_search.ejs",
+    { data: rowsResult },
+    function (err, html) {
+      if (err) {
+        console.log(err);
+      }
+      // console.log(rows);
+      res.end(html);
+    }
+  );
 });
 
 app.post("/outputForm", (req, res) => {

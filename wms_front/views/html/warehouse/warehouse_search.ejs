@@ -1,11 +1,13 @@
 <!DOCTYPE html>req.body
 <html lang="en"> 
   <head>
+    <meta http-equiv='content-type' content='text/html; charset=utf-8'>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="views/css/warehouse/warehouse.css" />
+    <base href="/">
 
+    <link rel="stylesheet" href="views/css/warehouse/warehouse.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -178,7 +180,7 @@
               <div style="display: none" id="drop-content">
                 <p onclick="getCateValue('wh_name')" id="wh_name" >창고 명</p>
                 <p onclick="getCateValue('wh_width')" id="wh_width" >창고 너비</p>
-                <p onclick="getCateValue('wh_length')" id="wh_length" >창고 길이</p>
+                <p onclick="getCateValue('wh_length')" id="wh_length" >길이</p>
                 <p onclick="getCateValue(this)" >적재 가능</p>
                 <p onclick="getCateValue(this)" >총 공간</p>
               </div>
@@ -196,10 +198,10 @@
                 <thead>
                   <tr>
                     <th><input type="checkbox" /></th>
-                    <th scope="col" onclick="orderList('wh_name')">창고 명 <img src="views/image/updown.png" height="20px"/> </th>
-                    <th scope="col" onclick="orderList('wh_width')">창고 너비 <img src="views/image/updown.png" height="20px"/></th>
-                    <th scope="col" onclick="orderList('wh_length')">창고 길이 <img src="views/image/updown.png" height="20px"/></th>
-                    <th scope="col">적재 가능 <img src="views/image/updown.png" height="20px"/></th>
+                    <th scope="col">창고 명</th>
+                    <th scope="col">창고 너비</th>
+                    <th scope="col">창고 길이</th>
+                    <th scope="col">적재 가능</th>
                     <th scope="col">총 공간</th>
                     <th></th>
                   </tr>
