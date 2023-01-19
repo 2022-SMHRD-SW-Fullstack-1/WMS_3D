@@ -144,6 +144,29 @@ app.post("/createShelf", (req, res) => {
     });
   })
 
+// 선반 생성 기능
+
+app.post("/saveShelf",(req,res)=>{
+  async function InsertShelfData(){
+    let conn,rows;
+    let sql = "INSERT INTO tbl_shelf(wh_num,shelf_name,shelf_x,shelf_z,shelf_width,shelf_length,shelf_floor,shelf_rotation_yn) VALUES(?,?,?,?,?,?,?,?)"
+    conn = await pool.getConnection();
+    conn.query("USE wms");
+    rows = await conn.query(sql,[
+      req.body.num,
+      req.body.name,
+      req.body.x,
+      req.body.z,
+      req.body.width,
+      req.body.length,
+      req.body.floor,
+      req.body.rotation,
+    ])
+  }
+  InsertShelfData()
+})
+
+// 선반 생성 기능
 
   
 

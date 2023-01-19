@@ -12,6 +12,7 @@
             }
         }
     </script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js" integrity="sha512-f8mwTB+Bs8a5c46DEm7HQLcJuHMBaH/UFlcgyetMqqkvTcYg4g5VXsYR71b3qC82lZytjNYvBj2pf0VekA9/FQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- js를 module type으로 가져온 이유 : three.js 라이브러리를
@@ -22,12 +23,11 @@
 </head>
 <body>
     <div id="webgl-container"></div>
-    <!-- <div id="sub-container">
+    <div id="sub-container">
+        <div></div>
         <div id="btn-container">
-            <button id="length_minus"> - </button>
-            <span>선반 길이</span>
-            <button id="length_plus"> + </button>
+            <button id="btn_create">선반저장</button>
         </div>
-    </div> -->
+    </div>
 </body>
 </html>

@@ -1,6 +1,7 @@
 import * as THREE from "../build/three.module.js";
 import { OrbitControls } from "../examples/jsm/controls/OrbitControls.js"
 
+const shelf_info = [];
 
 let sto_wh_name = localStorage.getItem('wh_name')
 let sto_wh_width = localStorage.getItem('wh_width')
@@ -13,7 +14,7 @@ let sto_shelf_length = localStorage.getItem('shelf_length')
 let sto_shelf_floor = localStorage.getItem('shelf_floor')
 let sto_shelf_rotation = localStorage.getItem('shelf_rotation')
 
-let wh_name_arr = sto_wh_name.split(",")
+let wh_name_arr = sto_wh_name.split(",").map(Number)
 let wh_width_arr = sto_wh_width.split(",").map(Number)
 let wh_length_arr = sto_wh_length.split(",").map(Number)
 let shelf_name_arr = sto_shelf_name.split(",")
@@ -247,7 +248,7 @@ class App{
         const objects = [];
 
         // 선반들의 정보를 담는 배열
-        const shelf_info = [];
+
 
         const group2 = new THREE.Group();
         // 기본 바 생성
@@ -323,7 +324,7 @@ class App{
 
                         group2.name = prompt("선반의 이름을 정해주세요");
 
-                        shelf_info.push({x:shelfClone.position.x,y:shelfClone.position.y,z:shelfClone.position.z,rotation:rotation,width:shelf_width,
+                        shelf_info.push({num:wh_name_arr[0],x:shelfClone.position.x,y:shelfClone.position.y,z:shelfClone.position.z,rotation:rotation,width:shelf_width,
                             length:shelf_length,floor:shelf_floor,name:group2.name})
                             
                             
@@ -372,3 +373,41 @@ class App{
 window.onload = function(){
     new App();
 }
+
+
+function saveShelf(){
+
+    let url = "/saveShelf"
+
+    for(let i = 0;i<shelf_info.length;i++){
+
+        axios
+        .post(url, JSON.stringify(shelf_info[i]),{
+            headers: {
+                "Content-Type": `application/json`,
+            },
+        })
+        .then((res) => {
+            console.log(res);
+        })
+        .catch(() => {
+            console.log("catch");
+        });
+    }
+
+}
+const btn_create = document.getElementById('btn_create')
+btn_create.addEventListener('click',()=>{
+    saveShelf()
+    location.href = "http://localhost:3002/warehouse"
+})
+
+
+
+
+
+
+
+
+
+
