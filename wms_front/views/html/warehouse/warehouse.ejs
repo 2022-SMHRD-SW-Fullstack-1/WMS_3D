@@ -1,20 +1,17 @@
-<!DOCTYPE html>req.body
+<!DOCTYPE html>
 <html lang="en"> 
   <head>
-    <meta http-equiv='content-type' content='text/html; charset=utf-8'>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <base href="/">
-
     <link rel="stylesheet" href="views/css/warehouse/warehouse.css" />
+
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
       crossorigin="anonymous"
     />
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
@@ -25,6 +22,8 @@
       src="views/js/warehouse/warehouse.js"
       defer
     ></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js" integrity="sha512-f8mwTB+Bs8a5c46DEm7HQLcJuHMBaH/UFlcgyetMqqkvTcYg4g5VXsYR71b3qC82lZytjNYvBj2pf0VekA9/FQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- 사이드바 -->
     <link rel="stylesheet" href="views/css/stock/input_history.css" />
@@ -34,17 +33,20 @@
     />
     <!-- 사이드바 -->
 
+
+
     <title>Document</title>
   </head>
   <body>
-    <div class="top_div">
-      <!-- 사이드바 == -->
-      <div class="sidebar close">
-        <div class="logo-details">
-          <i class="bx bxs-package"></i>
-          <span class="logo_name">WMS</span>
-        </div>
-        <ul class="nav-links">
+
+    <div class="sidebar close">
+      <div class="logo-details">
+        <i class="bx bxs-package"></i>
+        <span class="logo_name">WMS</span>
+      </div>
+
+      <ul class="nav-links">
+        <div class="side_div1">
           <li>
             <i class="bx bx-menu"></i>
           </li>
@@ -61,7 +63,7 @@
           </li>
 
           <li>
-            <div class="iocn-link">
+            <div class="icon-link">
               <a href="#">
                 <i class="bx bxs-city"></i>
                 <span class="link_name">창고</span>
@@ -72,62 +74,64 @@
 
             <!-- 사이드바 서브 메뉴설정 -->
             <ul class="sub-menu">
-              <li><a class="link_name" href="#"></a></li>
-              <li><a href="#">창고생성</a></li>
-              <li><a href="#">창고</a></li>
+              <li><a class="link_name" href="#">창고</a></li>
+              <li><a href="#">창고관리</a></li>
             </ul>
           </li>
 
           <li>
-            <div class="iocn-link">
+            <div class="icon-link">
               <a href="#">
                 <i class="bx bx-package"></i>
-                <span class="link_name">입고</span>
+                <span class="link_name">입/출고</span>
               </a>
               <i class="bx bxs-chevron-down arrow"></i>
             </div>
             <ul class="sub-menu">
-              <li><a class="link_name" href="#">입고</a></li>
+              <li><a class="link_name" href="#">입/출고</a></li>
               <li><a href="#">입고현황</a></li>
-              <li><a href="#">입고내역</a></li>
+              <li><a href="#">출고현황</a></li>
+              <li><a href="#">입출고내역</a></li>
             </ul>
           </li>
 
           <li>
-            <div class="iocn-link">
+            <div class="icon-link">
               <a href="#">
                 <i class="bx bx-archive-out"></i>
-                <span class="link_name">출고</span>
+                <span class="link_name">재고</span>
               </a>
-              <i class="bx bxs-chevron-down arrow"></i>
             </div>
             <ul class="sub-menu">
-              <li><a class="link_name" href="#">출고</a></li>
-              <li><a href="#">출고현황</a></li>
-              <li><a href="#">출고내역</a></li>
-            </ul>
-          </li>
-
-          
-          <li>
-            <a href="#">
-              <i class="bx bx-box"></i>
-              <span class="link_name">재고</span>
-            </a>
-            <ul class="sub-menu blank">
-              <li><a class="link_name" href="#">재고현황</a></li>
               <li><a class="link_name" href="#">재고</a></li>
             </ul>
           </li>
 
           <li>
-            <div class="iocn-link">
+            <div class="icon-link">
+              <a href="#">
+                <i class="bx bx-box"></i>
+                <span class="link_name">작업관리</span>
+              </a>
+              <i class="bx bxs-chevron-down arrow"></i>
+            </div>
+              <ul class="sub-menu">
+              <li><a class="link_name" href="#">작업관리</a></li>
+              <li><a href="#">작업내역</a></li>
+              <li><a href="#">관리자</a></li>
+            </ul>
+          </li>
+        </div>
+
+        <div>
+          <li>
+            <div class="icon-link">
               <a href="#">
                 <i class="bx bx-bell"></i>
                 <span class="link_name">알림</span>
               </a>
             </div>
-            <ul class="sub-menu">
+            <ul class="sub-menu blank">
               <li><a class="link_name" href="#">알림</a></li>
             </ul>
           </li>
@@ -145,7 +149,7 @@
           <li>
             <div class="profile-details">
               <div class="profile-content">
-                <img src="views/image/profile.jpg" alt="profileImg" />
+                <!-- <img src="../../image/profile.jpg" alt="profileImg" /> -->
               </div>
               <div class="name-job">
                 <div class="profile_name">김정우</div>
@@ -154,9 +158,13 @@
               <i class="bx bx-log-out"></i>
             </div>
           </li>
-        </ul>
-      </div>
+        </div>
+      </ul>
+    </div>
 
+    <script src="input_history.js"></script>
+  </body>
+    
       <!-- == 사이드바 -->
 
 
@@ -166,13 +174,14 @@
       <div class="main_div">
         <div class="management_div">
           <a href="#">창고 관리</a>
-          <a href="./shelf.html"> 선반 관리</a>
+          <a href="../warehouse/shelf.ejs"> 선반 관리</a>
         </div>
         <hr />
         <div class="btn_div">
           <button>수정</button>
 
           <div></div>
+
 
           <div class="search_div">
             <div class="dropdown">
@@ -209,14 +218,27 @@
                 <tbody>
 
 
-                  <% for(var i = 0; i<data.length; i++){%>
-                    <tr>
+
+                  <% for(var i = 0; i<10; i++){%>
+                    <tr onclick="changeSub(
+                      {
+                        name:'<%- data[i].wh_name %>', 
+                        min_temp : '<%- data[i].wh_min_temp %>',
+                        max_temp : '<%- data[i].wh_max_temp %>',
+                        min_humid : '<%- data[i].wh_min_humid %>',
+                        max_humid : '<%- data[i].wh_max_humid %>',
+                        now_avl : '<%- data[i].wh_now_avl %>',
+                        max_avl : '<%- data[i].wh_max_avl %>',
+                        info : '<%- data[i].wh_info %>',
+                        shelf_info : '<%- shelf_data %>'
+                      }
+                      )">
                       <td><input type="checkbox" /></td>
-                      <td><%- data[i].wh_name %></td>
+                      <td><%- data[i].wh_name%></td>
                       <td><%- data[i].wh_width %></td>
-                      <td><%- data[i].wh_length %></td>
-                      <td>30</td>
-                      <td>60</td>
+                        <td><%- data[i].wh_length %></td>
+                      <td><%- data[i].wh_now_avl%> </td>
+                        <td><%- data[i].wh_max_avl%></td>
                       <td>
                         <div
                         class="modal fade"
@@ -276,9 +298,11 @@
                             type="button"
                             data-bs-toggle="modal"
                             data-bs-target="#exampleModalCenteredScrollable<%- i%>"
+                            class = "btn_small"
                           >
                             상세보기
                           </button>
+                          <button class = "btn_small" onclick="goToShelf('<%- data[i].wh_num%>')"> 선반보기</button>
                         </div>
                       </td>
                     </tr>
@@ -307,18 +331,29 @@
           </div>
           <div class="sub_graph_div">
             <div class="diagram_div">
-              <div class="wh_name_div">A창고</div>
+              <div class="wh_name_div" id="sub_warehouse_name">창고를 선택 해주세요</div>
               <div class="circle_progress_container">
                 <div class="circle_progress_item">
                   <div class="value_container">0%</div>
                 </div>
               </div>
               <div class="circle_progress_info">
-                <span>남은 공간 : 30</span><span>총 공간 : 60</span>
+                <span id="sub_now_avl">사용 공간 : 0</span><span id="sub_max_avl">총 공간 : 0</span>
               </div>
             </div>
             <div class="three_option_div">
               <div id="first_option">
+
+                <!-- <% if (shelf_data.length < 4) {%>
+                  <% for(var i = 0; i<shelf_data.length; i++){%>
+                    <p><%- shelf_data[i].shelf_name %></p>
+                  <% } %>
+                <% } else{%>
+                  <% for(var i = 0; i<4; i++){%>
+                    <p><%- shelf_data[i]%></p>
+                  <% } %>
+                <% } %> -->
+
                 <div>
                   <span>A 선반 : 2 / 10</span>
                   <div class="progress">
@@ -387,7 +422,7 @@
                 <div>
                   창고 온도
 
-                  <div class="progress">
+                  <div class="progress" id="temp_bar">
                     <div
                       class="progress-bar"
                       id="bg_red"
@@ -400,13 +435,13 @@
                     ></div>
                   </div>
                   <div class="temp_text_div">
-                    <span>-5°C</span><span>now : 0°C </span><span>5°C</span>
+                    <span id="min_temp">-5°C</span><span id="now_temp">now : 0°C </span><span id="max_temp">5°C</span>
                   </div>
                 </div>
 
                 <div>
                   창고 습도
-                  <div class="progress">
+                  <div class="progress" id="humid_bar">
                     <div
                       class="progress-bar"
                       id="bg_green"
@@ -419,7 +454,7 @@
                     ></div>
                   </div>
                   <div class="temp_text_div">
-                    <span>0%</span><span>now : 5% </span><span>20%</span>
+                    <span id="min_humid">0%</span><span id="now_humid">now : 5% </span><span id="max_humid">20%</span>
                   </div>
                 </div>
               </div>
