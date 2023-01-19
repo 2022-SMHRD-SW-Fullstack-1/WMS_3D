@@ -120,7 +120,7 @@ app.post("/createShelf", (req, res) => {
     let conn, rows;
     conn = await pool.getConnection();
     conn.query("USE wms");
-    rows = await conn.query(`SELECT * FROM tbl_warehouse WHERE wh_num = ${val}`);
+    rows = await conn.query(`SELECT w.wh_num, w.com_num, w.wh_name, w.wh_width, w.wh_length, w.wh_min_temp, w.wh_max_temp, w.wh_min_humid, w.wh_max_humid, w.wh_info,s.shelf_num, s.shelf_name, s.shelf_x,s.shelf_z,s.shelf_width,s.shelf_length,s.shelf_floor,s.shelf_rotation_yn FROM tbl_warehouse w LEFT JOIN tbl_shelf s  ON w.wh_num = s.wh_num WHERE w.wh_num =${val}`);
     return rows
   }
   getWarehouseForShelf()

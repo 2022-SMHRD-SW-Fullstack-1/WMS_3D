@@ -2,20 +2,31 @@ import * as THREE from "../build/three.module.js";
 import { OrbitControls } from "../examples/jsm/controls/OrbitControls.js"
 
 
+let sto_wh_name = localStorage.getItem('wh_name')
+let sto_wh_width = localStorage.getItem('wh_width')
+let sto_wh_length = localStorage.getItem('wh_length')
+let sto_shelf_name = localStorage.getItem('shelf_name')
+let sto_shelf_x = localStorage.getItem('shelf_x')
+let sto_shelf_z = localStorage.getItem('shelf_z')
+let sto_shelf_width = localStorage.getItem('shelf_width')
+let sto_shelf_length = localStorage.getItem('shelf_length')
+let sto_shelf_floor = localStorage.getItem('shelf_floor')
+let sto_shelf_rotation = localStorage.getItem('shelf_rotation')
 
-// let width = Number(prompt("창고의 너비를 입력하세요"))
-// let length = Number(prompt("창고의 길이를 입력하세요"))
+let wh_name_arr = sto_wh_name.split(",")
+let wh_width_arr = sto_wh_width.split(",").map(Number)
+let wh_length_arr = sto_wh_length.split(",").map(Number)
+let shelf_name_arr = sto_shelf_name.split(",")
+let shelf_x_arr = sto_shelf_x.split(",").map(Number)
+let shelf_z_arr = sto_shelf_z.split(",").map(Number)
+let shelf_width_arr = sto_shelf_width.split(",").map(Number)
+let shelf_length_arr = sto_shelf_length.split(",").map(Number)
+let shelf_floor_arr = sto_shelf_floor.split(",").map(Number)
+let shelf_rotation_arr = sto_shelf_rotation.split(",")
 
-
-let shelf_width = Number(prompt("선반의 너비를 입력하세요"))
-let shelf_length = Number(prompt("선반의 길이를 입력하세요"))
-let shelf_floor = Number(prompt("선반의 층을 입력하세요"))
-
-let temp = location.href.split("?");
-let data = temp[1].split(",");
-let watehouse_x = data[0];
-let watehouse_y = data[1];
-
+let shelf_width = Number(prompt("생성할 선반의 너비를 입력하세요"))
+let shelf_length = Number(prompt("생성할 선반의 길이를 입력하세요"))
+let shelf_floor = Number(prompt("생성할 선반의 층을 입력하세요"))
 
 class App{
     constructor() {
@@ -80,7 +91,7 @@ class App{
     _createBoard(){
 
         const wareHouse = new THREE.Object3D();
-        const planeGeometry = new THREE.PlaneGeometry(watehouse_x,watehouse_y,watehouse_x,watehouse_y)
+        const planeGeometry = new THREE.PlaneGeometry(wh_width_arr[0],wh_length_arr[0],wh_width_arr[0],wh_length_arr[0])
     
         const wareHouseMaterial = new THREE.MeshPhongMaterial({
             emissive:0x888888, 
@@ -115,23 +126,67 @@ class App{
 
         
 
+         this._bringShelves();
          this._createShelf();
+
     }
 
+    _bringShelves(){
+
+        for(let i=0; i<shelf_name_arr.length;i++){
+            this._bringShelf({name:shelf_name_arr[i],x:shelf_x_arr[i],z:shelf_z_arr[i],width:shelf_width_arr[i],length:shelf_length_arr[i],floor:shelf_floor_arr[i],rotation:shelf_rotation_arr[i]})
+        }
+        // this._bringShelf({name:"A선반",x:i,z:0,width:1,length:5,floor:3,rotation:"y"})
+    }
+    _bringShelf(item){
+        const shelf_group = new THREE.Group();
+        // 기본 바 설정
+        const BarGeometry = new THREE.CylinderGeometry(0.03,0.03,item.width*item.floor-1+0.2)
+        const BarMaterial = new THREE.MeshPhongMaterial({
+            color : 0xffffff, emissive : 0x112244, flatShading:true
+        })
+        // 기본 판 설정
+        const FloorGeometry = new THREE.BoxGeometry(item.width, 0.05,item.width*item.length)
+        const FloorMaterial = new THREE.MeshPhongMaterial({
+            color : 0xffffff, emissive : 0x112244, flatShading:true
+        })
+        for(let i=0;i<4;i++){
+            // 바 생성
+            const BarMesh = new THREE.Mesh(BarGeometry,BarMaterial)
+            let x = 1;
+            let z = 1;
+            if(i==1){
+                z=-1;
+            }else if(i==2){
+                x=-1;
+                z=-1;
+            }else if(i==3){
+                x=-1;
+            }
+            BarMesh.position.x = item.width/2*x;
+            BarMesh.position.y = item.width/2*(item.floor-2)+(0.6);
+            BarMesh.position.z = item.width/2*z*item.length;
+            shelf_group.add(BarMesh)
+        }
+        for(let i=0;i<item.floor;i++){
+            // 판 생성
+            const FloorMesh = new THREE.Mesh(FloorGeometry,FloorMaterial)
+            FloorMesh.position.y = (i*1)+0.1;
+            shelf_group.add(FloorMesh);
+        }
+        if(item.rotation == "y"){
+            shelf_group.rotation.y = -Math.PI/2;
+        }
+        shelf_group.position.set(item.x,0,item.z)
+        shelf_group.name = item.name;
+        this._shelf = shelf_group;
+        this._scene.add(shelf_group)
+    }   
 
     _createShelf(){
 
-        // 선반 data
-        // const shelf_width = 1;
-        // const shelf_length = 7;
-        // const shelf_floor = 4;
-        let rotation = true;
-        const meshName = "A선반"
-        //
 
-        
-
-
+        let rotation  = true;
 
          //=====================================================================
         // 하이라이트 모양과 위치 잡기 
