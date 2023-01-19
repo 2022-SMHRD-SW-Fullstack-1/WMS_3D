@@ -188,6 +188,7 @@ class App{
   
 
         let rotation  = true;
+        let send_rotation = "n"
 
          //=====================================================================
         // 하이라이트 모양과 위치 잡기 
@@ -201,9 +202,6 @@ class App{
         highlightMesh.position.set(0.5,0,0.5)
         highlightMesh.rotation.x = -Math.PI/2;
 
-        if(rotation==true){
-            
-        }
 
         
         
@@ -291,11 +289,13 @@ class App{
         window.addEventListener('contextmenu',function(){
             if(rotation==true){
                 rotation = false
+                send_rotation = "y"
                 highlightMesh.rotation.z = -Math.PI/2;
                 group2.rotation.y =-Math.PI/2;
 
             }else{
                 rotation =true
+                send_rotation = "n"
                 highlightMesh.rotation.z = 0
                 group2.rotation.y =0
 
@@ -324,7 +324,7 @@ class App{
 
                         group2.name = prompt("선반의 이름을 정해주세요");
 
-                        shelf_info.push({num:wh_name_arr[0],x:shelfClone.position.x,y:shelfClone.position.y,z:shelfClone.position.z,rotation:rotation,width:shelf_width,
+                        shelf_info.push({num:wh_name_arr[0],x:shelfClone.position.x,y:shelfClone.position.y,z:shelfClone.position.z,rotation:send_rotation,width:shelf_width,
                             length:shelf_length,floor:shelf_floor,name:group2.name})
                             
                             
