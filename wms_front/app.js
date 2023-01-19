@@ -83,7 +83,7 @@ app.get('/shelf', (req, res) => {
 // 선반 관리 페이지
 app.post("/shelf", (req, res) => {
   const val = Number(req.body.num)
-  console.log(val);
+  // console.log(val);
   async function getShelfList(){
     let conn, rows;
     conn = await pool.getConnection();
@@ -111,6 +111,40 @@ app.post("/shelf", (req, res) => {
       console.log(errMsg);
     });
   })
+
+// 선반 관리 페이지 -> 선반 생성 페이지
+app.post("/createShelf", (req, res) => {
+  const val = Number(req.body.num)
+  // console.log(val);
+  async function getWarehouseForShelf(){
+    let conn, rows;
+    conn = await pool.getConnection();
+    conn.query("USE wms");
+    rows = await conn.query(`SELECT w.wh_num, w.com_num, w.wh_name, w.wh_width, w.wh_length, w.wh_min_temp, w.wh_max_temp, w.wh_min_humid, w.wh_max_humid, w.wh_info,s.shelf_num, s.shelf_name, s.shelf_x,s.shelf_z,s.shelf_width,s.shelf_length,s.shelf_floor,s.shelf_rotation_yn FROM tbl_warehouse w LEFT JOIN tbl_shelf s  ON w.wh_num = s.wh_num WHERE w.wh_num =${val}`);
+    return rows
+  }
+  getWarehouseForShelf()
+    .then((rows) => {
+      res.render(
+        "views/render/create_shelf.ejs",
+        {
+          data: rows,
+        },
+        function (err, html) {
+          if (err) {
+            console.log(err);
+          }
+          // console.log(rows);
+          res.end(html);
+        }
+        );
+    })
+    .catch((errMsg) => {
+      console.log(errMsg);
+    });
+  })
+
+
   
 
 // 창고 생성 페이지

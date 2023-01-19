@@ -268,7 +268,6 @@ _createShelfs(x,y){
     this._createShelf({x,y},"F선반",{x:-6,y:12},{width : 1,length :7,floor :4},false);
    }
 _createShelf(warehouse_info,meshName,boardPos,shelf_info,rotation){
-
     // 선반이 창고를 넘어가지 않게하는 장치
     if(((warehouse_info.x/2>(Math.abs(boardPos.x)+shelf_info.length/2)&&rotation==true )
     ||(warehouse_info.x/2>(Math.abs(boardPos.x)+shelf_info.width/2)&&rotation==false ))
