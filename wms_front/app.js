@@ -94,6 +94,58 @@ app.get("/warehouse", (req, res) => {
     });
 });
 
+//작업관리 페이지 관리자 페이지
+
+app.get("/manager", (req, res) => {
+  mdbConn
+    .getWorkerList()
+    .then((rows) => {
+      res.render(
+        "views/html/workmanagement/manager.ejs",
+        {
+          data: rows,
+        },
+        function (err, html1) {
+          if (err) {
+            console.log(err);
+          }
+          // console.log(rows);
+          res.end(html1);
+        }
+      );
+    })
+    .catch((errMsg) => {
+      //   console.log(errMsg);
+      err;
+    });
+});
+
+// 작업내역 페이지
+
+app.get("/work_history", (req, res) => {
+  mdbConn
+    .getWorkList()
+    .then((rows) => {
+      res.render(
+        "views/html/workmanagement/work_history.ejs",
+        {
+          data: rows,
+        },
+        function (err, html2) {
+          if (err) {
+            console.log(err);
+          }
+          // console.log(rows);
+          res.end(html2);
+        }
+      );
+    })
+    .catch((errMsg) => {
+      //   console.log(errMsg);
+      err;
+    });
+});
+
 app.post("/outputForm", (req, res) => {
   // console.log(req.body.pw);
   // console.log(req.body);

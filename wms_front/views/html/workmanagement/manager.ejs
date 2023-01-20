@@ -16,13 +16,23 @@
     crossorigin="anonymous"
   ></script>
   
-  <link rel="stylesheet" href="views/css/stock/input_history.css" />
+  <link rel="stylesheet" href="views/css/workmanagement/manager.css" />
   <link
     href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
     rel="stylesheet"
   />
+
+   <!-- 사이드바 -->
+   <link rel="stylesheet" href="views/css/stock/input_history.css" />
+   <link
+     href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+     rel="stylesheet"
+   />
+   <!-- 사이드바 -->
+
+
 </head>
-</head>
+
 <body>
 
   <div class="sidebar close">
@@ -148,9 +158,147 @@
     </ul>
   </div>
 
-  <script src="sidebar.js"></script>
+  <script src="views/js/sidebar.js"></script>
 </body>
+<!-- == 사이드바 -->
+
+<div class="main_div">
+  <div class="management_div">
+    <a href="../workmanagement/manager.ejs">관리자</a>
+    <a href="../workmanagement/work_history.ejs">작업내역</a>
+  </div>
+  <hr />
+  <div class="btn_div">
+    <button>수정</button>
+
+    <div></div>
+
+    <div class="search_div">
+      <div class="dropdown">
+        <button onclick="dp_menu()" class="button">관리자명 ▼</button>
+        <div style="display: none" id="drop-content">
+          <a href="#">관리자 번호</a>
+          <a href="#">관리자 명</a>
+          <a href="#">소속 회사</a>
+          <a href="#">입사 일자</a>
+          <a href="#">퇴사 일자</a>
+        </div>
+      </div>
+      <input type="text" />
+      <button id="search_btn">검색</button>
+    </div>
+    <button id="add_warehouse_btn" onclick="goToCreateWarehouse()">+ 관리자 추가</button>
+  </div>
   
-    <!-- == 사이드바 -->
-</html>
+  <div class="graph_top_div">
+    <div class="main_graph_div">
+      <div class="bd-example">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th><input type="checkbox" /></th>
+              <th scope="col">관리자 번호</th>
+              <th scope="col">관리자 명</th>
+              <th scope="col">소속 회사</th>
+              <th scope="col">입사 일자</th>
+              <th scope="col">퇴사 일자</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <% for(var i = 0; i<data.length; i++){%>
+                <td><input type="checkbox" /></td>
+                <td><%- data[i].worker_num%></td>
+                <td><%- data[i].worker_name%></td>
+                <td><%- data[i].com_num%></td>
+                <td><%- data[i].worker_join_date%></td>
+                <td><%- data[i].worker_leave_date%></td>
+                <td>
+                  
+                  <div
+                  class="modal fade"
+                  id="exampleModalCenteredScrollable<%- i%>"
+                  tabindex="-1"
+                    aria-labelledby="exampleModalCenteredScrollableTitle"
+                    aria-hidden="true"
+                  >
+                    <div
+                      class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+                    >
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1
+                            class="modal-title fs-5"
+                            id="exampleModalCenteredScrollableTitle"
+                          >
+                            관리자 정보
+                          </h1>
+                          <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          ></button>
+                        </div>
+                        <div class="modal-body">
+                          <div>
+                            <span>관리자 : </span><span></span>
+                          </div>
+                          <div>
+                            <span>관리자 : </span><span></span>
+                          </div>
+                          <div>
+                            <span>관리자 : </span><span>일</span>
+                          </div>
+                          <div><span>관리자 : </span><span></span>
+                          </div>
+                          
+                        </div>
+                        <!-- <div class="modal-footer">
+                          <button id="add_warehouse_btn" onclick="goToWarehouse()">
+                                  선반위치보기
+                          </button>
+                          </div> -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bd-example">
+                    <!-- <button
+                      type="button"
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModalCenteredScrollable<%- i%>"
+                    >
+                      상세보기
+                    </button> -->
+                  </div>
+                </td>
+              </tr>
+            <% } %>  
+
+          </tbody>
+        </table>
+
+        <!-- 페이지 바 -->
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+              <a class="page-link">이전</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#">다음</a>
+            </li>
+          </ul>
+        </nav>
+        <!-- 페이지 바 -->
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+</body>
 </html>
