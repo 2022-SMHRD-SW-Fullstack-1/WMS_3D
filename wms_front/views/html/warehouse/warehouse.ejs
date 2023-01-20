@@ -38,19 +38,20 @@
     <title>Document</title>
   </head>
   <body>
+    <div class="top_div">
 
-    <div class="sidebar close">
-      <div class="logo-details">
+      <div class="sidebar close">
+        <div class="logo-details">
         <i class="bx bxs-package"></i>
         <span class="logo_name">WMS</span>
       </div>
-
+      
       <ul class="nav-links">
         <div class="side_div1">
           <li>
             <i class="bx bx-menu"></i>
           </li>
-
+          
           <li>
             <a href="#">
               <i class="bx bx-grid-alt"></i>
@@ -61,7 +62,7 @@
               <li><a class="link_name" href="#">홈</a></li>
             </ul>
           </li>
-
+          
           <li>
             <div class="icon-link">
               <a href="#">
@@ -71,14 +72,14 @@
               <!-- 사이드바 목록 화살표 -->
               <i class="bx bxs-chevron-down arrow"></i>
             </div>
-
+            
             <!-- 사이드바 서브 메뉴설정 -->
             <ul class="sub-menu">
               <li><a class="link_name" href="#">창고</a></li>
               <li><a href="#">창고관리</a></li>
             </ul>
           </li>
-
+          
           <li>
             <div class="icon-link">
               <a href="#">
@@ -94,7 +95,7 @@
               <li><a href="#">입출고내역</a></li>
             </ul>
           </li>
-
+          
           <li>
             <div class="icon-link">
               <a href="#">
@@ -106,7 +107,7 @@
               <li><a class="link_name" href="#">재고</a></li>
             </ul>
           </li>
-
+          
           <li>
             <div class="icon-link">
               <a href="#">
@@ -115,14 +116,14 @@
               </a>
               <i class="bx bxs-chevron-down arrow"></i>
             </div>
-              <ul class="sub-menu">
+            <ul class="sub-menu">
               <li><a class="link_name" href="#">작업관리</a></li>
               <li><a href="#">작업내역</a></li>
               <li><a href="#">관리자</a></li>
             </ul>
           </li>
         </div>
-
+        
         <div>
           <li>
             <div class="icon-link">
@@ -135,7 +136,7 @@
               <li><a class="link_name" href="#">알림</a></li>
             </ul>
           </li>
-
+          
           <li>
             <a href="#">
               <i class="bx bxs-user"></i>
@@ -161,60 +162,60 @@
         </div>
       </ul>
     </div>
-
+    
     <script src="input_history.js"></script>
   </body>
-    
-      <!-- == 사이드바 -->
-
-
-
-
-
-      <div class="main_div">
-        <div class="management_div">
-          <a href="#">창고 관리</a>
-          <a href="../warehouse/shelf.ejs"> 선반 관리</a>
-        </div>
-        <hr />
-        <div class="btn_div">
-          <button>수정</button>
-
-          <div></div>
-
-          <div class="search_div">
-            <div class="dropdown">
-              <button onclick="dp_menu()" class="button">창고명 ▼</button>
-              <div style="display: none" id="drop-content">
-                <a href="#">창고 명</a>
-                <a href="#">창고 너비 / 길이</a>
-                <a href="#">적재 가능/ 총 공간</a>
-              </div>
-            </div>
-            <input type="text" />
-            <button id="search_btn">검색</button>
+  
+  <!-- == 사이드바 -->
+  
+  
+  
+  
+  
+  <div class="main_div">
+    <div class="management_div">
+      <a href="#">창고 관리</a>
+      <a href="../warehouse/shelf.ejs"> 선반 관리</a>
+    </div>
+    <hr />
+    <div class="btn_div">
+      <button>수정</button>
+      
+      <div></div>
+      
+      <div class="search_div">
+        <div class="dropdown">
+          <button onclick="dp_menu()" class="button">창고명 ▼</button>
+          <div style="display: none" id="drop-content">
+            <a href="#">창고 명</a>
+            <a href="#">창고 너비 / 길이</a>
+            <a href="#">적재 가능/ 총 공간</a>
           </div>
-          <button id="add_warehouse_btn" onclick="goToCreateWarehouse()">+ 창고 추가</button>
         </div>
-        
-        <div class="graph_top_div">
-          <div class="main_graph_div">
-            <div class="bd-example">
-              <table class="table table-striped table-hover">
-                <thead>
-                  <tr>
-                    <th><input type="checkbox" /></th>
-                    <th scope="col">창고 명</th>
-                    <th scope="col">창고 너비 / 길이</th>
-                    <th scope="col">적재 가능 / 총 공간</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
+        <input type="text" />
+        <button id="search_btn">검색</button>
+      </div>
+      <button id="add_warehouse_btn" onclick="goToCreateWarehouse()">+ 창고 추가</button>
+    </div>
+    
+    <div class="graph_top_div">
+      <div class="main_graph_div">
+        <div class="bd-example">
+          <table class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th><input type="checkbox" /></th>
+                <th scope="col">창고 명</th>
+                <th scope="col">창고 너비 / 길이</th>
+                <th scope="col">적재 가능 / 총 공간</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
 
-
-
-                  <% for(var i = 0; i<10; i++){%>
+              
+              
+              <% for(var i = 0; i<10; i++){%>
                     <tr onclick="changeSub(
                       {
                         name:'<%- data[i].wh_name %>', 
@@ -237,47 +238,47 @@
                         class="modal fade"
                         id="exampleModalCenteredScrollable<%- i%>"
                         tabindex="-1"
-                          aria-labelledby="exampleModalCenteredScrollableTitle"
-                          aria-hidden="true"
+                        aria-labelledby="exampleModalCenteredScrollableTitle"
+                        aria-hidden="true"
                         >
-                          <div
-                            class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-                          >
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h1
-                                  class="modal-title fs-5"
-                                  id="exampleModalCenteredScrollableTitle"
+                        <div
+                        class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+                        >
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h1
+                                class="modal-title fs-5"
+                                id="exampleModalCenteredScrollableTitle"
                                 >
-                                  창고 상세 정보
-                                </h1>
-                                <button
-                                  type="button"
-                                  class="btn-close"
-                                  data-bs-dismiss="modal"
-                                  aria-label="Close"
-                                ></button>
+                                창고 상세 정보
+                              </h1>
+                              <button
+                              type="button"
+                              class="btn-close"
+                              data-bs-dismiss="modal"
+                              aria-label="Close"
+                              ></button>
+                            </div>
+                            <div class="modal-body">
+                              <div>
+                                <span>창고 명 : </span><span><%- data[i].wh_name%></span>
                               </div>
-                              <div class="modal-body">
-                                <div>
-                                  <span>창고 명 : </span><span><%- data[i].wh_name%></span>
-                                </div>
-                                <div>
-                                  <span>창고 너비 : </span><span><%- data[i].wh_width%> m</span>
-                                </div>
-                                <div>
-                                  <span>창고 길이 : </span><span><%- data[i].wh_length%> m</span>
-                                </div>
-                                <div>
-                                  <span>권장 온도 : </span><span><%- data[i].wh_min_temp%> ~ <%- data[i].wh_max_temp%> °C</span>
-                                </div>
-                                <div>
-                                  <span>권장 습도 : </span><span><%- data[i].wh_min_humid%> ~ <%- data[i].wh_max_humid%> %</span>
-                                </div>
-                                <div><span>창고 정보 : </span></div>
-                                <div><span></span><span> <%- data[i].wh_info%></span> </div>
-                                
+                              <div>
+                                <span>창고 너비 : </span><span><%- data[i].wh_width%> m</span>
                               </div>
+                              <div>
+                                <span>창고 길이 : </span><span><%- data[i].wh_length%> m</span>
+                              </div>
+                              <div>
+                                <span>권장 온도 : </span><span><%- data[i].wh_min_temp%> ~ <%- data[i].wh_max_temp%> °C</span>
+                              </div>
+                              <div>
+                                <span>권장 습도 : </span><span><%- data[i].wh_min_humid%> ~ <%- data[i].wh_max_humid%> %</span>
+                              </div>
+                              <div><span>창고 정보 : </span></div>
+                              <div><span></span><span> <%- data[i].wh_info%></span> </div>
+                              
+                            </div>
                               <div class="modal-footer">
                                 <button id="add_warehouse_btn" onclick="goToWarehouse()">
                                   3D창고보기
@@ -288,125 +289,125 @@
                         </div>
                         <div class="bd-example">
                           <button
-                            type="button"
-                            data-bs-toggle="modal"
-                            data-bs-target="#exampleModalCenteredScrollable<%- i%>"
-                            class = "btn_small"
+                          type="button"
+                          data-bs-toggle="modal"
+                          data-bs-target="#exampleModalCenteredScrollable<%- i%>"
+                          class = "btn_small"
                           >
-                            상세보기
-                          </button>
+                          상세보기
+                        </button>
                           <button class = "btn_small" onclick="goToShelf('<%- data[i].wh_num%>')"> 선반보기</button>
                         </div>
                       </td>
                     </tr>
-                  <% } %>  
-
-
-                </tbody>
-              </table>
-
-              <!-- 페이지 바 -->
-              <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
-                  <li class="page-item disabled">
-                    <a class="page-link">Previous</a>
-                  </li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
-                  </li>
-                </ul>
-              </nav>
-              <!-- 페이지 바 -->
+                    <% } %>  
+                    
+                    
+                  </tbody>
+                </table>
+                
+                <!-- 페이지 바 -->
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                      <a class="page-link">Previous</a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                      <a class="page-link" href="#">Next</a>
+                    </li>
+                  </ul>
+                </nav>
+                <!-- 페이지 바 -->
+              </div>
             </div>
-          </div>
-          <div class="sub_graph_div">
-            <div class="diagram_div">
-              <div class="wh_name_div" id="sub_warehouse_name">창고를 선택 해주세요</div>
-              <div class="circle_progress_container">
-                <div class="circle_progress_item">
-                  <div class="value_container">0%</div>
+            <div class="sub_graph_div">
+              <div class="diagram_div">
+                <div class="wh_name_div" id="sub_warehouse_name">창고를 선택 해주세요</div>
+                <div class="circle_progress_container">
+                  <div class="circle_progress_item">
+                    <div class="value_container">0%</div>
+                  </div>
                 </div>
-              </div>
-              <div class="circle_progress_info">
-                <span id="sub_now_avl">사용 공간 : 0</span><span id="sub_max_avl">총 공간 : 0</span>
-              </div>
+                <div class="circle_progress_info">
+                  <span id="sub_now_avl">사용 공간 : 0</span><span id="sub_max_avl">총 공간 : 0</span>
+                </div>
             </div>
             <div class="three_option_div">
               <div id="first_option">
-
+                
                 <!-- <% if (shelf_data.length < 4) {%>
                   <% for(var i = 0; i<shelf_data.length; i++){%>
                     <p><%- shelf_data[i].shelf_name %></p>
-                  <% } %>
-                <% } else{%>
-                  <% for(var i = 0; i<4; i++){%>
-                    <p><%- shelf_data[i]%></p>
-                  <% } %>
-                <% } %> -->
-
-                <div>
-                  <span>A 선반 : 2 / 10</span>
-                  <div class="progress">
-                    <div
-                      class="progress-bar"
-                      id="bg_black"
-                      role="progressbar"
-                      aria-label="Basic example"
-                      style="width: 25%"
-                      aria-valuenow="25"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                    ></div>
-                  </div>
-                </div>
-
+                    <% } %>
+                    <% } else{%>
+                      <% for(var i = 0; i<4; i++){%>
+                        <p><%- shelf_data[i]%></p>
+                        <% } %>
+                        <% } %> -->
+                        
+                        <div>
+                          <span>A 선반 : 2 / 10</span>
+                          <div class="progress">
+                            <div
+                            class="progress-bar"
+                            id="bg_black"
+                            role="progressbar"
+                            aria-label="Basic example"
+                            style="width: 25%"
+                            aria-valuenow="25"
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                            ></div>
+                          </div>
+                        </div>
+                        
                 <div>
                   <span>B 선반 : 5 / 10</span>
                   <div class="progress">
                     <div
-                      class="progress-bar"
-                      id="bg_black"
-                      role="progressbar"
-                      aria-label="Basic example"
-                      style="width: 50%"
-                      aria-valuenow="25"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
+                    class="progress-bar"
+                    id="bg_black"
+                    role="progressbar"
+                    aria-label="Basic example"
+                    style="width: 50%"
+                    aria-valuenow="25"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
                     ></div>
                   </div>
                 </div>
-
+                
                 <div>
                   <span>C 선반 : 5 / 10</span>
                   <div class="progress">
                     <div
-                      class="progress-bar"
-                      id="bg_black"
-                      role="progressbar"
-                      aria-label="Basic example"
-                      style="width: 50%"
-                      aria-valuenow="25"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
+                    class="progress-bar"
+                    id="bg_black"
+                    role="progressbar"
+                    aria-label="Basic example"
+                    style="width: 50%"
+                    aria-valuenow="25"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
                     ></div>
                   </div>
                 </div>
-
+                
                 <div>
                   <span>D 선반 : 10 / 10</span>
                   <div class="progress">
                     <div
-                      class="progress-bar"
-                      id="bg_black"
-                      role="progressbar"
-                      aria-label="Basic example"
-                      style="width: 100%"
-                      aria-valuenow="25"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
+                    class="progress-bar"
+                    id="bg_black"
+                    role="progressbar"
+                    aria-label="Basic example"
+                    style="width: 100%"
+                    aria-valuenow="25"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
                     ></div>
                   </div>
                 </div>
@@ -414,29 +415,29 @@
               <div id="second_option" class="none_view">
                 <div>
                   창고 온도
-
+                  
                   <div class="progress" id="temp_bar">
                     <div
-                      class="progress-bar"
-                      id="bg_red"
-                      role="progressbar"
-                      aria-label="Basic example"
-                      style="width: 50%"
-                      aria-valuenow="25"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
+                    class="progress-bar"
+                    id="bg_red"
+                    role="progressbar"
+                    aria-label="Basic example"
+                    style="width: 50%"
+                    aria-valuenow="25"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
                     ></div>
                   </div>
                   <div class="temp_text_div">
                     <span id="min_temp">-5°C</span><span id="now_temp">now : 0°C </span><span id="max_temp">5°C</span>
                   </div>
                 </div>
-
+                
                 <div>
                   창고 습도
                   <div class="progress" id="humid_bar">
                     <div
-                      class="progress-bar"
+                    class="progress-bar"
                       id="bg_green"
                       role="progressbar"
                       aria-label="Basic example"
@@ -444,27 +445,29 @@
                       aria-valuenow="25"
                       aria-valuemin="0"
                       aria-valuemax="100"
-                    ></div>
+                      ></div>
+                    </div>
+                    <div class="temp_text_div">
+                      <span id="min_humid">0%</span><span id="now_humid">now : 5% </span><span id="max_humid">20%</span>
+                    </div>
                   </div>
-                  <div class="temp_text_div">
-                    <span id="min_humid">0%</span><span id="now_humid">now : 5% </span><span id="max_humid">20%</span>
+                </div>
+                <div id="third_option" class="none_view">
+                  신석 식품 냉장 창고 입니다
+                </div>
+                <div class="choice_option_div">
+                  <span onclick="optionOne()">선반 정보</span
+                    ><span onclick="optionTwo()">온 / 습도</span
+                      ><span onclick="optionThree()">창고 정보</span>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div id="third_option" class="none_view">
-                신석 식품 냉장 창고 입니다
-              </div>
-              <div class="choice_option_div">
-                <span onclick="optionOne()">선반 정보</span
-                ><span onclick="optionTwo()">온 / 습도</span
-                ><span onclick="optionThree()">창고 정보</span>
-              </div>
             </div>
           </div>
+          
+          <!-- <h1 id="test" >테스트</h1> -->
         </div>
-      </div>
-    </div>
-
-    <!-- <h1 id="test" >테스트</h1> -->
-  </body>
-</html>
+        </body>
+        </html>
+        
