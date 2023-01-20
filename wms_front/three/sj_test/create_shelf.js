@@ -142,12 +142,12 @@ class App{
     _bringShelf(item){
         const shelf_group = new THREE.Group();
         // 기본 바 설정
-        const BarGeometry = new THREE.CylinderGeometry(0.03,0.03,item.width*item.floor-1+0.2)
+        const BarGeometry = new THREE.CylinderGeometry(0.03,0.03,item.floor-1+0.2)
         const BarMaterial = new THREE.MeshPhongMaterial({
             color : 0xffffff, emissive : 0x112244, flatShading:true
         })
         // 기본 판 설정
-        const FloorGeometry = new THREE.BoxGeometry(item.width, 0.05,item.width*item.length)
+        const FloorGeometry = new THREE.BoxGeometry(item.width, 0.05,item.length)
         const FloorMaterial = new THREE.MeshPhongMaterial({
             color : 0xffffff, emissive : 0x112244, flatShading:true
         })
@@ -165,8 +165,8 @@ class App{
                 x=-1;
             }
             BarMesh.position.x = item.width/2*x;
-            BarMesh.position.y = item.width/2*(item.floor-2)+(0.6);
-            BarMesh.position.z = item.width/2*z*item.length;
+            BarMesh.position.y = 1/2*(item.floor-2)+(0.6);
+            BarMesh.position.z = 1/2*z*item.length;
             shelf_group.add(BarMesh)
         }
         for(let i=0;i<item.floor;i++){
