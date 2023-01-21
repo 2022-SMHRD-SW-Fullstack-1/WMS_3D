@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <% for(var i =0; i<shelf_data.length; i++){%>
+        <div style="display: none">
+            <span class = "wh_width"><%- shelf_data[i].wh_width %></span>
+            <span class = "wh_length"><%- shelf_data[i].wh_length %></span>
+            <span class = "wh_min_temp"><%- shelf_data[i].wh_min_temp %></span>
+            <span class = "wh_max_temp"><%- shelf_data[i].wh_max_temp %></span>
+            <span class = "wh_min_humid"><%- shelf_data[i].wh_min_humid %></span>
+            <span class = "wh_max_humid"><%- shelf_data[i].wh_max_humid %></span>
+            <span class = "shelf_num"><%- shelf_data[i].shelf_num %></span>
+            <span class = "shelf_name"><%- shelf_data[i].shelf_name %></span>
+            <span class = "shelf_x"><%- shelf_data[i].shelf_x %></span>
+            <span class = "shelf_z"><%- shelf_data[i].shelf_z %></span>
+            <span class = "shelf_width"><%- shelf_data[i].shelf_width %></span>
+            <span class = "shelf_length"><%- shelf_data[i].shelf_length %></span>
+            <span class = "shelf_floor"><%- shelf_data[i].shelf_floor %></span>
+            <span class = "shelf_rotation"><%- shelf_data[i].shelf_rotation_yn %></span>
+        </div>
+    <%}%>
+
+    <% for(var i=0; i<stock_data.length; i++){%>
+        <div style="display: none">
+            <span class = "st_shelf_num"><%- stock_data[i].shelf_num %></span>
+            <span class = "st_shelf_name"><%- stock_data[i].shelf_name %></span>
+            <span class = "st_shelf_x"><%- stock_data[i].shelf_x %></span>
+            <span class = "st_shelf_z"><%- stock_data[i].shelf_z %></span>
+            <span class = "st_shelf_rotation"><%- stock_data[i].shelf_rotation_yn %></span>
+            <span class = "stock_num"><%- stock_data[i].stock_num %></span>
+            <span class = "stock_name"><%- stock_data[i].stock_name %></span>
+            <span class = "stock_info"><%- stock_data[i].stock_info %></span>
+            <span class = "input_date"><%- stock_data[i].input_date %></span>
+            <span class = "stock_floor"><%- stock_data[i].stock_floor %></span>
+            <span class = "stock_position"><%- stock_data[i].stock_position %></span>
+            <span class = "exp_dt"><%- stock_data[i].exp_dt %></span>
+        </div>
+    <%}%>
+
+        <script>
+
+            let wh_width_arr = []
+            let wh_length_arr = []
+            let wh_min_temp_arr = []
+            let wh_max_temp_arr = []
+            let wh_min_humid_arr = []
+            let wh_max_humid_arr = []
+            let shelf_num_arr = []
+            let shelf_name_arr = []
+            let shelf_x_arr = []
+            let shelf_z_arr = []
+            let shelf_width_arr = []
+            let shelf_length_arr = []
+            let shelf_floor_arr = []
+            let shelf_rotation_arr = []
+            let st_shelf_num_arr = []
+            let st_shelf_name_arr = []
+            let st_shelf_x_arr = []
+            let st_shelf_z_arr = []
+            let st_shelf_rotation_arr = []
+            let stock_num_arr = []
+            let stock_name_arr = []
+            let stock_info_arr = []
+            let input_date_arr = []
+            let stock_floor_arr = []
+            let stock_position_arr = []
+            let exp_dt_arr = []
+
+            let wh_width = document.querySelectorAll(".wh_width")
+            let wh_length = document.querySelectorAll(".wh_length")
+            let wh_min_temp = document.querySelectorAll(".wh_min_temp")
+            let wh_max_temp = document.querySelectorAll(".wh_max_temp")
+            let wh_min_humid =document.querySelectorAll(".wh_min_humid")
+            let wh_max_humid = document.querySelectorAll(".wh_max_humid")
+            let shelf_num = document.querySelectorAll(".shelf_num")
+            let shelf_name =document.querySelectorAll(".shelf_name")
+            let shelf_x = document.querySelectorAll(".shelf_x")
+            let shelf_z = document.querySelectorAll(".shelf_z")
+            let shelf_width = document.querySelectorAll(".shelf_width")
+            let shelf_length = document.querySelectorAll(".shelf_length")
+            let shelf_floor = document.querySelectorAll(".shelf_floor")
+            let shelf_rotation = document.querySelectorAll(".shelf_rotation")
+            let st_shelf_num = document.querySelectorAll(".st_shelf_num")
+            let st_shelf_name = document.querySelectorAll(".st_shelf_name")
+            let st_shelf_x = document.querySelectorAll(".st_shelf_x")
+            let st_shelf_z = document.querySelectorAll(".st_shelf_z")
+            let st_shelf_rotation = document.querySelectorAll(".st_shelf_rotation")
+            let stock_num = document.querySelectorAll(".stock_num")
+            let stock_name = document.querySelectorAll(".stock_name")
+            let stock_info = document.querySelectorAll(".stock_info")
+            let input_date = document.querySelectorAll(".input_date")
+            let stock_floor = document.querySelectorAll(".stock_floor")
+            let stock_position = document.querySelectorAll(".stock_position")
+            let exp_dt = document.querySelectorAll(".exp_dt")
+
+            wh_width.forEach((item)=>{
+                wh_width_arr.push(Number(item.innerText))
+            })
+            wh_length.forEach((item)=>{
+                wh_length_arr.push(Number(item.innerText))
+            })
+            wh_min_temp.forEach((item)=>{
+                wh_min_temp_arr.push(Number(item.innerText))
+            })
+            wh_max_temp.forEach((item)=>{
+                wh_max_temp_arr.push(Number(item.innerText))
+            })
+            wh_min_humid.forEach((item)=>{
+                wh_min_humid_arr.push(Number(item.innerText))
+            })
+            wh_max_humid.forEach((item)=>{
+                wh_max_humid_arr.push(Number(item.innerText))
+            })
+            shelf_num.forEach((item)=>{
+                shelf_num_arr.push(Number(item.innerText))
+            })
+            shelf_name.forEach((item)=>{
+                shelf_name_arr.push(item.innerText)
+            })
+            shelf_x.forEach((item)=>{
+                shelf_x_arr.push(Number(item.innerText))
+            })
+            shelf_z.forEach((item)=>{
+                shelf_z_arr.push(Number(item.innerText))
+            })
+            shelf_width.forEach((item)=>{
+                shelf_width_arr.push(Number(item.innerText))
+            })
+            shelf_length.forEach((item)=>{
+                shelf_length_arr.push(Number(item.innerText))
+            })
+            shelf_floor.forEach((item)=>{
+                shelf_floor_arr.push(Number(item.innerText))
+            })
+            shelf_rotation.forEach((item)=>{
+                shelf_rotation_arr.push(item.innerText)
+            })
+            st_shelf_num.forEach((item)=>{
+                st_shelf_num_arr.push(Number(item.innerText))
+            })
+            st_shelf_name.forEach((item)=>{
+                st_shelf_name_arr.push(item.innerText)
+            })
+            st_shelf_x.forEach((item)=>{
+                st_shelf_x_arr.push(Number(item.innerText))
+            })
+            st_shelf_z.forEach((item)=>{
+                st_shelf_z_arr.push(Number(item.innerText))
+            })
+            st_shelf_rotation.forEach((item)=>{
+                st_shelf_rotation_arr.push(item.innerText)
+            })
+            stock_num.forEach((item)=>{
+                stock_num_arr.push(Number(item.innerText))
+            })
+            stock_name.forEach((item)=>{
+                stock_name_arr.push(item.innerText)
+            })
+            stock_info.forEach((item)=>{
+                stock_info_arr.push(item.innerText)
+            })
+            input_date.forEach((item)=>{
+                input_date_arr.push(item.innerText)
+            })
+            stock_floor.forEach((item)=>{
+                stock_floor_arr.push(Number(item.innerText))
+            })
+            stock_position.forEach((item)=>{
+                stock_position_arr.push(Number(item.innerText))
+            })
+            exp_dt.forEach((item)=>{
+                exp_dt_arr.push(item.innerText)
+            })
+
+
+            localStorage.setItem("wh_width",wh_width_arr)
+            localStorage.setItem("wh_length",wh_length_arr)
+            localStorage.setItem("wh_min_temp",wh_min_temp_arr)
+            localStorage.setItem("wh_max_temp",wh_max_temp_arr)
+            localStorage.setItem("wh_min_humid",wh_min_humid_arr)
+            localStorage.setItem("wh_max_humid",wh_max_humid_arr)
+            localStorage.setItem("shelf_num",shelf_num_arr)
+            localStorage.setItem("shelf_name",shelf_name_arr)
+            localStorage.setItem("shelf_x",shelf_x_arr)
+            localStorage.setItem("shelf_z",shelf_z_arr)
+            localStorage.setItem("shelf_width",shelf_width_arr)
+            localStorage.setItem("shelf_length",shelf_length_arr)
+            localStorage.setItem("shelf_floor",shelf_floor_arr)
+            localStorage.setItem("shelf_rotation",shelf_rotation_arr)
+            localStorage.setItem("st_shelf_num",st_shelf_num_arr)
+            localStorage.setItem("st_shelf_name",st_shelf_name_arr)
+            localStorage.setItem("st_shelf_x",st_shelf_x_arr)
+            localStorage.setItem("st_shelf_z",st_shelf_z_arr)
+            localStorage.setItem("st_shelf_rotation",st_shelf_rotation_arr)
+            localStorage.setItem("stock_num",stock_num_arr)
+            localStorage.setItem("stock_name",stock_name_arr)
+            localStorage.setItem("stock_info",stock_info_arr)
+            localStorage.setItem("input_date",input_date_arr)
+            localStorage.setItem("stock_floor",stock_floor_arr)
+            localStorage.setItem("stock_position",stock_position_arr)
+            localStorage.setItem("exp_dt",exp_dt_arr)
+
+            location.href ="../../three/sj_test/view_warehouse.html"
+            
+        </script>
+
+</body>
+</html>
