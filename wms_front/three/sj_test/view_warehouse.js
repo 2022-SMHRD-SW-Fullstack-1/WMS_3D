@@ -33,28 +33,28 @@ let exp_dt = localStorage.getItem('exp_dt')
 let wh_width_arr = wh_width.split(",").map(Number)
 let wh_length_arr = wh_length.split(",").map(Number)
 let wh_min_temp_arr = wh_min_temp.split(",").map(Number)
-let wh_max_temp_arr = wh_max_temp.split(",")
+let wh_max_temp_arr = wh_max_temp.split(",").map(Number)
 let wh_min_humid_arr = wh_min_humid.split(",").map(Number)
 let wh_max_humid_arr = wh_max_humid.split(",").map(Number)
 let shelf_num_arr = shelf_num.split(",").map(Number)
-let shelf_name_arr = shelf_name.split(",").map(Number)
+let shelf_name_arr = shelf_name.split(",")
 let shelf_x_arr = shelf_x.split(",").map(Number)
-let shelf_z_arr = shelf_z.split(",")
-let shelf_width_arr = shelf_width.split(",")
-let shelf_length_arr = shelf_length.split(",")
-let shelf_floor_arr = shelf_floor.split(",")
+let shelf_z_arr = shelf_z.split(",").map(Number)
+let shelf_width_arr = shelf_width.split(",").map(Number)
+let shelf_length_arr = shelf_length.split(",").map(Number)
+let shelf_floor_arr = shelf_floor.split(",").map(Number)
 let shelf_rotation_arr = shelf_rotation.split(",")
-let st_shelf_num_arr = st_shelf_num.split(",")
+let st_shelf_num_arr = st_shelf_num.split(",").map(Number)
 let st_shelf_name_arr = st_shelf_name.split(",")
-let st_shelf_x_arr = st_shelf_x.split(",")
-let st_shelf_z_arr = st_shelf_z.split(",")
+let st_shelf_x_arr = st_shelf_x.split(",").map(Number)
+let st_shelf_z_arr = st_shelf_z.split(",").map(Number)
 let st_shelf_rotation_arr = st_shelf_rotation.split(",")
-let stock_num_arr = stock_num.split(",")
+let stock_num_arr = stock_num.split(",").map(Number)
 let stock_name_arr = stock_name.split(",")
 let stock_info_arr = stock_info.split(",")
 let input_date_arr = input_date.split(",")
-let stock_floor_arr = stock_floor.split(",")
-let stock_position_arr = stock_position.split(",")
+let stock_floor_arr = stock_floor.split(",").map(Number)
+let stock_position_arr = stock_position.split(",").map(Number)
 let exp_dt_arr = exp_dt.split(",")
 
 class App{
@@ -157,6 +157,34 @@ class App{
 
          this._bringShelves();
         //  this._createShelf();
+        this._bringStocks();
+
+    }
+    _bringStocks(){
+        for(let i=0; i<stock_num_arr.length;i++){
+            this._bringStock({shelf_name : st_shelf_name_arr[i], shelf_x : st_shelf_x_arr[i],shelf_z:st_shelf_z_arr[i],shelf_rotation : st_shelf_rotation_arr[i],stock_num:stock_num_arr[i],stock_name:stock_name_arr[i],stock_info:stock_info_arr[i],stock_floor:stock_floor_arr[i],stock_position: stock_position_arr[i],input_date:input_date_arr[i],exp_dt:exp_dt_arr[i]});
+        }
+    }
+    _bringStock(i){
+
+        let stock_x = 0;
+        let stock_z = 0;
+
+        if(i.shelf_rotation=="y"){
+            stock_x = i.shelf_x + i.stock_position
+            stock_z = i.shelf_z
+        }else{
+            stock_x = i.shelf_x
+            stock_z = i.shelf_z + i.stock_position
+        }
+
+        const StockGeometry = new THREE.BoxGeometry(0.8,0.8,0.8)
+        const StockMaterial = new THREE.MeshPhongMaterial({
+            color : 0xffffff, emissive: 0x112244, flatShading:true
+        })
+        const StockMesh = new THREE.Mesh(StockGeometry, StockMaterial)
+        StockMesh.position.set(stock_x,i.stock_floor-0.5,stock_z)
+        this._scene.add(StockMesh)
 
     }
 
