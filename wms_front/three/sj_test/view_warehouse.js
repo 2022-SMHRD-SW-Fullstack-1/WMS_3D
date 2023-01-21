@@ -156,7 +156,7 @@ class App{
         
 
          this._bringShelves();
-        //  this._createShelf();
+         this._createShelf();
         this._bringStocks();
 
     }
@@ -228,173 +228,179 @@ class App{
             // 판 생성
             const FloorMesh = new THREE.Mesh(FloorGeometry,FloorMaterial)
             FloorMesh.position.y = (i*1)+0.1;
+            FloorMesh.name = "shelf_ground"
             shelf_group.add(FloorMesh);
         }
         if(item.rotation == "y"){
             shelf_group.rotation.y = -Math.PI/2;
         }
         shelf_group.position.set(item.x,0,item.z)
-        shelf_group.name = item.name;
+        shelf_group.name = item.name
         this._shelf = shelf_group;
         this._scene.add(shelf_group)
     }   
 
-    // _createShelf(){
+    _createShelf(){
   
 
-    //     let rotation  = true;
-    //     let send_rotation = "n"
+        let rotation  = true;
+        let send_rotation = "n"
 
-    //      //=====================================================================
-    //     // 하이라이트 모양과 위치 잡기 
+         //=====================================================================
+        // 하이라이트 모양과 위치 잡기 
 
-    //     const highlightMesh = new THREE.Mesh(
-    //         new THREE.PlaneGeometry(shelf_width,shelf_length),
-    //         new THREE.MeshBasicMaterial({
-    //             side : THREE.DoubleSide
-    //         })
-    //     )
-    //     highlightMesh.position.set(0.5,0,0.5)
-    //     highlightMesh.rotation.x = -Math.PI/2;
+        const highlightMesh = new THREE.Mesh(
+            new THREE.PlaneGeometry(1,1),
+            new THREE.MeshBasicMaterial({
+                side : THREE.DoubleSide
+            })
+        )
+        highlightMesh.position.set(0.5,0,0.5)
+        highlightMesh.rotation.x = -Math.PI/2;
 
 
         
         
-    //     const mousePosition = new THREE.Vector2();
-    //     const raycaster = new THREE.Raycaster();
+        const mousePosition = new THREE.Vector2();
+        const raycaster = new THREE.Raycaster();
 
-    //     let hover_camera = this._camera;
-    //     let hover_scene = this._scene;
+        let hover_camera = this._camera;
+        let hover_scene = this._scene;
 
-    //     let intersects;
-    //     window.addEventListener('mousemove',function(e){
-    //         mousePosition.x = (e.clientX / window.innerWidth)*2-1;
-    //         mousePosition.y = -(e.clientY / window.innerHeight)*2+1;
-    //         raycaster.setFromCamera(mousePosition, hover_camera);
-    //         intersects = raycaster.intersectObjects(hover_scene.children)
-    //         intersects.forEach(function(intersect){
-    //             if(intersect.object.name === 'ground'){
-    //                 const highlightPos = new THREE.Vector3().copy(intersect.point).floor().addScalar(0.5);
-    //                 highlightMesh.position.set(highlightPos.x,0,highlightPos.z)
-                
-                
-    //                 const objectExist = objects.find(function(object){
-    //                     return(object.position.x === highlightMesh.position.x)
-    //                     && (object.position.z === highlightMesh.position.z)
-    //                 })
-    //                 if(!objectExist){
-    //                     highlightMesh.material.color.setHex(0xFFFFFF)
-    //                 }else{
-    //                     highlightMesh.material.color.setHex(0xFF0000)
-    //                 }
-                
-    //             }
-    //         })
-    //     })
+        let intersects;
+        window.addEventListener('mousemove',function(e){
+            mousePosition.x = (e.clientX / window.innerWidth)*2-1;
+            mousePosition.y = -(e.clientY / window.innerHeight)*2+1;
+            raycaster.setFromCamera(mousePosition, hover_camera);
+            intersects = raycaster.intersectObjects(hover_scene.children)
+            if(intersects.length >0){
+                let i=0;
+                intersects.forEach(function(intersect){
+                    if(intersect.object.name==='shelf_ground'){
+                        if(i==0){
+                            const highlightPos = new THREE.Vector3().copy(intersect.point).floor().addScalar(0.5);
+                            const highlightY = new THREE.Vector3().copy(intersect.point).floor();
+                            highlightMesh.position.set(highlightPos.x,highlightY.y+0.15,highlightPos.z)
+                            
+                            const objectExist = objects.find(function(object){
+                                return(object.position.x === highlightMesh.position.x)
+                                && (object.position.z === highlightMesh.position.z)
+                                && (object.position.y === highlightMesh.position.y)
+                            })
+                            if(!objectExist){
+                                highlightMesh.material.color.setHex(0xFFFFFF)
+                            }else{
+                                highlightMesh.material.color.setHex(0xFF0000)
+                            }
+                            i++;
+                        }
 
-        
-    //     //=====================================================================
-        
-        
-    //     //------------------------
-    //     // 클릭한 곳에 선반 생성
-    //     const objects = [];
-
-    //     // 선반들의 정보를 담는 배열
-
-
-    //     const group2 = new THREE.Group();
-    //     // 기본 바 생성
-    //     const shelfBarGeometry = new THREE.CylinderGeometry(0.03,0.03,shelf_floor-1+0.2)
-    //     const shelfBarMaterial = new THREE.MeshPhongMaterial({
-    //         color : 0xffffff, emissive : 0x112244, flatShading:true
-    //     })
-    //     // 기본 판 생성
-    //     const shelfFloorGeometry = new THREE.BoxGeometry(shelf_width,0.05,shelf_length)
-    //     const shelfFloorMaterial = new THREE.MeshPhongMaterial({
-    //         color : 0xffffff, emissive : 0x112244, flatShading:true
-    //     })
-
-    //     for(let i=0;i<4;i++){
-    //         // 바생성
-    //         const shelfBarMesh =new THREE.Mesh(shelfBarGeometry,shelfBarMaterial);
-    //         let x = 1;
-    //         let z = 1;
-    //         if(i==1){
-    //             z=-1;
-    //         }else if(i==2){
-    //             x=-1;
-    //             z=-1;
-    //         }else if(i==3){
-    //             x=-1;
-    //         }
-    //         shelfBarMesh.position.x = shelf_width/2*x;
-    //         shelfBarMesh.position.y = 1/2*(shelf_floor-2)+(0.6);
-    //         shelfBarMesh.position.z = 1/2*z*shelf_length;
-    //         group2.add(shelfBarMesh);
-    //     }
-    //     for(let i=0;i<shelf_floor;i++){
-    //         // 판 생성
-    //         const shelfFloorMesh = new THREE.Mesh(shelfFloorGeometry,shelfFloorMaterial)
-    //         shelfFloorMesh.position.y = (i*1)+0.1;
-    //         group2.add(shelfFloorMesh);
-    //     }
-
-    //     // 선반 버튼 회전 기능
-    //     window.addEventListener('contextmenu',function(){
-    //         if(rotation==true){
-    //             rotation = false
-    //             send_rotation = "y"
-    //             highlightMesh.rotation.z = -Math.PI/2;
-    //             group2.rotation.y =-Math.PI/2;
-
-    //         }else{
-    //             rotation =true
-    //             send_rotation = "n"
-    //             highlightMesh.rotation.z = 0
-    //             group2.rotation.y =0
-
-    //         }
-    //     })
-
-
-    //     // 마우스 호버 이벤트 넣기
-    //     this._scene.add(highlightMesh)
+                    }
+                })
+            }    
+        })
 
         
-    //     window.addEventListener('dblclick',function(){
-    //         const objectExist = objects.find(function(object){
-    //             return(object.position.x === highlightMesh.position.x)
-    //             && (object.position.z === highlightMesh.position.z)
-    //         })
+        //=====================================================================
+        
+        
+        //------------------------
+        // 클릭한 곳에 선반 생성
+        const objects = [];
+
+        // 선반들의 정보를 담는 배열
+
+
+        const group2 = new THREE.Group();
+        // 기본 바 생성
+        const shelfBarGeometry = new THREE.CylinderGeometry(0.03,0.03,shelf_floor-1+0.2)
+        const shelfBarMaterial = new THREE.MeshPhongMaterial({
+            color : 0xffffff, emissive : 0x112244, flatShading:true
+        })
+        // 기본 판 생성
+        const shelfFloorGeometry = new THREE.BoxGeometry(shelf_width,0.05,shelf_length)
+        const shelfFloorMaterial = new THREE.MeshPhongMaterial({
+            color : 0xffffff, emissive : 0x112244, flatShading:true
+        })
+
+        for(let i=0;i<4;i++){
+            // 바생성
+            const shelfBarMesh =new THREE.Mesh(shelfBarGeometry,shelfBarMaterial);
+            let x = 1;
+            let z = 1;
+            if(i==1){
+                z=-1;
+            }else if(i==2){
+                x=-1;
+                z=-1;
+            }else if(i==3){
+                x=-1;
+            }
+            shelfBarMesh.position.x = shelf_width/2*x;
+            shelfBarMesh.position.y = 1/2*(shelf_floor-2)+(0.6);
+            shelfBarMesh.position.z = 1/2*z*shelf_length;
+            group2.add(shelfBarMesh);
+        }
+        for(let i=0;i<shelf_floor;i++){
+            // 판 생성
+            const shelfFloorMesh = new THREE.Mesh(shelfFloorGeometry,shelfFloorMaterial)
+            shelfFloorMesh.position.y = (i*1)+0.1;
+            group2.add(shelfFloorMesh);
+        }
+
+        // 선반 버튼 회전 기능
+        window.addEventListener('contextmenu',function(){
+            if(rotation==true){
+                rotation = false
+                send_rotation = "y"
+                highlightMesh.rotation.z = -Math.PI/2;
+                group2.rotation.y =-Math.PI/2;
+
+            }else{
+                rotation =true
+                send_rotation = "n"
+                highlightMesh.rotation.z = 0
+                group2.rotation.y =0
+
+            }
+        })
+
+
+        // 마우스 호버 이벤트 넣기
+        this._scene.add(highlightMesh)
+
+        
+        window.addEventListener('dblclick',function(){
+            const objectExist = objects.find(function(object){
+                return(object.position.x === highlightMesh.position.x)
+                && (object.position.z === highlightMesh.position.z)
+            })
             
-    //         if(!objectExist){
-    //             intersects.forEach(function(intersect){
-    //                 if(intersect.object.name === 'ground'){
-    //                     const shelfClone = group2.clone();
-    //                     shelfClone.position.copy(highlightMesh.position);
-    //                     // console.log(highlightMesh.position)
-    //                     hover_scene.add(shelfClone);
-    //                     objects.push(shelfClone)
+            if(!objectExist){
+                intersects.forEach(function(intersect){
+                    if(intersect.object.name === 'shelf_ground'){
+                        // const shelfClone = group2.clone();
+                        // shelfClone.position.copy(highlightMesh.position);
+                        // console.log(highlightMesh.position)
+                        // hover_scene.add(shelfClone);
+                        // objects.push(shelfClone)
+                        console.log(highlightMesh.position)
+                        // group2.name = prompt("선반의 이름을 정해주세요");
 
-    //                     group2.name = prompt("선반의 이름을 정해주세요");
-
-    //                     shelf_info.push({num:wh_name_arr[0],x:shelfClone.position.x,y:shelfClone.position.y,z:shelfClone.position.z,rotation:send_rotation,width:shelf_width,
-    //                         length:shelf_length,floor:shelf_floor,name:group2.name})
+                        // shelf_info.push({num:wh_name_arr[0],x:shelfClone.position.x,y:shelfClone.position.y,z:shelfClone.position.z,rotation:send_rotation,width:shelf_width,
+                        //     length:shelf_length,floor:shelf_floor,name:group2.name})
                             
                             
-    //                 }
-    //             })
-    //         }
-    //         // console.log(hover_scene.children)
+                    }
+                })
+            }
 
-    //         console.log(shelf_info)
-    //     })
+        })
 
-    //     //------------------------
+        //------------------------
 
 
-    // }
+    }
 
 
 
