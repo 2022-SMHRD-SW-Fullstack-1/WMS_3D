@@ -17,7 +17,25 @@ body{
     height: 100%;
 }
 
+/* 모달 창 디자인 */
+#modal-container{
+    width: 200px;
+    height: 400px;
+    position: fixed;
+    top:100px;
+    left: 300px;
+    padding: 100px;
+    background-color: white;
+}
+#modal-container div{
+    display: flex;
+    justify-content: space-between;
+}
+.none_view{
+    display: none;
+}
 
+/* 모달 창 디자인 */
 
 
 /* 상단 바 전체  */
@@ -40,7 +58,7 @@ body{
     text-align: center;
     
 }
-#btn_create{
+#move{
     margin: 10px;
     padding: 0;
     width: 100px;
@@ -56,5 +74,13 @@ body{
     font-weight: 600;
     font-size: 20px;
     transition: 0.25s;
+}
+#move:hover{
+    cursor: pointer;
+}
+.btn_on{
+    background-color: rgb(24, 0, 96);
+    color: white;
+
 }
 /* 상단 바 전체  */
