@@ -76,6 +76,7 @@ class App{
         this._setupLight();
         this._setupModel();
         this._setupControls();
+        this._setupEvents();
 
         window.onresize = this.resize.bind(this);
         this.resize();
@@ -84,6 +85,121 @@ class App{
     }
      _setupControls(){
         new OrbitControls(this._camera, this._divContainer);
+    }
+
+    _setupEvents(){
+        this._raycaster = new THREE.Raycaster();
+        // _clickedPosition : 마우스로 클릭된 scene의 좌표를 참조
+        this._raycaster._clickedPosition = new THREE.Vector2();
+        // 클릭해서 선택된 매쉬 객체에 대한 참조
+        this._raycaster._selectedMesh = null;
+
+        // 마우스 클릭 이벤트
+        window.addEventListener("dblclick",(event)=>{
+            this._raycaster._clickedPosition.x = (event.clientX / window.innerWidth)*2-1;
+            this._raycaster._clickedPosition.y = -(event.clientY / window.innerHeight)*2+1;
+            this._raycaster.setFromCamera(this._raycaster._clickedPosition, this._camera);
+            
+            // 실제 클릭된 mesh를 얻는 코드
+            const found = this._raycaster.intersectObjects(this._scene.children);
+            if(found.length > 0){
+                
+                const clickedObj = found[0].object;
+
+                let oldY = this._raycaster._clickedPosition.y;
+
+                // 클릭한 재고 정보 띄우는 장치
+                if(clickedObj.geometry.type=="BoxGeometry"){
+                    // 해당 재고가 있는 선반의 위치 (.x .y .z로 구체적으로 알 수 있음)
+                    // console.log(clickedObj.parent.position);
+                    // 해당 선반에서 재고의 위치
+                    console.log(clickedObj.position);
+                    // 위의 두 값을 더할 때는 선반의 회전 여부도 알아둬야 할 듯
+                    console.log(clickedObj.name);
+                    // clickedObj.parent
+                    // clickedObj.material.color.set(0xffff00);
+
+                    oldY = clickedObj.position.y;
+                }
+                
+
+
+                // // 재고 이동 on off
+                // if(move_yn == true){
+                    if(clickedObj.geometry.type=="BoxGeometry" && clickedObj.name!="shelf_ground"){
+                        console.log(clickedObj);
+                        // 빈자리가 아닌 재고가 있는 자리를 선택했을 때
+
+                        //  이전에 클릭한 mesh를 저장한 변수
+                        const oldSelectedMesh = this._raycaster._selectedMesh;
+                        // 새로운 mesh를 담을 변수
+                        this._raycaster._selectedMesh = clickedObj;
+
+                        if(oldSelectedMesh !== this._raycaster._selectedMesh){
+                            // 현재 선택된 재고에 선 추가
+                            gsap.to(this._raycaster._selectedMesh.position,{y:7,duration:1})
+                            // 동시에 선택된 재고를 제자리에서 회전
+                            // gsap.to(this._raycaster._selectedMesh.rotation,{y:Math.PI*2,duration:1})
+                        }else{
+                            this._raycaster._selectedMesh = null;
+                        }
+                        if(oldSelectedMesh){
+                            // 이전에 선택된 재고가 있다면
+                            // 이전에 선택된 재고를 원래상태로 변경
+                            
+                            gsap.to(oldSelectedMesh.position,{y:oldY,duration:1});
+                            
+                        }
+                    }else {
+                        // 빈자리를 선택했을 때
+                        if(this._raycaster._selectedMesh){
+                            let i = 0
+                            while(found[i].object.name !="shelf_ground"){
+                                i++
+                            }
+                            console.log(found)
+                            console.log(found[i].point);
+                            // 선택된 재고를 클릭된 위치로 수평이동한 뒤 해당방향으로 수직이동
+                            console.log(found[i])
+                            const timeline = gsap.timeline();
+                            timeline.to(this._raycaster._selectedMesh.position,{
+                                x: Math.floor(found[i].point.x)+0.5,
+                                z: Math.floor(found[i].point.z)+0.5,
+                                duration:1,
+                            })
+                            timeline.to(this._raycaster._selectedMesh.position,{
+                                y: found[i].point.y+0.4,
+                                duration:1,
+                            })
+                            
+                            // 동시에 회전
+                            gsap.to(this._raycaster._selectedMesh.rotation,{y:-Math.PI*2,duration:1});
+                            this._raycaster._selectedMesh = null;
+                        }
+                    }
+
+                // }
+            }else{
+                // 아무것도 클릭되지 않았을 경우
+                this._raycaster._selectedMesh = null;
+            }
+        
+        
+                
+        }
+    )
+    
+
+        // 반응형 웹
+        window.onresize = this.resize.bind(this);
+        this.resize();
+
+        this._clock = new THREE.Clock();
+        requestAnimationFrame(this.render.bind(this));
+
+
+
+
     }
 
     _setupCamera(){
@@ -186,7 +302,7 @@ class App{
         })
         const StockMesh = new THREE.Mesh(StockGeometry, StockMaterial)
         StockMesh.position.set(stock_x,i.stock_floor-0.5,stock_z)
-
+        StockMesh.name = {shelf_name:i.shelf_name,shelf_x:i.shelf_x,shelf_z:i.shelf_z,shelf_rotation:i.shelf_rotation,stock_num:i.stock_num,stock_name:i.stock_name,stock_info:i.stock_info,stock_position:i.stock_position,stock_floor:i.stock_floor,input_date:i.input_date,exp_dt:i.exp_dt}
         this._object_arr.push(StockMesh)
         this._scene.add(StockMesh)
 
