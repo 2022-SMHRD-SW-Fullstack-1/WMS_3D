@@ -66,6 +66,8 @@ class App{
         divContainer.appendChild(renderer.domElement);
         this._renderer = renderer;
 
+        const object_arr = [];
+        this._object_arr = object_arr;
 
         const scene = new THREE.Scene();
         this._scene = scene;
@@ -184,6 +186,8 @@ class App{
         })
         const StockMesh = new THREE.Mesh(StockGeometry, StockMaterial)
         StockMesh.position.set(stock_x,i.stock_floor-0.5,stock_z)
+
+        this._object_arr.push(StockMesh)
         this._scene.add(StockMesh)
 
     }
@@ -259,14 +263,15 @@ class App{
         highlightMesh.rotation.x = -Math.PI/2;
 
 
-        
+        console.log(this._object_arr)
         
         const mousePosition = new THREE.Vector2();
         const raycaster = new THREE.Raycaster();
 
         let hover_camera = this._camera;
         let hover_scene = this._scene;
-
+        
+        
         let intersects;
         window.addEventListener('mousemove',function(e){
             mousePosition.x = (e.clientX / window.innerWidth)*2-1;
@@ -285,13 +290,14 @@ class App{
                             const objectExist = objects.find(function(object){
                                 return(object.position.x === highlightMesh.position.x)
                                 && (object.position.z === highlightMesh.position.z)
-                                && (object.position.y === highlightMesh.position.y)
+                                && (object.position.y-0.35 === highlightMesh.position.y)
                             })
                             if(!objectExist){
                                 highlightMesh.material.color.setHex(0xFFFFFF)
                             }else{
                                 highlightMesh.material.color.setHex(0xFF0000)
                             }
+                            
                             i++;
                         }
 
@@ -306,7 +312,7 @@ class App{
         
         //------------------------
         // 클릭한 곳에 선반 생성
-        const objects = [];
+        const objects = this._object_arr;
 
         // 선반들의 정보를 담는 배열
 
