@@ -71,6 +71,8 @@ function goToShelf(e) {
   const num = { num: e };
   let url = "/shelf";
 
+  localStorage.setItem("wh_num_for_create_shelf", e);
+
   let form = document.createElement("form");
   form.setAttribute("method", "post");
   form.setAttribute("action", url);
