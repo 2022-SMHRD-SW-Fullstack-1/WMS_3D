@@ -190,7 +190,12 @@
             <input type="text" />
             <button id="search_btn">검색</button>
           </div>
+          <%if(data.length >0){%>
           <button id="add_warehouse_btn" onclick="goToCreateShelf('<%- data[0].wh_num%>')">+ 선반 추가</button>
+            <%} else{%>
+              <button id="add_warehouse_btn" onclick="goToCreateShelf(localStorage.getItem('wh_num_for_create_shelf'))">+ 선반 추가</button>
+            <%}%>
+
         </div>
         
         <div class="graph_top_div">
@@ -206,7 +211,7 @@
                   </tr>
                 </thead>
                 <tbody>
-
+                  
                   <%for(var i = 0; i<data.length; i++){%>
                       <td><input type="checkbox" /></td>
                       <td><%- data[i].shelf_name%></td>
