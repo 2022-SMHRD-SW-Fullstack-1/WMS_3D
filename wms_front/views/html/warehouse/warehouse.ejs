@@ -226,6 +226,7 @@
               <% for(var i = 0; i<10; i++){%>
                     <tr onclick="changeSub(
                       {
+                        num: '<%- data[i].wh_num %>',
                         name:'<%- data[i].wh_name %>', 
                         min_temp : '<%- data[i].wh_min_temp %>',
                         max_temp : '<%- data[i].wh_max_temp %>',
@@ -346,79 +347,25 @@
             <div class="three_option_div">
               <div id="first_option">
                 
-                <!-- <% if (shelf_data.length < 4) {%>
+                
                   <% for(var i = 0; i<shelf_data.length; i++){%>
-                    <p><%- shelf_data[i].shelf_name %></p>
-                    <% } %>
-                    <% } else{%>
-                      <% for(var i = 0; i<4; i++){%>
-                        <p><%- shelf_data[i]%></p>
-                        <% } %>
-                        <% } %> -->
-                        
-                        <div>
-                          <span>A 선반 : 2 / 10</span>
-                          <div class="progress">
-                            <div
-                            class="progress-bar"
-                            id="bg_black"
-                            role="progressbar"
-                            aria-label="Basic example"
-                            style="width: 25%"
-                            aria-valuenow="25"
-                            aria-valuemin="0"
-                            aria-valuemax="100"
-                            ></div>
-                          </div>
-                        </div>
-                        
-                <div>
-                  <span>B 선반 : 5 / 10</span>
-                  <div class="progress">
-                    <div
-                    class="progress-bar"
-                    id="bg_black"
-                    role="progressbar"
-                    aria-label="Basic example"
-                    style="width: 50%"
-                    aria-valuenow="25"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                    ></div>
-                  </div>
-                </div>
-                
-                <div>
-                  <span>C 선반 : 5 / 10</span>
-                  <div class="progress">
-                    <div
-                    class="progress-bar"
-                    id="bg_black"
-                    role="progressbar"
-                    aria-label="Basic example"
-                    style="width: 50%"
-                    aria-valuenow="25"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                    ></div>
-                  </div>
-                </div>
-                
-                <div>
-                  <span>D 선반 : 10 / 10</span>
-                  <div class="progress">
-                    <div
-                    class="progress-bar"
-                    id="bg_black"
-                    role="progressbar"
-                    aria-label="Basic example"
-                    style="width: 100%"
-                    aria-valuenow="25"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                    ></div>
-                  </div>
-                </div>
+                    <div class="progress_wh_num_<%- shelf_data[i].wh_num%> none_view" id="first_option_detail">
+                      <span><%- shelf_data[i].shelf_name %> : <%- shelf_data[i].shelf_used %> / <%- shelf_data[i].shelf_avl %></span>
+                      <div class="progress">
+                        <div
+                        class="progress-bar"
+                        id="bg_black"
+                        role="progressbar"
+                        aria-label="Basic example"
+                        style="width: 0%"
+                        aria-valuenow="0"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                        ></div>
+                      </div>
+                    </div>
+                  <% } %>
+                    
               </div>
               <div id="second_option" class="none_view">
                 <div>

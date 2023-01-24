@@ -109,6 +109,39 @@ function changeSub(e) {
   // console.log(e)
   // console.log(e.shelf_info)
 
+  // 선반 프로그래스 바
+
+  let clicked_warehouse_num = "progress_wh_num_" + e.num;
+
+  let view_shelf_bar = document.querySelectorAll("#first_option_detail");
+  let shelf_bar_num = 0;
+  let progress_length = 0;
+
+  for (let i = 0; i < view_shelf_bar.length; i++) {
+    if (
+      view_shelf_bar[i].className.includes(clicked_warehouse_num) &&
+      shelf_bar_num < 4
+    ) {
+      view_shelf_bar[i].classList.remove("none_view");
+      progress_length = Math.floor(
+        (Number(
+          view_shelf_bar[i].children[0].innerText.split(":")[1].split("/")[0]
+        ) /
+          Number(
+            view_shelf_bar[i].children[0].innerText.split(":")[1].split("/")[1]
+          )) *
+          100
+      );
+      view_shelf_bar[i].children[1].children[0].setAttribute(
+        "style",
+        `width:${progress_length}%`
+      );
+      shelf_bar_num++;
+    } else {
+      view_shelf_bar[i].classList.add("none_view");
+    }
+  }
+
   // 온도 바
   let min_temp = document.querySelector("#min_temp");
   min_temp.innerText = e.min_temp + "°C";
@@ -176,7 +209,7 @@ function changeSub(e) {
       ((Number(e.max_avl) - Number(e.now_avl)) / Number(e.max_avl)) * 100
     );
 
-    let speed = 15;
+    let speed = 10;
 
     let progress = setInterval(() => {
       progressValue++;
