@@ -207,7 +207,22 @@ app.post("/saveShelf",(req,res)=>{
 
 // 선반 생성 기능
 
-  
+app.post("/moveStockInfo",(req,res)=>{
+  async function UpdateStockData(){
+    let conn,rows;
+    let sql ="UPDATE tbl_stock st SET st.shelf_num = ? , st.stock_floor = ?, st.stock_position=? WHERE st.stock_num = ?"
+    conn = await pool.getConnection();
+    conn.query("USE wms");
+    rows=await conn.query(sql,[
+      req.body.shelf_num,
+      req.body.st_floor,
+      req.body.st_position,
+      req.body.st_num,
+    ])
+    conn.end();
+  }
+  UpdateStockData();
+})
 
 // 창고 생성 페이지
 app.post("/three/sj_test/create_warehouse.html", (req, res) => {
