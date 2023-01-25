@@ -84,6 +84,7 @@ class App{
         this._object_arr = object_arr;
 
         const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0.9,0.9,1)
         this._scene = scene;
 
         this._setupCamera();
@@ -241,11 +242,23 @@ class App{
         this._camera = camera;
     }
     _setupLight(){
-        const color = 0xffffff;
-        const intensity = 1;
-        const light = new THREE.DirectionalLight(color,intensity);
-        light.position.set(-1, 2, 4);
-        this._scene.add(light);
+            const color = 0xffffff;
+            const intensity = 0.5;
+            const light = new THREE.DirectionalLight(color,intensity);
+            const light1 = new THREE.DirectionalLight(color,intensity);
+            const light2 = new THREE.DirectionalLight(color,intensity);
+            const light3 = new THREE.DirectionalLight(color,intensity);
+            const light4 = new THREE.DirectionalLight(color,intensity);
+            light.position.set(0, 10, 0);
+            light1.position.set(25, 10, 30);
+            light2.position.set(-25, 10, 30);
+            light3.position.set(25, 10, -30);
+            light4.position.set(-25, 10, -30);
+            this._scene.add(light);
+            this._scene.add(light1);
+            this._scene.add(light2);
+            this._scene.add(light3);
+            this._scene.add(light4);
     }
     // 파란색 정육면체 mesh 생성
     _setupModel(){
@@ -263,15 +276,15 @@ class App{
         const planeGeometry = new THREE.PlaneGeometry(wh_width_arr[0],wh_length_arr[0],wh_width_arr[0],wh_length_arr[0])
     
         const wareHouseMaterial = new THREE.MeshPhongMaterial({
-            emissive:0x888888, 
-            flatShading:true,
+            color:0xffffff,
+            emissive : 0x112244,
             side : THREE.DoubleSide,
-            visible:false
+
         })
         const group1 = new THREE.Group();
         const wareHouseMesh = new THREE.Mesh(planeGeometry,wareHouseMaterial);
          // 노란색 라인 생성
-        const lineMaterial = new THREE.LineBasicMaterial({color: 0xa0a0a0});
+        const lineMaterial = new THREE.LineBasicMaterial({color: 0xcccccc});
         const line = new THREE.LineSegments(
          // WireframeGeometry : 모델의 외각선 표시
          new THREE.WireframeGeometry(planeGeometry),lineMaterial);
@@ -321,7 +334,7 @@ class App{
 
         const StockGeometry = new THREE.BoxGeometry(0.8,0.8,0.8)
         const StockMaterial = new THREE.MeshPhongMaterial({
-            color : 0xffffff, emissive: 0x112244, flatShading:true
+            color : 0xFFE0BD, flatShading:true
         })
         const StockMesh = new THREE.Mesh(StockGeometry, StockMaterial)
         StockMesh.position.set(stock_x,i.stock_floor-0.5,stock_z)
@@ -342,12 +355,12 @@ class App{
         // 기본 바 설정
         const BarGeometry = new THREE.CylinderGeometry(0.03,0.03,item.floor-1+0.2)
         const BarMaterial = new THREE.MeshPhongMaterial({
-            color : 0xffffff, emissive : 0x112244, flatShading:true
+            color : 0xcccccc, emissive : 0x112244, flatShading:true
         })
         // 기본 판 설정
         const FloorGeometry = new THREE.BoxGeometry(item.width, 0.05,item.length)
         const FloorMaterial = new THREE.MeshPhongMaterial({
-            color : 0xffffff, emissive : 0x112244, flatShading:true
+            color : 0xcccccc, emissive : 0x112244, flatShading:true
         })
         for(let i=0;i<4;i++){
             // 바 생성
