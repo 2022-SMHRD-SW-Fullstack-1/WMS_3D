@@ -24,29 +24,40 @@
     ></script>
 
     <!-- 사이드바 -->
-    <link rel="stylesheet" href="views/css/stock/input_history.css" />
+    <link rel="stylesheet" href="views/css/sidebar.css" />
+    
+     <!-- Boxicons CDN Link -->
     <link
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
+    <script
+    type="text/javascript"
+    src="views/js/sidebar.js"
+    defer
+    ></script>
+
+
     <!-- 사이드바 -->
 
 
   </head>
   <body>
 
-    <div class="sidebar close">
-      <div class="logo-details">
+    <div class="top_div">
+
+      <div class="sidebar close">
+        <div class="logo-details">
         <i class="bx bxs-package"></i>
         <span class="logo_name">WMS</span>
       </div>
-
+      
       <ul class="nav-links">
         <div class="side_div1">
           <li>
             <i class="bx bx-menu"></i>
           </li>
-
+          
           <li>
             <a href="#">
               <i class="bx bx-grid-alt"></i>
@@ -54,10 +65,10 @@
             </a>
             <ul class="sub-menu blank">
               <!-- 사이드바 닫혀있을 때 목록 없을 때 옆에 이름 설정 -->
-              <li><a class="link_name" href="#">홈</a></li>
+              <li><a class="link_name" href="http://localhost:3002/main">홈</a></li>
             </ul>
           </li>
-
+          
           <li>
             <div class="icon-link">
               <a href="#">
@@ -67,14 +78,14 @@
               <!-- 사이드바 목록 화살표 -->
               <i class="bx bxs-chevron-down arrow"></i>
             </div>
-
+            
             <!-- 사이드바 서브 메뉴설정 -->
             <ul class="sub-menu">
               <li><a class="link_name" href="#">창고</a></li>
-              <li><a href="#">창고관리</a></li>
+              <li><a href="http://localhost:3002/warehouse">창고관리</a></li>
             </ul>
           </li>
-
+          
           <li>
             <div class="icon-link">
               <a href="#">
@@ -85,12 +96,12 @@
             </div>
             <ul class="sub-menu">
               <li><a class="link_name" href="#">입/출고</a></li>
-              <li><a href="#">입고현황</a></li>
-              <li><a href="#">출고현황</a></li>
-              <li><a href="#">입출고내역</a></li>
+              <li><a href="http://localhost:3002/input">입고현황</a></li>
+              <li><a href="http://localhost:3002/output">출고현황</a></li>
+              <li><a href="http://localhost:3002/inoutput_history">입출고내역</a></li>
             </ul>
           </li>
-
+          
           <li>
             <div class="icon-link">
               <a href="#">
@@ -100,9 +111,10 @@
             </div>
             <ul class="sub-menu">
               <li><a class="link_name" href="#">재고</a></li>
+              <li><a class="link_name" href="http://localhost:3002/stock">재고현황</a></li>
             </ul>
           </li>
-
+          
           <li>
             <div class="icon-link">
               <a href="#">
@@ -111,14 +123,13 @@
               </a>
               <i class="bx bxs-chevron-down arrow"></i>
             </div>
-              <ul class="sub-menu">
+            <ul class="sub-menu">
               <li><a class="link_name" href="#">작업관리</a></li>
-              <li><a href="#">작업내역</a></li>
-              <li><a href="#">관리자</a></li>
+              <li><a href="http://localhost:3002/work_history">작업내역</a></li>
             </ul>
           </li>
         </div>
-
+        
         <div>
           <li>
             <div class="icon-link">
@@ -131,7 +142,7 @@
               <li><a class="link_name" href="#">알림</a></li>
             </ul>
           </li>
-
+          
           <li>
             <a href="#">
               <i class="bx bxs-user"></i>
@@ -156,20 +167,16 @@
           </li>
         </div>
       </ul>
+      
     </div>
 
-  <script src="views/js/sidebar.js"></script>
-      </body>
-      <!-- == 사이드바 -->
-
-
-
+<!-- == 사이드바 -->
 
 
       <div class="main_div">
         <div class="management_div">
-          <a href="#">선반 관리</a>
-          <a href="../warehouse/warehouse.ejs"> 창고 관리</a>
+          <a href="http://localhost:3002/shelf">선반 관리</a>
+          <a href="http://localhost:3002/warehouse"> 창고 관리</a>
         </div>
         <hr />
         <div class="btn_div">
@@ -182,9 +189,10 @@
               <button onclick="dp_menu()" class="button">선반명 ▼</button>
               <div style="display: none" id="drop-content">
                 <a href="#">선반 명</a>
-                <a href="#">선반 너비 / 길이</a>
-                <a href="#">선반 총 수</a>
-                <a href="#">적재 가능 / 총 공간</a>
+                <a href="#">해당 창고명</a>
+                <a href="#">선반 너비 / 길이 / 층수</a>
+                <a href="#">적재 가능</a>
+                <a href="#">총 공간</a>
               </div>
             </div>
             <input type="text" />
@@ -206,79 +214,84 @@
                   <tr>
                     <th><input type="checkbox" /></th>
                     <th scope="col">선반 명</th>
-                    <th scope="col">선반 너비 / 길이</th>
-                    <th scope="col">선반 총 수</th>
+                    <th scope="col">해당 창고명</th>
+                    <th scope="col">선반 너비 / 길이 / 층수</th>
+                    <th scope="col">적재 가능</th>
+                    <th scope="col">총 공간</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
                   
                   <%for(var i = 0; i<data.length; i++){%>
+                    <tr>
                       <td><input type="checkbox" /></td>
                       <td><%- data[i].shelf_name%></td>
-                      <td><%- data[i].shelf_width %>   /   <%- data[i].shelf_length %></td>
-                      <td><%- data[i].shelf_floor %>  </td>
-                      <td></td>
+                      <td><%- data[i].wh_name%></td>
+                      <td><%- data[i].shelf_width %> / <%- data[i].shelf_length %> / <%- data[i].shelf_floor %> </td>
+                      <td><%- data[i].now_avl %></td>
+                      <td><%- data[i].max_avl %></td>
                       <td>
                         <div
                         class="modal fade"
                         id="exampleModalCenteredScrollable<%- i%>"
                         tabindex="-1"
-                          aria-labelledby="exampleModalCenteredScrollableTitle"
-                          aria-hidden="true"
+                        aria-labelledby="exampleModalCenteredScrollableTitle"
+                        aria-hidden="true"
                         >
-                          <div
-                            class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-                          >
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h1
-                                  class="modal-title fs-5"
-                                  id="exampleModalCenteredScrollableTitle"
-                                >
-                                  선반 상세 정보
-                                </h1>
-                                <button
-                                  type="button"
-                                  class="btn-close"
-                                  data-bs-dismiss="modal"
-                                  aria-label="Close"
-                                ></button>
-                              </div>
-                              <div class="modal-body">
-                                <div>
-                                  <span>선반 명 : </span><span><%- data[i].shelf_name%></span>
-                                </div>
-                                <div>
-                                  <span>선반 너비 : </span><span><%- data[i].shelf_width%> m</span>
-                                </div>
-                                <div>
-                                  <span>선반 길이 : </span><span><%- data[i].shelf_length%> m</span>
-                                </div>
-                                <div><span>선반 층수 : </span><span><%- data[i].shelf_floor%> 층</span>
-                                </div>
-                                
-                              </div>
-                              <div class="modal-footer">
-                                <button id="add_warehouse_btn" onclick="goToWarehouse()">
-                                        선반위치보기
-                                </button>
-                                </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="bd-example">
+                        <div
+                        class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+                        >
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h1
+                            class="modal-title fs-5"
+                            id="exampleModalCenteredScrollableTitle"
+                            >
+                            선반 상세 정보
+                          </h1>
                           <button
-                            type="button"
-                            data-bs-toggle="modal"
-                            data-bs-target="#exampleModalCenteredScrollable<%- i%>"
-                          >
-                            상세보기
-                          </button>
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                          ></button>
                         </div>
-                      </td>
-                    </tr>
-                  <% } %>  
-
+                        <!-- <div class="modal-body">
+                          <div>
+                            <span>선반 명 : </span><span><%- data[i].shelf_name%></span>
+                          </div>
+                          <div>
+                            <span>선반 너비 : </span><span><%- data[i].shelf_width%> m</span>
+                          </div>
+                          <div>
+                            <span>선반 길이 : </span><span><%- data[i].shelf_length%> m</span>
+                          </div>
+                          <div><span>선반 층수 : </span><span><%- data[i].shelf_floor%> 층</span>
+                          </div>
+                          
+                        </div> -->
+                        <!-- <div class="modal-footer">
+                          <button id="add_warehouse_btn" onclick="goToWarehouse()">
+                            선반위치보기
+                          </button>
+                        </div> -->
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div class="bd-example">
+                    <button
+                    type="button"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModalCenteredScrollable<%- i%>"
+                    >
+                    상세보기
+                  </button>
+                </div> -->
+              </td>
+            </tr>
+            <% } %>  
+            
 
                 </tbody>
               </table>
@@ -287,13 +300,13 @@
               <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
                   <li class="page-item disabled">
-                    <a class="page-link">Previous</a>
+                    <a class="page-link">이전</a>
                   </li>
                   <li class="page-item"><a class="page-link" href="#">1</a></li>
                   <li class="page-item"><a class="page-link" href="#">2</a></li>
                   <li class="page-item"><a class="page-link" href="#">3</a></li>
                   <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
+                    <a class="page-link" href="#">다음</a>
                   </li>
                 </ul>
               </nav>

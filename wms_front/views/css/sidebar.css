@@ -1,306 +1,347 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  /* body {
-    overflow: hidden;
-  } */
-  
-  /* 사이드 바 */
-  .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 260px;
-    background: #11101d;
-    /* 사이드바 열고 닫을 때 움직임 설정 */
-    z-index: 100;
-    transition: all 0.5s ease;
-  }
-  
-  /* 사이드바 닫혔을 때 사이즈 */
-  .sidebar.close {
-    width: 78px;
-  }
-  
-  /* 사이드바 로고 이름 구간 */
-  .sidebar .logo-details {
-    height: 150px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-  }
-  
-  /* 사이드 바 로고 */
-  .sidebar .logo-details i {
-    font-size: 40px;
-    color: #fff;
-    height: 90px;
-    min-width: 78px;
-    text-align: center;
-    line-height: 50px;
-  }
-  
-  /* 사이드바 로고 옆 이름 */
-  .sidebar .logo-details .logo_name {
-    font-size: 22px;
-    color: #fff;
-    font-weight: 600;
-    transition: 0.3s ease;
-    transition-delay: 0.1s;
-    height: 60px;
-  }
-  
-  /* 사이드바 닫혔을 때 옆에 이름 안보임 */
-  .sidebar.close .logo-details .logo_name {
-    transition-delay: 0s;
-    opacity: 0;
-    pointer-events: none;
-  }
-  
-  /* 사이드바 링크 목록 */
-  .sidebar .nav-links {
-    height: 100%;
-    padding: 0px 0 150px 0;
-    overflow: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  
-  .sidebar.close .nav-links {
-    overflow: visible;
-  }
-  
-  /* 사이드바 스크롤 안보이는 설정 */
-  .sidebar .nav-links::-webkit-scrollbar {
-    display: none;
-  }
-  
-  /* 사이드바 링크 li태그  */
-  .sidebar .nav-links li {
-    position: relative;
-    list-style: none;
-    transition: all 0.4s ease;
-  }
-  
-  /* 사이드바 클릭 호버 색 */
-  .sidebar .nav-links li:hover {
-    background: #1d1b31;
-  }
-  
-  /* 사이드바 목록 대표 아이콘들 위치 설정 */
-  .sidebar .nav-links li .icon-link {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  
-  /* 사이드바 닫혔을 때 목록 대표 아이콘들 위치 설정? */
-  .sidebar.close .nav-links li .icon-link {
-    display: block;
-  }
-  
-  /* 사이드바 링크 li안 i태그 (바 링크들 가운데 정렬) */
-  .sidebar .nav-links li i {
-    height: 50px;
-    min-width: 78px;
-    text-align: center;
-    line-height: 50px;
-    color: #fff;
-    font-size: 25px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  /* 사이드바 열려있을 때 목록 화살표 클릭 했을 때 반대로 변하는 설정  */
-  .sidebar .nav-links li.showMenu i.arrow {
-    transform: rotate(-180deg);
-  }
-  
-  /* 사이드바 닫혔을 때 화살표 안보이는 설정 */
-  .sidebar.close .nav-links i.arrow {
-    display: none;
-  }
-  
-  /* 사이드바 링크 li안 i안 a 태그 (사이드바 목록 위치 설정)*/
-  .sidebar .nav-links li a {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-  }
-  
-  /* 사이드바 링크 li안 i안 a 태그 (사이드바 글씨 크기 등 설정)*/
-  .sidebar .nav-links li a .link_name {
-    font-size: 18px;
-    font-weight: 400;
-    color: #fff;
-    transition: all 0.4s ease;
-  }
-  
-  /* 사이드바 닫혔을 때 링크 이름 안보이는 설정? */
-  .sidebar.close .nav-links li a .link_name {
-    opacity: 0;
-    pointer-events: none;
-  }
-  
-  /* 사이드바 서브 메뉴 위치, 칸 색 설정*/
-  .sidebar .nav-links li .sub-menu {
-    padding: 6px 6px 14px 80px;
-    margin-top: -10px;
-    background: #1d1b31;
-    display: none;
-  }
-  
-  /* 버튼 클릭 했을 때 목록 나오는 설정 */
-  .sidebar .nav-links li.showMenu .sub-menu {
-    display: block;
-  }
-  
-  /* 사이드바 서브 메뉴 글 설정 */
-  .sidebar .nav-links li .sub-menu a {
-    color: #fff;
-    font-size: 15px;
-    padding: 5px 0;
-    white-space: nowrap;
-    opacity: 0.6;
-    transition: all 0.3s ease;
-  }
-  
-  /* 사이드바 닫혀있을 때 목록 호버 */
-  .sidebar .nav-links li .sub-menu a:hover {
-    opacity: 1;
-  }
-  
-  /* 사이드바 닫혀있을 때 목록 옆으로 빼는 설정 */
-  .sidebar.close .nav-links li .sub-menu {
-    position: absolute;
-    left: 100%;
-    top: -10px;
-    margin-top: 0;
-    padding: 10px 20px;
-    border-radius: 0 6px 6px 0;
-    /* opacity pointer event로 옆 목록 여러개 방지 */
-    opacity: 0;
-    /* 사이드바 닫혔을 때 각 목록 대표 이름만 보이는 설정 */
-    display: block;
-    pointer-events: none;
-    transition: 0s;
-  }
-  
-  /* 사이드바 닫혀있을때 옆에 뜨는 목록 호버 */
-  .sidebar.close .nav-links li:hover .sub-menu {
-    top: 0;
-    opacity: 1;
-    pointer-events: auto;
-    transition: all 0.4s ease;
-  }
-  
-  /* 사이드바 열려있을 때 목록 */
-  .sidebar .nav-links li .sub-menu .link_name {
-    display: none;
-  }
-  
-  /* 사이드바 닫혀 있을 때 목록 옆 글크기 설정 */
-  .sidebar.close .nav-links li .sub-menu .link_name {
-    font-size: 18px;
-    opacity: 1;
-    display: block;
-  }
-  
-  /* 사이드바 닫혀있을 때 메뉴가 없을 때 옆에 목록 이름 뜨는 설정 */
-  .sidebar .nav-links li .sub-menu.blank {
-    opacity: 1;
-    pointer-events: auto;
-    padding: 3px 20px 6px 16px;
-    /* 사이드바 닫혔을 때 아래 2개로 아이콘 클릭시 카테고리 옆에 뜨는 설정 */
-    opacity: 0;
-    pointer-events: none;
-  }
-  
-  /* 사이드바 닫혀있을 때 메뉴가 없을 때 옆에 목록 이름 뜨는 설정 호버 */
-  .sidebar .nav-links li:hover .sub-menu.blank {
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  
-  /* 사이드바 아래에 프로필 공간 만들기 */
-  .sidebar .profile-details {
-    /* position: fixed;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow: hidden;
+
+  width: 1980px;
+  display: flex;
+}
+
+/* 사이드 바 */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 260px;
+  background: #11101d;
+  /* 사이드바 열고 닫을 때 움직임 설정 */
+  z-index: 100;
+  transition: all 0.5s ease;
+}
+
+/* 사이드바 닫혔을 때 사이즈 */
+.sidebar.close {
+  width: 78px;
+}
+
+/* 사이드바 로고 이름 구간 */
+.sidebar .logo-details {
+  height: 150px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+/* 사이드 바 로고 */
+.sidebar .logo-details i {
+  font-size: 40px;
+  color: #fff;
+  height: 90px;
+  min-width: 78px;
+  text-align: center;
+  line-height: 50px;
+}
+
+/* 사이드바 로고 옆 이름 */
+.sidebar .logo-details .logo_name {
+  font-size: 22px;
+  color: #fff;
+  font-weight: 600;
+  transition: 0.3s ease;
+  transition-delay: 0.1s;
+  height: 60px;
+}
+
+/* 사이드바 닫혔을 때 옆에 이름 안보임 */
+.sidebar.close .logo-details .logo_name {
+  transition-delay: 0s;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* 사이드바 링크 목록 */
+.sidebar .nav-links {
+  height: 100%;
+  padding: 0px 0 150px 0;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sidebar.close .nav-links {
+  overflow: visible;
+}
+
+/* 사이드바 스크롤 안보이는 설정 */
+.sidebar .nav-links::-webkit-scrollbar {
+  display: none;
+}
+
+/* 사이드바 링크 li태그  */
+.sidebar .nav-links li {
+  position: relative;
+  list-style: none;
+  transition: all 0.4s ease;
+}
+
+/* 사이드바 클릭 호버 색 */
+.sidebar .nav-links li:hover {
+  background: #1d1b31;
+}
+
+/* 사이드바 목록 대표 아이콘들 위치 설정 */
+.sidebar .nav-links li .icon-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* 사이드바 닫혔을 때 목록 대표 아이콘들 위치 설정? */
+.sidebar.close .nav-links li .icon-link {
+  display: block;
+}
+
+/* 사이드바 링크 li안 i태그 (바 링크들 가운데 정렬) */
+.sidebar .nav-links li i {
+  height: 50px;
+  min-width: 78px;
+  text-align: center;
+  line-height: 50px;
+  color: #fff;
+  font-size: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* 사이드바 열려있을 때 목록 화살표 클릭 했을 때 반대로 변하는 설정  */
+.sidebar .nav-links li.showMenu i.arrow {
+  transform: rotate(-180deg);
+}
+
+/* 사이드바 닫혔을 때 화살표 안보이는 설정 */
+.sidebar.close .nav-links i.arrow {
+  display: none;
+}
+
+/* 사이드바 링크 li안 i안 a 태그 (사이드바 목록 위치 설정)*/
+.sidebar .nav-links li a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+/* 사이드바 링크 li안 i안 a 태그 (사이드바 글씨 크기 등 설정)*/
+.sidebar .nav-links li a .link_name {
+  font-size: 18px;
+  font-weight: 400;
+  color: #fff;
+  transition: all 0.4s ease;
+}
+
+/* 사이드바 닫혔을 때 링크 이름 안보이는 설정? */
+.sidebar.close .nav-links li a .link_name {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* 사이드바 서브 메뉴 위치, 칸 색 설정*/
+.sidebar .nav-links li .sub-menu {
+  padding: 6px 6px 14px 80px;
+  margin-top: -10px;
+  background: #1d1b31;
+  display: none;
+}
+
+/* 버튼 클릭 했을 때 목록 나오는 설정 */
+.sidebar .nav-links li.showMenu .sub-menu {
+  display: block;
+}
+
+/* 사이드바 서브 메뉴 글 설정 */
+.sidebar .nav-links li .sub-menu a {
+  color: #fff;
+  font-size: 15px;
+  padding: 5px 0;
+  white-space: nowrap;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+
+/* 사이드바 닫혀있을 때 목록 호버 */
+.sidebar .nav-links li .sub-menu a:hover {
+  opacity: 1;
+}
+
+/* 사이드바 닫혀있을 때 목록 옆으로 빼는 설정 */
+.sidebar.close .nav-links li .sub-menu {
+  position: absolute;
+  left: 100%;
+  top: -10px;
+  margin-top: 0;
+  padding: 10px 20px;
+  border-radius: 0 6px 6px 0;
+  /* opacity pointer event로 옆 목록 여러개 방지 */
+  opacity: 0;
+  /* 사이드바 닫혔을 때 각 목록 대표 이름만 보이는 설정 */
+  display: block;
+  pointer-events: none;
+  transition: 0s;
+}
+
+/* 사이드바 닫혀있을때 옆에 뜨는 목록 호버 */
+.sidebar.close .nav-links li:hover .sub-menu {
+  top: 0;
+  opacity: 1;
+  pointer-events: auto;
+  transition: all 0.4s ease;
+}
+
+/* 사이드바 열려있을 때 목록 */
+.sidebar .nav-links li .sub-menu .link_name {
+  display: none;
+}
+
+/* 사이드바 닫혀 있을 때 목록 옆 글크기 설정 */
+.sidebar.close .nav-links li .sub-menu .link_name {
+  font-size: 18px;
+  opacity: 1;
+  display: block;
+}
+
+/* 사이드바 닫혀있을 때 메뉴가 없을 때 옆에 목록 이름 뜨는 설정 */
+.sidebar .nav-links li .sub-menu.blank {
+  opacity: 1;
+  pointer-events: auto;
+  padding: 3px 20px 6px 16px;
+  /* 사이드바 닫혔을 때 아래 2개로 아이콘 클릭시 카테고리 옆에 뜨는 설정 */
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* 사이드바 닫혀있을 때 메뉴가 없을 때 옆에 목록 이름 뜨는 설정 호버 */
+.sidebar .nav-links li:hover .sub-menu.blank {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* 사이드바 아래에 프로필 공간 만들기 */
+.sidebar .profile-details {
+  /* position: fixed;
     bottom: 0; */
-    width: 260px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    /* 사이드바 아래 로그아웃 부분 색 블록 */
-    background: #1d1b31;
-    padding: 12px 0;
-    transition: all 0.5s ease;
-  }
-  
-  .sidebar.close .profile-details {
-    background: none;
-  }
-  
-  .sidebar.close .profile-details {
-    width: 78px;
-  }
-  
-  /* 아래 칸 만들기 */
-  .sidebar .profile-details .profile-content {
-    display: flex;
-    align-items: center;
-  }
-  
-  /* 사이드바 프로필 만들기 */
-  .sidebar .profile-details img {
-    height: 52px;
-    width: 52px;
-    object-fit: cover;
-    border-radius: 16px;
-    margin: 0 14px 0 12px;
-    background: #1d1b31;
-    transition: all 0.5s ease;
-  }
-  
-  /* 사이드바 닫혔을 때 프로필 이미지 패딩 */
-  .sidebar.close .profile-details img {
-    padding: 10px;
-  }
-  
-  /* 프로필 글 설정  */
-  .sidebar .profile-details .profile_name,
-  .sidebar .profile-details .job {
-    color: #fff;
-    font-size: 18px;
-    font-weight: 500;
-    white-space: nowrap;
-  }
-  
-  /* 사이드바 닫혔을 때  이름 직업 안보이는 설정*/
-  .sidebar.close .profile-details i,
-  .sidebar.close .profile-details .profile_name,
-  .sidebar.close .profile-details .job {
-    display: none;
-  }
-  
-  /* 직업글 설정 */
-  .sidebar .profile-details .job {
-    font-size: 12px;
-  }
-  
-  .home-content {
-    width: 100%;
-    height: 910px;
-  }
-  .video {
-    /* position: relative; */
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-    padding-left: 0;
-    padding-right: 0;
-  }
+  width: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* 사이드바 아래 로그아웃 부분 색 블록 */
+  background: #1d1b31;
+  padding: 12px 0;
+  transition: all 0.5s ease;
+}
+
+.sidebar.close .profile-details {
+  background: none;
+}
+
+.sidebar.close .profile-details {
+  width: 78px;
+}
+
+/* 아래 칸 만들기 */
+.sidebar .profile-details .profile-content {
+  display: flex;
+  align-items: center;
+}
+
+/* 사이드바 프로필 만들기 */
+.sidebar .profile-details img {
+  height: 52px;
+  width: 52px;
+  object-fit: cover;
+  border-radius: 16px;
+  margin: 0 14px 0 12px;
+  background: #1d1b31;
+  transition: all 0.5s ease;
+}
+
+/* 사이드바 닫혔을 때 프로필 이미지 패딩 */
+.sidebar.close .profile-details img {
+  padding: 10px;
+}
+
+/* 프로필 글 설정  */
+.sidebar .profile-details .profile_name,
+.sidebar .profile-details .job {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* 사이드바 닫혔을 때  이름 직업 안보이는 설정*/
+.sidebar.close .profile-details i,
+.sidebar.close .profile-details .profile_name,
+.sidebar.close .profile-details .job {
+  display: none;
+}
+
+/* 직업글 설정 */
+.sidebar .profile-details .job {
+  font-size: 12px;
+}
+
+.home-section {
+  width: 100%;
+  height: 1000px;
+  bottom: 0;
+}
+
+.home-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+}
+
+.video {
+  height: 100%;
+  width: 75%;
+  right: 5%;
+
+  overflow: hidden;
+}
+
+.left_container {
+  width: 25%;
+  height: 100%;
+  padding: 240px 60px;
+  left: 78px;
+  background-color: #11101d;
+  z-index: 1;
+  padding: 0%;
+}
+.top_div {
+  width: 100%;
+  height: 1020px;
+  overflow: hidden;
+}
+/* .left_container h2 {
+  color: #fff;
+  font-size: 64px;
+  line-height: 80px;
+  font-weight: lighter;
+  margin-bottom: 40px;
+}
+
+.left_container h3 {
+  color: #fff;
+  font-size: 24px;
+  line-height: 30px;
+  margin-bottom: 20px;
+} */
