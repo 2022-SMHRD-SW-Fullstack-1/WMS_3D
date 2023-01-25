@@ -176,7 +176,9 @@ app.post("/shelf", (req, res) => {
     let conn, rows;
     conn = await pool.getConnection();
     conn.query("USE wms");
-    rows = await conn.query(`select w.wh_num,w.wh_name,s.shelf_name, s.shelf_num, s.shelf_width,s.shelf_length,s.shelf_floor,floor(s.shelf_width*s.shelf_length*s.shelf_floor) max_avl, floor((s.shelf_width*s.shelf_length*s.shelf_floor) - count(st.stock_num)) now_avl From tbl_shelf s left join tbl_warehouse w on w.wh_num=s.wh_num left join tbl_stock st on s.shelf_num = st.shelf_num where s.wh_num = ${val} group by s.shelf_num ;SELECT st.stock_num, st.com_num, st.shelf_num, st.stock_name, st.stock_info, st.buy_com, st.sell_com, st.wlb_input_date , DATE_FORMAT(st.input_date, "%y년%m월%d일") input_date, st.stock_floor, st.stock_position, DATE_FORMAT(st.exp_dt, "%y년%m월%d일") exp_dt FROM tbl_stock st LEFT JOIN tbl_shelf s ON st.shelf_num = s.shelf_num WHERE s.wh_num = ${val}`);
+    rows = await conn.query(
+      `select w.wh_num,w.wh_name,s.shelf_name, s.shelf_num, s.shelf_width,s.shelf_length,s.shelf_floor,floor(s.shelf_width*s.shelf_length*s.shelf_floor) max_avl, floor((s.shelf_width*s.shelf_length*s.shelf_floor) - count(st.stock_num)) now_avl From tbl_shelf s left join tbl_warehouse w on w.wh_num=s.wh_num left join tbl_stock st on s.shelf_num = st.shelf_num where s.wh_num = ${val} group by s.shelf_num ;SELECT st.stock_num, st.com_num, st.shelf_num, st.stock_name, st.stock_info, st.buy_com, st.sell_com, st.wlb_input_date , DATE_FORMAT(st.input_date, "%y년%m월%d일") input_date, st.stock_floor, st.stock_position, DATE_FORMAT(st.exp_dt, "%y년%m월%d일") exp_dt FROM tbl_stock st LEFT JOIN tbl_shelf s ON st.shelf_num = s.shelf_num WHERE s.wh_num = ${val}`
+    );
     conn.end();
     return rows;
   }
@@ -186,7 +188,7 @@ app.post("/shelf", (req, res) => {
         "views/html/warehouse/shelf.ejs",
         {
           data: rows[0],
-          stock_data : rows[1]
+          stock_data: rows[1],
         },
         function (err, html) {
           if (err) {
@@ -300,22 +302,23 @@ app.post("/saveShelf", (req, res) => {
 
 // 선반 생성 기능
 
-app.post("/moveStockInfo",(req,res)=>{
-  async function UpdateStockData(){
-    let conn,rows;
-    let sql ="UPDATE tbl_stock st SET st.shelf_num = ? , st.stock_floor = ?, st.stock_position=? WHERE st.stock_num = ?"
+app.post("/moveStockInfo", (req, res) => {
+  async function UpdateStockData() {
+    let conn, rows;
+    let sql =
+      "UPDATE tbl_stock st SET st.shelf_num = ? , st.stock_floor = ?, st.stock_position=? WHERE st.stock_num = ?";
     conn = await pool.getConnection();
     conn.query("USE wms");
-    rows=await conn.query(sql,[
+    rows = await conn.query(sql, [
       req.body.shelf_num,
       req.body.st_floor,
       req.body.st_position,
       req.body.st_num,
-    ])
+    ]);
     conn.end();
   }
   UpdateStockData();
-})
+});
 
 // 창고 생성 페이지
 app.post("/three/sj_test/create_warehouse.html", (req, res) => {
