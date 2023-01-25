@@ -223,9 +223,9 @@ app.post("/viewWarehouse", (req, res) => {
     let conn, rows;
     conn = await pool.getConnection();
     conn.query("USE wms");
-    rows = await conn.query(
-      `SELECT w.wh_num,w.wh_name, w.wh_width, w.wh_length ,w.wh_min_temp ,w.wh_max_temp,w.wh_min_humid,w.wh_max_humid,w.wh_info,s.shelf_num,s.shelf_name,s.shelf_x,s.shelf_z,s.shelf_width,s.shelf_length,s.shelf_floor,s.shelf_rotation_yn FROM tbl_warehouse w LEFT JOIN tbl_shelf s ON w.wh_num = s.wh_num WHERE w.wh_num = ${val} ; SELECT s.wh_num, s.shelf_num, s.shelf_name, s.shelf_x, s.shelf_z, s.shelf_width, s.shelf_length, s.shelf_floor, s.shelf_rotation_yn, st.stock_num, st.stock_name, st.stock_info,st.buy_com, DATE_FORMAT(st.wlb_input_date, "%y년%m월%d일") wlb_input_date, DATE_FORMAT(st.input_date, "%y년%m월%d일") input_date,st.stock_floor,st.stock_position,DATE_FORMAT(st.exp_dt, "%y년%m월%d일") exp_dt FROM tbl_shelf s LEFT JOIN tbl_stock st ON s.shelf_num = st.shelf_num WHERE st.shelf_num in (SELECT shelf_num FROM tbl_shelf WHERE wh_num = ${val}) AND st.output_date IS null`
-    );
+
+    rows = await conn.query(`SELECT w.wh_num,w.wh_name, w.wh_width, w.wh_length ,w.wh_min_temp ,w.wh_max_temp,w.wh_min_humid,w.wh_max_humid,w.wh_info,s.shelf_num,s.shelf_name,s.shelf_x,s.shelf_z,s.shelf_width,s.shelf_length,s.shelf_floor,s.shelf_rotation_yn FROM tbl_warehouse w LEFT JOIN tbl_shelf s ON w.wh_num = s.wh_num WHERE w.wh_num = ${val} ; SELECT s.wh_num, s.shelf_num, s.shelf_name, s.shelf_x, s.shelf_z, s.shelf_width, s.shelf_length, s.shelf_floor, s.shelf_rotation_yn, st.stock_num, st.stock_name, st.stock_info,st.buy_com, DATE_FORMAT(st.wlb_input_date, "%y년%m월%d일") wlb_input_date, DATE_FORMAT(st.input_date, "%y년%m월%d일") input_date,st.stock_floor,st.stock_position,DATE_FORMAT(st.exp_dt, "%y년%m월%d일") exp_dt FROM tbl_shelf s LEFT JOIN tbl_stock st ON s.shelf_num = st.shelf_num WHERE st.shelf_num in (SELECT shelf_num FROM tbl_shelf WHERE wh_num = ${val}) AND st.output_date IS null`)
+
     conn.end();
     return rows;
   }

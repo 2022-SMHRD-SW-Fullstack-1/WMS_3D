@@ -71,11 +71,13 @@ function goToShelf(e) {
   const num = { num: e };
   let url = "/shelf";
 
-  localStorage.setItem("wh_num_for_create_shelf", e);
 
-  let form = document.createElement("form");
-  form.setAttribute("method", "post");
-  form.setAttribute("action", url);
+  localStorage.setItem('wh_num_for_create_shelf',e)
+
+  let form = document.createElement('form');
+  form.setAttribute('method','post')
+  form.setAttribute('action',url);
+
   document.characterSet = "utf-8";
   for (let key in num) {
     let hiddenField = document.createElement("input");
@@ -110,7 +112,6 @@ function changeSub(e) {
   // console.log(e.shelf_info)
 
   // 선반 프로그래스 바
-
   let clicked_warehouse_num = "progress_wh_num_" + e.num;
 
   let view_shelf_bar = document.querySelectorAll("#first_option_detail");
@@ -141,6 +142,7 @@ function changeSub(e) {
       view_shelf_bar[i].classList.add("none_view");
     }
   }
+
 
   // 온도 바
   let min_temp = document.querySelector("#min_temp");
@@ -205,18 +207,17 @@ function changeSub(e) {
     let valueContainer = document.querySelector(".value_container");
     let progressValue = 0;
 
-    let progressEndValue = Math.floor(
-      ((Number(e.max_avl) - Number(e.now_avl)) / Number(e.max_avl)) * 100
-    );
+    let progressEndValue = Math.floor(((Number(e.max_avl)-Number(e.now_avl))/Number(e.max_avl))*100)
+  
+    let speed =10;
+    
+    let progress = setInterval(()=>{
+        progressValue++;
+        valueContainer.textContent = `${progressValue}%`;
+        progressBar.style.background = `conic-gradient(
+            #11101D ${progressValue*3.6}deg,
+            #cadcff ${progressValue*3.6}deg
 
-    let speed = 10;
-
-    let progress = setInterval(() => {
-      progressValue++;
-      valueContainer.textContent = `${progressValue}%`;
-      progressBar.style.background = `conic-gradient(
-            #11101D ${progressValue * 3.6}deg,
-            #cadcff ${progressValue * 3.6}deg
         )`;
       if (progressValue == progressEndValue) {
         clearInterval(progress);
