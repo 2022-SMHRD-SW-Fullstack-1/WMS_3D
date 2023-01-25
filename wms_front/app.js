@@ -10,6 +10,7 @@ const pool = mariadb.createPool({
   user: vals.DBUser,
   password: vals.DBPass,
   connectionLimit: 10,
+  multipleStatements: true, // 여러 쿼리를 ';'를 기준으로 한번에 보낼 수 있게한다.
 });
 
 // HTML에서 서버에 데이터를 요청하기 위한 라이브러리 : body-parser
@@ -32,6 +33,8 @@ app.use(express.static(__dirname + "/"));
 // ejs
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/");
+
+let rowsResult = new Array();
 
 // 메인페이지
 app.get("/", (req, res) => {
@@ -66,9 +69,32 @@ app.get("/output", (req, res) => {
 // DB에 받아온 값 Insert
 // 창고 관리 페이지
 app.get("/warehouse", (req, res) => {
-  // console.log(req.query.num);
-  mdbConn
-    .getWarehouseList()
+  console.log(req.query.num);
+  console.log(req.query.bool);
+
+  async function getWarehouseList() {
+    let conn, rows, sql;
+    try {
+      conn = await pool.getConnection();
+      conn.query("USE wms");
+      if (req.query.num != null && req.query.bool == "true") {
+        sql = `SELECT w.wh_num,w.com_num,w.wh_name,w.wh_width,w.wh_length,w.wh_min_temp,w.wh_max_temp,w.wh_min_humid,w.wh_max_humid,w.wh_info ,floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0))) wh_max_avl,(floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0))) - count(st.stock_name)) wh_now_avl from tbl_warehouse w left JOIN tbl_shelf s ON w.wh_num = s.wh_num LEFT join tbl_stock st ON s.shelf_num = st.shelf_num GROUP BY wh_num order by ${req.query.num} desc;SELECT s.wh_num, s.shelf_name,s.shelf_width,s.shelf_length,s.shelf_floor,FLOOR(s.shelf_width * s.shelf_length * s.shelf_floor) shelf_avl, count(st.stock_num) FROM tbl_shelf s LEFT JOIN tbl_stock st ON s.shelf_num = st.shelf_num GROUP BY shelf_name`;
+      } else if (req.query.num != null && req.query.bool == "false") {
+        sql = `SELECT w.wh_num,w.com_num,w.wh_name,w.wh_width,w.wh_length,w.wh_min_temp,w.wh_max_temp,w.wh_min_humid,w.wh_max_humid,w.wh_info ,floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0))) wh_max_avl,(floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0))) - count(st.stock_name)) wh_now_avl from tbl_warehouse w left JOIN tbl_shelf s ON w.wh_num = s.wh_num LEFT join tbl_stock st ON s.shelf_num = st.shelf_num GROUP BY wh_num order by ${req.query.num} ASC;SELECT s.wh_num, s.shelf_name,s.shelf_width,s.shelf_length,s.shelf_floor,FLOOR(s.shelf_width * s.shelf_length * s.shelf_floor) shelf_avl, count(st.stock_num) FROM tbl_shelf s LEFT JOIN tbl_stock st ON s.shelf_num = st.shelf_num GROUP BY shelf_name`;
+      } else {
+        sql =
+          "SELECT w.wh_num,w.com_num,w.wh_name,w.wh_width,w.wh_length,w.wh_min_temp,w.wh_max_temp,w.wh_min_humid,w.wh_max_humid,w.wh_info ,floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0))) wh_max_avl,(floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0))) - count(st.stock_name)) wh_now_avl from tbl_warehouse w left JOIN tbl_shelf s ON w.wh_num = s.wh_num LEFT join tbl_stock st ON s.shelf_num = st.shelf_num GROUP BY wh_num;SELECT s.wh_num, s.shelf_name,s.shelf_width,s.shelf_length,s.shelf_floor,FLOOR(s.shelf_width * s.shelf_length * s.shelf_floor) shelf_avl, count(st.stock_num) FROM tbl_shelf s LEFT JOIN tbl_stock st ON s.shelf_num = st.shelf_num GROUP BY shelf_name ";
+      }
+      rows = await conn.query(sql);
+    } catch (err) {
+      throw err;
+    } finally {
+      if (conn) conn.close();
+      return rows;
+    }
+  }
+
+  getWarehouseList()
     .then((rows) => {
       // console.log(rows);
       res.render(
@@ -96,6 +122,56 @@ let cate = "";
 let word = "";
 // 선반 생성 기능
 
+app.post("/warehouse", (req, res) => {
+  // console.log(req.body.cate);
+  // console.log(req.body.word);
+  cate = req.body.cate;
+  word = req.body.word;
+});
+
+app.get("/warehouse/search", (req, res) => {
+  async function GetSearchData() {
+    let conn, rows;
+    try {
+      conn = await pool.getConnection();
+      conn.query("USE wms");
+      rows = await conn.query(
+        `SELECT w.wh_num,w.com_num,w.wh_name,w.wh_width,w.wh_length,w.wh_min_temp,w.wh_max_temp,w.wh_min_humid,w.wh_max_humid,w.wh_info ,floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0))) wh_max_avl,(floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0))) - count(st.stock_name)) wh_now_avl from tbl_warehouse w left JOIN tbl_shelf s ON w.wh_num = s.wh_num LEFT join tbl_stock st ON s.shelf_num = st.shelf_num where ${cate} like '%${word}%' GROUP BY wh_num;SELECT s.wh_num, s.shelf_name,s.shelf_width,s.shelf_length,s.shelf_floor,FLOOR(s.shelf_width * s.shelf_length * s.shelf_floor) shelf_avl, count(st.stock_num) FROM tbl_shelf s LEFT JOIN tbl_stock st ON s.shelf_num = st.shelf_num GROUP BY shelf_name`
+      );
+    } catch (err) {
+      throw err;
+    } finally {
+      // console.log(rows);
+      if (conn) conn.end();
+      return rows;
+    }
+  }
+
+  GetSearchData()
+    .then((rows) => {
+      // console.log("rows", rows);
+      // console.log("rowsResult", rowsResult);
+      res.render(
+        "views/html/warehouse/warehouse_search.ejs",
+        {
+          data: rows[0],
+          shelf_data: rows[1],
+        },
+        function (err, html) {
+          if (err) {
+            console.log("err: ", err);
+          }
+          // console.log(rows);
+          res.end(html);
+        }
+      );
+    })
+    .catch((errMsg) => {
+      //   console.log(errMsg);
+      err;
+    });
+});
+
 app.get("/shelf", (req, res) => {
   res.render("views/html/warehouse/shelf.ejs");
 });
@@ -109,6 +185,7 @@ app.post("/shelf", (req, res) => {
     conn = await pool.getConnection();
     conn.query("USE wms");
     rows = await conn.query(`SELECT * FROM tbl_shelf WHERE wh_num = ${val}`);
+    conn.close();
     return rows;
   }
   getShelfList()
@@ -143,6 +220,7 @@ app.post("/createShelf", (req, res) => {
     rows = await conn.query(
       `SELECT w.wh_num, w.com_num, w.wh_name, w.wh_width, w.wh_length, w.wh_min_temp, w.wh_max_temp, w.wh_min_humid, w.wh_max_humid, w.wh_info,s.shelf_num, s.shelf_name, s.shelf_x,s.shelf_z,s.shelf_width,s.shelf_length,s.shelf_floor,s.shelf_rotation_yn FROM tbl_warehouse w LEFT JOIN tbl_shelf s  ON w.wh_num = s.wh_num WHERE w.wh_num =${val}`
     );
+    conn.close();
     return rows;
   }
   getWarehouseForShelf()
@@ -185,6 +263,7 @@ app.post("/saveShelf", (req, res) => {
       req.body.floor,
       req.body.rotation,
     ]);
+    conn.close();
   }
   InsertShelfData();
 });
@@ -205,73 +284,12 @@ app.post("/three/sj_test/create_warehouse.html", (req, res) => {
       req.body.width,
       req.body.length,
     ]);
+    conn.close();
   }
   InsertWarehouseData();
 });
 
 // 선반 생성 기능
-
-let rowsResult;
-
-app.post("/warehouse", (req, res) => {
-  // console.log(req.body.cate);
-  // console.log(req.body.word);
-  cate = req.body.cate;
-  word = req.body.word;
-  async function GetSearchData() {
-    let conn, rows;
-    try {
-      conn = await pool.getConnection();
-      conn.query("USE wms");
-      rows = await conn.query(
-        `select * from tbl_warehouse where ${cate} like '%${word}%'`
-      );
-    } catch (err) {
-      throw err;
-    } finally {
-      // console.log(rows);
-      if (conn) conn.end();
-      return rows;
-    }
-  }
-
-  GetSearchData()
-    .then((rows) => {
-      rowsResult = rows;
-      console.log(rowsResult);
-      res.render(
-        "views/html/warehouse/warehouse.ejs",
-        {
-          data: rows[0],
-        },
-        function (err, html) {
-          if (err) {
-            console.log("err: ", err);
-          }
-          // console.log(rows);
-          res.end(html);
-        }
-      );
-    })
-    .catch((errMsg) => {
-      //   console.log(errMsg);
-      err;
-    });
-});
-
-app.get("/warehouse/search", (req, res) => {
-  res.render(
-    "views/html/warehouse/warehouse_search.ejs",
-    { data: rowsResult },
-    function (err, html) {
-      if (err) {
-        console.log(err);
-      }
-      // console.log(rows);
-      res.end(html);
-    }
-  );
-});
 
 app.post("/outputForm", (req, res) => {
   // console.log(req.body.pw);
@@ -289,6 +307,7 @@ app.post("/outputForm", (req, res) => {
       req.body.tel,
       req.body.addr,
     ]);
+    conn.close();
   }
   InsertCompanyData();
 });

@@ -24,6 +24,9 @@
     ></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js" integrity="sha512-f8mwTB+Bs8a5c46DEm7HQLcJuHMBaH/UFlcgyetMqqkvTcYg4g5VXsYR71b3qC82lZytjNYvBj2pf0VekA9/FQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+      console.log(data)
+    </script>
 
     <!-- 사이드바 -->
     <link rel="stylesheet" href="views/css/stock/input_history.css" />
@@ -207,10 +210,10 @@
                 <thead>
                   <tr>
                     <th><input type="checkbox" /></th>
-                    <th scope="col" onclick="orderList('wh_name')">창고 명 <img src="views/image/updown.png" height="20px"/> </th>
-                    <th scope="col" onclick="orderList('wh_width')">창고 너비 <img src="views/image/updown.png" height="20px"/></th>
-                    <th scope="col" onclick="orderList('wh_length')">창고 길이 <img src="views/image/updown.png" height="20px"/></th>
-                    <th scope="col">적재 가능 <img src="views/image/updown.png" height="20px"/></th>
+                    <th scope="col" id="th_name" onclick="orderListName()" value="wh_name">창고 명 <img src="views/image/updown.png" height="20px"/> </th>
+                    <th scope="col" id="th_width" onclick="orderListWidth()" value="wh_width">창고 너비 <img src="views/image/updown.png" height="20px"/></th>
+                    <th scope="col" id="th_length" onclick="orderListLength()" value="wh_length">창고 길이 <img src="views/image/updown.png" height="20px"/></th>
+                    <th scope="col">적재 가능</th>
                     <th scope="col">총 공간</th>
                     <th></th>
                   </tr>
