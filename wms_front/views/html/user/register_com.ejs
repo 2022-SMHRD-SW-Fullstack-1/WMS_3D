@@ -25,6 +25,7 @@
              <div class="yuinput-field">
                 <input
                   type="text"
+                  id="com_name"
                   name="com_name"
                   placeholder="회사명을 입력해주세요"
                   required
@@ -33,7 +34,7 @@
               </div>
   
               <div class="yuinput-field">
-                <input type="text" name="com_num" placeholder="사업자 번호를 입력해주세요" required />
+                <input type="text" id="com_num" name="com_num" placeholder="사업자 번호를 입력해주세요" required />
                 <i class="uil uil-bag"></i>
                 <button class="yudoublecheck">중복확인</button>
               </div>
@@ -41,6 +42,7 @@
               <div class="yuinput-field">
                 <input
                   type="password"
+                  id="com_pw"
                   name="com_pw"
                   placeholder="비밀번호를 입력해주세요"
                   required
@@ -49,7 +51,7 @@
               </div>
   
               <div class="yulogin button">
-                <button type="submit" class="btn">Next</button>
+                <button type="submit" class="btn" onclick='checkPW();' >Next</button>
                 </div>
             </form>
           </div>

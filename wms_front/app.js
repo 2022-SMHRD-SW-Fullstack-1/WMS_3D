@@ -40,24 +40,45 @@ app.get("/login", (req, res) => {
   res.render("views/html/user/login.ejs");
 });
 
-// //로그인 데이터 값 넣기
-// app.post("/login", (req, res) => {
-//   //console.log(req.body.pw);
-//   console.log(req.body);
-//   // insert로 데이터 넣기
-//   async function InsertuserData() {
-//     let conn, rows;
-//     let sql = "insert into tbl_user(user_id, user_pw, com_num) values(?,?,?)";
-//     conn = await pool.getConnection();
-//     conn.query("USE wms");
-//     rows = await conn.query(sql, [
-//       req.body.id,
-//       req.body.pw,
-//       req.body.com_num,
-//     ]);
-//   }
-//   InsertuserData();
-// });
+///////////// 로그인 db에서 확인하기
+app.post("/login", function (request, response) {
+  // console.log(request.body);
+  var com_num = request.body.com_num;
+  var user_id = request.body.id;
+  var user_pw = request.body.pw;
+  if (com_num && user_id && user_pw) {
+    async function getlogin() {
+      let conn, rows;
+      conn = await pool.getConnection();
+      conn.query("USE wms");
+      rows = await conn.query(
+        "SELECT * FROM tbl_user WHERE com_num=? AND  user_id = ? AND user_pw = ?",
+        [com_num, user_id, user_pw],
+        function (error, results, fields) {
+          if (error) throw error;
+          if (results.length > 0) {
+            request.session.loggedin = true;
+            request.session.com_num = com_num;
+            response.redirect("/");
+            response.end();
+          } else {
+            response.send(
+              '<script type="text/javascript">alert("로그인 정보가 일치하지 않습니다."); document.location.href="/login";</script>'
+            );
+            conn.end();
+            return rows;
+          }
+        }
+      );
+    }
+    getlogin();
+  } else {
+    response.send(
+      '<script type="text/javascript">alert("username과 password를 입력하세요!"); document.location.href="/login";</script>'
+    );
+    response.end();
+  }
+});
 
 // 회사 등록 페이지
 app.get("/register_com", (req, res) => {
