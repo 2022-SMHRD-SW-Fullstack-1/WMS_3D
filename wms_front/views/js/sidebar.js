@@ -15,3 +15,12 @@ console.log(sidebarBtn);
 sidebarBtn.addEventListener("click", () => {
   sidebar.classList.toggle("close");
 });
+
+var links = document.querySelectorAll(".sidebar a");
+
+links.forEach(function (link) {
+  link.addEventListener("click", function (event) {
+    event.preventDefault();
+    window.location = this.href;
+  });
+});

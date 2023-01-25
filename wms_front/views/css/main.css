@@ -1,12 +1,84 @@
-@font-face {
-  font-family: "GmarketSansMedium";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
-    format("woff");
-  font-weight: normal;
-  font-style: normal;
+/* *{
+  box-sizing: border-box;
 }
 
-body {
-  font-family: "GmarketSansMedium";
-  background-color: rgb(167, 167, 252);
+body{
+  background-color: #000;
 }
+
+header{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 60px;
+}
+
+a{
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.main-navigation{
+  float: right;
+}
+
+.main-navigation {
+  float: right;
+}
+
+.main-navigation a{
+  color: #fff;
+  margin-left: 40px;
+}
+
+.main-navigation a.active{
+  font-weight: bold;
+  border-bottom: 2px solid #004fff;
+}
+.btn{
+  display: inline-block;
+  color: #fff;
+  font-weight: bold;
+  padding: 12px 20px;
+  border-radius: 24px;
+  background-color: #004fff;
+}
+
+.ghost-btn{
+  background-color: transparent;
+  border: 1px solid #004fff;
+}
+
+.text-wrap{
+width: 520px;
+height: 100vh;
+padding: 240px 60px;
+position: absolute;
+right: 0;
+top: 0;
+background-color: #000;
+z-index: 1;
+}
+
+.text-wrap h2{
+  color: #fff;
+  font-size: 64px;
+  line-height: 80px;
+  font-weight: lighter;
+  margin-bottom: 40px;
+  }
+
+  .text-wrap h3{
+  color: #fff;
+  font-size: 24px;
+  line-height: 30px;
+  margin-bottom: 20px;
+  }
+
+  .text-wrap p{
+    color: #fff;
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    } */
