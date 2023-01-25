@@ -2,16 +2,48 @@ import * as THREE from "../build/three.module.js";
 import { OrbitControls } from "../examples/jsm/controls/OrbitControls.js"
 
 // 재고 이동 버튼 이벤트
-const move_btn = document.getElementById('move')
+const btn_move = document.getElementById('move')
 let move_yn = false
-move_btn.addEventListener('click',()=>{
+let worker_name = "";
+let move_stock_num = 0;
+btn_move.addEventListener('click',()=>{
     if(move_yn == false){
         move_yn = true
-        move_btn.className = "btn_on"
+        btn_move.className = "btn_on"
+        worker_name = prompt("작업자 이름을 입력 해주세요")
     }else {
         move_yn=false
-        move_btn.className =""
+        btn_move.className =""
     }
+})
+
+let move_stock_info = []
+// 재고 이동 저장 기능
+function saveStockInfo(){
+    console.log(move_stock_info);
+    let url = "/moveStockInfo"
+    for(let i=0;i<move_stock_info.length;i++){
+        
+        axios
+        .post(url, JSON.stringify(move_stock_info[i]), {
+            headers: {
+            "Content-Type": `application/json`,
+            },
+        })
+        .then((res) => {
+            console.log(res);
+        })
+        .catch(() => {
+            console.log("catch");
+        });
+    }
+}
+
+// 재고 이동 저장 버튼 이벤트
+const btn_save = document.getElementById('btn_save')
+btn_save.addEventListener('click',()=>{
+    saveStockInfo()
+    location.href = "http://localhost:3002/warehouse"
 })
 
 
@@ -35,6 +67,7 @@ let st_shelf_num = localStorage.getItem('st_shelf_num')
 let st_shelf_name = localStorage.getItem('st_shelf_name')
 let st_shelf_x = localStorage.getItem('st_shelf_x')
 let st_shelf_z = localStorage.getItem('st_shelf_z')
+let st_shelf_length = localStorage.getItem('st_shelf_length')
 let st_shelf_rotation = localStorage.getItem('st_shelf_rotation')
 let stock_num = localStorage.getItem('stock_num')
 let stock_name = localStorage.getItem('stock_name')
@@ -62,6 +95,7 @@ let st_shelf_num_arr = st_shelf_num.split(",").map(Number)
 let st_shelf_name_arr = st_shelf_name.split(",")
 let st_shelf_x_arr = st_shelf_x.split(",").map(Number)
 let st_shelf_z_arr = st_shelf_z.split(",").map(Number)
+let st_shelf_length_arr = st_shelf_length.split(",").map(Number)
 let st_shelf_rotation_arr = st_shelf_rotation.split(",")
 let stock_num_arr = stock_num.split(",").map(Number)
 let stock_name_arr = stock_name.split(",")
@@ -142,17 +176,21 @@ class App{
                     // clickedObj.parent
                     // clickedObj.material.color.set(0xffff00);
 
-                    oldY = clickedObj.position.y;
+                    
                 }
                 
             }else if(move_yn == true){
+                
+                
 
                 // // 재고 이동 on off
                 // if(move_yn == true){
                     if(clickedObj.geometry.type=="BoxGeometry" && clickedObj.name!="shelf_ground"){
                         console.log(clickedObj);
+                        console.log("재고 번호 : "+clickedObj.name.stock_num)
+                        move_stock_num = clickedObj.name.stock_num
                         // 빈자리가 아닌 재고가 있는 자리를 선택했을 때
-
+                        
                         //  이전에 클릭한 mesh를 저장한 변수
                         const oldSelectedMesh = this._raycaster._selectedMesh;
                         // 새로운 mesh를 담을 변수
@@ -170,6 +208,7 @@ class App{
                             // 이전에 선택된 재고가 있다면
                             // 이전에 선택된 재고를 원래상태로 변경
                             
+                            oldY = clickedObj.position.y;
                             gsap.to(oldSelectedMesh.position,{y:oldY,duration:1});
                             
                         }
@@ -180,10 +219,19 @@ class App{
                             while(found[i].object.name !="shelf_ground"){
                                 i++
                             }
-                            console.log(found)
-                            console.log(found[i].point);
-                            // 선택된 재고를 클릭된 위치로 수평이동한 뒤 해당방향으로 수직이동
-                            console.log(found[i])
+                            if(found[i].object.parent.name.rotation =="y"){
+                                move_stock_info.push({st_num:move_stock_num,shelf_num:found[i].object.parent.name.num,st_position:Math.abs(Math.floor((found[i].point.x-found[i].object.parent.name.x)-1.5)),st_floor:(Math.floor(found[i].point.y)+1)})
+                                // console.log(found)
+                                // console.log("이동 선반 번호 : "+found[i].object.parent.name.num)
+                                // console.log(found[i].point);
+                                // console.log("이동 포지션 : "+Math.abs(Math.floor((found[i].point.x-found[i].object.parent.name.x)-1.5)));
+                                // console.log("이동 선반 층 : "+(Math.floor(found[i].point.y)+1));
+                                // console.log(found[i])
+                            }else{
+                                // console.log("이동 포지션 : "+Math.abs(Math.floor((found[i].point.z-found[i].object.parent.name.z)-1.5)));
+                                move_stock_info.push({st_num:move_stock_num,shelf_num:found[i].object.parent.name.num,st_position:Math.abs(Math.floor((found[i].point.z-found[i].object.parent.name.z)-1.5)),st_floor:(Math.floor(found[i].point.y)+1)})
+                            }
+                            
                             const timeline = gsap.timeline();
                             timeline.to(this._raycaster._selectedMesh.position,{
                                 x: Math.floor(found[i].point.x)+0.5,
@@ -316,7 +364,7 @@ class App{
     }
     _bringStocks(){
         for(let i=0; i<stock_num_arr.length;i++){
-            this._bringStock({shelf_name : st_shelf_name_arr[i], shelf_x : st_shelf_x_arr[i],shelf_z:st_shelf_z_arr[i],shelf_rotation : st_shelf_rotation_arr[i],stock_num:stock_num_arr[i],stock_name:stock_name_arr[i],stock_info:stock_info_arr[i],stock_floor:stock_floor_arr[i],stock_position: stock_position_arr[i],input_date:input_date_arr[i],exp_dt:exp_dt_arr[i]});
+            this._bringStock({shelf_name : st_shelf_name_arr[i], shelf_x : st_shelf_x_arr[i],shelf_z:st_shelf_z_arr[i],st_shelf_length:st_shelf_length_arr[i],shelf_rotation : st_shelf_rotation_arr[i],shelf_length : shelf_length_arr[i],stock_num:stock_num_arr[i],stock_name:stock_name_arr[i],stock_info:stock_info_arr[i],stock_floor:stock_floor_arr[i],stock_position: stock_position_arr[i],input_date:input_date_arr[i],exp_dt:exp_dt_arr[i]});
         }
     }
     _bringStock(i){
@@ -325,11 +373,12 @@ class App{
         let stock_z = 0;
 
         if(i.shelf_rotation=="y"){
-            stock_x = i.shelf_x + i.stock_position
+            stock_x = Number(i.shelf_x) - Number(i.stock_position) + (((Number(i.st_shelf_length))/2)-0.5)
+            console.log(i.shelf_length)
             stock_z = i.shelf_z
         }else{
             stock_x = i.shelf_x
-            stock_z = i.shelf_z + i.stock_position
+            stock_z = Number(i.shelf_z) - Number(i.stock_position) + (((Number(i.st_shelf_length))/2)-0.5)
         }
 
         const StockGeometry = new THREE.BoxGeometry(0.8,0.8,0.8)
@@ -338,7 +387,7 @@ class App{
         })
         const StockMesh = new THREE.Mesh(StockGeometry, StockMaterial)
         StockMesh.position.set(stock_x,i.stock_floor-0.5,stock_z)
-        StockMesh.name = {shelf_name:i.shelf_name,shelf_x:i.shelf_x,shelf_z:i.shelf_z,shelf_rotation:i.shelf_rotation,stock_num:i.stock_num,stock_name:i.stock_name,stock_info:i.stock_info,stock_position:i.stock_position,stock_floor:i.stock_floor,input_date:i.input_date,exp_dt:i.exp_dt}
+        StockMesh.name = {shelf_name:i.shelf_name,shelf_x:i.shelf_x,shelf_z:i.shelf_z,shelf_length:i.shelf_length,shelf_rotation:i.shelf_rotation,stock_num:i.stock_num,stock_name:i.stock_name,stock_info:i.stock_info,stock_position:i.stock_position,stock_floor:i.stock_floor,input_date:i.input_date,exp_dt:i.exp_dt}
         this._object_arr.push(StockMesh)
         this._scene.add(StockMesh)
 
@@ -347,7 +396,7 @@ class App{
     _bringShelves(){
 
         for(let i=0; i<shelf_name_arr.length;i++){
-            this._bringShelf({name:shelf_name_arr[i],x:shelf_x_arr[i],z:shelf_z_arr[i],width:shelf_width_arr[i],length:shelf_length_arr[i],floor:shelf_floor_arr[i],rotation:shelf_rotation_arr[i]})
+            this._bringShelf({num:shelf_num_arr[i],name:shelf_name_arr[i],x:shelf_x_arr[i],z:shelf_z_arr[i],width:shelf_width_arr[i],length:shelf_length_arr[i],floor:shelf_floor_arr[i],rotation:shelf_rotation_arr[i]})
         }
     }
     _bringShelf(item){
@@ -391,7 +440,7 @@ class App{
             shelf_group.rotation.y = -Math.PI/2;
         }
         shelf_group.position.set(item.x,0,item.z)
-        shelf_group.name = item.name
+        shelf_group.name = {name:item.name,num:item.num,length:item.length,x:item.x,z:item.z,rotation:item.rotation}
         this._shelf = shelf_group;
         this._scene.add(shelf_group)
     }   
