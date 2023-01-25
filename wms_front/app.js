@@ -10,6 +10,7 @@ const pool = mariadb.createPool({
   user: vals.DBUser,
   password: vals.DBPass,
   connectionLimit: 10,
+  multipleStatements: true, // 여러 쿼리를 ';'를 기준으로 한번에 보낼 수 있게한다.
 });
 
 // HTML에서 서버에 데이터를 요청하기 위한 라이브러리 : body-parser
@@ -33,10 +34,18 @@ app.use(express.static(__dirname + "/"));
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/");
 
-// 메인페이지
+let rowsResult = new Array();
+
+// 실험페이지
 app.get("/", (req, res) => {
   // 요청 패스에 대한 콜백 함수를 넣어줌
   res.sendFile(__dirname + "/views/html/main.html");
+});
+
+// 메인페이지
+app.get("/main", (req, res) => {
+  // 요청 패스에 대한 콜백 함수를 넣어줌
+  res.render("views/html/main.ejs");
 });
 
 // 로그인페이지
@@ -59,16 +68,58 @@ app.get("/three/sj/warehouse_3d.html", (req, res) => {
   res.sendFile(__dirname + "/three/sj/warehouse_3d.html");
 });
 
+// 출고 페이지
 app.get("/output", (req, res) => {
-  res.sendFile(__dirname + "/views/html/stock/output.html");
+  mdbConn
+    .getOutputList()
+    .then((rows) => {
+      res.render(
+        "views/html/stock/output.ejs",
+        {
+          data: rows,
+        },
+        function (err, html) {
+          if (err) {
+            console.log(err);
+          }
+          res.end(html);
+        }
+      );
+    })
+    .catch((errMsg) => {
+      err;
+    });
 });
 
 // DB에 받아온 값 Insert
 // 창고 관리 페이지
 app.get("/warehouse", (req, res) => {
-  // console.log(req.query.num);
-  mdbConn
-    .getWarehouseList()
+  console.log(req.query.num);
+  console.log(req.query.bool);
+
+  async function getWarehouseList() {
+    let conn, rows, sql;
+    try {
+      conn = await pool.getConnection();
+      conn.query("USE wms");
+      if (req.query.num != null && req.query.bool == "true") {
+        sql = `SELECT w.wh_num,w.com_num,w.wh_name,w.wh_width,w.wh_length,w.wh_min_temp,w.wh_max_temp,w.wh_min_humid,w.wh_max_humid,w.wh_info ,floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0))) wh_max_avl,(floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0))) - count(st.stock_name)) wh_now_avl from tbl_warehouse w left JOIN tbl_shelf s ON w.wh_num = s.wh_num LEFT join tbl_stock st ON s.shelf_num = st.shelf_num GROUP BY wh_num order by ${req.query.num} desc;SELECT s.wh_num, s.shelf_name,s.shelf_width,s.shelf_length,s.shelf_floor,FLOOR(s.shelf_width * s.shelf_length * s.shelf_floor) shelf_avl, count(st.stock_num) FROM tbl_shelf s LEFT JOIN tbl_stock st ON s.shelf_num = st.shelf_num GROUP BY shelf_name`;
+      } else if (req.query.num != null && req.query.bool == "false") {
+        sql = `SELECT w.wh_num,w.com_num,w.wh_name,w.wh_width,w.wh_length,w.wh_min_temp,w.wh_max_temp,w.wh_min_humid,w.wh_max_humid,w.wh_info ,floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0))) wh_max_avl,(floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0))) - count(st.stock_name)) wh_now_avl from tbl_warehouse w left JOIN tbl_shelf s ON w.wh_num = s.wh_num LEFT join tbl_stock st ON s.shelf_num = st.shelf_num GROUP BY wh_num order by ${req.query.num} ASC;SELECT s.wh_num, s.shelf_name,s.shelf_width,s.shelf_length,s.shelf_floor,FLOOR(s.shelf_width * s.shelf_length * s.shelf_floor) shelf_avl, count(st.stock_num) FROM tbl_shelf s LEFT JOIN tbl_stock st ON s.shelf_num = st.shelf_num GROUP BY shelf_name`;
+      } else {
+        sql =
+          "SELECT w.wh_num,w.com_num,w.wh_name,w.wh_width,w.wh_length,w.wh_min_temp,w.wh_max_temp,w.wh_min_humid,w.wh_max_humid,w.wh_info ,floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0))) wh_max_avl,(floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0))) - count(st.stock_name)) wh_now_avl from tbl_warehouse w left JOIN tbl_shelf s ON w.wh_num = s.wh_num LEFT join tbl_stock st ON s.shelf_num = st.shelf_num GROUP BY wh_num;SELECT s.wh_num, s.shelf_name,s.shelf_width,s.shelf_length,s.shelf_floor,FLOOR(s.shelf_width * s.shelf_length * s.shelf_floor) shelf_avl, count(st.stock_num) FROM tbl_shelf s LEFT JOIN tbl_stock st ON s.shelf_num = st.shelf_num GROUP BY shelf_name ";
+      }
+      rows = await conn.query(sql);
+    } catch (err) {
+      throw err;
+    } finally {
+      if (conn) conn.close();
+      return rows;
+    }
+  }
+
+  getWarehouseList()
     .then((rows) => {
       // console.log(rows);
       res.render(
@@ -96,6 +147,56 @@ let cate = "";
 let word = "";
 // 선반 생성 기능
 
+app.post("/warehouse", (req, res) => {
+  // console.log(req.body.cate);
+  // console.log(req.body.word);
+  cate = req.body.cate;
+  word = req.body.word;
+});
+
+app.get("/warehouse/search", (req, res) => {
+  async function GetSearchData() {
+    let conn, rows;
+    try {
+      conn = await pool.getConnection();
+      conn.query("USE wms");
+      rows = await conn.query(
+        `SELECT w.wh_num,w.com_num,w.wh_name,w.wh_width,w.wh_length,w.wh_min_temp,w.wh_max_temp,w.wh_min_humid,w.wh_max_humid,w.wh_info ,floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0))) wh_max_avl,(floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0))) - count(st.stock_name)) wh_now_avl from tbl_warehouse w left JOIN tbl_shelf s ON w.wh_num = s.wh_num LEFT join tbl_stock st ON s.shelf_num = st.shelf_num where ${cate} like '%${word}%' GROUP BY wh_num;SELECT s.wh_num, s.shelf_name,s.shelf_width,s.shelf_length,s.shelf_floor,FLOOR(s.shelf_width * s.shelf_length * s.shelf_floor) shelf_avl, count(st.stock_num) FROM tbl_shelf s LEFT JOIN tbl_stock st ON s.shelf_num = st.shelf_num GROUP BY shelf_name`
+      );
+    } catch (err) {
+      throw err;
+    } finally {
+      // console.log(rows);
+      if (conn) conn.end();
+      return rows;
+    }
+  }
+
+  GetSearchData()
+    .then((rows) => {
+      // console.log("rows", rows);
+      // console.log("rowsResult", rowsResult);
+      res.render(
+        "views/html/warehouse/warehouse_search.ejs",
+        {
+          data: rows[0],
+          shelf_data: rows[1],
+        },
+        function (err, html) {
+          if (err) {
+            console.log("err: ", err);
+          }
+          // console.log(rows);
+          res.end(html);
+        }
+      );
+    })
+    .catch((errMsg) => {
+      //   console.log(errMsg);
+      err;
+    });
+});
+
 app.get("/shelf", (req, res) => {
   res.render("views/html/warehouse/shelf.ejs");
 });
@@ -108,7 +209,22 @@ app.post("/shelf", (req, res) => {
     let conn, rows;
     conn = await pool.getConnection();
     conn.query("USE wms");
-    rows = await conn.query(`SELECT * FROM tbl_shelf WHERE wh_num = ${val}`);
+    rows = await conn.query(`select w.wh_num,w.wh_name,s.shelf_name,
+s.shelf_num, s.shelf_width,s.shelf_length,s.shelf_floor,floor(s.shelf_width*s.shelf_length*s.shelf_floor) max_avl, floor((s.shelf_width*s.shelf_length*s.shelf_floor) - count(st.stock_num)) now_avl 
+From
+tbl_shelf s
+left join
+tbl_warehouse w
+on
+w.wh_num=s.wh_num
+left join
+tbl_stock st
+on
+s.shelf_num = st.shelf_num
+where s.wh_num = ${val}
+group by s.shelf_num
+`);
+    conn.end();
     return rows;
   }
   getShelfList()
@@ -143,6 +259,7 @@ app.post("/createShelf", (req, res) => {
     rows = await conn.query(
       `SELECT w.wh_num, w.com_num, w.wh_name, w.wh_width, w.wh_length, w.wh_min_temp, w.wh_max_temp, w.wh_min_humid, w.wh_max_humid, w.wh_info,s.shelf_num, s.shelf_name, s.shelf_x,s.shelf_z,s.shelf_width,s.shelf_length,s.shelf_floor,s.shelf_rotation_yn FROM tbl_warehouse w LEFT JOIN tbl_shelf s  ON w.wh_num = s.wh_num WHERE w.wh_num =${val}`
     );
+    conn.end();
     return rows;
   }
   getWarehouseForShelf()
@@ -185,8 +302,46 @@ app.post("/saveShelf", (req, res) => {
       req.body.floor,
       req.body.rotation,
     ]);
+    conn.close();
   }
   InsertShelfData();
+});
+
+// 창고페이지 -> 3d 창고 페이지
+app.post("/viewWarehouse", (req, res) => {
+  const val = Number(req.body.num);
+  console.log(val);
+  async function getWarehouseView() {
+    let conn, rows;
+    conn = await pool.getConnection();
+    conn.query("USE wms");
+
+    rows = await conn.query(
+      `SELECT w.wh_num,w.wh_name, w.wh_width, w.wh_length ,w.wh_min_temp ,w.wh_max_temp,w.wh_min_humid,w.wh_max_humid,w.wh_info,s.shelf_num,s.shelf_name,s.shelf_x,s.shelf_z,s.shelf_width,s.shelf_length,s.shelf_floor,s.shelf_rotation_yn FROM tbl_warehouse w LEFT JOIN tbl_shelf s ON w.wh_num = s.wh_num WHERE w.wh_num = ${val} ; SELECT s.wh_num, s.shelf_num, s.shelf_name, s.shelf_x, s.shelf_z, s.shelf_width, s.shelf_length, s.shelf_floor, s.shelf_rotation_yn, st.stock_num, st.stock_name, st.stock_info,st.buy_com, DATE_FORMAT(st.wlb_input_date, "%y년%m월%d일") wlb_input_date, DATE_FORMAT(st.input_date, "%y년%m월%d일") input_date,st.stock_floor,st.stock_position,DATE_FORMAT(st.exp_dt, "%y년%m월%d일") exp_dt FROM tbl_shelf s LEFT JOIN tbl_stock st ON s.shelf_num = st.shelf_num WHERE st.shelf_num in (SELECT shelf_num FROM tbl_shelf WHERE wh_num = ${val}) AND st.output_date IS null`
+    );
+
+    conn.end();
+    return rows;
+  }
+  getWarehouseView()
+    .then((rows) => {
+      res.render(
+        "views/render/view_warehouse.ejs",
+        {
+          shelf_data: rows[0],
+          stock_data: rows[1],
+        },
+        function (err, html) {
+          if (err) {
+            console.log(err);
+          }
+          res.end(html);
+        }
+      );
+    })
+    .catch((errMsg) => {
+      console.log(errMsg);
+    });
 });
 
 // 선반 생성 기능
@@ -205,73 +360,12 @@ app.post("/three/sj_test/create_warehouse.html", (req, res) => {
       req.body.width,
       req.body.length,
     ]);
+    conn.close();
   }
   InsertWarehouseData();
 });
 
 // 선반 생성 기능
-
-let rowsResult;
-
-app.post("/warehouse", (req, res) => {
-  // console.log(req.body.cate);
-  // console.log(req.body.word);
-  cate = req.body.cate;
-  word = req.body.word;
-  async function GetSearchData() {
-    let conn, rows;
-    try {
-      conn = await pool.getConnection();
-      conn.query("USE wms");
-      rows = await conn.query(
-        `select * from tbl_warehouse where ${cate} like '%${word}%'`
-      );
-    } catch (err) {
-      throw err;
-    } finally {
-      // console.log(rows);
-      if (conn) conn.end();
-      return rows;
-    }
-  }
-
-  GetSearchData()
-    .then((rows) => {
-      rowsResult = rows;
-      console.log(rowsResult);
-      res.render(
-        "views/html/warehouse/warehouse.ejs",
-        {
-          data: rows[0],
-        },
-        function (err, html) {
-          if (err) {
-            console.log("err: ", err);
-          }
-          // console.log(rows);
-          res.end(html);
-        }
-      );
-    })
-    .catch((errMsg) => {
-      //   console.log(errMsg);
-      err;
-    });
-});
-
-app.get("/warehouse/search", (req, res) => {
-  res.render(
-    "views/html/warehouse/warehouse_search.ejs",
-    { data: rowsResult },
-    function (err, html) {
-      if (err) {
-        console.log(err);
-      }
-      // console.log(rows);
-      res.end(html);
-    }
-  );
-});
 
 app.post("/outputForm", (req, res) => {
   // console.log(req.body.pw);
@@ -289,6 +383,7 @@ app.post("/outputForm", (req, res) => {
       req.body.tel,
       req.body.addr,
     ]);
+    conn.close();
   }
   InsertCompanyData();
 });
@@ -316,6 +411,75 @@ app.get("/input", (req, res) => {
     })
     .catch((errMsg) => {
       //   console.log(errMsg);
+      err;
+    });
+});
+
+// 입/출고 내역 페이지
+app.get("/inoutput_history", (req, res) => {
+  mdbConn
+    .getInOutput_HistoryList()
+    .then((rows) => {
+      res.render(
+        "views/html/stock/inoutput_history.ejs",
+        {
+          data: rows,
+        },
+        function (err, html) {
+          if (err) {
+            console.log(err);
+          }
+          res.end(html);
+        }
+      );
+    })
+    .catch((errMsg) => {
+      err;
+    });
+});
+
+// 재고 페이지
+app.get("/stock", (req, res) => {
+  mdbConn
+    .getStockList()
+    .then((rows) => {
+      res.render(
+        "views/html/stock/stock.ejs",
+        {
+          data: rows,
+        },
+        function (err, html) {
+          if (err) {
+            console.log(err);
+          }
+          res.end(html);
+        }
+      );
+    })
+    .catch((errMsg) => {
+      err;
+    });
+});
+
+// 작업내역 페이지
+app.get("/work_history", (req, res) => {
+  mdbConn
+    .getWork_HistoryList()
+    .then((rows) => {
+      res.render(
+        "views/html/workmanagement/work_history.ejs",
+        {
+          data: rows,
+        },
+        function (err, html) {
+          if (err) {
+            console.log(err);
+          }
+          res.end(html);
+        }
+      );
+    })
+    .catch((errMsg) => {
       err;
     });
 });

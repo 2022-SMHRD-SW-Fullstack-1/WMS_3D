@@ -8,17 +8,19 @@
 </head>
 <body>
     <% for(var i = 0; i<data.length; i++){%>
-        <span class="wh_name"><%- data[i].wh_num%></span>
-        <span class="wh_width"><%- data[i].wh_width%></span>
-        <span class="wh_length"><%- data[i].wh_length%></span>
-        <span class="shelf_x"><%- data[i].shelf_x%></span>
-        <span class="shelf_z"><%- data[i].shelf_z%></span>
-        <span class="shelf_name"><%- data[i].shelf_name%></span>
-        <span class="shelf_width"><%- data[i].shelf_width%></span>
-        <span class="shelf_length"><%- data[i].shelf_length%></span>
-        <span class="shelf_floor"><%- data[i].shelf_floor%></span>
-        <span class="shelf_rotation"><%- data[i].shelf_rotation_yn%></span>
-    <% } %>
+        <div style="display: none">
+            <span class="wh_name"><%- data[i].wh_num%></span>
+            <span class="wh_width"><%- data[i].wh_width%></span>
+            <span class="wh_length"><%- data[i].wh_length%></span>
+            <span class="shelf_x"><%- data[i].shelf_x%></span>
+            <span class="shelf_z"><%- data[i].shelf_z%></span>
+            <span class="shelf_name"><%- data[i].shelf_name%></span>
+            <span class="shelf_width"><%- data[i].shelf_width%></span>
+            <span class="shelf_length"><%- data[i].shelf_length%></span>
+            <span class="shelf_floor"><%- data[i].shelf_floor%></span>
+            <span class="shelf_rotation"><%- data[i].shelf_rotation_yn%></span>
+        </div>
+            <% } %>
 
 
     <script>
