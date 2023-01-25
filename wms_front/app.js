@@ -63,11 +63,6 @@ app.get("/register_user.html", (req, res) => {
   res.sendFile(__dirname + "/views/html/user/register_user.html");
 });
 
-// 3D 창고 페이지
-app.get("/three/sj/warehouse_3d.html", (req, res) => {
-  res.sendFile(__dirname + "/three/sj/warehouse_3d.html");
-});
-
 // 출고 페이지
 app.get("/output", (req, res) => {
   mdbConn
@@ -103,12 +98,12 @@ app.get("/warehouse", (req, res) => {
       conn = await pool.getConnection();
       conn.query("USE wms");
       if (req.query.num != null && req.query.bool == "true") {
-        sql = `SELECT w.wh_num,w.com_num,w.wh_name,w.wh_width,w.wh_length,w.wh_min_temp,w.wh_max_temp,w.wh_min_humid,w.wh_max_humid,w.wh_info ,floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0))) wh_max_avl,(floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0))) - count(st.stock_name)) wh_now_avl from tbl_warehouse w left JOIN tbl_shelf s ON w.wh_num = s.wh_num LEFT join tbl_stock st ON s.shelf_num = st.shelf_num GROUP BY wh_num order by ${req.query.num} desc;SELECT s.wh_num, s.shelf_name,s.shelf_width,s.shelf_length,s.shelf_floor,FLOOR(s.shelf_width * s.shelf_length * s.shelf_floor) shelf_avl, count(st.stock_num) FROM tbl_shelf s LEFT JOIN tbl_stock st ON s.shelf_num = st.shelf_num GROUP BY shelf_name`;
+        sql = `SELECT w.wh_num,w.com_num,w.wh_name,w.wh_width,w.wh_length,w.wh_min_temp,w.wh_max_temp,w.wh_min_humid,w.wh_max_humid,w.wh_info ,floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0))) wh_max_avl,(floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0)))-(SELECT COUNT(st.stock_num) stock_count FROM tbl_shelf s LEFT JOIN tbl_stock st ON s.shelf_num = st.shelf_num WHERE s.wh_num = w.wh_num AND st.output_date IS null)) wh_now_avl from tbl_warehouse w left JOIN tbl_shelf s ON w.wh_num = s.wh_num GROUP BY wh_num order by ${req.query.num} desc;SELECT s.wh_num, s.shelf_name,s.shelf_width,s.shelf_length,s.shelf_floor,FLOOR(s.shelf_width * s.shelf_length * s.shelf_floor) shelf_avl, count(st.stock_num) shelf_used FROM tbl_shelf s LEFT JOIN tbl_stock st ON s.shelf_num = st.shelf_num  WHERE st.output_date IS null GROUP BY shelf_name`;
       } else if (req.query.num != null && req.query.bool == "false") {
-        sql = `SELECT w.wh_num,w.com_num,w.wh_name,w.wh_width,w.wh_length,w.wh_min_temp,w.wh_max_temp,w.wh_min_humid,w.wh_max_humid,w.wh_info ,floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0))) wh_max_avl,(floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0))) - count(st.stock_name)) wh_now_avl from tbl_warehouse w left JOIN tbl_shelf s ON w.wh_num = s.wh_num LEFT join tbl_stock st ON s.shelf_num = st.shelf_num GROUP BY wh_num order by ${req.query.num} ASC;SELECT s.wh_num, s.shelf_name,s.shelf_width,s.shelf_length,s.shelf_floor,FLOOR(s.shelf_width * s.shelf_length * s.shelf_floor) shelf_avl, count(st.stock_num) FROM tbl_shelf s LEFT JOIN tbl_stock st ON s.shelf_num = st.shelf_num GROUP BY shelf_name`;
+        sql = `SELECT w.wh_num,w.com_num,w.wh_name,w.wh_width,w.wh_length,w.wh_min_temp,w.wh_max_temp,w.wh_min_humid,w.wh_max_humid,w.wh_info ,floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0))) wh_max_avl,(floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0)))-(SELECT COUNT(st.stock_num) stock_count FROM tbl_shelf s LEFT JOIN tbl_stock st ON s.shelf_num = st.shelf_num WHERE s.wh_num = w.wh_num AND st.output_date IS null)) wh_now_avl from tbl_warehouse w left JOIN tbl_shelf s ON w.wh_num = s.wh_num GROUP BY wh_num order by ${req.query.num} asc;SELECT s.wh_num, s.shelf_name,s.shelf_width,s.shelf_length,s.shelf_floor,FLOOR(s.shelf_width * s.shelf_length * s.shelf_floor) shelf_avl, count(st.stock_num) shelf_used FROM tbl_shelf s LEFT JOIN tbl_stock st ON s.shelf_num = st.shelf_num  WHERE st.output_date IS null GROUP BY shelf_name`;
       } else {
         sql =
-          "SELECT w.wh_num,w.com_num,w.wh_name,w.wh_width,w.wh_length,w.wh_min_temp,w.wh_max_temp,w.wh_min_humid,w.wh_max_humid,w.wh_info ,floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0))) wh_max_avl,(floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0))) - count(st.stock_name)) wh_now_avl from tbl_warehouse w left JOIN tbl_shelf s ON w.wh_num = s.wh_num LEFT join tbl_stock st ON s.shelf_num = st.shelf_num GROUP BY wh_num;SELECT s.wh_num, s.shelf_name,s.shelf_width,s.shelf_length,s.shelf_floor,FLOOR(s.shelf_width * s.shelf_length * s.shelf_floor) shelf_avl, count(st.stock_num) FROM tbl_shelf s LEFT JOIN tbl_stock st ON s.shelf_num = st.shelf_num GROUP BY shelf_name ";
+          "SELECT w.wh_num,w.com_num,w.wh_name,w.wh_width,w.wh_length,w.wh_min_temp,w.wh_max_temp,w.wh_min_humid,w.wh_max_humid,w.wh_info ,floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0))) wh_max_avl,(floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0)))-(SELECT COUNT(st.stock_num) stock_count FROM tbl_shelf s LEFT JOIN tbl_stock st ON s.shelf_num = st.shelf_num WHERE s.wh_num = w.wh_num AND st.output_date IS null)) wh_now_avl from tbl_warehouse w left JOIN tbl_shelf s ON w.wh_num = s.wh_num GROUP BY wh_num;SELECT s.wh_num, s.shelf_name,s.shelf_width,s.shelf_length,s.shelf_floor,FLOOR(s.shelf_width * s.shelf_length * s.shelf_floor) shelf_avl, count(st.stock_num) shelf_used FROM tbl_shelf s LEFT JOIN tbl_stock st ON s.shelf_num = st.shelf_num  WHERE st.output_date IS null GROUP BY shelf_name";
       }
       rows = await conn.query(sql);
     } catch (err) {
@@ -343,7 +338,6 @@ app.post("/viewWarehouse", (req, res) => {
       console.log(errMsg);
     });
 });
-
 // 선반 생성 기능
 
 // 창고 생성 페이지
@@ -360,9 +354,14 @@ app.post("/three/sj_test/create_warehouse.html", (req, res) => {
       req.body.width,
       req.body.length,
     ]);
-    conn.close();
+    conn.end();
   }
   InsertWarehouseData();
+});
+
+// 3D 창고 페이지
+app.get("/three/sj/warehouse_3d.html", (req, res) => {
+  res.sendFile(__dirname + "three/sj/warehouse_3d.html");
 });
 
 // 선반 생성 기능
