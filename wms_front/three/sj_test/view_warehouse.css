@@ -58,7 +58,7 @@ body{
     text-align: center;
     
 }
-#move{
+button {
     margin: 10px;
     padding: 0;
     width: 100px;
@@ -75,12 +75,15 @@ body{
     font-size: 20px;
     transition: 0.25s;
 }
-#move:hover{
+button:hover{
     cursor: pointer;
 }
 .btn_on{
     background-color: rgb(24, 0, 96);
     color: white;
 
+}
+.none_view{
+    display: none;
 }
 /* 상단 바 전체  */

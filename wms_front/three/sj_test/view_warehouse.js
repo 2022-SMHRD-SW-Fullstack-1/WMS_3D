@@ -3,6 +3,7 @@ import { OrbitControls } from "../examples/jsm/controls/OrbitControls.js"
 
 // 재고 이동 버튼 이벤트
 const btn_move = document.getElementById('move')
+const btn_save = document.getElementById('btn_save')
 let move_yn = false
 let worker_name = "";
 let move_stock_num = 0;
@@ -10,10 +11,12 @@ btn_move.addEventListener('click',()=>{
     if(move_yn == false){
         move_yn = true
         btn_move.className = "btn_on"
+        btn_save.className = ""
         worker_name = prompt("작업자 이름을 입력 해주세요")
     }else {
         move_yn=false
         btn_move.className =""
+        btn_save.className = "none_view"
     }
 })
 
@@ -40,7 +43,7 @@ function saveStockInfo(){
 }
 
 // 재고 이동 저장 버튼 이벤트
-const btn_save = document.getElementById('btn_save')
+
 btn_save.addEventListener('click',()=>{
     saveStockInfo()
     location.href = "http://localhost:3002/warehouse"
