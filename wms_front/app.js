@@ -520,8 +520,28 @@ app.get("/stock", (req, res) => {
 
 // 작업내역 페이지
 app.get("/work_history", (req, res) => {
-  mdbConn
-    .getWork_HistoryList()
+  async function GetWork_HistoryList() {
+    let conn, rows, sql;
+    try {
+      conn = await pool.getConnection();
+      conn.query("USE wms");
+      if (req.query.num && req.query.bool == "true") {
+        sql = `SELECT wk.work_name,wkr.worker_name,st.stock_num,st.stock_name,st.stock_info FROM tbl_stock st left join tbl_work wk on st.stock_num = wk.stock_num left join tbl_worker wkr on wk.worker_num = wkr.worker_num where wk.work_name is not null AND wkr.worker_name is not NULL ORDER BY ${req.query.num} DESC;`;
+      } else if (req.query.num && req.query.bool == "false") {
+        sql = `SELECT wk.work_name,wkr.worker_name,st.stock_num,st.stock_name,st.stock_info FROM tbl_stock st left join tbl_work wk on st.stock_num = wk.stock_num left join tbl_worker wkr on wk.worker_num = wkr.worker_num where wk.work_name is not null AND wkr.worker_name is not NULL ORDER BY ${req.query.num} ASC;`;
+      } else {
+        sql =
+          "SELECT wk.work_name,wkr.worker_name,st.stock_num,st.stock_name,st.stock_info FROM tbl_stock st left join tbl_work wk on st.stock_num = wk.stock_num left join tbl_worker wkr on wk.worker_num = wkr.worker_num where wk.work_name is not null AND wkr.worker_name is not null";
+      }
+      rows = await conn.query(sql);
+    } catch (err) {
+      throw err;
+    } finally {
+      if (conn) conn.end();
+      return rows;
+    }
+  }
+  GetWork_HistoryList()
     .then((rows) => {
       res.render(
         "views/html/workmanagement/work_history.ejs",
