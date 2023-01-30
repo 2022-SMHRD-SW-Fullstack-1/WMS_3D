@@ -32,7 +32,7 @@
  src="views/js/sidebar.js"
  defer
  ></script>
-
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.5/xlsx.full.min.js"></script>
  <!-- 사이드바 -->
 
   </head>
@@ -195,7 +195,9 @@
       <input type="text" />
       <button id="search_btn">검색</button>
     </div>
+    <input type="file" onchange="readExcel()">
     <button id="add_input_btn" onclick="goToCreateShelf('<%- data[0].stock_num%>')">+ 입고 추가</button>
+
   </div>
   
   <div class="graph_top_div">

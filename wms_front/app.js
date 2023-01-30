@@ -65,6 +65,7 @@ app.get("/register_user.html", (req, res) => {
 
 // 출고 페이지
 app.get("/output", (req, res) => {
+  console.log(req.query);
   mdbConn
     .getOutputList()
     .then((rows) => {

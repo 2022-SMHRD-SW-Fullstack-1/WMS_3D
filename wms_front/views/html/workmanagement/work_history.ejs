@@ -29,8 +29,6 @@
       src="views/js/workmanagement/work_history.js"
       defer
     ></script>
-    
-    
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js" integrity="sha512-f8mwTB+Bs8a5c46DEm7HQLcJuHMBaH/UFlcgyetMqqkvTcYg4g5VXsYR71b3qC82lZytjNYvBj2pf0VekA9/FQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -42,9 +40,11 @@
       rel="stylesheet"
     />
     <!-- 사이드바 -->
-
+    <script src="http://code.jquery.com/jquery-latest.js"></script> 
 
   </head>
+
+ 
   <body>
     <div class="top_div">
 
@@ -202,7 +202,7 @@
     <div class="graph_top_div">
       <div class="main_graph_div">
         <div class="bd-example">
-          <table class="table table-striped table-hover">
+          <table class="table table-striped table-hover" id="table">
             <thead>
               <tr>
                 <th><input type="checkbox" /></th>
@@ -265,6 +265,7 @@
                     
                   </tbody>
                 </table>
+                <button type="button" onclick="ExcelExport('table', 'title')">Excel</button>
                 
                 <!-- 페이지 바 -->
                 <nav aria-label="Page navigation example">
