@@ -34,10 +34,11 @@
               </div>
   
               <div class="yuinput-field">
-                <input type="text" id="com_num" name="com_num" placeholder="사업자 번호를 입력해주세요" required />
+                <input type="text" class="username_input" name="com_num" check_result="fail" placeholder="사업자 번호를 입력해주세요" required />
                 <i class="uil uil-bag"></i>
-                <button class="yudoublecheck">중복확인</button>
-              </div>
+                <button type="button" class="id_overlap_button" onclick="id_overlap_check()">중복확인</button>
+                <img id="id_check_sucess" style="display: none;">
+              </div> 
               
               <div class="yuinput-field">
                 <input
@@ -51,9 +52,19 @@
               </div>
   
               <div class="yulogin button">
-                <button type="submit" class="btn" onclick='checkPW();' >Next</button>
+                <button type="submit" class="btn">회사 등록</button>
+                </div>
+                <div class="yulogin-signup">
+                  <span class="yutext"
+                    >
+                    <a href="./register_user" class="text signup-link"
+                      >Next</a
+                    >
+                  </span>
                 </div>
             </form>
           </div>
+          <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+
   </body>
 </html>

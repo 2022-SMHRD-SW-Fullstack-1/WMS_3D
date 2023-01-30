@@ -83,11 +83,75 @@ app.get("/register_com", (req, res) => {
   res.render("views/html/user/register_com.ejs");
 });
 
+// //회사 등록 데이터 값 넣기& db값 확인하고 아이디 확인하기
+// app.post("/register_com", function (request, response) {
+//   var com_num = request.body.com_num;
+//   var com_pw = request.body.com_pw;
+//   var com_name = request.body.com_name;
+
+//   if (com_num && com_pw && com_name) {
+//     async function getregister_com() {
+//       let conn, rows;
+//       let sql =
+//         "SELECT * FROM tbl_user WHERE com_num=? AND  user_id = ? AND user_pw = ?";
+
+//       conn = await pool.getConnection();
+//       conn.query("USE wms");
+//       rows = await conn.query(sql, [com_num, com_pw, com_name]);
+//       if (rows.length > 0) {
+//         response.send(
+//           '<script type="text/javascript">alert("로그인에 성공하였습니다!"); document.location.href="/";</script>'
+//         );
+//         response.end();
+//       } else {
+//         response.send(
+//           '<script type="text/javascript">alert("로그인에 실패하셨습니다."); document.location.href="/";</script>'
+//         );
+//         response.end();
+//       }
+//       console.log(rows);
+//       conn.end();
+//     }
+//     getregister_com();
+//   } else {
+//     response.send(
+//       '<script type="text/javascript">alert("username과 password를 입력하세요!"); document.location.href="/login";</script>'
+//     );
+//     response.end();
+//   }
+
+//   async function InsertcomData() {
+//     let conn, rows;
+//     let sql =
+//       "insert into tbl_company(com_num, com_pw, com_name) values(?,?,?)";
+//     conn = await pool.getConnection();
+//     conn.query("USE wms");
+//     rows = await conn.query(sql, [
+//       req.body.com_num,
+//       req.body.com_pw,
+//       req.body.com_name,
+//       function (error, results, fields) {
+//         if (error) throw error;
+//         if (rows.length <= 0 && com_num == com_num) {
+//           response.send(
+//             '<script type="text/javascript">alert("회사 등록이 완료되었습니다. 회원가입을 진행해주세요.!"); document.location.href="/register_com";</script>'
+//           );
+//           response.end();
+//         } else {
+//           response.send(
+//             '<script type="text/javascript">alert("이미 존재하는 사업자 번호 입니다. 로그인을 진행해주세요"); document.location.href="/login";</script>'
+//           );
+//           response.end();
+//         }
+//       },
+//     ]);
+//   }
+//   InsertcomData();
+// });
+
 //회사 등록 데이터 값 넣기
 app.post("/register_com", (req, res) => {
-  //console.log(req.body.pw);
   console.log(req.body);
-  // insert로 데이터 넣기
   async function InsertcomData() {
     let conn, rows;
     let sql =
