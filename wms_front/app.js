@@ -16,6 +16,7 @@ const pool = mariadb.createPool({
 // HTML 요청 데이터를 해석하는 역할
 const bodyParser = require("body-parser");
 const { InsertCompanyData } = require("./mariaDBConn");
+const { connectionLimit } = require("./const");
 
 const app = express();
 
@@ -42,34 +43,31 @@ app.get("/login", (req, res) => {
 
 ///////////// 로그인 db에서 확인하기
 app.post("/login", function (request, response) {
-  // console.log(request.body);
   var com_num = request.body.com_num;
   var user_id = request.body.id;
   var user_pw = request.body.pw;
+  console.log(request.body);
   if (com_num && user_id && user_pw) {
     async function getlogin() {
       let conn, rows;
+      let sql =
+        "SELECT * FROM tbl_user WHERE com_num=? AND  user_id = ? AND user_pw = ?";
       conn = await pool.getConnection();
       conn.query("USE wms");
-      rows = await conn.query(
-        "SELECT * FROM tbl_user WHERE com_num=? AND  user_id = ? AND user_pw = ?",
-        [com_num, user_id, user_pw],
-        function (error, results, fields) {
-          if (error) throw error;
-          if (results.length > 0) {
-            request.session.loggedin = true;
-            request.session.com_num = com_num;
-            response.redirect("/");
-            response.end();
-          } else {
-            response.send(
-              '<script type="text/javascript">alert("로그인 정보가 일치하지 않습니다."); document.location.href="/login";</script>'
-            );
-            conn.end();
-            return rows;
-          }
-        }
-      );
+      rows = await conn.query(sql, [com_num, user_id, user_pw]);
+      if (rows.length > 0) {
+        response.send(
+          '<script type="text/javascript">alert("로그인에 성공하였습니다!"); document.location.href="/";</script>'
+        );
+        response.end();
+      } else {
+        response.send(
+          '<script type="text/javascript">alert("로그인에 실패하셨습니다."); document.location.href="/";</script>'
+        );
+        response.end();
+      }
+      console.log(rows);
+      conn.end();
     }
     getlogin();
   } else {
