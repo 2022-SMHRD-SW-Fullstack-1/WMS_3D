@@ -11,15 +11,14 @@ body {
   flex-shrink: unset;
 }
 /* .side_bar{
-    width: 78px;
-    height: 969px;
-    background-color: #11101D;
-} */
+        width: 78px;
+        height: 969px;
+        background-color: #11101D;
+    } */
 .main_div {
   background-color: white;
   width: 1450px;
   height: 869px;
-
   margin-top: 50px;
   margin-left: 200px;
 }
@@ -44,27 +43,33 @@ body {
   width: 100%;
   height: 80%;
   display: flex;
+  overflow: auto;
 }
+
+/* ::-webkit-scrollbar {
+        display: none;
+        } */
 
 .main_graph_div {
-  width: 70%;
+  width: 100%;
   /* background-color: aliceblue; */
 }
+/* 
+    .sub_graph_div{
+        width: 30%;
+        height: 100%;
+    } */
 
-.sub_graph_div {
-  width: 30%;
-  height: 100%;
-}
-
-.diagram_div {
-  margin: 5%;
-  width: 90%;
-  height: 40%;
-  display: flex;
-  flex-direction: column;
-  font-size: 20px;
-  font-weight: 600;
-}
+/* .diagram_div{
+        margin: 5%;
+        width: 90%;
+        height: 40%;
+        display: flex;
+        flex-direction: column;
+        font-size: 20px;
+        font-weight: 600;
+        
+    } */
 .wh_name_div {
   text-align: center;
 }
@@ -201,18 +206,6 @@ button {
   font-weight: 600;
   margin: 0px;
 }
-
-.btn_small {
-  width: 80px;
-  height: 40px;
-  border-radius: 5px;
-  border-color: #11101d;
-  background-color: white;
-  color: #11101d;
-  font-size: 16px;
-  font-weight: 600;
-  margin: 0px;
-}
 /* -- 버튼 모양 */
 
 /* 인풋창 모양 -- */
@@ -236,6 +229,7 @@ input {
 table {
   text-align: center;
   font-size: 18px;
+  /* overflow: auto; */
 }
 :root {
   --bs-body-line-height: 1 !important;
