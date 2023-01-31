@@ -429,5 +429,8 @@ td{
     justify-content: space-between;
     margin-bottom: 15px;
 }
+.none_view{
+    display: none;
+}
 
 /* sub div 디자인 */

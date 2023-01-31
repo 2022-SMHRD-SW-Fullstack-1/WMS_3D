@@ -21,6 +21,7 @@ let sub_stock_name = document.getElementById("sub_stock_name")
 let sub_stock_info = document.getElementById("sub_stock_info")
 let sub_stock_buy_com = document.getElementById("sub_stock_buy_com")
 let sub_stock_input_dt = document.getElementById("sub_stock_input_dt")
+let shelf_choice_div = document.querySelector('.shelf_choice_div')
 // 재고 정보 가져오기
 let shelf_container_top = document.querySelector(".shelf_container_top")
 
@@ -62,10 +63,13 @@ function goToCreateShelf(e){
   function changeSub(e){
 
     sub_stock_num.innerText = ""
-        sub_stock_name.innerText = ""
-        sub_stock_info.innerText = ""
-        sub_stock_buy_com.innerText = ""
-        sub_stock_input_dt.innerText = ""
+    sub_stock_name.innerText = ""
+    sub_stock_info.innerText = ""
+    sub_stock_buy_com.innerText = ""
+    sub_stock_input_dt.innerText = ""
+
+
+    shelf_choice_div.classList.remove("none_view")
 
     let floor_count = 0;
 
