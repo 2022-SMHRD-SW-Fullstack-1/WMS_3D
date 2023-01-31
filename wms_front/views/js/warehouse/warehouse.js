@@ -51,6 +51,8 @@ function goToWarehouse(e) {
   const num = { num: e };
   let url = "/viewWarehouse";
 
+  localStorage.setItem("clicked_stock_num","")
+
   let form = document.createElement("form");
   form.setAttribute("method", "post");
   form.setAttribute("action", url);
