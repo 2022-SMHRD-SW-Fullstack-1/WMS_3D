@@ -413,10 +413,16 @@ class App {
 		}
 
 		const StockGeometry = new THREE.BoxGeometry(0.8, 0.8, 0.8);
-		const StockMaterial = new THREE.MeshPhongMaterial({
+		let StockMaterial = new THREE.MeshPhongMaterial({
 			color: 0xffe0bd,
 			flatShading: true,
 		});
+		if (localStorage.getItem("clicked_stock_num") == i.stock_num) {
+			StockMaterial = new THREE.MeshPhongMaterial({
+				color: 0x4444ff,
+				flatShading: true,
+			});
+		}
 		const StockMesh = new THREE.Mesh(StockGeometry, StockMaterial);
 		StockMesh.position.set(stock_x, i.stock_floor - 0.5, stock_z);
 		StockMesh.name = {
