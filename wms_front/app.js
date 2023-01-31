@@ -388,7 +388,7 @@ app.get("/three/sj/warehouse_3d.html", (req, res) => {
 //   InsertCompanyData();
 // });
 
-// 입고 페이지
+// 입고 페이지//
 app.get("/input", (req, res) => {
   // console.log(req.query);
   async function getInputList() {
