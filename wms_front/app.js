@@ -80,6 +80,7 @@ app.post("/login", function (request, response) {
 
 // 회사 등록 페이지
 app.get("/register_com", (req, res) => {
+  console.log(req.query.num);
   res.render("views/html/user/register_com.ejs");
 });
 
@@ -88,7 +89,7 @@ app.get("/register_com", (req, res) => {
 //   var com_num = request.body.com_num;
 //   var com_pw = request.body.com_pw;
 //   var com_name = request.body.com_name;
-
+//   console.log(com_num, com_pw, com_name);
 //   if (com_num && com_pw && com_name) {
 //     async function getregister_com() {
 //       let conn, rows;
@@ -98,28 +99,8 @@ app.get("/register_com", (req, res) => {
 //       conn = await pool.getConnection();
 //       conn.query("USE wms");
 //       rows = await conn.query(sql, [com_num, com_pw, com_name]);
-//       if (rows.length > 0) {
-//         response.send(
-//           '<script type="text/javascript">alert("로그인에 성공하였습니다!"); document.location.href="/";</script>'
-//         );
-//         response.end();
-//       } else {
-//         response.send(
-//           '<script type="text/javascript">alert("로그인에 실패하셨습니다."); document.location.href="/";</script>'
-//         );
-//         response.end();
-//       }
-//       console.log(rows);
-//       conn.end();
 //     }
-//     getregister_com();
-//   } else {
-//     response.send(
-//       '<script type="text/javascript">alert("username과 password를 입력하세요!"); document.location.href="/login";</script>'
-//     );
-//     response.end();
 //   }
-
 //   async function InsertcomData() {
 //     let conn, rows;
 //     let sql =
@@ -127,9 +108,9 @@ app.get("/register_com", (req, res) => {
 //     conn = await pool.getConnection();
 //     conn.query("USE wms");
 //     rows = await conn.query(sql, [
-//       req.body.com_num,
-//       req.body.com_pw,
-//       req.body.com_name,
+//       request.body.com_num,
+//       request.body.com_pw,
+//       request.body.com_name,
 //       function (error, results, fields) {
 //         if (error) throw error;
 //         if (rows.length <= 0 && com_num == com_num) {
@@ -151,7 +132,6 @@ app.get("/register_com", (req, res) => {
 
 //회사 등록 데이터 값 넣기
 app.post("/register_com", (req, res) => {
-  console.log(req.body);
   async function InsertcomData() {
     let conn, rows;
     let sql =
