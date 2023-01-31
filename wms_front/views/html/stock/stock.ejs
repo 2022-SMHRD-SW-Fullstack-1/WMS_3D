@@ -227,66 +227,10 @@
                 <td><%- data[i].wh_name%></td>
                 <td><%- data[i].exp_dt%></td>
                 <td>
-                  <div
-                  class="modal fade"
-                  id="exampleModalCenteredScrollable<%- i%>"
-                  tabindex="-1"
-                  aria-labelledby="exampleModalCenteredScrollableTitle"
-                  aria-hidden="true"
-                  >
-                  <div
-                  class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-                  >
-                  <!-- <div class="modal-content">
-                    <div class="modal-header">
-                      <h1
-                      class="modal-title fs-5"
-                      id="exampleModalCenteredScrollableTitle"
-                      >
-                      선반 상세 정보
-                    </h1>
-                    <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                    ></button>
-                  </div> -->
-                  <!-- <div class="modal-body">
-                    <div>
-                      <span>선반 명 : </span><span><%- data[i].shelf_name%></span>
-                    </div>
-                    <div>
-                      <span>선반 너비 : </span><span><%- data[i].shelf_width%> m</span>
-                    </div>
-                    <div>
-                      <span>선반 길이 : </span><span><%- data[i].shelf_length%> m</span>
-                    </div>
-                    <div><span>선반 층수 : </span><span><%- data[i].shelf_floor%> 층</span>
-                    </div>
-                    
-                  </div> -->
-                  <!-- <div class="modal-footer">
-                    <button id="add_warehouse_btn" onclick="goToWarehouse()">
-                      선반위치보기
-                    </button>
-                  </div> -->
-                <!-- </div> -->
-              </div>
-            </div>
-            <div class="bd-example">
-              <button
-              type="button"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModalCenteredScrollable<%- i%>"
-              class = "btn_small"
-              >
-              위치확인
-            </button>
-          </div>
-        </td>
-      </tr>
-      <% } %>  
+                  <button class = "btn_small" onclick="goToWarehouse({wh_num:'<%- data[i].wh_num%>',stock_num:'<%- data[i].stock_num%>'})">위치확인</button>
+                </td>
+              </tr>
+              <% } %>  
       
 
           </tbody>
