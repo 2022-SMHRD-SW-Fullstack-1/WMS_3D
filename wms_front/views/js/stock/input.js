@@ -183,6 +183,7 @@ function readExcel() {
     workBook.SheetNames.forEach(function (sheetName) {
       let rows = XLSX.utils.sheet_to_json(workBook.Sheets[sheetName]);
       console.log(rows[0].stock_name);
+      console.log(rows);
       // console.log(JSON.stringify(rows));
     });
   };
