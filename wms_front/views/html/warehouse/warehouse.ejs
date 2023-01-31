@@ -31,9 +31,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
-    <script>
-      console.log(data);
-    </script>
+
 
     <!-- 사이드바 -->
     <link rel="stylesheet" href="views/css/sidebar.css" />
@@ -251,8 +249,8 @@
                       창고 길이
                       <img src="views/image/updown.png" height="20px" />
                     </th>
-                    <th scope="col">적재 가능</th>
-                    <th scope="col">총 공간</th>
+                    <th scope="col" onclick="orderListable()">적재 가능<img src="views/image/updown.png" height="20px" /></th>
+                    <th scope="col" onclick="orderListAll()">총 공간<img src="views/image/updown.png" height="20px" /></th>
                     <th></th>
                   </tr>
                 </thead>

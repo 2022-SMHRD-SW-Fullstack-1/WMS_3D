@@ -34,7 +34,7 @@
  ></script>
 
  <!-- 사이드바 -->
-
+ <script src="http://code.jquery.com/jquery-latest.js"></script> 
   </head>
   <body>
 
@@ -198,7 +198,7 @@
   <div class="graph_top_div">
     <div class="main_graph_div">
       <div class="bd-example">
-        <table class="table table-striped table-hover">
+        <table class="table table-striped table-hover" id="table">
           <thead>
             <tr>
               <th><input type="checkbox" /></th>
@@ -286,7 +286,7 @@
 
           </tbody>
         </table>
-
+        <button type="button" onclick="ExcelExport('table', 'title')">Excel</button>
         <!-- 페이지 바 -->
         <nav aria-label="Page navigation example">
           <ul class="pagination justify-content-center">

@@ -25,20 +25,16 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js" integrity="sha512-f8mwTB+Bs8a5c46DEm7HQLcJuHMBaH/UFlcgyetMqqkvTcYg4g5VXsYR71b3qC82lZytjNYvBj2pf0VekA9/FQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <!-- 사이드바 -->
-    <link rel="stylesheet" href="/views/css/sidebar.css" />
-    <link
-      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
-      rel="stylesheet"
-    />
-    <!-- 사이드바 -->
-
-
-
-    <title>Document</title>
-  </head>
-  <body>
-
+  <!-- 사이드바 -->
+  <link rel="stylesheet" href="/views/css/sidebar.css" />
+  <link
+    href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+    rel="stylesheet"
+  />
+  <!-- 사이드바 -->
+</head>
+<body>
+  <div class="top_div">
     <div class="sidebar close">
       <div class="logo-details">
         <i class="bx bxs-package"></i>
@@ -58,7 +54,9 @@
             </a>
             <ul class="sub-menu blank">
               <!-- 사이드바 닫혀있을 때 목록 없을 때 옆에 이름 설정 -->
-              <li><a class="link_name" href="#">홈</a></li>
+              <li>
+                <a class="link_name" href="http://localhost:3002/main">홈</a>
+              </li>
             </ul>
           </li>
 
@@ -75,7 +73,7 @@
             <!-- 사이드바 서브 메뉴설정 -->
             <ul class="sub-menu">
               <li><a class="link_name" href="#">창고</a></li>
-              <li><a href="#">창고관리</a></li>
+              <li><a href="http://localhost:3002/warehouse">창고관리</a></li>
             </ul>
           </li>
 
@@ -89,9 +87,13 @@
             </div>
             <ul class="sub-menu">
               <li><a class="link_name" href="#">입/출고</a></li>
-              <li><a href="#">입고현황</a></li>
-              <li><a href="#">출고현황</a></li>
-              <li><a href="#">입출고내역</a></li>
+              <li><a href="http://localhost:3002/input">입고현황</a></li>
+              <li><a href="http://localhost:3002/output">출고현황</a></li>
+              <li>
+                <a href="http://localhost:3002/inoutput_history"
+                  >입출고내역</a
+                >
+              </li>
             </ul>
           </li>
 
@@ -104,6 +106,11 @@
             </div>
             <ul class="sub-menu">
               <li><a class="link_name" href="#">재고</a></li>
+              <li>
+                <a class="link_name" href="http://localhost:3002/stock"
+                  >재고현황</a
+                >
+              </li>
             </ul>
           </li>
 
@@ -115,10 +122,11 @@
               </a>
               <i class="bx bxs-chevron-down arrow"></i>
             </div>
-              <ul class="sub-menu">
+            <ul class="sub-menu">
               <li><a class="link_name" href="#">작업관리</a></li>
-              <li><a href="#">작업내역</a></li>
-              <li><a href="#">관리자</a></li>
+              <li>
+                <a href="http://localhost:3002/work_history">작업내역</a>
+              </li>
             </ul>
           </li>
         </div>
@@ -149,7 +157,7 @@
           <li>
             <div class="profile-details">
               <div class="profile-content">
-                <!-- <img src="../../image/profile.jpg" alt="profileImg" /> -->
+                <img src="views/image/profile.jpg" alt="profileImg" />
               </div>
               <div class="name-job">
                 <div class="profile_name">김정우</div>
