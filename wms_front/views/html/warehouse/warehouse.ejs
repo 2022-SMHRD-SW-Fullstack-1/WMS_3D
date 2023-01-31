@@ -52,127 +52,131 @@
 
       <div class="sidebar close">
         <div class="logo-details">
-        <i class="bx bxs-package"></i>
-        <span class="logo_name">WMS</span>
+          <i class="bx bxs-package"></i>
+          <span class="logo_name">WMS</span>
+        </div>
+  
+        <ul class="nav-links">
+          <div class="side_div1">
+            <li>
+              <i class="bx bx-menu"></i>
+            </li>
+  
+            <li>
+              <a href="http://localhost:3002/main">
+                <i class="bx bx-grid-alt"></i>
+                <span class="link_name">홈</span>
+              </a>
+              <ul class="sub-menu blank">
+                <!-- 사이드바 닫혀있을 때 목록 없을 때 옆에 이름 설정 -->
+                <li>
+                  <a class="link_name" href="http://localhost:3002/main">홈</a>
+                </li>
+              </ul>
+            </li>
+  
+            <li>
+              <div class="icon-link">
+                <a href="#">
+                  <i class="bx bxs-city"></i>
+                  <span class="link_name">창고</span>
+                </a>
+                <!-- 사이드바 목록 화살표 -->
+                <i class="bx bxs-chevron-down arrow"></i>
+              </div>
+  
+              <!-- 사이드바 서브 메뉴설정 -->
+              <ul class="sub-menu">
+                <li><a class="link_name" href="#">창고</a></li>
+                <li><a href="http://localhost:3002/warehouse">창고관리</a></li>
+              </ul>
+            </li>
+  
+            <li>
+              <div class="icon-link">
+                <a href="#">
+                  <i class="bx bx-package"></i>
+                  <span class="link_name">입/출고</span>
+                </a>
+                <i class="bx bxs-chevron-down arrow"></i>
+              </div>
+              <ul class="sub-menu">
+                <li><a class="link_name" href="#">입/출고</a></li>
+                <li><a href="http://localhost:3002/input">입고현황</a></li>
+                <li><a href="http://localhost:3002/output">출고현황</a></li>
+                <li>
+                  <a href="http://localhost:3002/inoutput_history">입출고내역</a>
+                </li>
+              </ul>
+            </li>
+  
+            <li>
+              <div class="icon-link">
+                <a href="#">
+                  <i class="bx bx-archive-out"></i>
+                  <span class="link_name">재고</span>
+                </a>
+                <i class="bx bxs-chevron-down arrow"></i>
+              </div>
+              <ul class="sub-menu">
+                <li><a class="link_name" href="#">재고</a></li>
+                <li><a href="http://localhost:3002/stock">재고현황</a></li>
+              </ul>
+            </li>
+  
+            <li>
+              <div class="icon-link">
+                <a href="#">
+                  <i class="bx bx-box"></i>
+                  <span class="link_name">작업관리</span>
+                </a>
+                <i class="bx bxs-chevron-down arrow"></i>
+              </div>
+              <ul class="sub-menu">
+                <li><a class="link_name" href="#">작업관리</a></li>
+                <li><a href="http://localhost:3002/work_history">작업내역</a></li>
+              </ul>
+            </li>
+          </div>
+  
+          <div>
+            <li>
+              <div class="icon-link">
+                <a href="#">
+                  <i class="bx bx-bell"></i>
+                  <span class="link_name">알림</span>
+                </a>
+              </div>
+              <ul class="sub-menu blank">
+                <li><a class="link_name" href="#">알림</a></li>
+              </ul>
+            </li>
+  
+            <li>
+              <a href="#">
+                <i class="bx bxs-user"></i>
+                <span class="link_name">사용자</span>
+              </a>
+              <ul class="sub-menu blank">
+                <li><a class="link_name" href="#">사용자</a></li>
+              </ul>
+            </li>
+  
+            <li>
+              <div class="profile-details">
+                <div class="profile-content">
+                  <img src="views/image/profile.jpg" alt="profileImg" />
+                </div>
+                <div class="name-job">
+                  <div class="profile_name">김정우</div>
+                  <div class="job"></div>
+                </div>
+                <i class="bx bx-log-out"></i>
+              </div>
+            </li>
+          </div>
+        </ul>
       </div>
-      
-      <ul class="nav-links">
-        <div class="side_div1">
-          <li>
-            <i class="bx bx-menu"></i>
-          </li>
-          
-          <li>
-            <a href="#">
-              <i class="bx bx-grid-alt"></i>
-              <span class="link_name">홈</span>
-            </a>
-            <ul class="sub-menu blank">
-              <!-- 사이드바 닫혀있을 때 목록 없을 때 옆에 이름 설정 -->
-              <li><a class="link_name" href="http://localhost:3002/main">홈</a></li>
-            </ul>
-          </li>
-          
-          <li>
-            <div class="icon-link">
-              <a href="#">
-                <i class="bx bxs-city"></i>
-                <span class="link_name">창고</span>
-              </a>
-              <!-- 사이드바 목록 화살표 -->
-              <i class="bx bxs-chevron-down arrow"></i>
-            </div>
-            
-            <!-- 사이드바 서브 메뉴설정 -->
-            <ul class="sub-menu">
-              <li><a class="link_name" href="#">창고</a></li>
-              <li><a href="http://localhost:3002/warehouse">창고관리</a></li>
-            </ul>
-          </li>
-          
-          <li>
-            <div class="icon-link">
-              <a href="#">
-                <i class="bx bx-package"></i>
-                <span class="link_name">입/출고</span>
-              </a>
-              <i class="bx bxs-chevron-down arrow"></i>
-            </div>
-            <ul class="sub-menu">
-              <li><a class="link_name" href="#">입/출고</a></li>
-              <li><a href="http://localhost:3002/input">입고현황</a></li>
-              <li><a href="http://localhost:3002/output">출고현황</a></li>
-              <li><a href="http://localhost:3002/inoutput_history">입출고내역</a></li>
-            </ul>
-          </li>
-          
-          <li>
-            <div class="icon-link">
-              <a href="#">
-                <i class="bx bx-archive-out"></i>
-                <span class="link_name">재고</span>
-              </a>
-            </div>
-            <ul class="sub-menu">
-              <li><a class="link_name" href="#">재고</a></li>
-              <li><a class="link_name" href="http://localhost:3002/stock">재고현황</a></li>
-            </ul>
-          </li>
-          
-          <li>
-            <div class="icon-link">
-              <a href="#">
-                <i class="bx bx-box"></i>
-                <span class="link_name">작업관리</span>
-              </a>
-              <i class="bx bxs-chevron-down arrow"></i>
-            </div>
-            <ul class="sub-menu">
-              <li><a class="link_name" href="#">작업관리</a></li>
-              <li><a href="http://localhost:3002/work_history">작업내역</a></li>
-            </ul>
-          </li>
-        </div>
-        
-        <div>
-          <li>
-            <div class="icon-link">
-              <a href="#">
-                <i class="bx bx-bell"></i>
-                <span class="link_name">알림</span>
-              </a>
-            </div>
-            <ul class="sub-menu blank">
-              <li><a class="link_name" href="#">알림</a></li>
-            </ul>
-          </li>
-          
-          <li>
-            <a href="#">
-              <i class="bx bxs-user"></i>
-              <span class="link_name">사용자</span>
-            </a>
-            <ul class="sub-menu blank">
-              <li><a class="link_name" href="#">사용자</a></li>
-            </ul>
-          </li>
-
-          <li>
-            <div class="profile-details">
-              <div class="profile-content">
-                <img src="views/image/profile.jpg" alt="profileImg" />
-              </div>
-              <div class="name-job">
-                <div class="profile_name">김정우</div>
-                <div class="job"></div>
-              </div>
-              <i class="bx bx-log-out"></i>
-            </div>
-          </li>
-        </div>
-      </ul>
-      
-    </div>
     
   <!-- == 사이드바 -->
   
@@ -183,12 +187,10 @@
   <div class="main_div">
     <div class="management_div">
       <a href="http://localhost:3002/warehouse">창고 관리</a>
-      <a href="http://localhost:3002/shelf"> 선반 관리</a>
     </div>
     <hr />
     <div class="btn_div">
       <button>수정</button>
-      
       <div></div>
       
       <div class="search_div">
