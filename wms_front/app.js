@@ -241,6 +241,8 @@ app.post("/viewWarehouse", (req, res) => {
     });
 });
 
+
+
 // 선반 관리 페이지 -> 선반 생성 페이지
 app.post("/createShelf", (req, res) => {
   const val = Number(req.body.num);
@@ -275,6 +277,47 @@ app.post("/createShelf", (req, res) => {
       console.log(errMsg);
     });
 });
+
+
+// 출고 기능
+app.post("/stockOutput",(req,res)=>{
+  for(let i=0; i< req.body.num.length;i++){
+    async function StockOutputData(){
+      let conn, rows;
+      let sql = "UPDATE tbl_stock st SET st.output_date = NOW() , st.sell_com = ? WHERE st.stock_num = ?"
+      conn = await pool.getConnection();
+      conn.query("USE wms");
+      rows = await conn.query(sql,[
+        req.body.worker[i],
+        Number(req.body.num[i])
+      ])
+      conn.end();
+    }
+    StockOutputData();
+  }
+
+  mdbConn
+    .getStockList()
+    .then((rows) => {
+      res.render(
+        "views/html/stock/stock.ejs",
+        {
+          data: rows,
+        },
+        function (err, html) {
+          if (err) {
+            console.log(err);
+          }
+          res.end(html);
+        }
+      );
+    })
+    .catch((errMsg) => {
+      err;
+    });
+})
+
+
 
 // 선반 생성 기능
 
