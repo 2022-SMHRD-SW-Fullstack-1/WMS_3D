@@ -21,7 +21,7 @@ function goToWarehouse(e) {
   }
 
 
-let checked_arr = []
+let checked_arr = [0]
 let result;
 
 
@@ -46,7 +46,6 @@ function isChecked(e){
 function stockOutput() {
   let worker = prompt("판매처를 입력해주세요")
 
-  
 
   let url = "/stockOutput"
   let form = document.createElement('form');
