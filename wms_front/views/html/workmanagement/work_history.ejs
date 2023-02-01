@@ -223,48 +223,19 @@
               
               
               <% for(var i = 0; i<data.length; i++){%>
-                    <tr>
+                    <tr onclick="change_sub({
+                      from_position:'<%- data[i].from_position%>',
+                      to_position:'<%- data[i].to_position%>',
+                      replace_date:'<%- data[i].replace_date%>'
+                    })">
                       <td><input type="checkbox" /></td>
                       <td><%- data[i].work_name%></td>
                       <td><%- data[i].worker_name%></td>
                       <td><%- data[i].stock_num%></td>
                       <td><%- data[i].stock_name%></td>
                       <td><%- data[i].stock_info%></td>
-                      <td>
-                        <div
-                        class="modal fade"
-                        id="exampleModalCenteredScrollable<%- i%>"
-                        tabindex="-1"
-                        aria-labelledby="exampleModalCenteredScrollableTitle"
-                        aria-hidden="true"
-                        >
-                        <div
-                        class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-                        >
-                        <!-- <div class="modal-content">
-                          <div class="modal-header">
-                            <h1
-                                class="modal-title fs-5"
-                                id="exampleModalCenteredScrollableTitle"
-                                >
-                                창고 상세 정보
-                              </h1> 
-                              <button
-                              type="button"
-                              class="btn-close"
-                              data-bs-dismiss="modal"
-                              aria-label="Close"
-                              ></button>
-                            </div>
-                            <div class="modal-body">
-                            
-                          
-                            </div>
-                          </div> -->
-                        </div>
-                      </td>
                     </tr>
-                    <% } %>  
+              <% } %>
                     
                     
                   </tbody>
@@ -289,83 +260,17 @@
             </div>
 
 
-            <div class="sub_graph_div">
-              <div class="diagram_div">
-                <div class="wh_name_div" id="sub_warehouse_name">재고위치</div>
-                <div class="circle_progress_container">
-                  <div class="circle_progress_item">
-                    <div class="value_container"></div>
-                  </div>
-                </div>
-                <div class="circle_progress_info">
-                  <span id="sub_now_avl"></span><span id="sub_max_avl"></span>
-                </div>
-            </div>
-            <div class="three_option_div">
-              
-              <div id="first_option">
-                        <div>
-                          <span></span>
-                          <div class="progress">
-                            <div
-                            ></div>
-                          </div>
-                        </div>
-                        
-                <div>
-                  <span></span>
-                  <div class="progress">
-                    <div
-                    ></div>
-                  </div>
-                </div>
-                
-                <div>
-                  <span></span>
-                  <div class="progress">
-                    <div
-                    ></div>
-                  </div>
-                </div>
-                
-                <div>
-                  <span></span>
-                  <div class="progress">
-                    <div
-                    ></div>
-                  </div>
-                </div>
-              </div>
-              <div id="second_option" class="none_view">
-                <div>
-                  <div class="progress" id="temp_bar">
-                    <div
-                    ></div>
-                  </div>
-                  <div class="temp_text_div">
-                    <span id="min_temp"></span><span id="now_temp"></span><span id="max_temp"></span>
-                  </div>
-                </div>
-                
-                <div>
-                 
-                  <div class="progress" id="humid_bar">
-                    <div
-                      ></div>
+                  <div class="sub_graph_div">
+             
+                    <div class="move_diagram_div">
+                      <img src="views/image/move_img.png" id="move_img">
                     </div>
-                    <div class="temp_text_div">
-                      <span id="min_humid"></span><span id="now_humid"></span><span id="max_humid"></span>
+                    <div class="move_text_div">
+                      <div class="move_before">작업 이전</div>
+                      <div class="move_time">작업 시간</div>
+                      <div class="move_after">작업 이후</div>
                     </div>
-                  </div>
-                </div>
-                <div id="third_option" class="none_view">
-                 
-                </div>
-                <div class="choice_option_div">
-                  <span onclick="optionOne()">재고이동</span
-                    ><span onclick="optionTwo()">입고</span
-                      ><span onclick="optionThree()">출고</span>
-                    </div>
+
                   </div>
 
 

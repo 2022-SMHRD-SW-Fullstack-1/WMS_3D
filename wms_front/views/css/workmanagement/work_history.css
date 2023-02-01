@@ -75,77 +75,6 @@ body {
   justify-content: space-around;
 }
 
-.three_option_div {
-  margin: 5%;
-  width: 90%;
-  height: 40%;
-  font-weight: 600;
-}
-
-.choice_option_div {
-  margin-top: 10%;
-  margin-bottom: 5%;
-  display: flex;
-  justify-content: space-around;
-  font-size: 20px;
-  font-weight: 600;
-  color: #11101d;
-}
-.choice_option_div span:hover {
-  cursor: pointer;
-}
-
-.none_view {
-  display: none !important;
-}
-.none_view div {
-  display: none !important;
-}
-
-#first_option {
-  margin-left: 10%;
-  width: 80%;
-  height: 80%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-
-  font-size: 20px;
-  text-align: center;
-}
-#first_option + span {
-  margin-bottom: 10px;
-}
-
-#second_option {
-  margin-left: 10%;
-  width: 80%;
-  height: 80%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-
-  font-size: 20px;
-  text-align: center;
-}
-
-.temp_text_div {
-  display: flex;
-  justify-content: space-between;
-}
-
-#third_option {
-  margin-left: 10%;
-  width: 80%;
-  height: 80%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-
-  font-size: 20px;
-  text-align: center;
-}
-
 /* --초기 설정 */
 
 /* 검색 기능 디자인 */
@@ -248,68 +177,6 @@ td {
 }
 /* 테이블 + 디자인 */
 
-/* 서클 프로그래스 바 */
-
-*::before,
-*::after {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
-.circle_progress_container {
-  height: 200px;
-  width: 200px;
-  position: relative;
-  top: 45%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 8px;
-  box-shadow: 20px 20px 40px rgba(60, 60, 150, 0, 25);
-  display: grid;
-  place-items: center;
-}
-.circle_progress_item {
-  position: relative;
-  height: 100%;
-  width: 100%;
-  background-color: #11101d;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-}
-.circle_progress_item::before {
-  content: "";
-  position: absolute;
-  height: 80%;
-  width: 80%;
-  background-color: white;
-  border-radius: 50%;
-}
-.value_container {
-  position: relative;
-  font-weight: 600;
-  font-size: 30px;
-  color: #11101d;
-}
-#bg_black {
-  background-color: #11101d;
-}
-#bg_red {
-  background-color: rgb(255, 68, 68);
-}
-#bg_green {
-  background-color: rgb(72, 40, 201);
-}
-
-/* 서클 프로그래스 바 */
-
-/* 일반 프로그래스 바 */
-
-.bg-success {
-  background-color: #11101d !important;
-}
-
-/* 일반 프로그래스 바 */
 
 /* 페이지 네이션 */
 
@@ -318,21 +185,35 @@ td {
 }
 /* 페이지 네이션 */
 
-/* 모달 디자인 */
-.modal-body {
-  margin: 30px 100px;
-  text-align: start;
+.sub_graph_div{
+  width: 30%;
+  height: 100%;
+  display: flex;
+}
+.move_diagram_div{
+  width: 40%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+#move_img{
+  width: 90%;
+  margin-left: 10%;
+}
+.move_text_div{
+  width: 60%;
+  margin-top: 39.5%;
+  height: 51%;
   display: flex;
   flex-direction: column;
-}
-.modal-body div {
-  display: flex;
   justify-content: space-between;
-  margin-bottom: 40px;
-}
-.modal-body span {
   font-size: 20px;
   font-weight: 600;
+  text-align: center;
+  
 }
-
-/* 모달 디자인 */
+.move_text_div div{
+  width: 100%;
+  padding: 1%;
+  height: 8%;
+}

@@ -121,7 +121,7 @@ class App{
         this._object_arr = object_arr;
 
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0.9,0.9,1)
+        scene.background = new THREE.Color(0.7,0.7,0.7)
         this._scene = scene;
 
         this._setupCamera();
@@ -327,7 +327,7 @@ class App{
         const planeGeometry = new THREE.PlaneGeometry(wh_width_arr[0],wh_length_arr[0],wh_width_arr[0],wh_length_arr[0])
     
         const wareHouseMaterial = new THREE.MeshPhongMaterial({
-            color:0xffffff,
+            color:0x000022,
             emissive : 0x112244,
             side : THREE.DoubleSide,
 
@@ -335,7 +335,7 @@ class App{
         const group1 = new THREE.Group();
         const wareHouseMesh = new THREE.Mesh(planeGeometry,wareHouseMaterial);
          // 노란색 라인 생성
-        const lineMaterial = new THREE.LineBasicMaterial({color: 0xcccccc});
+        const lineMaterial = new THREE.LineBasicMaterial({color: 0x000000});
         const line = new THREE.LineSegments(
          // WireframeGeometry : 모델의 외각선 표시
          new THREE.WireframeGeometry(planeGeometry),lineMaterial);

@@ -371,7 +371,7 @@ td{
 .shelf_container_top{
     margin: 10%;
     width: 80%;
-    height: 40%;
+    height: 30%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
