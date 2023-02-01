@@ -66,7 +66,7 @@
             </li>
   
             <li>
-              <div class="icon-link">
+              <div class="icon-link">ㅇ
                 <a href="#">
                   <i class="bx bxs-city"></i>
                   <span class="link_name">창고</span>
@@ -177,7 +177,7 @@
   </div>
   <hr />
   <div class="btn_div">
-      <button>수정</button>
+      <button class="input_modify">수정</button>
     <div></div>
 
     <div class="search_div">
@@ -189,7 +189,7 @@
           <a href="#">재고 정보</a>
           <a href="#">구매처</a>
           <a href="#">입고 예정 일자</a>
-          <a href="#">작업자 명</a>
+          <a href="#">상태</a>
         </div>
       </div>
       <input type="text" />
@@ -205,37 +205,32 @@
             <button class="icon modal_close"><i
               class="material-icons">close</i></button></div>
 
-              <form onsubmit="insertData()">
+              <form onsubmit="insertData()" action="/input" method="POST" >
                 <div class="input_modal_body">
                   
                   <label>재고번호</label>
                   <div class="stock_num">
-                    <input type="text" id="st_num" placeholder="">
+                    <input type="number" id="stock_num" placeholder="">
                   </div>
                   
                   <label>재고 명</label>
                   <div class="stock_name">
-                    <input type="text" id="st_name" placeholder="">
+                    <input type="text" id="stock_name" placeholder="">
                   </div>
                   
                   <label>재고정보</label>
                   <div class="stock_info">
-                    <input type="text" id="st_info" placeholder="">
+                    <input type="text" id="stock_info" placeholder="">
                   </div>
                   
                   <label>구매처</label>
                   <div class="buy_com">
-                    <input type="text" id="by_com" placeholder="">
+                    <input type="text" id="buy_com" placeholder="">
                   </div>
                   
                   <label>입고 예정 일자</label>
                   <div class="wlb_input_date">
-                    <input type="text" id="wlb_ipt_date" placeholder="">                  
-                  </div>
-                  
-                  <label>작업자명</label>
-                  <div class="worker_name">
-                    <input type="text" id="wk_name" placeholder="">
+                    <input type="datetime" id="wlb_input_date" placeholder="">                  
                   </div>
                   
                 </div>
@@ -260,7 +255,7 @@
               <th scope="col">재고 정보</th>
               <th scope="col">구매처</th>
               <th scope="col">입고 예정 일자</th>
-              <th scope="col">작업자 명</th>
+              <th scope="col">입고 완료</th>
               <th></th>
             </tr>
           </thead>
@@ -274,7 +269,13 @@
                 <td><%- data[i].stock_info %></td>
                 <td><%- data[i].buy_com %></td>
                 <td><%- data[i].wlb_input_date %></td>
-                <td><%- data[i].worker_name %></td>
+                <td>
+                <% if(data[i].input_date) { %>
+                  <%- data[i].input_date %>
+                <% } else { %>
+                  <button class="input_date_button">입고완료</button>
+                <% } %>
+              </td>
                 <td>
                   <div
                   class="modal fade"
