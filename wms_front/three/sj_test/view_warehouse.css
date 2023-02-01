@@ -19,20 +19,56 @@ body{
 
 /* 모달 창 디자인 */
 #modal-container{
-    width: 200px;
-    height: 400px;
+    width: 500px;
+    height: 350px;
     position: fixed;
-    top:100px;
-    left: 300px;
-    padding: 100px;
+    top:300px;
+    left: 200px;
     background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    -ms-user-select: none; 
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  border-radius: 5px;
 }
-#modal-container div{
+#close_btn:hover{
+    cursor: pointer;
+}
+.modal_head{
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    font-size: 30px;
+    font-weight: 600;
+    color: white;
+}
+.modal_info div{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.modal_head{
+    background-color:rgb(24, 0, 96);
+    padding-left: 5%;
+    padding-right: 5%;
+    width: 90%;
+    height: 20%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.modal_info{
+    width: 80%;
+    margin-top: 8%;
+    height: 80%;
+    font-size: 20px;
+    font-weight: 600;
 }
 .none_view{
-    display: none;
+    display: none !important
 }
 
 /* 모달 창 디자인 */
