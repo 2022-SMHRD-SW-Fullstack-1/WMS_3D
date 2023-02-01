@@ -69,7 +69,7 @@ async function GetInputList() {
     conn = await pool.getConnection();
     conn.query("USE wms");
     rows = await conn.query(
-      "SELECT st.stock_num,st.stock_name,st.stock_info,st.buy_com,date_FORMAT(st.wlb_input_date,'%y년 %m월 %d일 %H시 %i분') wlb_input_date,wkr.worker_name FROM tbl_stock st left join tbl_worker wkr on st.com_num = wkr.com_num where st.com_num=1123456789"
+      "SELECT st.stock_num,st.stock_name,st.stock_info,st.buy_com,date_FORMAT(st.wlb_input_date,'%y년 %m월 %d일 %H시 %i분') wlb_input_date, date_FORMAT(st.input_date,'%y년 %m월 %d일 %H시 %i분') input_date FROM tbl_stock st where st.com_num=1123456789"
     );
   } catch (err) {
     throw err;
