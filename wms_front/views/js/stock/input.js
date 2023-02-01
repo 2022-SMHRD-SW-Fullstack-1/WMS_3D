@@ -41,71 +41,42 @@ closeBtns.forEach(function (btn) {
   };
 });
 
-function insertData() {
-  event.preventDefault();
-  const st_num = document.getElementById("st_num").value;
-  const st_name = document.getElementById("st_name").value;
-  const st_info = document.getElementById("st_info").value;
-  const by_com = document.getElementById("by_com").value;
-  const wlb_ipt_date = document.getElementById("wlb_ipt_date").value;
-  const wk_name = document.getElementById("wk_name").value;
+//입고 추가
 
-  fetch("/insert", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      st_num,
-      st_name,
-      st_info,
-      by_com,
-      wlb_ipt_date,
-      wk_name,
-    }),
-  })
-    .then((res) => res.json())
-    .then((data) => console.log(data))
-    .catch((error) => console.error(error));
-}
+// export function insertData() {
+//   const stock_num = document.querySelector(".stock_num").value;
+//   const stock_name = document.querySelector(".stock_name").value;
+//   const stock_info = document.querySelector(".stock_info").value;
+//   const buy_com = document.querySelector(".buy_com").value;
+//   const wlb_input_date = document.querySelector(".wlb_input_date").value;
 
-//입고 추가 버튼
-// const form = document.querySelector("form");
-// const closeButton = document.querySelector(".modal_close");
-
-// closeButton.addEventListener("click", (e) => {
-//   e.preventDefault();
-
-//   const stock_num = form.querySelector(".st_num").value;
-//   const stock_name = form.querySelector(".st_name").value;
-//   const stock_info = form.querySelector(".st_info").value;
-//   const buy_com = form.querySelector(".by_com").value;
-//   const wlb_input_date = form.querySelector(".wlb_ipt_date").value;
-//   const worker_name = form.querySelector(".wk_name").value;
-
-//   const data = {
-//     stock_num,
-//     stock_name,
-//     stock_info,
-//     buy_com,
-//     wlb_input_date,
-//     worker_name,
-//   };
-//   fetch("/inputForm", {
+//   fetch("/input", {
 //     method: "POST",
 //     headers: {
 //       "Content-Type": "application/json",
 //     },
-//     body: JSON.stringify(data),
+//     body: JSON.stringify({
+//       stock_num: stock_num,
+//       stock_name: stock_name,
+//       stock_info: stock_info,
+//       buy_com: buy_com,
+//       wlb_input_date: wlb_input_date,
+//     }),
 //   })
-//     .then((response) => response.json())
-//     .then((data) => {
-//       console.log("Success:", data);
+//     .then((res) => {
+//       console.log(res);
+
+//       return res.json();
 //     })
-//     .catch((error) => {
-//       console.error("Error:", error);
+//     .then((data) => {
+// 이 위치에서 app.js가 실행 되도록 만들기
+// 실행 완료되면 파라미터 가지고 다른 url로 보내서 거기서 비동기 작업하기
+//       console.log(data);
+//     })
+//     .catch((err) => {
+//       console.error(err);
 //     });
-// });
+// }
 
 // window.onclick = function (e) {
 //   if (e.target.className === "input_modal") {

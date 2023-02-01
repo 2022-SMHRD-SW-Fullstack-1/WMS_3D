@@ -377,8 +377,8 @@ app.get("/main", (req, res) => {
 });
 
 app.post("/outputForm", (req, res) => {
-  // console.log(req.body.pw);
-  // console.log(req.body);
+  console.log(req.body.pw);
+  console.log(req.body);
   // insert로 데이터 넣기
   async function InsertCompanyData() {
     let conn, rows;
@@ -398,25 +398,53 @@ app.post("/outputForm", (req, res) => {
 });
 
 //입고 insert 페이지
-app.post("/inputForm", (req, res) => {
-  // console.log(req.form);
-  async function InsertInput() {
-    let conn, rows;
-    let sql = "insert into tbl_stock values(?,?,?,?,?,?)";
-    conn = await pool.getConnection();
-    conn.query("USE wms");
-    rows = await conn.query(sql, [
-      req.body.stock_num,
-      req.body.stock_name,
-      req.body.stock_info,
-      req.body.buy_com,
-      req.body.wlb_input_date,
-      req.body.worker_name,
-    ]);
-    conn.end();
-  }
-  InsertInput();
-});
+// app.post("/input", (req, res) => {
+//   console.log(req.body);
+
+// let { st_num, st_name, st_info, by_com, wlb_ipt_date } = "";
+// console.log(st_num);
+// st_name = req.body.st_name;
+// console.log(st_name);
+//   let conn, rows;
+//   conn = pool.get;
+//   pool.getConnection.query(
+//     "INSERT INTO tbl_stock(stock_num, stock_name, stock_info, buy_com, wlb_input_date) VALUES(?,?,?,?,?)",
+//     [st_num, st_name, st_info, by_com, wlb_ipt_date],
+//     (error, results) => {
+//       if (error) {
+//         return res.status(500).json({ error });
+//       }
+
+//       res.json({ message: "Data inserted successfully" });
+//     }
+//   );
+// });
+// import { insertData } from "./views/js/stock/input.js";
+// app.post("/input", async (req, res) => {
+//   insertData();
+//   let conn, rows;
+//   let sql = `INSERT INTO tbl_stock (stock_num, stock_name, stock_info, buy_com, wlb_input_date) VALUES (?, ?, ?, ?, ?)`;
+//   let params = [
+//     req.body.stock_num,
+//     req.body.stock_name,
+//     req.body.stock_info,
+//     req.body.buy_com,
+//     req.body.wlb_input_date,
+//   ];
+
+//   try {
+//     conn = await pool.getConnection();
+//     conn.query("USE wms");
+//     rows = await conn.query(sql, params);
+//     res.send({ success: true });
+//   } catch (error) {
+//     console.error(error);
+//     res.send({ success: false });
+//   } finally {
+//     if (conn) conn.release();
+//   }
+// });
+
 // 입고 페이지
 // 일단 데이터값 보내기 실험 페이지로 쓰는중
 // app.get("/input", (req, res) => {
