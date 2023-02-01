@@ -365,32 +365,8 @@ app.get("/three/sj/warehouse_3d.html", (req, res) => {
   res.sendFile(__dirname + "three/sj/warehouse_3d.html");
 });
 
-// 선반 생성 기능
-
-// app.post("/outputForm", (req, res) => {
-//   // console.log(req.body.pw);
-//   // console.log(req.body);
-//   // insert로 데이터 넣기
-//   async function InsertCompanyData() {
-//     let conn, rows;
-//     let sql = "insert into tbl_company values(null,?,?,?,?,?)";
-//     conn = await pool.getConnection();
-//     conn.query("USE wms");
-//     rows = await conn.query(sql, [
-//       req.body.pw,
-//       req.body.name,
-//       req.body.bsn,
-//       req.body.tel,
-//       req.body.addr,
-//     ]);
-//     conn.close();get
-//   }
-//   InsertCompanyData();
-// });
-
 // 입고 페이지//
 app.get("/input", (req, res) => {
-  // console.log(req.query);
   async function getInputList() {
     let conn, rows, sql;
     try {
@@ -416,6 +392,70 @@ app.get("/input", (req, res) => {
     .then((rows) => {
       res.render(
         "views/html/stock/input.ejs",
+        {
+          data: rows,
+        },
+        function (err, html) {
+          if (err) {
+            console.log(err);
+          }
+          res.end(html);
+        }
+      );
+    })
+    .catch((errMsg) => {
+      err;
+    });
+});
+
+app.post("/input", (req, res) => {
+  // console.log(req.body);
+  let conn, rows;
+  // console.log(req.body.stock_name[i]);
+  async function InsertInput() {
+    for (var i = 0; i < req.body.stock_name.length; i++) {
+      if (req.body.input_date[i] != "undefined") {
+        sql = `INSERT INTO tbl_stock(com_num, stock_name, stock_info, buy_com, wlb_input_date, input_date, shelf_num, stock_floor, stock_position) VALUES(1123456789,"${req.body.stock_name[i]}","${req.body.stock_info[i]}","${req.body.buy_com[i]}","${req.body.wlb_input_date[i]}", "${req.body.input_date[i]}", ${req.body.shelf_num[i]}, ${req.body.stock_floor[i]}, "${req.body.stock_position[i]}")`;
+      } else {
+        sql = `INSERT INTO tbl_stock(com_num, stock_name, stock_info, buy_com, wlb_input_date) VALUES(1123456789,"${req.body.stock_name[i]}","${req.body.stock_info[i]}","${req.body.buy_com[i]}","${req.body.wlb_input_date[i]}")`;
+      }
+      conn = await pool.getConnection();
+      conn.query("USE wms");
+      rows = await conn.query(sql);
+      conn.end();
+    }
+  }
+  InsertInput();
+  res.redirect("/input");
+});
+
+let cate_input = "";
+let word_input = "";
+app.post("/input1", (req, res) => {
+  console.log(req.body);
+  cate_input = req.body.cate;
+  word_input = req.body.word;
+});
+
+app.get("/input/search", (req, res) => {
+  async function getInputList() {
+    let conn, rows, sql;
+    try {
+      conn = await pool.getConnection();
+      conn.query("USE wms");
+      sql = `SELECT st.stock_num,st.stock_name,st.stock_info,st.buy_com,date_FORMAT(st.wlb_input_date,'%y년 %m월 %d일 %H시 %i분') wlb_input_date FROM tbl_stock st where st.com_num=1123456789 and ${cate_input} like '%${word_input}%'`;
+      rows = await conn.query(sql);
+    } catch (err) {
+      throw err;
+    } finally {
+      if (conn) conn.end();
+      return rows;
+    }
+  }
+  getInputList()
+    .then((rows) => {
+      res.render(
+        "views/html/stock/input_search.ejs",
         {
           data: rows,
         },
@@ -519,6 +559,53 @@ app.get("/stock", (req, res) => {
     });
 });
 
+let cate_stock = "";
+let word_stock = "";
+
+app.post("/stock", (req, res) => {
+  cate_stock = req.body.cate;
+  word_stock = req.body.word;
+});
+
+app.get("/stock/search", (req, res) => {
+  async function GetStockList() {
+    let conn, rows, sql;
+    try {
+      conn = await pool.getConnection();
+      conn.query("USE wms");
+      sql = `SELECT st.stock_num, st.stock_name, st.stock_info, st.buy_com, wh.wh_name, date_FORMAT(st.exp_dt,'%y년 %m월 %d일') exp_dt FROM tbl_stock st left join tbl_warehouse wh ON st.com_num = wh.com_num WHERE st.output_date IS NULL and ${cate_stock} like '%${word_stock}%' GROUP BY st.stock_num`;
+      rows = await conn.query(sql);
+    } catch (err) {
+      throw err;
+    } finally {
+      if (conn) conn.end();
+      return rows;
+    }
+  }
+  GetStockList()
+    .then((rows) => {
+      res.render(
+        "views/html/stock/stock_search.ejs",
+        {
+          data: rows,
+        },
+        function (err, html) {
+          if (err) {
+            console.log(err);
+          }
+          res.end(html);
+        }
+      );
+    })
+    .catch((errMsg) => {
+      err;
+    });
+});
+
+app.post("/stock", (req, res) => {
+  console.log(req.body);
+});
+
 // 작업내역 페이지
 app.get("/work_history", (req, res) => {
   async function GetWork_HistoryList() {
@@ -562,19 +649,49 @@ app.get("/work_history", (req, res) => {
     });
 });
 
-// mariaDB connect
-// app.get("/select", (req, res) => {
-//   mdbConn
-//     .getCompanyList()
-//     .then((rows) => {
-//       console.log(rows);
-//       res.send(rows);
-//     })
-//     .catch((errMsg) => {
-//       //   console.log(errMsg);
-//       res.send(err);
-//     });
-// });
+let cate_history = "";
+let word_history = "";
+
+app.post("/work_history", (req, res) => {
+  console.log(req.body);
+  cate_history = req.body.cate;
+  word_history = req.body.word;
+});
+
+app.get("/work_history/search", (req, res) => {
+  async function GetWork_HistoryList() {
+    let conn, rows, sql;
+    try {
+      conn = await pool.getConnection();
+      conn.query("USE wms");
+      sql = `SELECT wk.work_name,wkr.worker_name,st.stock_num,st.stock_name,st.stock_info FROM tbl_stock st left join tbl_work wk on st.stock_num = wk.stock_num left join tbl_worker wkr on wk.worker_num = wkr.worker_num where wk.work_name is not null AND wkr.worker_name is not null and ${cate_history} like '%${word_history}%'`;
+      rows = await conn.query(sql);
+    } catch (err) {
+      throw err;
+    } finally {
+      if (conn) conn.end();
+      return rows;
+    }
+  }
+  GetWork_HistoryList()
+    .then((rows) => {
+      res.render(
+        "views/html/workmanagement/work_history_search.ejs",
+        {
+          data: rows,
+        },
+        function (err, html) {
+          if (err) {
+            console.log(err);
+          }
+          res.end(html);
+        }
+      );
+    })
+    .catch((errMsg) => {
+      err;
+    });
+});
 
 app.set("port", process.env.PORT || 3002);
 app.get("/", (req, res) => {

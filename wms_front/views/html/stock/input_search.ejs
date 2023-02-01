@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="views/css/stock/stock.css" />
+    <link rel="stylesheet" href="/views/css/stock/input.css" />
 
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
@@ -12,16 +12,15 @@
       integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
       crossorigin="anonymous"
     />
-
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
       crossorigin="anonymous"
     ></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script type="text/javascript" src="views/js/stock/stock.js" defer></script>
+    <script type="text/javascript" src="views/js/stock/input.js" defer></script>
   <!-- 사이드바 -->
-  <link rel="stylesheet" href="views/css/sidebar.css" />
+  <link rel="stylesheet" href="/views/css/sidebar.css" />
     
   <!-- Boxicons CDN Link -->
  <link
@@ -33,11 +32,10 @@
  src="views/js/sidebar.js"
  defer
  ></script>
- <script src="http://code.jquery.com/jquery-latest.js"></script> 
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.5/xlsx.full.min.js"></script>
  <!-- 사이드바 -->
-
+ <script src="http://code.jquery.com/jquery-latest.js"></script> 
   </head>
-
   <body>
 
     <div class="top_div">
@@ -152,7 +150,7 @@
           <li>
             <div class="profile-details">
               <div class="profile-content">
-                <img src="views/image/profile.jpg" alt="profileImg" />
+                <img src="/views/image/profile.jpg" alt="profileImg" />
               </div>
               <div class="name-job">
                 <div class="profile_name">김정우</div>
@@ -169,32 +167,36 @@
 <!-- == 사이드바 -->
 <div class="main_div">
   <div class="management_div">
-    <a href="#">재고 현황</a>
+    <a href="#">입고현황</a>
+    <a href="#">출고현황</a>
+    <a href="#">입/출고내역</a>
   </div>
   <hr />
   <div class="btn_div">
     <div>
       <button>수정</button>
-      <button>출고</button>
+      <button>입고 완료</button>
     </div>
 
     <div></div>
 
     <div class="search_div">
       <div class="dropdown">
-        <button onclick="dp_menu()" class="button" id="drop_cate">재고 명 ▼</button>
+        <button onclick="dp_menu()" class="button" id="drop_cate">카테고리 선택 ▼</button>
         <div style="display: none" id="drop-content">
           <a onclick="getCateValue('stock_num')" id="stock_num">재고 번호</a>
           <a onclick="getCateValue('stock_name')" id="stock_name">재고 명</a>
           <a onclick="getCateValue('stock_info')" id="stock_info">재고 정보</a>
-          <a onclick="getCateValue('buy_com')" id="buy_com">구매처 명</a>
-          <a onclick="getCateValue('wh_name')" id="wh_name">창고 명</a>
-          <a onclick="getCateValue('exp_dt')" id="exp_dt">소비기한</a>
+          <a onclick="getCateValue('buy_com')" id="buy_com">구매처</a>
+          <a onclick="getCateValue('wlb_input_date')" id="wlb_input_date">입고 예정 일자</a>
         </div>
       </div>
-      <input type="text" id="search_text" onkeyup="searchText()"/>
-      <button id="search_btn" onclick="sendSearchText()">검색</button>
+      <input type="text" id="search_text" onkeyup="searchText()" />
+      <button onclick="sendSearchText()" id="search_btn">검색</button>
     </div>
+    <input type="file" onchange="readExcel()">
+    <button id="add_input_btn" onclick="goToCreateShelf('<%- data[0].stock_num%>')">+ 입고 추가</button>
+
   </div>
   
   <div class="graph_top_div">
@@ -204,12 +206,11 @@
           <thead>
             <tr>
               <th><input type="checkbox" /></th>
-              <th scope="col" onclick="orderListNum()">재고 번호 <img src="views/image/updown.png" height="20px"/></th>
-              <th scope="col" onclick="orderListName()">재고 명 <img src="views/image/updown.png" height="20px"/></th>
-              <th scope="col" onclick="orderListInfo()">재고 정보 <img src="views/image/updown.png" height="20px"/></th>
-              <th scope="col" onclick="orderListBuy()">구매처 명 <img src="views/image/updown.png" height="20px"/></th>
-              <th scope="col" onclick="orderListWarehouse()">창고 명 <img src="views/image/updown.png" height="20px"/></th>
-              <th scope="col" onclick="orderListExp()">소비기한 <img src="views/image/updown.png" height="20px"/></th>
+              <th scope="col" onclick="orderListNum()">재고 번호 <img src="/views/image/updown.png" height="20px"/></th>
+              <th scope="col" onclick="orderListName()">재고 명 <img src="/views/image/updown.png" height="20px"/></th>
+              <th scope="col" onclick="orderListInfo()  ">재고 정보 <img src="/views/image/updown.png" height="20px"/></th>
+              <th scope="col" onclick="orderListBuy()">구매처 <img src="/views/image/updown.png" height="20px"/></th>
+              <th scope="col" onclick="orderListDue()">입고 예정 일자 <img src="/views/image/updown.png" height="20px"/></th>
               <th></th>
             </tr>
           </thead>
@@ -220,10 +221,9 @@
                 <td><input type="checkbox" /></td>
                 <td><%- data[i].stock_num%></td>
                 <td><%- data[i].stock_name%></td>
-                <td><%- data[i].stock_info%></td>
-                <td><%- data[i].buy_com%></td>
-                <td><%- data[i].wh_name%></td>
-                <td><%- data[i].exp_dt%></td>
+                <td><%- data[i].stock_info %></td>
+                <td><%- data[i].buy_com %></td>
+                <td><%- data[i].wlb_input_date %></td>
                 <td>
                   <div
                   class="modal fade"
@@ -272,16 +272,15 @@
                 <!-- </div> -->
               </div>
             </div>
-            <div class="bd-example">
+            <!-- <div class="bd-example">
               <button
               type="button"
               data-bs-toggle="modal"
               data-bs-target="#exampleModalCenteredScrollable<%- i%>"
-              class = "btn_small"
               >
-              위치확인
+              상세보기
             </button>
-          </div>
+          </div> -->
         </td>
       </tr>
       <% } %>  
@@ -307,9 +306,142 @@
         <!-- 페이지 바 -->
       </div>
     </div>
+
     <!-- <% for(var i = 0; i<data.length; i++){%>
       <p><%- data[i].wh_num%></p>
   <%}%> -->
+
+
+    <!-- <div class="sub_graph_div">
+      <div class="diagram_div">
+        <div class="wh_name_div" id="sub_warehouse_name">창고를 선택 해주세요</div>
+        <div class="circle_progress_container">
+          <div class="circle_progress_item">
+            <div class="value_container">0%</div>
+          </div>
+        </div>
+        <div class="circle_progress_info">
+          <span id="sub_now_avl">남은 공간 : 0</span><span id="sub_max_avl">총 공간 : 0</span>
+        </div>
+      </div>
+      <div class="three_option_div">
+        <div id="first_option">
+
+          <div>
+            <span>A 선반 : 2 / 10</span>
+            <div class="progress">
+              <div
+                class="progress-bar"
+                id="bg_black"
+                role="progressbar"
+                aria-label="Basic example"
+                style="width: 25%"
+                aria-valuenow="25"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              ></div>
+            </div>
+          </div>
+
+          <div>
+            <span>B 선반 : 5 / 10</span>
+            <div class="progress">
+              <div
+                class="progress-bar"
+                id="bg_black"
+                role="progressbar"
+                aria-label="Basic example"
+                style="width: 50%"
+                aria-valuenow="25"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              ></div>
+            </div>
+          </div>
+
+          <div>
+            <span>C 선반 : 5 / 10</span>
+            <div class="progress">
+              <div
+                class="progress-bar"
+                id="bg_black"
+                role="progressbar"
+                aria-label="Basic example"
+                style="width: 50%"
+                aria-valuenow="25"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              ></div>
+            </div>
+          </div>
+
+          <div>
+            <span>D 선반 : 10 / 10</span>
+            <div class="progress">
+              <div
+                class="progress-bar"
+                id="bg_black"
+                role="progressbar"
+                aria-label="Basic example"
+                style="width: 100%"
+                aria-valuenow="25"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              ></div>
+            </div>
+          </div>
+        </div>
+        <div id="second_option" class="none_view">
+          <div>
+              
+            창고 온도
+
+            <div class="progress" id="temp_bar">
+              <div
+                class="progress-bar"
+                id="bg_red"
+                role="progressbar"
+                aria-label="Basic example"
+                style="width: 50%"
+                aria-valuenow="25"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              ></div>
+            </div>
+            <div class="temp_text_div">
+              <span id="min_temp">-5°C</span><span id="now_temp">now : 0°C </span><span id="max_temp">5°C</span>
+            </div>
+          </div>
+
+          <div>
+            창고 습도
+            <div class="progress" id="humid_bar">
+              <div
+                class="progress-bar"
+                id="bg_green"
+                role="progressbar"
+                aria-label="Basic example"
+                style="width: 20%"
+                aria-valuenow="25"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              ></div>
+            </div>
+            <div class="temp_text_div">
+              <span id="min_humid">0%</span><span id="now_humid">now : 5% </span><span id="max_humid">20%</span>
+            </div>
+          </div>
+        </div>
+        <div id="third_option" class="none_view">
+          신석 식품 냉장 창고 입니다
+        </div>
+        <div class="choice_option_div">
+          <span onclick="optionOne()">선반 정보</span
+          ><span onclick="optionTwo()">온 / 습도</span
+          ><span onclick="optionThree()">창고 정보</span>
+        </div>
+      </div>
+    </div> -->
   </div>
 </div>
 </div>

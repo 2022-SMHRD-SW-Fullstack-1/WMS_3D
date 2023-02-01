@@ -18,6 +18,64 @@ function goToCreateInput(e) {
   form.submit();
 }
 
+let catevalText = {};
+let cateText = "";
+
+function dp_menu() {
+  let click = document.getElementById("drop-content");
+  if (click.style.display === "none") {
+    click.style.display = "block";
+  } else {
+    click.style.display = "none";
+  }
+}
+
+function getCateValue(e) {
+  // console.log("event:", e);
+  cateText = e;
+  let cateName = document.getElementById(e).innerText;
+  console.log(cateName);
+  document.getElementById("drop_cate").innerText = cateName;
+}
+
+function searchText() {
+  const searchText = document.getElementById("search_text").value;
+  console.log(searchText);
+}
+
+// 카테고리 선택값 가져오기 & 카테고리 선택값으로 변경
+function sendSearchText() {
+  // let cateVal = document
+  //   .getElementById(e.getAttribute("id"))
+  //   .getAttribute("id");
+
+  // console.log(cateVal);
+
+  const searchText = document.getElementById("search_text").value;
+  console.log(searchText);
+
+  catevalText = { cate: cateText, word: searchText };
+
+  // document.getElementById("drop_cate").innerText = cateText;
+
+  let url = "http://localhost:3002/input1";
+
+  axios
+    .post(url, catevalText, {
+      headers: {
+        "Content-Type": `application/json`,
+      },
+    })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch(() => {
+      console.log("catch");
+    });
+
+  location.href = "http://localhost:3002/input/search";
+}
+
 function orderListNum() {
   let bool = true;
   if (localStorage.getItem("align_num") == "true") {
@@ -182,9 +240,40 @@ function readExcel() {
     let workBook = XLSX.read(data, { type: "binary" });
     workBook.SheetNames.forEach(function (sheetName) {
       let rows = XLSX.utils.sheet_to_json(workBook.Sheets[sheetName]);
-      console.log(rows[0].stock_name);
       console.log(rows);
-      // console.log(JSON.stringify(rows));
+      console.log(rows[0].buy_com);
+
+      let url = "/input";
+      let form = document.createElement("form");
+      form.setAttribute("action", url);
+      form.setAttribute("method", "post");
+      document.characterSet = "utf-8";
+      for (var i = 0; i < rows.length; i++) {
+        let wlb_date = rows[i].wlb_input_date.trim();
+        let in_date;
+        if (rows[i].input_date != null) {
+          in_date = rows[i].input_date.trim();
+        }
+        let num = {
+          stock_name: rows[i].stock_name,
+          stock_info: rows[i].stock_info,
+          buy_com: rows[i].buy_com,
+          wlb_input_date: wlb_date,
+          input_date: in_date,
+          shelf_num: rows[i].shelf_num,
+          stock_floor: rows[i].stock_floor,
+          stock_position: rows[i].stock_position,
+        };
+        for (let key in num) {
+          let hiddenField = document.createElement("input");
+          hiddenField.setAttribute("type", "hidden");
+          hiddenField.setAttribute("name", key);
+          hiddenField.setAttribute("value", num[key]);
+          form.appendChild(hiddenField);
+        }
+      }
+      document.body.appendChild(form);
+      form.submit();
     });
   };
   reader.readAsBinaryString(input.files[0]);

@@ -17,7 +17,7 @@
       integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
       crossorigin="anonymous"
     ></script>
-
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script type="text/javascript" src="views/js/stock/input.js" defer></script>
   <!-- 사이드바 -->
   <link rel="stylesheet" href="views/css/sidebar.css" />
@@ -182,17 +182,17 @@
 
     <div class="search_div">
       <div class="dropdown">
-        <button onclick="dp_menu()" class="button">재고명 ▼</button>
+        <button onclick="dp_menu()" class="button" id="drop_cate">카테고리 선택 ▼</button>
         <div style="display: none" id="drop-content">
-          <a href="#">재고 번호</a>
-          <a href="#">재고 명</a>
-          <a href="#">재고 정보</a>
-          <a href="#">구매처</a>
-          <a href="#">입고 예정 일자</a>
+          <a onclick="getCateValue('stock_num')" id="stock_num">재고 번호</a>
+          <a onclick="getCateValue('stock_name')" id="stock_name">재고 명</a>
+          <a onclick="getCateValue('stock_info')" id="stock_info">재고 정보</a>
+          <a onclick="getCateValue('buy_com')" id="buy_com">구매처</a>
+          <a onclick="getCateValue('wlb_input_date')" id="wlb_input_date">입고 예정 일자</a>
         </div>
       </div>
-      <input type="text" />
-      <button id="search_btn">검색</button>
+      <input type="text" id="search_text" onkeyup="searchText()" />
+      <button onclick="sendSearchText()" id="search_btn">검색</button>
     </div>
     <input type="file" onchange="readExcel()">
     <button id="add_input_btn" onclick="goToCreateShelf('<%- data[0].stock_num%>')">+ 입고 추가</button>
