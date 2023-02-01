@@ -120,7 +120,7 @@ async function GetWork_HistoryList() {
     conn = await pool.getConnection();
     conn.query("USE wms");
     rows = await conn.query(
-      "SELECT wk.work_name,wkr.worker_name,st.stock_num,st.stock_name,st.stock_info FROM tbl_stock st left join tbl_work wk on st.stock_num = wk.stock_num left join tbl_worker wkr on wk.worker_num = wkr.worker_num where wk.work_name is not null AND wkr.worker_name is not null"
+      "SELECT wk.work_name,wkr.worker_name,st.stock_num,st.stock_name,st.stock_info,wk.from_position,wk.to_position,date_FORMAT(wk.replace_date,'%y년 %m월 %d일 %H:%i') replace_date FROM tbl_stock st left join tbl_work wk on st.stock_num = wk.stock_num left join tbl_worker wkr on wk.worker_num = wkr.worker_num where wk.work_name is not null AND wkr.worker_name is not null"
     );
   } catch (err) {
     throw err;
