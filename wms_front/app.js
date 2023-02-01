@@ -177,7 +177,7 @@ app.post("/shelf", (req, res) => {
     conn = await pool.getConnection();
     conn.query("USE wms");
     rows = await conn.query(
-      `select w.wh_num,w.wh_name,s.shelf_name, s.shelf_num, s.shelf_width,s.shelf_length,s.shelf_floor,floor(s.shelf_width*s.shelf_length*s.shelf_floor) max_avl, floor((s.shelf_width*s.shelf_length*s.shelf_floor) - count(st.stock_num)) now_avl From tbl_shelf s left join tbl_warehouse w on w.wh_num=s.wh_num left join tbl_stock st on s.shelf_num = st.shelf_num where s.wh_num = ${val} group by s.shelf_num ;SELECT st.stock_num, st.com_num, st.shelf_num, st.stock_name, st.stock_info, st.buy_com, st.sell_com, st.wlb_input_date , DATE_FORMAT(st.input_date, "%y년%m월%d일") input_date, st.stock_floor, st.stock_position, DATE_FORMAT(st.exp_dt, "%y년%m월%d일") exp_dt FROM tbl_stock st LEFT JOIN tbl_shelf s ON st.shelf_num = s.shelf_num WHERE s.wh_num = ${val}`
+      `select w.wh_num,w.wh_name,s.shelf_name, s.shelf_num, s.shelf_width,s.shelf_length,s.shelf_floor,floor(s.shelf_width*s.shelf_length*s.shelf_floor) max_avl, floor((s.shelf_width*s.shelf_length*s.shelf_floor) - count(st.stock_num)) now_avl From tbl_shelf s left join tbl_warehouse w on w.wh_num=s.wh_num left join tbl_stock st on s.shelf_num = st.shelf_num where s.wh_num = ${val} AND st.output_date IS NULL  group by s.shelf_num ;SELECT st.stock_num, st.com_num, st.shelf_num, st.stock_name, st.stock_info, st.buy_com, st.sell_com, st.wlb_input_date , DATE_FORMAT(st.input_date, "%y년%m월%d일") input_date, st.stock_floor, st.stock_position, DATE_FORMAT(st.exp_dt, "%y년%m월%d일") exp_dt FROM tbl_stock st LEFT JOIN tbl_shelf s ON st.shelf_num = s.shelf_num WHERE s.wh_num = ${val} AND st.output_date IS NULL`
     );
     conn.end();
     return rows;
