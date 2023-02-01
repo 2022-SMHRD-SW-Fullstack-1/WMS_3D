@@ -66,7 +66,7 @@
             </li>
   
             <li>
-              <div class="icon-link">ㅇ
+              <div class="icon-link">
                 <a href="#">
                   <i class="bx bxs-city"></i>
                   <span class="link_name">창고</span>
@@ -268,25 +268,19 @@
                 <% if(data[i].input_date) { %>
                   <%- data[i].input_date %>
                 <% } else { %>
-                  <button class="input_date_button" onclick="inputCl">입고완료</button>
+                  <button class="input_date_button">입고완료</button>
                 <% } %>
               </td>
                 <td>
-                  <div
-                  class="modal fade"
-                  id="exampleModalCenteredScrollable<%- i%>"
-                  tabindex="-1"
-                  aria-labelledby="exampleModalCenteredScrollableTitle"
-                  aria-hidden="true"
-                  >
-                  <div
-                  class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-                  >
-              </div>
-            </div>
-        </td>
-      </tr>
-      <% } %>  
+                  <% if(data[i].input_date) { %>
+                    <%- data[i].input_date %>
+                  <% } else { %>
+                    <button class="input_date_button">입고완료</button>
+                  <% } %>
+                </td>
+                
+              </tr>
+            <% } %>  
       
 
           </tbody>
