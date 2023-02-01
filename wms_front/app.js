@@ -281,7 +281,10 @@ app.post("/createShelf", (req, res) => {
 
 // 출고 기능
 app.post("/stockOutput",(req,res)=>{
-  for(let i=0; i< req.body.num.length;i++){
+  console.log(req.body)
+
+  for(let i=1; i < req.body.num.length;i++){
+    console.log(req.body.worker[i])
     async function StockOutputData(){
       let conn, rows;
       let sql = "UPDATE tbl_stock st SET st.output_date = NOW() , st.sell_com = ? WHERE st.stock_num = ?"
