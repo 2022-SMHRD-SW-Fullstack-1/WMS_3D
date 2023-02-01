@@ -177,7 +177,7 @@
   <div class="btn_div">
     <div>
       <button>수정</button>
-      <button>출고</button>
+      <button onclick="stockOutput()">출고</button>
     </div>
 
     <div></div>
@@ -219,7 +219,7 @@
 
             <%for(var i = 0; i<data.length; i++){%>
               <tr>
-                <td><input type="checkbox" /></td>
+                <td><input type="checkbox" id="my_checkbox" onclick="isChecked('<%- data[i].stock_num%>')"/></td>
                 <td><%- data[i].stock_num%></td>
                 <td><%- data[i].stock_name%></td>
                 <td><%- data[i].stock_info%></td>
@@ -230,8 +230,7 @@
                   <button class = "btn_small" onclick="goToWarehouse({wh_num:'<%- data[i].wh_num%>',stock_num:'<%- data[i].stock_num%>'})">위치확인</button>
                 </td>
               </tr>
-              <% } %>  
-      
+            <% } %>
 
           </tbody>
         </table>
