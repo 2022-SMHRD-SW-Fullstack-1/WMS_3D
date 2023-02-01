@@ -43,39 +43,37 @@ closeBtns.forEach(function (btn) {
 
 //입고 추가
 
-// export function insertData() {
-//   const stock_num = document.querySelector(".stock_num").value;
-//   const stock_name = document.querySelector(".stock_name").value;
-//   const stock_info = document.querySelector(".stock_info").value;
-//   const buy_com = document.querySelector(".buy_com").value;
-//   const wlb_input_date = document.querySelector(".wlb_input_date").value;
+// function stockInput() {
+//   let stock_num = document.getElementById("stock_num").value;
+//   let stock_name = document.getElementById("stock_name").value;
+//   let stock_info = document.getElementById("stock_info").value;
+//   let buy_com = document.getElementById("buy_com").value;
+//   let wlb_input_date = document.getElementById("wlb_input_date").value;
 
-//   fetch("/input", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify({
-//       stock_num: stock_num,
-//       stock_name: stock_name,
-//       stock_info: stock_info,
-//       buy_com: buy_com,
-//       wlb_input_date: wlb_input_date,
-//     }),
-//   })
-//     .then((res) => {
-//       console.log(res);
+//   let url = "/stockInput";
+//   let form = document.createElement("form");
+//   form.setAttribute("method", "post");
+//   form.setAttribute("action", url);
+//   document.characterSet = "utf-8";
 
-//       return res.json();
-//     })
-//     .then((data) => {
-// 이 위치에서 app.js가 실행 되도록 만들기
-// 실행 완료되면 파라미터 가지고 다른 url로 보내서 거기서 비동기 작업하기
-//       console.log(data);
-//     })
-//     .catch((err) => {
-//       console.error(err);
-//     });
+//   let data = {
+//     stock_num: stock_num,
+//     stock_name: stock_name,
+//     stock_info: stock_info,
+//     buy_com: buy_com,
+//     wlb_input_date: wlb_input_date,
+//   };
+
+//   for (let key in data) {
+//     let hiddenField = document.createElement("input");
+//     hiddenField.setAttribute("type", "hidden");
+//     hiddenField.setAttribute("name", key);
+//     hiddenField.setAttribute("value", data[key]);
+//     form.appendChild(hiddenField);
+//   }
+
+//   document.body.appendChild(form);
+//   form.submit();
 // }
 
 // window.onclick = function (e) {

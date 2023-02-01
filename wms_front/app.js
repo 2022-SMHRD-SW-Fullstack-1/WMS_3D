@@ -241,8 +241,6 @@ app.post("/viewWarehouse", (req, res) => {
     });
 });
 
-
-
 // 선반 관리 페이지 -> 선반 생성 페이지
 app.post("/createShelf", (req, res) => {
   const val = Number(req.body.num);
@@ -278,22 +276,22 @@ app.post("/createShelf", (req, res) => {
     });
 });
 
-
 // 출고 기능
-app.post("/stockOutput",(req,res)=>{
-  console.log(req.body)
+app.post("/stockOutput", (req, res) => {
+  console.log(req.body);
 
-  for(let i=1; i < req.body.num.length;i++){
-    console.log(req.body.worker[i])
-    async function StockOutputData(){
+  for (let i = 1; i < req.body.num.length; i++) {
+    console.log(req.body.worker[i]);
+    async function StockOutputData() {
       let conn, rows;
-      let sql = "UPDATE tbl_stock st SET st.output_date = NOW() , st.sell_com = ? WHERE st.stock_num = ?"
+      let sql =
+        "UPDATE tbl_stock st SET st.output_date = NOW() , st.sell_com = ? WHERE st.stock_num = ?";
       conn = await pool.getConnection();
       conn.query("USE wms");
-      rows = await conn.query(sql,[
+      rows = await conn.query(sql, [
         req.body.worker[i],
-        Number(req.body.num[i])
-      ])
+        Number(req.body.num[i]),
+      ]);
       conn.end();
     }
     StockOutputData();
@@ -318,9 +316,7 @@ app.post("/stockOutput",(req,res)=>{
     .catch((errMsg) => {
       err;
     });
-})
-
-
+});
 
 // 선반 생성 기능
 
@@ -444,6 +440,57 @@ app.post("/outputForm", (req, res) => {
 });
 
 //입고 insert 페이지
+app.post("/stockInput", (req, res) => {
+  let stock_num = req.body.stock_num;
+  let stock_name = req.body.stock_name;
+  let stock_info = req.body.stock_info;
+  let buy_com = req.body.buy_com;
+  let wlb_input_date = new Date(req.body.wlb_input_date);
+  const com_num = 1123456789;
+
+  async function stockInput() {
+    let conn;
+    let sql =
+      "INSERT INTO tbl_stock (stock_num, stock_name, stock_info, buy_com, wlb_input_date, com_num) VALUES (?, ?, ?, ?, ?, ?)";
+    conn = await pool.getConnection();
+    conn.query("USE wms");
+    await conn.query(sql, [
+      stock_num,
+      stock_name,
+      stock_info,
+      buy_com,
+      wlb_input_date,
+      com_num,
+    ]);
+    conn.release();
+  }
+
+  stockInput()
+    .then(() => {
+      mdbConn
+        .getStockList()
+        .then((rows) => {
+          res.render(
+            "views/html/stock/input.ejs",
+            {
+              data: rows,
+            },
+            function (err, html) {
+              if (err) {
+                console.log(err);
+              }
+              res.end(html);
+            }
+          );
+        })
+        .catch((errMsg) => {
+          console.error(errMsg);
+        });
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+});
 // app.post("/input", (req, res) => {
 //   console.log(req.body);
 
