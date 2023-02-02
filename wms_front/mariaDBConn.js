@@ -62,7 +62,6 @@ async function GetShelfList() {
   }
 }
 
-
 // 입고정보 가져오기
 async function GetInputList() {
   let conn, rows;
@@ -147,7 +146,6 @@ async function GetStockList() {
     return rows;
   }
 }
-
 
 // insert로 데이터 넣기
 // async function InsertCompanyData() {
