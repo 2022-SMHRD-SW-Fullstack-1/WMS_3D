@@ -137,3 +137,14 @@ function goToCreateShelf(e){
 
 
   //페이지 이동 기능
+
+
+
+  function selectAll(selectAll)  {
+    const checkboxes 
+         = document.getElementsByName('item');
+    
+    checkboxes.forEach((checkbox) => {
+      checkbox.checked = selectAll.checked;
+    })
+  }

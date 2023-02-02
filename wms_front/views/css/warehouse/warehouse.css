@@ -253,6 +253,9 @@ th {
   top: 0px;
   background-color: white !important;
 }
+tr{
+  height: 57px;
+}
 td {
   vertical-align: middle;
 }

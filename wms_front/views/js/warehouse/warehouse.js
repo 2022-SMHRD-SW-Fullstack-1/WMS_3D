@@ -243,3 +243,13 @@ function changeSub(e) {
 }
 
 // 서브 div 띄우는 기능
+
+
+function selectAll(selectAll)  {
+  const checkboxes 
+       = document.getElementsByName('item');
+  
+  checkboxes.forEach((checkbox) => {
+    checkbox.checked = selectAll.checked;
+  })
+}
