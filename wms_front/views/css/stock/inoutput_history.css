@@ -236,6 +236,9 @@ table {
 }
 th {
   vertical-align: middle;
+  position: sticky;
+  top: 0px;
+  background-color: white !important;
 }
 td {
   vertical-align: middle;

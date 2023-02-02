@@ -239,12 +239,19 @@ input {
 table {
   text-align: center;
   font-size: 18px;
+  
 }
 :root {
   --bs-body-line-height: 1 !important;
 }
+.main_graph_div{
+  overflow: auto
+}
 th {
   vertical-align: middle;
+  position: sticky;
+  top: 0px;
+  background-color: white !important;
 }
 td {
   vertical-align: middle;
