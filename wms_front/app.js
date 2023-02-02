@@ -241,6 +241,8 @@ app.post("/viewWarehouse", (req, res) => {
     });
 });
 
+
+
 // 선반 관리 페이지 -> 선반 생성 페이지
 app.post("/createShelf", (req, res) => {
   const val = Number(req.body.num);
@@ -277,21 +279,21 @@ app.post("/createShelf", (req, res) => {
 });
 
 // 출고 기능
-app.post("/stockOutput", (req, res) => {
-  console.log(req.body);
+app.post("/stockOutput",(req,res)=>{
+  console.log(req.body)
 
-  for (let i = 1; i < req.body.num.length; i++) {
-    console.log(req.body.worker[i]);
-    async function StockOutputData() {
+  for(let i=1; i < req.body.num.length;i++){
+    console.log(req.body.worker[i])
+    async function StockOutputData(){
       let conn, rows;
-      let sql =
-        "UPDATE tbl_stock st SET st.output_date = NOW() , st.sell_com = ? WHERE st.stock_num = ?";
+      let sql = "UPDATE tbl_stock st SET st.output_date = NOW() , st.sell_com = ? WHERE st.stock_num = ?"
       conn = await pool.getConnection();
       conn.query("USE wms");
-      rows = await conn.query(sql, [
+      rows = await conn.query(sql,[
         req.body.worker[i],
-        Number(req.body.num[i]),
-      ]);
+        Number(req.body.num[i])
+      ])
+
       conn.end();
     }
     StockOutputData();
@@ -316,7 +318,11 @@ app.post("/stockOutput", (req, res) => {
     .catch((errMsg) => {
       err;
     });
-});
+
+})
+
+
+
 
 // 선반 생성 기능
 
@@ -444,6 +450,7 @@ app.post("/outputForm", (req, res) => {
 
 
 //입고 insert 페이지
+
 app.post("/input", (req, res) => {
   
   let stock_name = req.body.stock_name;
@@ -494,6 +501,7 @@ app.post("/put", (req, res) => {
     StockOutputData();
   }
 })
+
 
 // 입고 페이지
 // 일단 데이터값 보내기 실험 페이지로 쓰는중

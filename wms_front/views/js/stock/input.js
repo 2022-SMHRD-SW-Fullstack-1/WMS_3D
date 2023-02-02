@@ -41,6 +41,7 @@ closeBtns.forEach(function (btn) {
   };
 });
 
+
 // function stockOutput() {
 //   let worker = prompt("판매처를 입력해주세요");
 
@@ -89,6 +90,7 @@ closeBtns.forEach(function (btn) {
 //     }
 //     this.style.display = "none";
 //   });
+
 // }
 
 // window.onclick = function (e) {
