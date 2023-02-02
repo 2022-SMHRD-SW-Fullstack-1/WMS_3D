@@ -249,9 +249,15 @@ table{
 :root{
     --bs-body-line-height: 1 !important;
 }
-th{
+.main_graph_div{
+    overflow: auto
+  }
+  th {
     vertical-align: middle;
-}
+    position: sticky;
+    top: 0px;
+    background-color: white !important;
+  }
 td{
     vertical-align: middle;
 }
