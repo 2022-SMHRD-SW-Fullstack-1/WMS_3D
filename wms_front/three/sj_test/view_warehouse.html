@@ -24,27 +24,36 @@
 <body>
     <div id="webgl-container"></div>
     <div id="modal-container" class="none_view">
-        <div><span></span><span onclick="close_modal()">X</span></div>
-        <div>
-            <span>재고 번호 : </span><span id="stock_num"></span>
+        
+        <div class="modal_head">
+            <span id="stop_dragging">재고 관련 정보</span>
+            <span id="close_btn" onclick="close_modal()">X</span>
         </div>
-        <div>
-            <span>재고 명 : </span><span id="stock_name"></span>
-        </div>
-        <div>
-            <span>재고 정보 :</span><span id="stock_info"></span>
-        </div>
-        <div>
-            <span>입고 일자 : </span><span id="input_date"></span>
-        </div>
-        <div>
-            <span>소비 기한 : </span><span id="exp_dt"></span>
+        <div class="modal_info">
+
+            <div>
+                <span>재고 번호 : </span><span id="stock_num"></span>
+            </div>
+            <div>
+                <span>재고 명 : </span><span id="stock_name"></span>
+            </div>
+            <div>
+                <span>재고 정보 :</span><span id="stock_info"></span>
+            </div>
+            <div>
+                <span>입고 일자 : </span><span id="input_date"></span>
+            </div>
+            <div>
+                <span>소비 기한 : </span><span id="exp_dt"></span>
+            </div>
         </div>
     </div>
     <div id="sub-container">
         <div></div>
         <div id="btn-container">
+
             <button id="move">재고이동</button>
+            <button id="btn_save" class="none_view">저장</button>
         </div>
     </div>
     <script>

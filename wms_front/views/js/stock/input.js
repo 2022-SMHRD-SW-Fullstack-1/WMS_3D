@@ -336,3 +336,30 @@ function ExcelExport(id, title) {
     document.body.removeChild(elem);
   }
 }
+
+//입고추가 모달 열기 버튼
+let modalBtns = document.querySelectorAll(".add_input_btn");
+
+modalBtns.forEach(function (btn) {
+  btn.onclick = function () {
+    let modal = btn.getAttribute("data_modal");
+
+    document.getElementById(modal).style.display = "block";
+  };
+});
+
+let closeBtns = document.querySelectorAll(".modal_close");
+
+closeBtns.forEach(function (btn) {
+  btn.onclick = function () {
+    let modal = (btn.closest(".input_modal").style.display = "none");
+  };
+});
+
+function selectAll(selectAll) {
+  const checkboxes = document.getElementsByName("item");
+
+  checkboxes.forEach((checkbox) => {
+    checkbox.checked = selectAll.checked;
+  });
+}

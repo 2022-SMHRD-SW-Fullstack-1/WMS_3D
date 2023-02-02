@@ -11,9 +11,9 @@ body {
   flex-shrink: unset;
 }
 /* .side_bar{
-    width: 78px;
-    height: 969px;
-    background-color: #11101D;
+  width: 78px;
+  height: 969px;
+  background-color: #11101D;
 } */
 .main_div {
   background-color: white;
@@ -47,8 +47,8 @@ body {
 }
 
 /* ::-webkit-scrollbar {
-    display: none;
-    } */
+  display: none;
+  } */
 
 .main_graph_div {
   width: 70%;
@@ -56,19 +56,19 @@ body {
 }
 /* 
 .sub_graph_div{
-    width: 30%;
-    height: 100%;
+  width: 30%;
+  height: 100%;
 } */
 
 /* .diagram_div{
-    margin: 5%;
-    width: 90%;
-    height: 40%;
-    display: flex;
-    flex-direction: column;
-    font-size: 20px;
-    font-weight: 600;
-    
+  margin: 5%;
+  width: 90%;
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+  font-weight: 600;
+  
 } */
 .wh_name_div {
   text-align: center;
@@ -234,8 +234,17 @@ table {
 :root {
   --bs-body-line-height: 1 !important;
 }
+.main_graph_div {
+  overflow: auto;
+}
 th {
   vertical-align: middle;
+  position: sticky;
+  top: 0px;
+  background-color: white !important;
+}
+tr {
+  height: 57px;
 }
 td {
   vertical-align: middle;
@@ -328,5 +337,123 @@ td {
   font-size: 20px;
   font-weight: 600;
 }
-
 /* 모달 디자인 */
+
+/* sub div 디자인 */
+
+.sub_graph_div {
+  width: 30%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.shelf_head {
+  margin-top: 5%;
+  height: 5%;
+}
+.shelf_container_top {
+  margin: 10%;
+  width: 80%;
+  height: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow: auto;
+  /* justify-content: space-between; */
+}
+.shelf_floor_div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 30px;
+  font-weight: 600;
+  height: 10%;
+}
+.shelf_floor_div span {
+  width: 50px;
+  margin-right: 20px;
+}
+.shelf_none_item_div {
+  margin-top: 2px;
+  margin-bottom: 2px;
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 30px;
+  height: 30px;
+  border: #0a0729 2px solid;
+}
+.shelf_have_item_div {
+  margin-top: 2px;
+  margin-bottom: 2px;
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 30px;
+  height: 30px;
+  background-color: #0a0729;
+}
+.shelf_have_item_div:hover {
+  cursor: pointer;
+}
+.shelf_choice_div {
+  height: 5%;
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+  font-weight: 600;
+  width: 80%;
+  align-items: center;
+}
+.shelf_choice_div div {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+.none_view {
+  display: none;
+}
+
+/* sub div 디자인 */
+
+/* 체크 박스 디자인 */
+
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  outline: none !important;
+  border: 1px solid #eeeeee;
+  border-radius: 2px;
+  background: #fbfbfb;
+}
+
+input[type="checkbox"]::before {
+  content: "\2713";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  overflow: hidden;
+  transform: scale(0) translate(-50%, -50%);
+  line-height: 1;
+}
+
+input[type="checkbox"]:hover {
+  border-color: rgba(170, 170, 170, 0.5);
+}
+
+input[type="checkbox"]:checked {
+  background-color: #11101d;
+  border-color: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+input[type="checkbox"]:checked::before {
+  border-radius: 2px;
+  transform: scale(1) translate(-50%, -50%);
+}
+/* 체크 박스 디자인 */

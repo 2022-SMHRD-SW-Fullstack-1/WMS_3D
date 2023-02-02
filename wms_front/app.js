@@ -34,8 +34,6 @@ app.use(express.static(__dirname + "/"));
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/");
 
-let rowsResult = new Array();
-
 // 실험페이지
 app.get("/", (req, res) => {
   // 요청 패스에 대한 콜백 함수를 넣어줌
@@ -72,12 +70,12 @@ app.get("/output", (req, res) => {
       conn = await pool.getConnection();
       conn.query("USE wms");
       if (req.query.num != null && req.query.bool == "true") {
-        sql = `SELECT st.stock_num,st.stock_name,st.stock_info,st.sell_com,date_FORMAT(st.output_date,'%y년 %m월 %d일 %H시 %i분') output_date,wkr.worker_name FROM tbl_stock st left join tbl_worker wkr on st.com_num = wkr.com_num where st.com_num=1123456789 AND st.sell_com is not null AND st.output_date is not null order by ${req.query.num} DESC`;
+        sql = `SELECT st.stock_num,st.stock_name,st.stock_info,st.sell_com,date_FORMAT(st.output_date,'%y년 %m월 %d일 %H시 %i분') output_date,wkr.worker_name FROM tbl_stock st left join tbl_worker wkr on st.com_num = wkr.com_num where st.com_num=1123456789 AND st.sell_com is not null AND st.output_date is not null GROUP BY st.stock_num  order by ${req.query.num} DESC`;
       } else if (req.query.num != null && req.query.bool == "false") {
-        sql = `SELECT st.stock_num,st.stock_name,st.stock_info,st.sell_com,date_FORMAT(st.output_date,'%y년 %m월 %d일 %H시 %i분') output_date,wkr.worker_name FROM tbl_stock st left join tbl_worker wkr on st.com_num = wkr.com_num where st.com_num=1123456789 AND st.sell_com is not null AND st.output_date is not null order by ${req.query.num} ASC`;
+        sql = `SELECT st.stock_num,st.stock_name,st.stock_info,st.sell_com,date_FORMAT(st.output_date,'%y년 %m월 %d일 %H시 %i분') output_date,wkr.worker_name FROM tbl_stock st left join tbl_worker wkr on st.com_num = wkr.com_num where st.com_num=1123456789 AND st.sell_com is not null AND st.output_date is not null GROUP BY st.stock_num  order by ${req.query.num} ASC`;
       } else {
         sql =
-          "SELECT st.stock_num,st.stock_name,st.stock_info,st.sell_com,date_FORMAT(st.output_date,'%y년 %m월 %d일 %H시 %i분') output_date,wkr.worker_name FROM tbl_stock st left join tbl_worker wkr on st.com_num = wkr.com_num where st.com_num=1123456789 AND st.sell_com is not null AND st.output_date is not null";
+          "SELECT st.stock_num,st.stock_name,st.stock_info,st.sell_com,date_FORMAT(st.output_date,'%y년 %m월 %d일 %H시 %i분') output_date,wkr.worker_name FROM tbl_stock st left join tbl_worker wkr on st.com_num = wkr.com_num where st.com_num=1123456789 AND st.sell_com is not null AND st.output_date is not null GROUP BY st.stock_num ";
       }
       rows = await conn.query(sql);
     } catch (err) {
@@ -161,12 +159,12 @@ app.get("/warehouse", (req, res) => {
       conn = await pool.getConnection();
       conn.query("USE wms");
       if (req.query.num != null && req.query.bool == "true") {
-        sql = `SELECT w.wh_num,w.com_num,w.wh_name,w.wh_width,w.wh_length,w.wh_min_temp,w.wh_max_temp,w.wh_min_humid,w.wh_max_humid,w.wh_info ,floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0))) wh_max_avl,(floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0)))-(SELECT COUNT(st.stock_num) stock_count FROM tbl_shelf s LEFT JOIN tbl_stock st ON s.shelf_num = st.shelf_num WHERE s.wh_num = w.wh_num AND st.output_date IS null)) wh_now_avl from tbl_warehouse w left JOIN tbl_shelf s ON w.wh_num = s.wh_num GROUP BY wh_num order by ${req.query.num} desc;SELECT s.wh_num, s.shelf_name,s.shelf_width,s.shelf_length,s.shelf_floor,FLOOR(s.shelf_width * s.shelf_length * s.shelf_floor) shelf_avl, count(st.stock_num) shelf_used FROM tbl_shelf s LEFT JOIN tbl_stock st ON s.shelf_num = st.shelf_num  WHERE st.output_date IS null GROUP BY shelf_name`;
+        sql = `SELECT w.wh_num,w.com_num,w.wh_name,w.wh_width,w.wh_length,w.wh_min_temp,w.wh_max_temp,w.wh_min_humid,w.wh_max_humid,w.wh_info ,floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0))) wh_max_avl,(floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0)))-(SELECT COUNT(st.stock_num) stock_count FROM tbl_shelf s LEFT JOIN tbl_stock st ON s.shelf_num = st.shelf_num WHERE s.wh_num = w.wh_num AND st.output_date IS null)) wh_now_avl from tbl_warehouse w left JOIN tbl_shelf s ON w.wh_num = s.wh_num GROUP BY wh_num  order by ${req.query.num} desc;SELECT s.wh_num, s.shelf_name,s.shelf_width,s.shelf_length,s.shelf_floor,FLOOR(s.shelf_width * s.shelf_length * s.shelf_floor) shelf_avl, count(st.stock_num) shelf_used FROM tbl_shelf s LEFT JOIN tbl_stock st ON s.shelf_num = st.shelf_num  WHERE st.output_date IS null GROUP BY shelf_name ORDER BY shelf_used desc`;
       } else if (req.query.num != null && req.query.bool == "false") {
-        sql = `SELECT w.wh_num,w.com_num,w.wh_name,w.wh_width,w.wh_length,w.wh_min_temp,w.wh_max_temp,w.wh_min_humid,w.wh_max_humid,w.wh_info ,floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0))) wh_max_avl,(floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0)))-(SELECT COUNT(st.stock_num) stock_count FROM tbl_shelf s LEFT JOIN tbl_stock st ON s.shelf_num = st.shelf_num WHERE s.wh_num = w.wh_num AND st.output_date IS null)) wh_now_avl from tbl_warehouse w left JOIN tbl_shelf s ON w.wh_num = s.wh_num GROUP BY wh_num order by ${req.query.num} asc;SELECT s.wh_num, s.shelf_name,s.shelf_width,s.shelf_length,s.shelf_floor,FLOOR(s.shelf_width * s.shelf_length * s.shelf_floor) shelf_avl, count(st.stock_num) shelf_used FROM tbl_shelf s LEFT JOIN tbl_stock st ON s.shelf_num = st.shelf_num  WHERE st.output_date IS null GROUP BY shelf_name`;
+        sql = `SELECT w.wh_num,w.com_num,w.wh_name,w.wh_width,w.wh_length,w.wh_min_temp,w.wh_max_temp,w.wh_min_humid,w.wh_max_humid,w.wh_info ,floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0))) wh_max_avl,(floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0)))-(SELECT COUNT(st.stock_num) stock_count FROM tbl_shelf s LEFT JOIN tbl_stock st ON s.shelf_num = st.shelf_num WHERE s.wh_num = w.wh_num AND st.output_date IS null)) wh_now_avl from tbl_warehouse w left JOIN tbl_shelf s ON w.wh_num = s.wh_num GROUP BY wh_num  order by ${req.query.num} ASC;SELECT s.wh_num, s.shelf_name,s.shelf_width,s.shelf_length,s.shelf_floor,FLOOR(s.shelf_width * s.shelf_length * s.shelf_floor) shelf_avl, count(st.stock_num) shelf_used FROM tbl_shelf s LEFT JOIN tbl_stock st ON s.shelf_num = st.shelf_num  WHERE st.output_date IS null GROUP BY shelf_name ORDER BY shelf_used desc`;
       } else {
         sql =
-          "SELECT w.wh_num,w.com_num,w.wh_name,w.wh_width,w.wh_length,w.wh_min_temp,w.wh_max_temp,w.wh_min_humid,w.wh_max_humid,w.wh_info ,floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0))) wh_max_avl,(floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0)))-(SELECT COUNT(st.stock_num) stock_count FROM tbl_shelf s LEFT JOIN tbl_stock st ON s.shelf_num = st.shelf_num WHERE s.wh_num = w.wh_num AND st.output_date IS null)) wh_now_avl from tbl_warehouse w left JOIN tbl_shelf s ON w.wh_num = s.wh_num GROUP BY wh_num;SELECT s.wh_num, s.shelf_name,s.shelf_width,s.shelf_length,s.shelf_floor,FLOOR(s.shelf_width * s.shelf_length * s.shelf_floor) shelf_avl, count(st.stock_num) shelf_used FROM tbl_shelf s LEFT JOIN tbl_stock st ON s.shelf_num = st.shelf_num  WHERE st.output_date IS null GROUP BY shelf_name";
+          "SELECT w.wh_num,w.com_num,w.wh_name,w.wh_width,w.wh_length,w.wh_min_temp,w.wh_max_temp,w.wh_min_humid,w.wh_max_humid,w.wh_info ,floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0))) wh_max_avl,(floor(sum(IFNULL((s.shelf_width * s.shelf_length * s.shelf_floor),0)))-(SELECT COUNT(st.stock_num) stock_count FROM tbl_shelf s LEFT JOIN tbl_stock st ON s.shelf_num = st.shelf_num WHERE s.wh_num = w.wh_num AND st.output_date IS null)) wh_now_avl from tbl_warehouse w left JOIN tbl_shelf s ON w.wh_num = s.wh_num GROUP BY wh_num; SELECT s.wh_num, s.shelf_name,s.shelf_width,s.shelf_length,s.shelf_floor,FLOOR(s.shelf_width * s.shelf_length * s.shelf_floor) shelf_avl, count(st.stock_num) shelf_used FROM tbl_shelf s LEFT JOIN tbl_stock st ON s.shelf_num = st.shelf_num  WHERE st.output_date IS null GROUP BY shelf_name ORDER BY shelf_used desc";
       }
       rows = await conn.query(sql);
     } catch (err) {
@@ -205,6 +203,25 @@ let cate = "";
 let word = "";
 // 선반 생성 기능
 
+// 재고 이동 기능
+app.post("/moveStockInfo", (req, res) => {
+  async function UpdateStockData() {
+    let conn, rows;
+    let sql =
+      "UPDATE tbl_stock st SET st.shelf_num = ? , st.stock_floor = ?, st.stock_position=? WHERE st.stock_num = ?";
+    conn = await pool.getConnection();
+    conn.query("USE wms");
+    rows = await conn.query(sql, [
+      req.body.shelf_num,
+      req.body.st_floor,
+      req.body.st_position,
+      req.body.st_num,
+    ]);
+    conn.end();
+  }
+  UpdateStockData();
+});
+
 app.post("/warehouse", (req, res) => {
   // console.log(req.body.cate);
   // console.log(req.body.word);
@@ -232,8 +249,6 @@ app.get("/warehouse/search", (req, res) => {
 
   GetSearchData()
     .then((rows) => {
-      // console.log("rows", rows);
-      // console.log("rowsResult", rowsResult);
       res.render(
         "views/html/warehouse/warehouse_search.ejs",
         {
@@ -267,21 +282,9 @@ app.post("/shelf", (req, res) => {
     let conn, rows;
     conn = await pool.getConnection();
     conn.query("USE wms");
-    rows = await conn.query(`select w.wh_num,w.wh_name,s.shelf_name,
-s.shelf_num, s.shelf_width,s.shelf_length,s.shelf_floor,floor(s.shelf_width*s.shelf_length*s.shelf_floor) max_avl, floor((s.shelf_width*s.shelf_length*s.shelf_floor) - count(st.stock_num)) now_avl 
-From
-tbl_shelf s
-left join
-tbl_warehouse w
-on
-w.wh_num=s.wh_num
-left join
-tbl_stock st
-on
-s.shelf_num = st.shelf_num
-where s.wh_num = ${val}
-group by s.shelf_num
-`);
+    rows = await conn.query(
+      `select w.wh_num,w.wh_name,s.shelf_name, s.shelf_num, s.shelf_width,s.shelf_length,s.shelf_floor,floor(s.shelf_width*s.shelf_length*s.shelf_floor) max_avl, floor((s.shelf_width*s.shelf_length*s.shelf_floor) - count(st.stock_num)) now_avl From tbl_shelf s left join tbl_warehouse w on w.wh_num=s.wh_num left join tbl_stock st on s.shelf_num = st.shelf_num where s.wh_num = ${val} AND st.output_date IS NULL  group by s.shelf_num ;SELECT st.stock_num, st.com_num, st.shelf_num, st.stock_name, st.stock_info, st.buy_com, st.sell_com, st.wlb_input_date , DATE_FORMAT(st.input_date, "%y년%m월%d일") input_date, st.stock_floor, st.stock_position, DATE_FORMAT(st.exp_dt, "%y년%m월%d일") exp_dt FROM tbl_stock st LEFT JOIN tbl_shelf s ON st.shelf_num = s.shelf_num WHERE s.wh_num = ${val} AND st.output_date IS NULL`
+    );
     conn.end();
     return rows;
   }
@@ -290,7 +293,8 @@ group by s.shelf_num
       res.render(
         "views/html/warehouse/shelf.ejs",
         {
-          data: rows,
+          data: rows[0],
+          stock_data: rows[1],
         },
         function (err, html) {
           if (err) {
@@ -360,11 +364,12 @@ app.post("/saveShelf", (req, res) => {
       req.body.floor,
       req.body.rotation,
     ]);
-    conn.close();
+    conn.end();
   }
   InsertShelfData();
 });
 
+// 창고페이지 -> 3d 창고 페이지
 // 창고페이지 -> 3d 창고 페이지
 app.post("/viewWarehouse", (req, res) => {
   const val = Number(req.body.num);
@@ -435,12 +440,12 @@ app.get("/input", (req, res) => {
       conn = await pool.getConnection();
       conn.query("USE wms");
       if (req.query.num && req.query.bool == "true") {
-        sql = `SELECT st.stock_num,st.stock_name,st.stock_info,st.buy_com,date_FORMAT(st.wlb_input_date,'%y년 %m월 %d일 %H시 %i분') wlb_input_date FROM tbl_stock st where st.com_num=1123456789 ORDER BY ${req.query.num} DESC;`;
+        sql = `SELECT st.stock_num,st.stock_name,st.stock_info,st.buy_com,date_FORMAT(st.wlb_input_date,'%y년 %m월 %d일 %H시 %i분') wlb_input_date, date_FORMAT(st.input_date,'%y년 %m월 %d일 %H시 %i분') input_date FROM tbl_stock st where st.com_num=1123456789 ORDER BY ${req.query.num} DESC;`;
       } else if (req.query.num && req.query.bool == "false") {
-        sql = `SELECT st.stock_num,st.stock_name,st.stock_info,st.buy_com,date_FORMAT(st.wlb_input_date,'%y년 %m월 %d일 %H시 %i분') wlb_input_date FROM tbl_stock st where st.com_num=1123456789 ORDER BY ${req.query.num} ASC;`;
+        sql = `SELECT st.stock_num,st.stock_name,st.stock_info,st.buy_com,date_FORMAT(st.wlb_input_date,'%y년 %m월 %d일 %H시 %i분') wlb_input_date, date_FORMAT(st.input_date,'%y년 %m월 %d일 %H시 %i분') input_date FROM tbl_stock st where st.com_num=1123456789 ORDER BY ${req.query.num} asc;`;
       } else {
         sql =
-          "SELECT st.stock_num,st.stock_name,st.stock_info,st.buy_com,date_FORMAT(st.wlb_input_date,'%y년 %m월 %d일 %H시 %i분') wlb_input_date FROM tbl_stock st where st.com_num=1123456789";
+          "SELECT st.stock_num,st.stock_name,st.stock_info,st.buy_com,date_FORMAT(st.wlb_input_date,'%y년 %m월 %d일 %H시 %i분') wlb_input_date, date_FORMAT(st.input_date,'%y년 %m월 %d일 %H시 %i분') input_date FROM tbl_stock st where st.com_num=1123456789 order by stock_num desc;";
       }
       rows = await conn.query(sql);
     } catch (err) {
@@ -468,6 +473,99 @@ app.get("/input", (req, res) => {
     .catch((errMsg) => {
       err;
     });
+});
+
+// 출고 기능
+app.post("/stockOutput", (req, res) => {
+  console.log(req.body);
+
+  for (let i = 1; i < req.body.num.length; i++) {
+    console.log(req.body.worker[i]);
+    async function StockOutputData() {
+      let conn, rows;
+      let sql =
+        "UPDATE tbl_stock st SET st.output_date = NOW() , st.sell_com = ? WHERE st.stock_num = ?";
+      conn = await pool.getConnection();
+      conn.query("USE wms");
+      rows = await conn.query(sql, [
+        req.body.worker[i],
+        Number(req.body.num[i]),
+      ]);
+
+      conn.end();
+    }
+    StockOutputData();
+  }
+
+  mdbConn
+    .getStockList()
+    .then((rows) => {
+      res.render(
+        "views/html/stock/stock.ejs",
+        {
+          data: rows,
+        },
+        function (err, html) {
+          if (err) {
+            console.log(err);
+          }
+          res.end(html);
+        }
+      );
+    })
+    .catch((errMsg) => {
+      err;
+    });
+});
+
+app.post("/inputStock", (req, res) => {
+  let stock_name = req.body.stock_name;
+  let stock_info = req.body.stock_info;
+  let buy_com = req.body.buy_com;
+  let wlb_input_date = new Date(req.body.wlb_input_date);
+  const com_num = 1123456789;
+
+  async function stockInput() {
+    let conn;
+    let sql =
+      "INSERT INTO tbl_stock (stock_name, stock_info, buy_com, wlb_input_date, com_num) VALUES (?, ?, ?, ?, ?)";
+    conn = await pool.getConnection();
+    conn.query("USE wms");
+    await conn.query(sql, [
+      stock_name,
+      stock_info,
+      buy_com,
+      wlb_input_date,
+      com_num,
+    ]);
+    conn.release();
+  }
+
+  stockInput();
+  res.redirect("/input");
+});
+
+//입고 완료버튼
+
+app.post("/put", (req, res) => {
+  console.log(req.body);
+
+  for (let i = 1; i < req.body.num.length; i++) {
+    console.log(req.body.worker[i]);
+    async function StockOutputData() {
+      let conn, rows;
+      let sql =
+        "UPDATE tbl_stock st SET st.output_date = NOW() , st.sell_com = ? WHERE st.stock_num = ?";
+      conn = await pool.getConnection();
+      conn.query("USE wms");
+      rows = await conn.query(sql, [
+        req.body.worker[i],
+        Number(req.body.num[i]),
+      ]);
+      conn.end();
+    }
+    StockOutputData();
+  }
 });
 
 app.post("/input", (req, res) => {
@@ -550,12 +648,12 @@ app.get("/inoutput_history", (req, res) => {
       conn = await pool.getConnection();
       conn.query("USE wms");
       if (req.query.num && req.query.bool == "true") {
-        sql = `SELECT stock_num,stock_name,stock_info,date_FORMAT(input_date,'%y년 %m월 %d일 %H시 %i분') input_date,buy_com,IFNULL(date_FORMAT(output_date,'%y년 %m월 %d일 %H시 %i분'),'-')output_date,IFNULL(sell_com,'-') sell_com FROM tbl_stock ORDER BY ${req.query.num} DESC;`;
+        sql = `SELECT stock_num,stock_name,stock_info,date_FORMAT(input_date,'%y년 %m월 %d일 %H시 %i분') input_date,buy_com,IFNULL(date_FORMAT(output_date,'%y년 %m월 %d일 %H시 %i분'),'-')output_date,IFNULL(sell_com,'-') sell_com FROM tbl_stock WHERE input_date IS NOT NULL ORDER BY ${req.query.num} DESC;`;
       } else if (req.query.num && req.query.bool == "false") {
-        sql = `SELECT stock_num,stock_name,stock_info,date_FORMAT(input_date,'%y년 %m월 %d일 %H시 %i분') input_date,buy_com,IFNULL(date_FORMAT(output_date,'%y년 %m월 %d일 %H시 %i분'),'-')output_date,IFNULL(sell_com,'-') sell_com FROM tbl_stock ORDER BY ${req.query.num} ASC;`;
+        sql = `SELECT stock_num,stock_name,stock_info,date_FORMAT(input_date,'%y년 %m월 %d일 %H시 %i분') input_date,buy_com,IFNULL(date_FORMAT(output_date,'%y년 %m월 %d일 %H시 %i분'),'-')output_date,IFNULL(sell_com,'-') sell_com FROM tbl_stock WHERE input_date IS NOT NULL ORDER BY ${req.query.num} ASC;`;
       } else {
         sql =
-          "SELECT stock_num,stock_name,stock_info,date_FORMAT(input_date,'%y년 %m월 %d일 %H시 %i분') input_date,buy_com,IFNULL(date_FORMAT(output_date,'%y년 %m월 %d일 %H시 %i분'),'-')output_date,IFNULL(sell_com,'-') sell_com FROM tbl_stock";
+          "SELECT stock_num,stock_name,stock_info,date_FORMAT(input_date,'%y년 %m월 %d일 %H시 %i분') input_date,buy_com,IFNULL(date_FORMAT(output_date,'%y년 %m월 %d일 %H시 %i분'),'-')output_date,IFNULL(sell_com,'-') sell_com FROM tbl_stock WHERE input_date IS NOT NULL";
       }
       rows = await conn.query(sql);
     } catch (err) {
@@ -638,12 +736,12 @@ app.get("/stock", (req, res) => {
       conn = await pool.getConnection();
       conn.query("USE wms");
       if (req.query.num && req.query.bool == "true") {
-        sql = `SELECT st.stock_num, st.stock_name, st.stock_info, st.buy_com, wh.wh_name, date_FORMAT(st.exp_dt,'%y년 %m월 %d일') exp_dt FROM tbl_stock st left join tbl_warehouse wh ON st.com_num = wh.com_num WHERE st.output_date IS NULL GROUP BY st.stock_num ORDER BY ${req.query.num} DESC`;
+        sql = `SELECT st.stock_num, st.stock_name, st.stock_info, st.buy_com, wh.wh_name, date_FORMAT(st.exp_dt,'%y년 %m월 %d일') exp_dt, wh.wh_num FROM tbl_stock st LEFT JOIN tbl_shelf s ON st.shelf_num = s.shelf_num LEFT JOIN tbl_warehouse wh ON s.wh_num = wh.wh_num WHERE st.output_date IS NULL AND wh.wh_num IS NOT null GROUP BY st.stock_num ORDER BY ${req.query.num} desc`;
       } else if (req.query.num && req.query.bool == "false") {
-        sql = `SELECT st.stock_num, st.stock_name, st.stock_info, st.buy_com, wh.wh_name, date_FORMAT(st.exp_dt,'%y년 %m월 %d일') exp_dt FROM tbl_stock st left join tbl_warehouse wh ON st.com_num = wh.com_num WHERE st.output_date IS NULL GROUP BY st.stock_num ORDER BY ${req.query.num} ASC`;
+        sql = `SELECT st.stock_num, st.stock_name, st.stock_info, st.buy_com, wh.wh_name, date_FORMAT(st.exp_dt,'%y년 %m월 %d일') exp_dt, wh.wh_num FROM tbl_stock st LEFT JOIN tbl_shelf s ON st.shelf_num = s.shelf_num LEFT JOIN tbl_warehouse wh ON s.wh_num = wh.wh_num WHERE st.output_date IS NULL AND wh.wh_num IS NOT null GROUP BY st.stock_num ORDER BY ${req.query.num} ASC`;
       } else {
         sql =
-          "SELECT st.stock_num, st.stock_name, st.stock_info, st.buy_com, wh.wh_name, date_FORMAT(st.exp_dt,'%y년 %m월 %d일') exp_dt FROM tbl_stock st left join tbl_warehouse wh ON st.com_num = wh.com_num WHERE st.output_date IS NULL GROUP BY st.stock_num";
+          "SELECT st.stock_num, st.stock_name, st.stock_info, st.buy_com, wh.wh_name, date_FORMAT(st.exp_dt,'%y년 %m월 %d일') exp_dt, wh.wh_num FROM tbl_stock st LEFT JOIN tbl_shelf s ON st.shelf_num = s.shelf_num LEFT JOIN tbl_warehouse wh ON s.wh_num = wh.wh_num WHERE st.output_date IS NULL AND wh.wh_num IS NOT null GROUP BY st.stock_num";
       }
       rows = await conn.query(sql);
     } catch (err) {
@@ -728,12 +826,12 @@ app.get("/work_history", (req, res) => {
       conn = await pool.getConnection();
       conn.query("USE wms");
       if (req.query.num && req.query.bool == "true") {
-        sql = `SELECT wk.work_name,wkr.worker_name,st.stock_num,st.stock_name,st.stock_info FROM tbl_stock st left join tbl_work wk on st.stock_num = wk.stock_num left join tbl_worker wkr on wk.worker_num = wkr.worker_num where wk.work_name is not null AND wkr.worker_name is not NULL ORDER BY ${req.query.num} DESC;`;
+        sql = `SELECT wk.work_name,wkr.worker_name,st.stock_num,st.stock_name,st.stock_info,wk.from_position,wk.to_position,date_FORMAT(wk.replace_date,'%y년 %m월 %d일%H:%i') replace_date FROM tbl_stock st left join tbl_work wk on st.stock_num = wk.stock_num left join tbl_worker wkr on wk.worker_num = wkr.worker_num where wk.work_name is not null AND wkr.worker_name is not NULL ORDER BY replace_date ,${req.query.num} desc;`;
       } else if (req.query.num && req.query.bool == "false") {
-        sql = `SELECT wk.work_name,wkr.worker_name,st.stock_num,st.stock_name,st.stock_info FROM tbl_stock st left join tbl_work wk on st.stock_num = wk.stock_num left join tbl_worker wkr on wk.worker_num = wkr.worker_num where wk.work_name is not null AND wkr.worker_name is not NULL ORDER BY ${req.query.num} ASC;`;
+        sql = `SELECT wk.work_name,wkr.worker_name,st.stock_num,st.stock_name,st.stock_info,wk.from_position,wk.to_position,date_FORMAT(wk.replace_date,'%y년 %m월 %d일%H:%i') replace_date FROM tbl_stock st left join tbl_work wk on st.stock_num = wk.stock_num left join tbl_worker wkr on wk.worker_num = wkr.worker_num where wk.work_name is not null AND wkr.worker_name is not NULL ORDER BY replace_date ,${req.query.num} ASC;`;
       } else {
         sql =
-          "SELECT wk.work_name,wkr.worker_name,st.stock_num,st.stock_name,st.stock_info FROM tbl_stock st left join tbl_work wk on st.stock_num = wk.stock_num left join tbl_worker wkr on wk.worker_num = wkr.worker_num where wk.work_name is not null AND wkr.worker_name is not null";
+          "SELECT wk.work_name,wkr.worker_name,st.stock_num,st.stock_name,st.stock_info,wk.from_position,wk.to_position,date_FORMAT(wk.replace_date,'%y년 %m월 %d일%H:%i') replace_date FROM tbl_stock st left join tbl_work wk on st.stock_num = wk.stock_num left join tbl_worker wkr on wk.worker_num = wkr.worker_num where wk.work_name is not null AND wkr.worker_name is not NULL ORDER BY replace_date";
       }
       rows = await conn.query(sql);
     } catch (err) {

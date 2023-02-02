@@ -245,7 +245,6 @@ function optionThree() {
 // 3가지 옵션
 
 // 페이지 이동 기능
-
 function goToCreateWarehouse() {
   location.href = "../../../three/sj_test/create_warehouse.html";
 }
@@ -253,6 +252,8 @@ function goToWarehouse(e) {
   console.log(e); // 클릭한 창고 번호
   const num = { num: e };
   let url = "/viewWarehouse";
+
+  localStorage.setItem("clicked_stock_num", "");
 
   let form = document.createElement("form");
   form.setAttribute("method", "post");
@@ -268,7 +269,6 @@ function goToWarehouse(e) {
   document.body.appendChild(form);
   form.submit();
 }
-// 페이지 이동 기능
 
 function goToShelf(e) {
   console.log(e);
@@ -305,6 +305,8 @@ function goToShelf(e) {
   //       console.log("catch");
   //     });
 }
+
+// 서브 div 띄우는 기능
 
 function changeSub(e) {
   // console.log(e)
@@ -441,3 +443,11 @@ function changeSub(e) {
 }
 
 // 서브 div 띄우는 기능
+
+function selectAll(selectAll) {
+  const checkboxes = document.getElementsByName("item");
+
+  checkboxes.forEach((checkbox) => {
+    checkbox.checked = selectAll.checked;
+  });
+}
