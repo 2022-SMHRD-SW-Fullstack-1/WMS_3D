@@ -32,6 +32,7 @@
             <span class = "st_shelf_name"><%- stock_data[i].shelf_name %></span>
             <span class = "st_shelf_x"><%- stock_data[i].shelf_x %></span>
             <span class = "st_shelf_z"><%- stock_data[i].shelf_z %></span>
+            <span class = "st_shelf_length"><%- stock_data[i].shelf_length %></span>
             <span class = "st_shelf_rotation"><%- stock_data[i].shelf_rotation_yn %></span>
             <span class = "stock_num"><%- stock_data[i].stock_num %></span>
             <span class = "stock_name"><%- stock_data[i].stock_name %></span>
@@ -63,6 +64,7 @@
             let st_shelf_name_arr = []
             let st_shelf_x_arr = []
             let st_shelf_z_arr = []
+            let st_shelf_length_arr = []
             let st_shelf_rotation_arr = []
             let stock_num_arr = []
             let stock_name_arr = []
@@ -90,6 +92,7 @@
             let st_shelf_name = document.querySelectorAll(".st_shelf_name")
             let st_shelf_x = document.querySelectorAll(".st_shelf_x")
             let st_shelf_z = document.querySelectorAll(".st_shelf_z")
+            let st_shelf_length = document.querySelectorAll(".st_shelf_length")
             let st_shelf_rotation = document.querySelectorAll(".st_shelf_rotation")
             let stock_num = document.querySelectorAll(".stock_num")
             let stock_name = document.querySelectorAll(".stock_name")
@@ -153,6 +156,9 @@
             st_shelf_z.forEach((item)=>{
                 st_shelf_z_arr.push(Number(item.innerText))
             })
+            st_shelf_length.forEach((item)=>{
+                st_shelf_length_arr.push(Number(item.innerText))
+            })
             st_shelf_rotation.forEach((item)=>{
                 st_shelf_rotation_arr.push(item.innerText)
             })
@@ -197,6 +203,7 @@
             localStorage.setItem("st_shelf_name",st_shelf_name_arr)
             localStorage.setItem("st_shelf_x",st_shelf_x_arr)
             localStorage.setItem("st_shelf_z",st_shelf_z_arr)
+            localStorage.setItem("st_shelf_length",st_shelf_length_arr)
             localStorage.setItem("st_shelf_rotation",st_shelf_rotation_arr)
             localStorage.setItem("stock_num",stock_num_arr)
             localStorage.setItem("stock_name",stock_name_arr)

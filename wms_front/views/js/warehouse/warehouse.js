@@ -254,6 +254,8 @@ function goToWarehouse(e) {
   const num = { num: e };
   let url = "/viewWarehouse";
 
+  localStorage.setItem("clicked_stock_num", "");
+
   let form = document.createElement("form");
   form.setAttribute("method", "post");
   form.setAttribute("action", url);
@@ -305,6 +307,10 @@ function goToShelf(e) {
   //       console.log("catch");
   //     });
 }
+
+// 페이지 이동 기능
+
+// 서브 div 띄우는 기능
 
 function changeSub(e) {
   // console.log(e)
@@ -441,3 +447,11 @@ function changeSub(e) {
 }
 
 // 서브 div 띄우는 기능
+
+function selectAll(selectAll) {
+  const checkboxes = document.getElementsByName("item");
+
+  checkboxes.forEach((checkbox) => {
+    checkbox.checked = selectAll.checked;
+  });
+}

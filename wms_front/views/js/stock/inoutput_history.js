@@ -290,3 +290,11 @@ function ExcelExport(id, title) {
     document.body.removeChild(elem);
   }
 }
+
+function selectAll(selectAll) {
+  const checkboxes = document.getElementsByName("item");
+
+  checkboxes.forEach((checkbox) => {
+    checkbox.checked = selectAll.checked;
+  });
+}

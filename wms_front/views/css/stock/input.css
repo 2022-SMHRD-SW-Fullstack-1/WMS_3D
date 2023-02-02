@@ -236,6 +236,12 @@ table {
 }
 th {
   vertical-align: middle;
+  position: sticky;
+  top: 0px;
+  background-color: white !important;
+}
+tr {
+  height: 57px;
 }
 td {
   vertical-align: middle;
@@ -330,3 +336,140 @@ td {
 }
 
 /* 모달 디자인 */
+
+/* 입고추가모달 */
+
+.add_input_btn {
+  padding: 8px 16px;
+  background: white;
+  color: #11101d;
+  border-radius: 4px;
+  outline: auto;
+  border: none;
+}
+
+.input_modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #11101d;
+  opacity: 2;
+  z-index: 2;
+  display: none;
+  animation: modal_open 0.5s;
+}
+
+.input_modal_content {
+  background: #fff;
+  margin-top: 100px;
+  width: 800px;
+  height: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 8px 24px;
+  border-radius: 4px;
+  z-index: 4;
+}
+
+.input_modal_header {
+  font-weight: 500;
+  padding: 10px 0;
+  font-size: 26px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.input_modal_header .modal_close {
+  float: right;
+  font-size: 20px;
+  background: none;
+  border: 0;
+  outline: 0;
+  padding: 5px 8px;
+  border-radius: 10%;
+}
+
+.input_modal_body {
+  color: #11101d;
+  width: 100%;
+  height: auto;
+  outline: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.input_modal_body input {
+  width: 100%;
+  padding: 0.7rem;
+  outline: none;
+  border: 1px solid #11101d;
+}
+
+.input_modal_body label {
+  font-size: 1rem;
+}
+
+.input_modal_footer {
+  padding: 15px 0;
+}
+
+.input_modal_footer .modal_close {
+  padding: 8px 16px;
+  font-size: 14px;
+  /* border: none; */
+  outline: none;
+  border-radius: 4px;
+  color: #11101d;
+}
+
+.input_date_button {
+  color: #11101d;
+  border-radius: 4px;
+}
+
+.input_modify {
+  color: #11101d;
+  border-radius: 4px;
+}
+
+/* 체크 박스 디자인 */
+
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  outline: none !important;
+  border: 1px solid #eeeeee;
+  border-radius: 2px;
+  background: #fbfbfb;
+}
+
+input[type="checkbox"]::before {
+  content: "\2713";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  overflow: hidden;
+  transform: scale(0) translate(-50%, -50%);
+  line-height: 1;
+}
+
+input[type="checkbox"]:hover {
+  border-color: rgba(170, 170, 170, 0.5);
+}
+
+input[type="checkbox"]:checked {
+  background-color: #11101d;
+  border-color: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+input[type="checkbox"]:checked::before {
+  border-radius: 2px;
+  transform: scale(1) translate(-50%, -50%);
+}
+/* 체크 박스 디자인 */
