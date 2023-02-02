@@ -119,7 +119,7 @@ class App {
 		this._object_arr = object_arr;
 
 		const scene = new THREE.Scene();
-		scene.background = new THREE.Color(0.7, 0.7, 0.7);
+		scene.background = new THREE.Color(0.3, 0.3, 0.3);
 		this._scene = scene;
 
 		this._setupCamera();
