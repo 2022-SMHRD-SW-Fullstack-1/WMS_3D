@@ -169,8 +169,8 @@ table {
 :root {
   --bs-body-line-height: 1 !important;
 }
-.main_graph_div{
-  overflow: auto
+.main_graph_div {
+  overflow: auto;
 }
 th {
   vertical-align: middle;
@@ -186,7 +186,6 @@ td {
 }
 /* 테이블 + 디자인 */
 
-
 /* 페이지 네이션 */
 
 .pagination {
@@ -194,22 +193,22 @@ td {
 }
 /* 페이지 네이션 */
 
-.sub_graph_div{
+.sub_graph_div {
   width: 30%;
   height: 100%;
   display: flex;
 }
-.move_diagram_div{
+.move_diagram_div {
   width: 40%;
   height: 100%;
   display: flex;
   align-items: center;
 }
-#move_img{
+#move_img {
   width: 90%;
   margin-left: 10%;
 }
-.move_text_div{
+.move_text_div {
   width: 60%;
   margin-top: 39.5%;
   height: 51%;
@@ -219,9 +218,8 @@ td {
   font-size: 20px;
   font-weight: 600;
   text-align: center;
-  
 }
-.move_text_div div{
+.move_text_div div {
   width: 100%;
   padding: 1%;
   height: 8%;
@@ -263,6 +261,6 @@ input[type="checkbox"]:checked {
 
 input[type="checkbox"]:checked::before {
   border-radius: 2px;
-  transform: scale(1) translate(-50%, -50%)
+  transform: scale(1) translate(-50%, -50%);
 }
 /* 체크 박스 디자인 */

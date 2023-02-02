@@ -13,6 +13,209 @@ function dp_menu() {
   }
 }
 
+function searchText() {
+  const searchText = document.getElementById("search_text").value;
+  console.log(searchText);
+}
+
+let catevalText = {};
+let cateText = "";
+
+function getCateValue(e) {
+  // console.log("event:", e);
+  cateText = e;
+  let cateName = document.getElementById(e).innerText;
+  console.log(cateName);
+  document.getElementById("drop_cate").innerText = cateName;
+}
+
+// 카테고리 선택값 가져오기 & 카테고리 선택값으로 변경
+function sendSearchText() {
+  // let cateVal = document
+  //   .getElementById(e.getAttribute("id"))
+  //   .getAttribute("id");
+
+  // console.log(cateVal);
+
+  const searchText = document.getElementById("search_text").value;
+  console.log(searchText);
+
+  catevalText = { cate: cateText, word: searchText };
+
+  // document.getElementById("drop_cate").innerText = cateText;
+
+  let url = "http://localhost:3002/warehouse";
+
+  axios
+    .post(url, catevalText, {
+      headers: {
+        "Content-Type": `application/json`,
+      },
+    })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch(() => {
+      console.log("catch");
+    });
+
+  location.href = "http://localhost:3002/warehouse/search";
+}
+
+function orderListName() {
+  let bool = true;
+  if (localStorage.getItem("align_name") == "true") {
+    localStorage.setItem("align_name", "false");
+    bool = false;
+  } else {
+    localStorage.setItem("align_name", "true");
+    bool = true;
+  }
+  let num = { num: "wh_name", bool: bool };
+  let url = "/warehouse";
+  let form = document.createElement("form");
+  form.setAttribute("method", "get");
+  form.setAttribute("action", url);
+  document.characterSet = "utf-8";
+  for (let key in num) {
+    let hiddenField = document.createElement("input");
+    hiddenField.setAttribute("type", "hidden");
+    hiddenField.setAttribute("name", key);
+    hiddenField.setAttribute("value", num[key]);
+    form.appendChild(hiddenField);
+  }
+  document.body.appendChild(form);
+  form.submit();
+}
+
+function orderListWidth() {
+  let bool = true;
+  if (localStorage.getItem("align_name") == "true") {
+    localStorage.setItem("align_name", "false");
+    bool = false;
+  } else {
+    localStorage.setItem("align_name", "true");
+    bool = true;
+  }
+  let num = { num: "wh_width", bool: bool };
+  let url = "/warehouse";
+  let form = document.createElement("form");
+  form.setAttribute("method", "get");
+  form.setAttribute("action", url);
+  document.characterSet = "utf-8";
+  for (let key in num) {
+    let hiddenField = document.createElement("input");
+    hiddenField.setAttribute("type", "hidden");
+    hiddenField.setAttribute("name", key);
+    hiddenField.setAttribute("value", num[key]);
+    form.appendChild(hiddenField);
+  }
+  document.body.appendChild(form);
+  form.submit();
+}
+function orderListLength() {
+  let bool = true;
+  if (localStorage.getItem("align_name") == "true") {
+    localStorage.setItem("align_name", "false");
+    bool = false;
+  } else {
+    localStorage.setItem("align_name", "true");
+    bool = true;
+  }
+  let num = { num: "wh_length", bool: bool };
+  let url = "/warehouse";
+  let form = document.createElement("form");
+  form.setAttribute("method", "get");
+  form.setAttribute("action", url);
+  document.characterSet = "utf-8";
+  for (let key in num) {
+    let hiddenField = document.createElement("input");
+    hiddenField.setAttribute("type", "hidden");
+    hiddenField.setAttribute("name", key);
+    hiddenField.setAttribute("value", num[key]);
+    form.appendChild(hiddenField);
+  }
+  document.body.appendChild(form);
+  form.submit();
+}
+function orderListable() {
+  let bool = true;
+  if (localStorage.getItem("align_name") == "true") {
+    localStorage.setItem("align_name", "false");
+    bool = false;
+  } else {
+    localStorage.setItem("align_name", "true");
+    bool = true;
+  }
+  let num = { num: "wh_now_avl", bool: bool };
+  let url = "/warehouse";
+  let form = document.createElement("form");
+  form.setAttribute("method", "get");
+  form.setAttribute("action", url);
+  document.characterSet = "utf-8";
+  for (let key in num) {
+    let hiddenField = document.createElement("input");
+    hiddenField.setAttribute("type", "hidden");
+    hiddenField.setAttribute("name", key);
+    hiddenField.setAttribute("value", num[key]);
+    form.appendChild(hiddenField);
+  }
+  document.body.appendChild(form);
+  form.submit();
+}
+
+function orderListAll() {
+  let bool = true;
+  if (localStorage.getItem("align_name") == "true") {
+    localStorage.setItem("align_name", "false");
+    bool = false;
+  } else {
+    localStorage.setItem("align_name", "true");
+    bool = true;
+  }
+  let num = { num: "wh_max_avl", bool: bool };
+  let url = "/warehouse";
+  let form = document.createElement("form");
+  form.setAttribute("method", "get");
+  form.setAttribute("action", url);
+  document.characterSet = "utf-8";
+  for (let key in num) {
+    let hiddenField = document.createElement("input");
+    hiddenField.setAttribute("type", "hidden");
+    hiddenField.setAttribute("name", key);
+    hiddenField.setAttribute("value", num[key]);
+    form.appendChild(hiddenField);
+  }
+  document.body.appendChild(form);
+  form.submit();
+}
+
+// 서클 프로그래스바
+
+// 사이드바
+
+var test = document.getElementById("test");
+
+let arrow = document.querySelectorAll(".arrow");
+
+for (var i = 0; i < arrow.length; i++) {
+  arrow[i].addEventListener("click", (e) => {
+    let arrowParent = e.target.parentElement.parentElement; //selecting main parent of arrow
+    arrowParent.classList.toggle("showMenu");
+  });
+}
+
+let sidebar = document.querySelector(".sidebar");
+let sidebarBtn = document.querySelector(".bx-menu");
+console.log(sidebarBtn);
+
+// 메뉴버튼 클릭 설정
+sidebarBtn.addEventListener("click", () => {
+  sidebar.classList.toggle("close");
+});
+
+// 사이드바
+
 // 3가지 옵션
 
 function optionOne() {
@@ -42,7 +245,6 @@ function optionThree() {
 // 3가지 옵션
 
 // 페이지 이동 기능
-
 function goToCreateWarehouse() {
   location.href = "../../../three/sj_test/create_warehouse.html";
 }
@@ -51,7 +253,7 @@ function goToWarehouse(e) {
   const num = { num: e };
   let url = "/viewWarehouse";
 
-  localStorage.setItem("clicked_stock_num","")
+  localStorage.setItem("clicked_stock_num", "");
 
   let form = document.createElement("form");
   form.setAttribute("method", "post");
@@ -73,12 +275,11 @@ function goToShelf(e) {
   const num = { num: e };
   let url = "/shelf";
 
+  localStorage.setItem("wh_num_for_create_shelf", e);
 
-  localStorage.setItem('wh_num_for_create_shelf',e)
-
-  let form = document.createElement('form');
-  form.setAttribute('method','post')
-  form.setAttribute('action',url);
+  let form = document.createElement("form");
+  form.setAttribute("method", "post");
+  form.setAttribute("action", url);
 
   document.characterSet = "utf-8";
   for (let key in num) {
@@ -104,8 +305,6 @@ function goToShelf(e) {
   //       console.log("catch");
   //     });
 }
-
-// 페이지 이동 기능
 
 // 서브 div 띄우는 기능
 
@@ -144,7 +343,6 @@ function changeSub(e) {
       view_shelf_bar[i].classList.add("none_view");
     }
   }
-
 
   // 온도 바
   let min_temp = document.querySelector("#min_temp");
@@ -209,16 +407,18 @@ function changeSub(e) {
     let valueContainer = document.querySelector(".value_container");
     let progressValue = 0;
 
-    let progressEndValue = Math.floor(((Number(e.max_avl)-Number(e.now_avl))/Number(e.max_avl))*100)
-  
-    let speed =10;
-    
-    let progress = setInterval(()=>{
-        progressValue++;
-        valueContainer.textContent = `${progressValue}%`;
-        progressBar.style.background = `conic-gradient(
-            #11101D ${progressValue*3.6}deg,
-            #cadcff ${progressValue*3.6}deg
+    let progressEndValue = Math.floor(
+      ((Number(e.max_avl) - Number(e.now_avl)) / Number(e.max_avl)) * 100
+    );
+
+    let speed = 10;
+
+    let progress = setInterval(() => {
+      progressValue++;
+      valueContainer.textContent = `${progressValue}%`;
+      progressBar.style.background = `conic-gradient(
+            #11101D ${progressValue * 3.6}deg,
+            #cadcff ${progressValue * 3.6}deg
 
         )`;
       if (progressValue == progressEndValue) {
@@ -244,12 +444,10 @@ function changeSub(e) {
 
 // 서브 div 띄우는 기능
 
+function selectAll(selectAll) {
+  const checkboxes = document.getElementsByName("item");
 
-function selectAll(selectAll)  {
-  const checkboxes 
-       = document.getElementsByName('item');
-  
   checkboxes.forEach((checkbox) => {
     checkbox.checked = selectAll.checked;
-  })
+  });
 }

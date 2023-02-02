@@ -373,6 +373,6 @@ input[type="checkbox"]:checked {
 
 input[type="checkbox"]:checked::before {
   border-radius: 2px;
-  transform: scale(1) translate(-50%, -50%)
+  transform: scale(1) translate(-50%, -50%);
 }
 /* 체크 박스 디자인 */

@@ -161,8 +161,6 @@ body {
   color: white;
 }
 
-
-
 /* 검색 기능 디자인 */
 /* 드롭다운 -- */
 .dropdown {
@@ -239,13 +237,12 @@ input {
 table {
   text-align: center;
   font-size: 18px;
-  
 }
 :root {
   --bs-body-line-height: 1 !important;
 }
-.main_graph_div{
-  overflow: auto
+.main_graph_div {
+  overflow: auto;
 }
 th {
   vertical-align: middle;
@@ -253,7 +250,7 @@ th {
   top: 0px;
   background-color: white !important;
 }
-tr{
+tr {
   height: 57px;
 }
 td {
@@ -350,7 +347,6 @@ td {
 
 /* 모달 디자인 */
 
-
 /* 체크 박스 디자인 */
 
 input[type="checkbox"] {
@@ -387,6 +383,6 @@ input[type="checkbox"]:checked {
 
 input[type="checkbox"]:checked::before {
   border-radius: 2px;
-  transform: scale(1) translate(-50%, -50%)
+  transform: scale(1) translate(-50%, -50%);
 }
 /* 체크 박스 디자인 */
