@@ -8,3 +8,13 @@ function change_sub(e){
     move_time.innerText = e.replace_date
     move_after.innerText = e.to_position
 }
+
+
+function selectAll(selectAll)  {
+    const checkboxes 
+         = document.getElementsByName('item');
+    
+    checkboxes.forEach((checkbox) => {
+      checkbox.checked = selectAll.checked;
+    })
+  }

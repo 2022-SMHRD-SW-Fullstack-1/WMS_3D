@@ -1,8 +1,4 @@
-var test = document.getElementById('test');
-
-test.addEventListener('click',function(){
-    alert('ok')
-})
+var test = document.getElementById("test");
 
 function selectAll(selectAll)  {
     const checkboxes 
@@ -12,3 +8,4 @@ function selectAll(selectAll)  {
       checkbox.checked = selectAll.checked;
     })
   }
+
