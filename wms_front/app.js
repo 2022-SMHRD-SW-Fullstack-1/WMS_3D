@@ -503,47 +503,6 @@ app.post("/put", (req, res) => {
 })
 
 
-// 입고 페이지
-// 일단 데이터값 보내기 실험 페이지로 쓰는중
-// app.get("/input", (req, res) => {
-//   mdbConn
-//     .getCompanyList()
-//     .then((rows) => {
-// console.log(rows);
-// res.render(
-//   "views/html/stock/input.ejs",
-//   {
-//     data: rows,
-//   },
-//   function (err, html) {
-//     if (err) {
-// console.log(err);
-// }
-// console.log(rows);
-//       res.end(html);
-//     }
-//   );
-// })
-// .catch((errMsg) => {
-//   console.log(errMsg);
-//       err;
-//     });
-// });
-
-// mariaDB connect
-// app.get("/select", (req, res) => {
-//   mdbConn
-//     .getCompanyList()
-//     .then((rows) => {
-//       console.log(rows);
-//       res.send(rows);
-//     })
-//     .catch((errMsg) => {
-//       //   console.log(errMsg);
-//       res.send(err);
-//     });
-// });
-
 app.set("port", process.env.PORT || 3002);
 app.get("/", (req, res) => {
   res.send("Hello, Express");
