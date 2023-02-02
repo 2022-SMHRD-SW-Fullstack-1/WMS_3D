@@ -205,32 +205,35 @@
             <button class="icon modal_close"><i
               class="material-icons">close</i></button></div>
 
-              <form onsubmit="insertData()" action="/input" method="POST" >
+
+              <form onsubmit="stockInput()" action ="/input" method="post" >
                 <div class="input_modal_body">
-                  
-                  <label>재고번호</label>
-                  <div class="stock_num">
-                    <input type="number" id="stock_num" placeholder="">
-                  </div>
                   
                   <label>재고 명</label>
                   <div class="stock_name">
-                    <input type="text" id="stock_name" placeholder="">
+                    <input type="text" id="stock_name" name="stock_name" placeholder="">
+
                   </div>
                   
                   <label>재고정보</label>
                   <div class="stock_info">
-                    <input type="text" id="stock_info" placeholder="">
+
+                    <input type="text" id="stock_info" name="stock_info" placeholder="">
+
                   </div>
                   
                   <label>구매처</label>
                   <div class="buy_com">
-                    <input type="text" id="buy_com" placeholder="">
+
+                    <input type="text" id="buy_com" name="buy_com" placeholder="">
+
                   </div>
                   
                   <label>입고 예정 일자</label>
                   <div class="wlb_input_date">
-                    <input type="datetime" id="wlb_input_date" placeholder="">                  
+
+                    <input type="text" id="wlb_input_date" name="wlb_input_date" placeholder="">                  
+
                   </div>
                   
                 </div>
@@ -269,6 +272,7 @@
                 <td><%- data[i].stock_info %></td>
                 <td><%- data[i].buy_com %></td>
                 <td><%- data[i].wlb_input_date %></td>
+
                 <td>
                   <% if(data[i].input_date) { %>
                     <%- data[i].input_date %>

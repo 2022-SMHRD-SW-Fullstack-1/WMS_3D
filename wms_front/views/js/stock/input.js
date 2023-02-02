@@ -41,41 +41,56 @@ closeBtns.forEach(function (btn) {
   };
 });
 
-//입고 추가
 
-// export function insertData() {
-//   const stock_num = document.querySelector(".stock_num").value;
-//   const stock_name = document.querySelector(".stock_name").value;
-//   const stock_info = document.querySelector(".stock_info").value;
-//   const buy_com = document.querySelector(".buy_com").value;
-//   const wlb_input_date = document.querySelector(".wlb_input_date").value;
+// function stockOutput() {
+//   let worker = prompt("판매처를 입력해주세요");
 
-//   fetch("/input", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify({
-//       stock_num: stock_num,
-//       stock_name: stock_name,
-//       stock_info: stock_info,
-//       buy_com: buy_com,
-//       wlb_input_date: wlb_input_date,
-//     }),
-//   })
-//     .then((res) => {
-//       console.log(res);
+//   let url = "/stockOutput";
+//   let form = document.createElement("form");
+//   form.setAttribute("method", "post");
+//   form.setAttribute("action", url);
+//   document.characterSet = "utf-8";
+//   for (let i = 0; i < checked_arr.length; i++) {
+//     let num = { num: checked_arr[i], worker: worker };
+//     for (let key in num) {
+//       let hiddenField = document.createElement("input");
+//       hiddenField.setAttribute("type", "hidden");
+//       hiddenField.setAttribute("name", key);
+//       hiddenField.setAttribute("value", num[key]);
+//       form.appendChild(hiddenField);
+//     }
+//   }
 
-//       return res.json();
-//     })
-//     .then((data) => {
-// 이 위치에서 app.js가 실행 되도록 만들기
-// 실행 완료되면 파라미터 가지고 다른 url로 보내서 거기서 비동기 작업하기
-//       console.log(data);
-//     })
-//     .catch((err) => {
-//       console.error(err);
-//     });
+//   document.body.appendChild(form);
+//   form.submit();
+// }
+
+
+
+
+
+
+
+
+// let inputDateButtons = document.getElementsByClassName("input_date_button");
+
+// for (var i = 0; i < inputDateButtons.length; i++) {
+//   inputDateButtons[i].addEventListener("click", function() {
+ 
+//     let currentDate = new Date();
+
+//     let parentTd = this.parentNode;
+
+//     if (parentTd.firstChild.nodeType === 3) {
+      
+//       parentTd.firstChild.nodeValue = currentDate.toLocaleDateString();
+//     } else {
+//       let dateText = document.createTextNode(currentDate.toLocaleDateString());
+//       parentTd.insertBefore(dateText, parentTd.firstChild);
+//     }
+//     this.style.display = "none";
+//   });
+
 // }
 
 // window.onclick = function (e) {
