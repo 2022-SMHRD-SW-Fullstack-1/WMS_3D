@@ -32,6 +32,7 @@
  src="views/js/sidebar.js"
  defer
  ></script>
+ <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
  <!-- 사이드바 -->
  <script src="http://code.jquery.com/jquery-latest.js"></script> 
@@ -179,18 +180,18 @@
 
     <div class="search_div">
       <div class="dropdown">
-        <button onclick="dp_menu()" class="button">재고명 ▼</button>
+        <button onclick="dp_menu()" class="button" id="drop_cate">재고명 ▼</button>
         <div style="display: none" id="drop-content">
-          <a href="#">재고 번호</a>
-          <a href="#">재고 명</a>
-          <a href="#">재고 정보</a>
-          <a href="#">판매처</a>
-          <a href="#">출고일자</a>
-          <a href="#">작업자 명</a>
+          <a onclick="getCateValue('stock_num')" id="stock_num">재고 번호</a>
+          <a onclick="getCateValue('stock_name')" id="stock_name">재고 명</a>
+          <a onclick="getCateValue('stock_info')" id="stock_info">재고 정보</a>
+          <a onclick="getCateValue('sell_com')" id="sell_com">판매처</a>
+          <a onclick="getCateValue('output_date')" id="output_date">출고일자</a>
+          <a onclick="getCateValue('worker_name')" id="worker_name">작업자 명</a>
         </div>
       </div>
-      <input type="text" />
-      <button id="search_btn">검색</button>
+      <input type="text" id="search_text" onkeyup="searchText()"/>
+      <button id="search_btn" onclick="sendSearchText()">검색</button>
     </div>
     
   </div>

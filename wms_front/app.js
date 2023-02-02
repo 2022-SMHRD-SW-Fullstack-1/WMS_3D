@@ -66,11 +66,73 @@ app.get("/register_user.html", (req, res) => {
 // 출고 페이지
 app.get("/output", (req, res) => {
   console.log(req.query);
-  mdbConn
-    .getOutputList()
+  async function getOutputList() {
+    let conn, rows, sql;
+    try {
+      conn = await pool.getConnection();
+      conn.query("USE wms");
+      if (req.query.num != null && req.query.bool == "true") {
+        sql = `SELECT st.stock_num,st.stock_name,st.stock_info,st.sell_com,date_FORMAT(st.output_date,'%y년 %m월 %d일 %H시 %i분') output_date,wkr.worker_name FROM tbl_stock st left join tbl_worker wkr on st.com_num = wkr.com_num where st.com_num=1123456789 AND st.sell_com is not null AND st.output_date is not null order by ${req.query.num} DESC`;
+      } else if (req.query.num != null && req.query.bool == "false") {
+        sql = `SELECT st.stock_num,st.stock_name,st.stock_info,st.sell_com,date_FORMAT(st.output_date,'%y년 %m월 %d일 %H시 %i분') output_date,wkr.worker_name FROM tbl_stock st left join tbl_worker wkr on st.com_num = wkr.com_num where st.com_num=1123456789 AND st.sell_com is not null AND st.output_date is not null order by ${req.query.num} ASC`;
+      } else {
+        sql =
+          "SELECT st.stock_num,st.stock_name,st.stock_info,st.sell_com,date_FORMAT(st.output_date,'%y년 %m월 %d일 %H시 %i분') output_date,wkr.worker_name FROM tbl_stock st left join tbl_worker wkr on st.com_num = wkr.com_num where st.com_num=1123456789 AND st.sell_com is not null AND st.output_date is not null";
+      }
+      rows = await conn.query(sql);
+    } catch (err) {
+      throw err;
+    } finally {
+      if (conn) conn.end();
+      return rows;
+    }
+  }
+  getOutputList()
     .then((rows) => {
       res.render(
         "views/html/stock/output.ejs",
+        {
+          data: rows,
+        },
+        function (err, html) {
+          if (err) {
+            console.log(err);
+          }
+          res.end(html);
+        }
+      );
+    })
+    .catch((errMsg) => {
+      err;
+    });
+});
+
+let cate_output = "";
+let word_output = "";
+app.post("/output", (req, res) => {
+  cate_output = req.body.cate;
+  word_output = req.body.word;
+});
+
+app.get("/output/search", (req, res) => {
+  async function getOutputList() {
+    let conn, rows, sql;
+    try {
+      conn = await pool.getConnection();
+      conn.query("USE wms");
+      sql = `SELECT st.stock_num,st.stock_name,st.stock_info,st.sell_com,date_FORMAT(st.output_date,'%y년 %m월 %d일 %H시 %i분') output_date,wkr.worker_name FROM tbl_stock st left join tbl_worker wkr on st.com_num = wkr.com_num where st.com_num=1123456789 AND st.sell_com is not null AND st.output_date is not null AND ${cate_output} like '%${word_output}%'`;
+      rows = await conn.query(sql);
+    } catch (err) {
+      throw err;
+    } finally {
+      if (conn) conn.end();
+      return rows;
+    }
+  }
+  getOutputList()
+    .then((rows) => {
+      res.render(
+        "views/html/stock/output_search.ejs",
         {
           data: rows,
         },
@@ -409,15 +471,23 @@ app.get("/input", (req, res) => {
 });
 
 app.post("/input", (req, res) => {
-  // console.log(req.body);
+  console.log(req.body);
   let conn, rows;
   // console.log(req.body.stock_name[i]);
   async function InsertInput() {
     for (var i = 0; i < req.body.stock_name.length; i++) {
-      if (req.body.input_date[i] != "undefined") {
-        sql = `INSERT INTO tbl_stock(com_num, stock_name, stock_info, buy_com, wlb_input_date, input_date, shelf_num, stock_floor, stock_position) VALUES(1123456789,"${req.body.stock_name[i]}","${req.body.stock_info[i]}","${req.body.buy_com[i]}","${req.body.wlb_input_date[i]}", "${req.body.input_date[i]}", ${req.body.shelf_num[i]}, ${req.body.stock_floor[i]}, "${req.body.stock_position[i]}")`;
+      if (req.body.exp_dt[i] != "undefined") {
+        if (req.body.input_date[i] != "undefined") {
+          sql = `INSERT INTO tbl_stock(com_num, stock_name, stock_info, buy_com, wlb_input_date, input_date, shelf_num, stock_floor, stock_position, exp_dt) VALUES(1123456789,"${req.body.stock_name[i]}","${req.body.stock_info[i]}","${req.body.buy_com[i]}","${req.body.wlb_input_date[i]}", "${req.body.input_date[i]}", ${req.body.shelf_num[i]}, ${req.body.stock_floor[i]}, "${req.body.stock_position[i]}", "${req.body.exp_dt[i]}")`;
+        } else {
+          sql = `INSERT INTO tbl_stock(com_num, stock_name, stock_info, buy_com, wlb_input_date, exp_dt) VALUES(1123456789,"${req.body.stock_name[i]}","${req.body.stock_info[i]}","${req.body.buy_com[i]}","${req.body.wlb_input_date[i]}", "${req.body.exp_dt[i]}")`;
+        }
       } else {
-        sql = `INSERT INTO tbl_stock(com_num, stock_name, stock_info, buy_com, wlb_input_date) VALUES(1123456789,"${req.body.stock_name[i]}","${req.body.stock_info[i]}","${req.body.buy_com[i]}","${req.body.wlb_input_date[i]}")`;
+        if (req.body.input_date[i] != "undefined") {
+          sql = `INSERT INTO tbl_stock(com_num, stock_name, stock_info, buy_com, wlb_input_date, input_date, shelf_num, stock_floor, stock_position) VALUES(1123456789,"${req.body.stock_name[i]}","${req.body.stock_info[i]}","${req.body.buy_com[i]}","${req.body.wlb_input_date[i]}", "${req.body.input_date[i]}", ${req.body.shelf_num[i]}, ${req.body.stock_floor[i]}, "${req.body.stock_position[i]}")`;
+        } else {
+          sql = `INSERT INTO tbl_stock(com_num, stock_name, stock_info, buy_com, wlb_input_date) VALUES(1123456789,"${req.body.stock_name[i]}","${req.body.stock_info[i]}","${req.body.buy_com[i]}","${req.body.wlb_input_date[i]}")`;
+        }
       }
       conn = await pool.getConnection();
       conn.query("USE wms");
@@ -500,6 +570,50 @@ app.get("/inoutput_history", (req, res) => {
     .then((rows) => {
       res.render(
         "views/html/stock/inoutput_history.ejs",
+        {
+          data: rows,
+        },
+        function (err, html) {
+          if (err) {
+            console.log(err);
+          }
+          res.end(html);
+        }
+      );
+    })
+    .catch((errMsg) => {
+      err;
+    });
+});
+
+let cate_inoutput = "";
+let word_inoutput = "";
+
+app.post("/inoutput_history", (req, res) => {
+  cate_inoutput = req.body.cate;
+  word_inoutput = req.body.word;
+});
+
+app.get("/inoutput_history/search", (req, res) => {
+  async function GetInOutput_HistoryList() {
+    let conn, rows, sql;
+    try {
+      conn = await pool.getConnection();
+      conn.query("USE wms");
+      sql = `SELECT stock_num,stock_name,stock_info,date_FORMAT(input_date,'%y년 %m월 %d일 %H시 %i분') input_date,buy_com,IFNULL(date_FORMAT(output_date,'%y년 %m월 %d일 %H시 %i분'),'-')output_date,IFNULL(sell_com,'-') sell_com FROM tbl_stock where ${cate_inoutput} like '%${word_inoutput}%'`;
+      rows = await conn.query(sql);
+    } catch (err) {
+      throw err;
+    } finally {
+      if (conn) conn.end();
+      return rows;
+    }
+  }
+
+  GetInOutput_HistoryList()
+    .then((rows) => {
+      res.render(
+        "views/html/stock/inoutput_history_search.ejs",
         {
           data: rows,
         },

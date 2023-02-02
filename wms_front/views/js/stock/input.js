@@ -251,8 +251,12 @@ function readExcel() {
       for (var i = 0; i < rows.length; i++) {
         let wlb_date = rows[i].wlb_input_date.trim();
         let in_date;
+        let exp_date;
         if (rows[i].input_date != null) {
           in_date = rows[i].input_date.trim();
+        }
+        if (rows[i].exp_dt != null) {
+          exp_date = rows[i].exp_dt.trim();
         }
         let num = {
           stock_name: rows[i].stock_name,
@@ -263,6 +267,7 @@ function readExcel() {
           shelf_num: rows[i].shelf_num,
           stock_floor: rows[i].stock_floor,
           stock_position: rows[i].stock_position,
+          exp_dt: exp_date,
         };
         for (let key in num) {
           let hiddenField = document.createElement("input");
