@@ -86,7 +86,7 @@ async function GetOutputList() {
     conn = await pool.getConnection();
     conn.query("USE wms");
     rows = await conn.query(
-      "SELECT st.stock_num,st.stock_name,st.stock_info,st.sell_com,date_FORMAT(st.output_date,'%y년 %m월 %d일 %H시 %i분') output_date,wkr.worker_name FROM tbl_stock st left join tbl_worker wkr on st.com_num = wkr.com_num where st.com_num=1123456789 AND st.sell_com is not null AND st.output_date is not NULL GROUP BY st.stock_num"
+      "SELECT st.stock_num,st.stock_name,st.stock_info,st.sell_com,date_FORMAT(st.output_date,'%y년 %m월 %d일') output_date,wkr.worker_name FROM tbl_stock st left join tbl_worker wkr on st.com_num = wkr.com_num where st.com_num=1123456789 AND st.sell_com is not null AND st.output_date is not NULL GROUP BY st.stock_num"
     );
   } catch (err) {
     throw err;
