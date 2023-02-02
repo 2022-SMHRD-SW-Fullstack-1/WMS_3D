@@ -20,30 +20,21 @@ function goToWarehouse(e) {
     localStorage.setItem("clicked_stock_num",e.stock_num)
   }
 
-
-let checked_arr = [0]
 let result;
 
 
-function isChecked(e){
-  
-  if(checked_arr.includes(e)){
-    
-    let arrayRemove = (arr, value) => {
-      return arr.filter((ele) => {
-          return ele != value;
-      });
-    };
-    checked_arr = arrayRemove(checked_arr,e)
-
-  }else{
-    checked_arr.push(e)
-  }
-  console.log(checked_arr)
-
-}
-
 function stockOutput() {
+
+  const query = 'input[name="item"]:checked';
+  const selectedEls = 
+      document.querySelectorAll(query);
+  
+  // 선택된 목록에서 value 찾기
+  let checked_arr = [0];
+  selectedEls.forEach((el) => {
+    checked_arr.push(Number(el.value));
+  });
+
   let worker = prompt("판매처를 입력해주세요")
 
 
@@ -65,8 +56,14 @@ function stockOutput() {
 
   document.body.appendChild(form);
     form.submit();
-
-
-
-
 }
+
+function selectAll(selectAll)  {
+  const checkboxes 
+       = document.getElementsByName('item');
+  
+  checkboxes.forEach((checkbox) => {
+    checkbox.checked = selectAll.checked;
+  })
+}
+
