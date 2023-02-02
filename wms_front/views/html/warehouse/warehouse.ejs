@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"> 
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -20,20 +20,18 @@
 
     <script
       type="text/javascript"
-      src="views/js/sidebar.js"
-      defer
-    ></script>
-
-    <script
-      type="text/javascript"
       src="views/js/warehouse/warehouse.js"
       defer
     ></script>
-    
-    
-
+    <script type="text/javascript" src="views/js/sidebar.js" defer></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js" integrity="sha512-f8mwTB+Bs8a5c46DEm7HQLcJuHMBaH/UFlcgyetMqqkvTcYg4g5VXsYR71b3qC82lZytjNYvBj2pf0VekA9/FQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"
+      integrity="sha512-f8mwTB+Bs8a5c46DEm7HQLcJuHMBaH/UFlcgyetMqqkvTcYg4g5VXsYR71b3qC82lZytjNYvBj2pf0VekA9/FQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
 
     <!-- 사이드바 -->
     <link rel="stylesheet" href="views/css/sidebar.css" />
@@ -41,11 +39,7 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
-
-   
     <!-- 사이드바 -->
-
-
   </head>
   <body>
     <div class="top_div">
@@ -195,15 +189,23 @@
       
       <div class="search_div">
         <div class="dropdown">
-          <button onclick="dp_menu()" class="button">창고명 ▼</button>
+          <button onclick="dp_menu()" class="button" id="drop_cate">
+            카테고리 선택　▼
+          </button>
           <div style="display: none" id="drop-content">
-            <a href="#">창고 명</a>
-            <a href="#">창고 너비 / 길이</a>
-            <a href="#">적재 가능/ 총 공간</a>
+            <a onclick="getCateValue('wh_name')" id="wh_name">창고 명</a>
+            <a onclick="getCateValue('wh_width')" id="wh_width">
+              창고 너비
+            </a>
+            <a onclick="getCateValue('wh_length')" id="wh_length">
+              창고 길이
+            </a>
+            <a onclick="getCateValue(this)">적재 가능</a>
+            <a onclick="getCateValue(this)">총 공간</a>
           </div>
         </div>
-        <input type="text" />
-        <button id="search_btn">검색</button>
+        <input type="text" id="search_text" onkeyup="searchText()" />
+        <button onclick="sendSearchText()" id="search_btn">검색</button>
       </div>
       <button id="add_warehouse_btn" onclick="goToCreateWarehouse()">+ 창고 추가</button>
     </div>
@@ -215,9 +217,34 @@
             <thead>
               <tr>
                 <th><input type="checkbox" onclick="selectAll(this)" /></th>
-                <th scope="col">창고 명</th>
-                <th scope="col">창고 너비 / 길이</th>
-                <th scope="col">적재 가능 / 총 공간</th>
+                <th
+                scope="col"
+                id="th_name"
+                onclick="orderListName()"
+                value="wh_name"
+              >
+                창고 명 <img src="views/image/updown.png" height="20px" />
+              </th>
+              <th
+                scope="col"
+                id="th_width"
+                onclick="orderListWidth()"
+                value="wh_width"
+              >
+                창고 너비
+                <img src="views/image/updown.png" height="20px" />
+              </th>
+              <th
+                scope="col"
+                id="th_length"
+                onclick="orderListLength()"
+                value="wh_length"
+              >
+                창고 길이
+                <img src="views/image/updown.png" height="20px" />
+              </th>
+              <th scope="col" onclick="orderListable()">적재 가능<img src="views/image/updown.png" height="20px" /></th>
+              <th scope="col" onclick="orderListAll()">총 공간<img src="views/image/updown.png" height="20px" /></th>
                 <th></th>
               </tr>
             </thead>
