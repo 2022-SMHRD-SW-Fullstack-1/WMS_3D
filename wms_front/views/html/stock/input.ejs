@@ -264,13 +264,7 @@
                 <td><%- data[i].stock_info %></td>
                 <td><%- data[i].buy_com %></td>
                 <td><%- data[i].wlb_input_date %></td>
-                <td>
-                <% if(data[i].input_date) { %>
-                  <%- data[i].input_date %>
-                <% } else { %>
-                  <button class="input_date_button" onclick="inputCl">입고완료</button>
-                <% } %>
-              </td>
+                
                 <td>
                   <% if(data[i].input_date) { %>
                     <%- data[i].input_date %>

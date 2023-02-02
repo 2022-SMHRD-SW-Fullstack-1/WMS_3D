@@ -493,7 +493,7 @@ app.post("/put", (req, res) => {
     }
     StockOutputData();
   }
-
+})
 
 // 입고 페이지
 // 일단 데이터값 보내기 실험 페이지로 쓰는중
