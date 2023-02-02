@@ -41,39 +41,54 @@ closeBtns.forEach(function (btn) {
   };
 });
 
-//입고 추가
+// function stockOutput() {
+//   let worker = prompt("판매처를 입력해주세요");
 
-// function stockInput() {
-//   let stock_num = document.getElementById("stock_num").value;
-//   let stock_name = document.getElementById("stock_name").value;
-//   let stock_info = document.getElementById("stock_info").value;
-//   let buy_com = document.getElementById("buy_com").value;
-//   let wlb_input_date = document.getElementById("wlb_input_date").value;
-
-//   let url = "/stockInput";
+//   let url = "/stockOutput";
 //   let form = document.createElement("form");
 //   form.setAttribute("method", "post");
 //   form.setAttribute("action", url);
 //   document.characterSet = "utf-8";
-
-//   let data = {
-//     stock_num: stock_num,
-//     stock_name: stock_name,
-//     stock_info: stock_info,
-//     buy_com: buy_com,
-//     wlb_input_date: wlb_input_date,
-//   };
-
-//   for (let key in data) {
-//     let hiddenField = document.createElement("input");
-//     hiddenField.setAttribute("type", "hidden");
-//     hiddenField.setAttribute("name", key);
-//     hiddenField.setAttribute("value", data[key]);
-//     form.appendChild(hiddenField);
+//   for (let i = 0; i < checked_arr.length; i++) {
+//     let num = { num: checked_arr[i], worker: worker };
+//     for (let key in num) {
+//       let hiddenField = document.createElement("input");
+//       hiddenField.setAttribute("type", "hidden");
+//       hiddenField.setAttribute("name", key);
+//       hiddenField.setAttribute("value", num[key]);
+//       form.appendChild(hiddenField);
+//     }
 //   }
 
 //   document.body.appendChild(form);
 //   form.submit();
+// }
+
+
+
+
+
+
+
+
+// let inputDateButtons = document.getElementsByClassName("input_date_button");
+
+// for (var i = 0; i < inputDateButtons.length; i++) {
+//   inputDateButtons[i].addEventListener("click", function() {
+ 
+//     let currentDate = new Date();
+
+//     let parentTd = this.parentNode;
+
+//     if (parentTd.firstChild.nodeType === 3) {
+      
+//       parentTd.firstChild.nodeValue = currentDate.toLocaleDateString();
+//     } else {
+//       let dateText = document.createTextNode(currentDate.toLocaleDateString());
+//       parentTd.insertBefore(dateText, parentTd.firstChild);
+//     }
+//     this.style.display = "none";
+//   });
 // }
 
 // window.onclick = function (e) {

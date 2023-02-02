@@ -439,9 +439,11 @@ app.post("/outputForm", (req, res) => {
   InsertCompanyData();
 });
 
+
+
 //입고 insert 페이지
-app.post("/stockInput", (req, res) => {
-  let stock_num = req.body.stock_num;
+app.post("/input", (req, res) => {
+  
   let stock_name = req.body.stock_name;
   let stock_info = req.body.stock_info;
   let buy_com = req.body.buy_com;
@@ -451,11 +453,10 @@ app.post("/stockInput", (req, res) => {
   async function stockInput() {
     let conn;
     let sql =
-      "INSERT INTO tbl_stock (stock_num, stock_name, stock_info, buy_com, wlb_input_date, com_num) VALUES (?, ?, ?, ?, ?, ?)";
+      "INSERT INTO tbl_stock (stock_name, stock_info, buy_com, wlb_input_date, com_num) VALUES (?, ?, ?, ?, ?)";
     conn = await pool.getConnection();
     conn.query("USE wms");
     await conn.query(sql, [
-      stock_num,
       stock_name,
       stock_info,
       buy_com,
@@ -466,77 +467,31 @@ app.post("/stockInput", (req, res) => {
   }
 
   stockInput()
-    .then(() => {
-      mdbConn
-        .getStockList()
-        .then((rows) => {
-          res.render(
-            "views/html/stock/input.ejs",
-            {
-              data: rows,
-            },
-            function (err, html) {
-              if (err) {
-                console.log(err);
-              }
-              res.end(html);
-            }
-          );
-        })
-        .catch((errMsg) => {
-          console.error(errMsg);
-        });
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+res.redirect("/input")
 });
-// app.post("/input", (req, res) => {
-//   console.log(req.body);
 
-// let { st_num, st_name, st_info, by_com, wlb_ipt_date } = "";
-// console.log(st_num);
-// st_name = req.body.st_name;
-// console.log(st_name);
-//   let conn, rows;
-//   conn = pool.get;
-//   pool.getConnection.query(
-//     "INSERT INTO tbl_stock(stock_num, stock_name, stock_info, buy_com, wlb_input_date) VALUES(?,?,?,?,?)",
-//     [st_num, st_name, st_info, by_com, wlb_ipt_date],
-//     (error, results) => {
-//       if (error) {
-//         return res.status(500).json({ error });
-//       }
+//입고 완료버튼
 
-//       res.json({ message: "Data inserted successfully" });
-//     }
-//   );
-// });
-// import { insertData } from "./views/js/stock/input.js";
-// app.post("/input", async (req, res) => {
-//   insertData();
-//   let conn, rows;
-//   let sql = `INSERT INTO tbl_stock (stock_num, stock_name, stock_info, buy_com, wlb_input_date) VALUES (?, ?, ?, ?, ?)`;
-//   let params = [
-//     req.body.stock_num,
-//     req.body.stock_name,
-//     req.body.stock_info,
-//     req.body.buy_com,
-//     req.body.wlb_input_date,
-//   ];
+app.post("/put", (req, res) => {
+  console.log(req.body);
 
-//   try {
-//     conn = await pool.getConnection();
-//     conn.query("USE wms");
-//     rows = await conn.query(sql, params);
-//     res.send({ success: true });
-//   } catch (error) {
-//     console.error(error);
-//     res.send({ success: false });
-//   } finally {
-//     if (conn) conn.release();
-//   }
-// });
+  for (let i = 1; i < req.body.num.length; i++) {
+    console.log(req.body.worker[i]);
+    async function StockOutputData() {
+      let conn, rows;
+      let sql =
+        "UPDATE tbl_stock st SET st.output_date = NOW() , st.sell_com = ? WHERE st.stock_num = ?";
+      conn = await pool.getConnection();
+      conn.query("USE wms");
+      rows = await conn.query(sql, [
+        req.body.worker[i],
+        Number(req.body.num[i]),
+      ]);
+      conn.end();
+    }
+    StockOutputData();
+  }
+
 
 // 입고 페이지
 // 일단 데이터값 보내기 실험 페이지로 쓰는중
