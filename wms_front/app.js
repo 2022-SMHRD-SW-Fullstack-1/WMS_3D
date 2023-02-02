@@ -441,9 +441,11 @@ app.post("/outputForm", (req, res) => {
 
 
 
+
+
 //입고 insert 페이지
-app.post("/stockInput", (req, res) => {
-  let stock_num = req.body.stock_num;
+app.post("/input", (req, res) => {
+  
   let stock_name = req.body.stock_name;
   let stock_info = req.body.stock_info;
   let buy_com = req.body.buy_com;
@@ -453,11 +455,10 @@ app.post("/stockInput", (req, res) => {
   async function stockInput() {
     let conn;
     let sql =
-      "INSERT INTO tbl_stock (stock_num, stock_name, stock_info, buy_com, wlb_input_date, com_num) VALUES (?, ?, ?, ?, ?, ?)";
+      "INSERT INTO tbl_stock (stock_name, stock_info, buy_com, wlb_input_date, com_num) VALUES (?, ?, ?, ?, ?)";
     conn = await pool.getConnection();
     conn.query("USE wms");
     await conn.query(sql, [
-      stock_num,
       stock_name,
       stock_info,
       buy_com,
@@ -468,47 +469,13 @@ app.post("/stockInput", (req, res) => {
   }
 
   stockInput()
-    .then(() => {
-      mdbConn
-        .getStockList()
-        .then((rows) => {
-          res.render(
-            "views/html/stock/input.ejs",
-            {
-              data: rows,
-            },
-            function (err, html) {
-              if (err) {
-                console.log(err);
-              }
-              res.end(html);
-            }
-          );
-        })
-        .catch((errMsg) => {
-          console.error(errMsg);
-        });
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+res.redirect("/input")
 });
-// app.post("/input", (req, res) => {
-//   console.log(req.body);
 
-// let { st_num, st_name, st_info, by_com, wlb_ipt_date } = "";
-// console.log(st_num);
-// st_name = req.body.st_name;
-// console.log(st_name);
-//   let conn, rows;
-//   conn = pool.get;
-//   pool.getConnection.query(
-//     "INSERT INTO tbl_stock(stock_num, stock_name, stock_info, buy_com, wlb_input_date) VALUES(?,?,?,?,?)",
-//     [st_num, st_name, st_info, by_com, wlb_ipt_date],
-//     (error, results) => {
-//       if (error) {
-//         return res.status(500).json({ error });
-//       }
+//입고 완료버튼
+
+app.post("/put", (req, res) => {
+  console.log(req.body);
 
   for (let i = 1; i < req.body.num.length; i++) {
     console.log(req.body.worker[i]);
