@@ -34,31 +34,96 @@ app.use(express.static(__dirname + "/"));
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/");
 
-// 실험페이지
-app.get("/", (req, res) => {
-  // 요청 패스에 대한 콜백 함수를 넣어줌
-  res.sendFile(__dirname + "/views/html/main.html");
-});
-
 // 메인페이지
 app.get("/main", (req, res) => {
   // 요청 패스에 대한 콜백 함수를 넣어줌
   res.render("views/html/main.ejs");
 });
 
-// 로그인페이지
+// 로그인페이지  연결
 app.get("/login", (req, res) => {
-  res.sendFile(__dirname + "/views/html/user/login.html");
+  res.render("views/html/user/login.ejs");
+});
+
+///////////// 로그인 db에서 확인하기
+app.post("/login", function (request, response) {
+  var com_num = request.body.com_num;
+  var user_id = request.body.id;
+  var user_pw = request.body.pw;
+  console.log(request.body);
+  if (com_num && user_id && user_pw) {
+    async function getlogin() {
+      let conn, rows;
+      let sql =
+        "SELECT * FROM tbl_user WHERE com_num=? AND  user_id = ? AND user_pw = ?";
+      conn = await pool.getConnection();
+      conn.query("USE wms");
+      rows = await conn.query(sql, [com_num, user_id, user_pw]);
+      if (rows.length > 0) {
+        response.send(
+          '<script type="text/javascript">alert("로그인에 성공하였습니다!"); document.location.href="/main";</script>'
+        );
+        response.end();
+      } else {
+        response.send(
+          '<script type="text/javascript">alert("로그인에 실패하셨습니다."); document.location.href="/login";</script>'
+        );
+        response.end();
+      }
+      console.log(rows);
+      conn.end();
+    }
+    getlogin();
+  } else {
+    response.send(
+      '<script type="text/javascript">alert("username과 password를 입력하세요!"); document.location.href="/login";</script>'
+    );
+    response.end();
+  }
 });
 
 // 회사 등록 페이지
-app.get("/register_com.html", (req, res) => {
-  res.sendFile(__dirname + "/views/html/user/register_com.html");
+app.get("/register_com", (req, res) => {
+  console.log(req.query.num);
+  res.render("views/html/user/register_com.ejs");
+});
+
+//회사 등록 데이터 값 넣기
+app.post("/register_com", (req, res) => {
+  console.log(req.body);
+  async function InsertcomData() {
+    let conn, rows;
+    let sql =
+      "insert into tbl_company(com_num, com_pw, com_name) values(?,?,?)";
+    conn = await pool.getConnection();
+    conn.query("USE wms");
+    rows = await conn.query(sql, [
+      req.body.username,
+      req.body.com_pw,
+      req.body.com_name,
+    ]);
+  }
+  InsertcomData();
 });
 
 // 유저 등록 페이지
-app.get("/register_user.html", (req, res) => {
-  res.sendFile(__dirname + "/views/html/user/register_user.html");
+app.get("/register_user", (req, res) => {
+  res.render("views/html/user/register_user.ejs");
+});
+
+// 유저 데이터 값 넣기
+app.post("/register_user", (req, res) => {
+  //console.log(req.body.pw);
+  console.log(req.body);
+  // insert로 데이터 넣기
+  async function InsertuserData() {
+    let conn, rows;
+    let sql = "insert into tbl_user(user_id,user_pw,com_num) values(?,?,?)";
+    conn = await pool.getConnection();
+    conn.query("USE wms");
+    rows = await conn.query(sql, [req.body.id, req.body.pw, req.body.com_num]);
+  }
+  InsertuserData();
 });
 
 // 출고 페이지
