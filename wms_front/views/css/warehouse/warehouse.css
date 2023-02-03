@@ -1,350 +1,388 @@
 /* 초기 설정-- */
-body{
-    background-color: rgb(167, 167, 252);
-    margin: 0px;
+body {
+  background-color: rgb(167, 167, 252);
+  margin: 0px;
 }
 
-.top_div{
-    margin-left: 78px;
-    width: 1700px;
-    display: flex;
-    flex-shrink: unset;
+.top_div {
+  margin-left: 78px;
+  width: 1700px;
+  display: flex;
+  flex-shrink: unset;
 }
 /* .side_bar{
     width: 78px;
     height: 969px;
     background-color: #11101D;
 } */
-.main_div{
-    background-color: white;
-    width: 1450px;
-    height: 869px;
+.main_div {
+  background-color: white;
+  width: 1450px;
+  height: 869px;
 
-    margin-top: 50px;
-    margin-left: 200px;
+  margin-top: 50px;
+  margin-left: 200px;
 }
-.management_div{
-    height: 5%;
+.management_div {
+  height: 5%;
 }
-.management_div a{
-    text-decoration: none;
-    color: #11101D;
-    margin-right: 50px;
-    font-size: 20px;
-    font-weight: 600;
-}
-
-
-.btn_div{
-    height: 10%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-.graph_top_div{
-    width: 100%;
-    height: 80%;
-    display: flex;
+.management_div a {
+  text-decoration: none;
+  color: #11101d;
+  margin-right: 50px;
+  font-size: 20px;
+  font-weight: 600;
 }
 
-
-.main_graph_div{
-    
-    width: 70%;
-    /* background-color: aliceblue; */
+.btn_div {
+  height: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.graph_top_div {
+  width: 100%;
+  height: 80%;
+  display: flex;
 }
 
-.sub_graph_div{
-    width: 30%;
-    height: 100%;
+.main_graph_div {
+  width: 70%;
+  /* background-color: aliceblue; */
 }
 
-.diagram_div{
-    margin: 5%;
-    width: 90%;
-    height: 40%;
-    display: flex;
-    flex-direction: column;
-    font-size: 20px;
-    font-weight: 600;
-}
-.wh_name_div{
-    text-align: center;
+.sub_graph_div {
+  width: 30%;
+  height: 100%;
 }
 
-.circle_progress_info{
-    margin-top: 30px;
-    display: flex;
-    justify-content: space-around;
+.diagram_div {
+  margin: 5%;
+  width: 90%;
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+  font-weight: 600;
+}
+.wh_name_div {
+  text-align: center;
 }
 
-.three_option_div{
-    margin: 5%;
-    width: 90%;
-    height: 40%;
-    font-weight: 600;
+.circle_progress_info {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-around;
 }
 
-.choice_option_div{
-    margin-top: 10%;
-    margin-bottom: 5%;
-    display: flex;
-    justify-content: space-around;
-    font-size: 20px;
-    font-weight: 600;
-    color: #11101D;
-}
-.choice_option_div span:hover{
-    cursor: pointer;
+.three_option_div {
+  margin: 5%;
+  width: 90%;
+  height: 40%;
+  font-weight: 600;
 }
 
-.none_view{
-    display: none !important;
+.choice_option_div {
+  margin-top: 10%;
+  margin-bottom: 5%;
+  display: flex;
+  justify-content: space-around;
+  font-size: 20px;
+  font-weight: 600;
+  color: #11101d;
 }
-.none_view div{
-    display: none !important;
-}
-
-#first_option{
-    margin-left: 10%;
-    width: 80%;
-    height: 80%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-
-    font-size: 20px;
-    text-align: center;
-    
-}
-#first_option+span{
-    margin-bottom: 10px;
+.choice_option_div span:hover {
+  cursor: pointer;
 }
 
-
-#second_option{
-    margin-left: 10%;
-    width: 80%;
-    height: 80%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-
-    font-size: 20px;
-    text-align: center;
-    
+.none_view {
+  display: none !important;
+}
+.none_view div {
+  display: none !important;
 }
 
-.temp_text_div{
-    display: flex;
-    justify-content: space-between;
+#first_option {
+  margin-left: 10%;
+  width: 80%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  font-size: 20px;
+  text-align: center;
+}
+#first_option + span {
+  margin-bottom: 10px;
 }
 
-#third_option{
-    margin-left: 10%;
-    width: 80%;
-    height: 80%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+#second_option {
+  margin-left: 10%;
+  width: 80%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 
-    font-size: 20px;
-    text-align: center;
-    
+  font-size: 20px;
+  text-align: center;
 }
 
+.temp_text_div {
+  display: flex;
+  justify-content: space-between;
+}
+
+#third_option {
+  margin-left: 10%;
+  width: 80%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  font-size: 20px;
+  text-align: center;
+}
 
 /* --초기 설정 */
 
-
-
-
 /* 검색 기능 디자인 */
-.search_div{
-    display: flex;
+.search_div {
+  display: flex;
 }
-#search_btn{
-    border-radius: 0px;
-    width: 48px;
+#search_btn {
+  border-radius: 0px;
+  width: 48px;
 }
-#add_warehouse_btn{
-    background-color: #11101D;
-    color: white;
+#add_warehouse_btn {
+  background-color: #11101d;
+  color: white;
 }
+
 /* 검색 기능 디자인 */
 /* 드롭다운 -- */
-.dropdown{
-    position: relative;
-    display: inline-block;
+.dropdown {
+  position: relative;
+  display: inline-block;
 }
-.button{
-    width: 160px;
-    padding: 10px 10px;
-    font-size:16px;
-    background-color: white;
-    color: 11101D;
+.button {
+  width: 160px;
+  padding: 10px 10px;
+  font-size: 16px;
+  background-color: white;
+  color: 11101D;
 }
-#drop-content{
-    position: absolute;
-    z-index: 1;
+#drop-content {
+  position: absolute;
+  z-index: 1;
 }
-#drop-content a{
-    display:block;
-    font-size: 16px;
-    background-color: #dfdfdf;
-    color: black;
-    text-decoration: none;
-    padding: 10px 36px;
-    margin: 2px 0px 0px 0px;
+#drop-content a {
+  display: block;
+  font-size: 16px;
+  background-color: #dfdfdf;
+  color: black;
+  text-decoration: none;
+  padding: 10px 36px;
+  margin: 2px 0px 0px 0px;
 }
 
 /* -- 드롭다운 */
 
 /* 버튼 모양 -- */
-button{
-    width: 120px;
-    height: 40px;
-    border-radius: 5px;
-    border-color: #11101D;
-    background-color: white;
-    color: #11101D;
-    font-size: 16px;
-    font-weight: 600;
-    margin: 0px;
+button {
+  width: 120px;
+  height: 40px;
+  border-radius: 5px;
+  border-color: #11101d;
+  background-color: white;
+  color: #11101d;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0px;
+}
+
+.btn_small {
+  width: 80px;
+  height: 40px;
+  border-radius: 5px;
+  border-color: #11101d;
+  background-color: white;
+  color: #11101d;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0px;
 }
 /* -- 버튼 모양 */
 
 /* 인풋창 모양 -- */
-input{
-    margin: 0px;
-    height: 40px;
-    border: 3px;
-    border-color: #11101D;
-    border-top: 2px #11101D solid;
-    border-left:none;
-    border-right: none;
-    border-bottom: 2px #11101D solid;
-    /* background-color:transparent;  */
-    background-color: white;
-    text-align: center;
-    color: 11101D;
+input {
+  margin: 0px;
+  height: 40px;
+  border: 3px;
+  border-color: #11101d;
+  border-top: 2px #11101d solid;
+  border-left: none;
+  border-right: none;
+  border-bottom: 2px #11101d solid;
+  /* background-color:transparent;  */
+  background-color: white;
+  text-align: center;
+  color: 11101D;
 }
 /* -- 인풋창 모양*/
 
-
-
 /* 테이블 + 디자인 */
-table{
-    text-align: center;
-    font-size: 18px;
+table {
+  text-align: center;
+  font-size: 18px;
 }
-:root{
-    --bs-body-line-height: 1 !important;
+:root {
+  --bs-body-line-height: 1 !important;
 }
-th{
-    vertical-align: middle;
+.main_graph_div {
+  overflow: auto;
 }
-td{
-    vertical-align: middle;
+th {
+  vertical-align: middle;
+  position: sticky;
+  top: 0px;
+  background-color: white !important;
+}
+tr {
+  height: 57px;
+}
+td {
+  vertical-align: middle;
 }
 /* 테이블 + 디자인 */
-
-
 
 /* 서클 프로그래스 바 */
 
 *::before,
-*::after{
-    padding : 0;
-    margin : 0;
-    box-sizing: border-box;
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
-.circle_progress_container{
-    height: 200px;
-    width: 200px;
-    position: relative;
-    top: 45%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    border-radius: 8px;
-    box-shadow: 20px 20px 40px rgba(60,60,150,0,25);
-    display: grid;
-    place-items: center;
+.circle_progress_container {
+  height: 200px;
+  width: 200px;
+  position: relative;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 8px;
+  box-shadow: 20px 20px 40px rgba(60, 60, 150, 0, 25);
+  display: grid;
+  place-items: center;
 }
-.circle_progress_item{
-    position : relative;
-    height: 100%;
-    width: 100%;
-    background-color: #11101D;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
+.circle_progress_item {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  background-color: #11101d;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
 }
-.circle_progress_item::before{
-    content:"";
-    position : absolute;
-    height: 80%;
-    width: 80%;
-    background-color: white;
-    border-radius: 50%;
+.circle_progress_item::before {
+  content: "";
+  position: absolute;
+  height: 80%;
+  width: 80%;
+  background-color: white;
+  border-radius: 50%;
 }
-.value_container{
-    position:relative;
-    font-weight: 600;
-    font-size: 30px;
-    color: #11101D;
+.value_container {
+  position: relative;
+  font-weight: 600;
+  font-size: 30px;
+  color: #11101d;
 }
-#bg_black{
-    background-color: #11101D;
+#bg_black {
+  background-color: #11101d;
 }
-#bg_red{
-    background-color: rgb(255, 68, 68);
+#bg_red {
+  background-color: rgb(255, 68, 68);
 }
-#bg_green{
-
-    background-color: rgb(72, 40, 201);
+#bg_green {
+  background-color: rgb(72, 40, 201);
 }
-
 
 /* 서클 프로그래스 바 */
 
-
-
 /* 일반 프로그래스 바 */
 
-.bg-success{
-    background-color: #11101D !important;
+.bg-success {
+  background-color: #11101d !important;
 }
-
 
 /* 일반 프로그래스 바 */
 
 /* 페이지 네이션 */
 
-.pagination{
-    --bs-pagination-color : #11101D !important;
+.pagination {
+  --bs-pagination-color: #11101d !important;
 }
 /* 페이지 네이션 */
 
-
 /* 모달 디자인 */
-.modal-body{
-    margin: 30px 100px;
-    text-align: start;
-    display: flex;
-    flex-direction: column;
+.modal-body {
+  margin: 30px 100px;
+  text-align: start;
+  display: flex;
+  flex-direction: column;
 }
-.modal-body div{
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 40px;
+.modal-body div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
 }
-.modal-body span{
-    font-size: 20px;
-    font-weight: 600;
+.modal-body span {
+  font-size: 20px;
+  font-weight: 600;
 }
-
 
 /* 모달 디자인 */
 
+/* 체크 박스 디자인 */
 
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  outline: none !important;
+  border: 1px solid #eeeeee;
+  border-radius: 2px;
+  background: #fbfbfb;
+}
+
+input[type="checkbox"]::before {
+  content: "\2713";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  overflow: hidden;
+  transform: scale(0) translate(-50%, -50%);
+  line-height: 1;
+}
+
+input[type="checkbox"]:hover {
+  border-color: rgba(170, 170, 170, 0.5);
+}
+
+input[type="checkbox"]:checked {
+  background-color: #11101d;
+  border-color: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+input[type="checkbox"]:checked::before {
+  border-radius: 2px;
+  transform: scale(1) translate(-50%, -50%);
+}
+/* 체크 박스 디자인 */
