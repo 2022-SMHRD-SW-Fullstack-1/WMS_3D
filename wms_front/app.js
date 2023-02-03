@@ -118,7 +118,7 @@ app.get("/output/search", (req, res) => {
     try {
       conn = await pool.getConnection();
       conn.query("USE wms");
-      sql = `SELECT st.stock_num,st.stock_name,st.stock_info,st.sell_com,date_FORMAT(st.output_date,'%y년 %m월 %d일 %H시 %i분') output_date,wkr.worker_name FROM tbl_stock st left join tbl_worker wkr on st.com_num = wkr.com_num where st.com_num=1123456789 AND st.sell_com is not null AND st.output_date is not null AND ${cate_output} like '%${word_output}%'`;
+      sql = `SELECT st.stock_num,st.stock_name,st.stock_info,st.sell_com,date_FORMAT(st.output_date,'%y년 %m월 %d일 %H시 %i분') output_date,wkr.worker_name FROM tbl_stock st left join tbl_worker wkr on st.com_num = wkr.com_num where st.com_num=1123456789 AND st.sell_com is not null AND st.output_date is not null AND ${cate_output} like '%${word_output}%' GROUP BY st.stock_num`;
       rows = await conn.query(sql);
     } catch (err) {
       throw err;
@@ -611,7 +611,7 @@ app.get("/input/search", (req, res) => {
     try {
       conn = await pool.getConnection();
       conn.query("USE wms");
-      sql = `SELECT st.stock_num,st.stock_name,st.stock_info,st.buy_com,date_FORMAT(st.wlb_input_date,'%y년 %m월 %d일 %H시 %i분') wlb_input_date FROM tbl_stock st where st.com_num=1123456789 and ${cate_input} like '%${word_input}%'`;
+      sql = `SELECT st.stock_num,st.stock_name,st.stock_info,st.buy_com,date_FORMAT(st.wlb_input_date,'%y년 %m월 %d일 %H시 %i분') wlb_input_date, date_FORMAT(st.input_date,'%y년 %m월 %d일 %H시 %i분') input_date FROM tbl_stock st where st.com_num=1123456789 and ${cate_input} like '%${word_input}%' order by stock_num desc;`;
       rows = await conn.query(sql);
     } catch (err) {
       throw err;
@@ -698,7 +698,7 @@ app.get("/inoutput_history/search", (req, res) => {
     try {
       conn = await pool.getConnection();
       conn.query("USE wms");
-      sql = `SELECT stock_num,stock_name,stock_info,date_FORMAT(input_date,'%y년 %m월 %d일 %H시 %i분') input_date,buy_com,IFNULL(date_FORMAT(output_date,'%y년 %m월 %d일 %H시 %i분'),'-')output_date,IFNULL(sell_com,'-') sell_com FROM tbl_stock where ${cate_inoutput} like '%${word_inoutput}%'`;
+      sql = `SELECT stock_num,stock_name,stock_info,date_FORMAT(input_date,'%y년 %m월 %d일 %H시 %i분') input_date,buy_com,IFNULL(date_FORMAT(output_date,'%y년 %m월 %d일 %H시 %i분'),'-')output_date,IFNULL(sell_com,'-') sell_com FROM tbl_stock WHERE input_date IS NOT NULL and ${cate_inoutput} like '%${word_inoutput}%'`;
       rows = await conn.query(sql);
     } catch (err) {
       throw err;
@@ -785,7 +785,7 @@ app.get("/stock/search", (req, res) => {
     try {
       conn = await pool.getConnection();
       conn.query("USE wms");
-      sql = `SELECT st.stock_num, st.stock_name, st.stock_info, st.buy_com, wh.wh_name, date_FORMAT(st.exp_dt,'%y년 %m월 %d일') exp_dt FROM tbl_stock st left join tbl_warehouse wh ON st.com_num = wh.com_num WHERE st.output_date IS NULL and ${cate_stock} like '%${word_stock}%' GROUP BY st.stock_num`;
+      sql = `SELECT st.stock_num, st.stock_name, st.stock_info, st.buy_com, wh.wh_name, date_FORMAT(st.exp_dt,'%y년 %m월 %d일') exp_dt, wh.wh_num FROM tbl_stock st LEFT JOIN tbl_shelf s ON st.shelf_num = s.shelf_num LEFT JOIN tbl_warehouse wh ON s.wh_num = wh.wh_num WHERE st.output_date IS NULL AND wh.wh_num IS NOT null and ${cate_stock} like '%${word_stock}%' GROUP BY st.stock_num`;
       rows = await conn.query(sql);
     } catch (err) {
       throw err;
@@ -876,7 +876,7 @@ app.get("/work_history/search", (req, res) => {
     try {
       conn = await pool.getConnection();
       conn.query("USE wms");
-      sql = `SELECT wk.work_name,wkr.worker_name,st.stock_num,st.stock_name,st.stock_info FROM tbl_stock st left join tbl_work wk on st.stock_num = wk.stock_num left join tbl_worker wkr on wk.worker_num = wkr.worker_num where wk.work_name is not null AND wkr.worker_name is not null and ${cate_history} like '%${word_history}%'`;
+      sql = `SELECT wk.work_name,wkr.worker_name,st.stock_num,st.stock_name,st.stock_info,wk.from_position,wk.to_position,date_FORMAT(wk.replace_date,'%y년 %m월 %d일%H:%i') replace_date FROM tbl_stock st left join tbl_work wk on st.stock_num = wk.stock_num left join tbl_worker wkr on wk.worker_num = wkr.worker_num where wk.work_name is not null AND wkr.worker_name is not NULL and ${cate_history} like '%${word_history}%' ORDER BY replace_date`;
       rows = await conn.query(sql);
     } catch (err) {
       throw err;

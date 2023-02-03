@@ -206,7 +206,7 @@ function orderListDue() {
   form.submit();
 }
 
-function orderListWorker() {
+function orderListDone() {
   let bool = true;
   if (localStorage.getItem("align_worker") == "true") {
     localStorage.setItem("align_worker", "false");
@@ -215,7 +215,7 @@ function orderListWorker() {
     localStorage.setItem("align_worker", "true");
     bool = true;
   }
-  let num = { num: "worker_name", bool: bool };
+  let num = { num: "input_date", bool: bool };
   let url = "/input";
   let form = document.createElement("form");
   form.setAttribute("method", "get");
