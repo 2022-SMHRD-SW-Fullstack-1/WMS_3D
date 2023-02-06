@@ -419,7 +419,7 @@ class App {
 		});
 		if (localStorage.getItem("clicked_stock_num") == i.stock_num) {
 			StockMaterial = new THREE.MeshPhongMaterial({
-				color: 0x4444ff,
+				color: 0xffff44,
 				flatShading: true,
 			});
 		}
