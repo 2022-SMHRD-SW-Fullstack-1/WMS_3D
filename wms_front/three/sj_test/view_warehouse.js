@@ -144,7 +144,7 @@ class App {
 		// 클릭해서 선택된 매쉬 객체에 대한 참조
 		this._raycaster._selectedMesh = null;
 
-		// 마우스 클릭 이벤트
+		// 마우스 클릭 이벤트 (카메라의 위치를 감안한 이벤트 발생 위치 찾기)
 		window.addEventListener("dblclick", (event) => {
 			this._raycaster._clickedPosition.x =
 				(event.clientX / window.innerWidth) * 2 - 1;
@@ -157,8 +157,8 @@ class App {
 
 			// 실제 클릭된 mesh를 얻는 코드
 			const found = this._raycaster.intersectObjects(this._scene.children);
-			if (found.length > 0) {
-				const clickedObj = found[0].object;
+			if (found.length > 0) {					// 레이저가 물체를 통과했다면
+				const clickedObj = found[0].object;	// 첫번째로 통과한 물체가 클릭Object다
 
 				let oldY = this._raycaster._clickedPosition.y;
 
