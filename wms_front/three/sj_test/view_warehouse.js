@@ -417,6 +417,15 @@ class App {
 			color: 0xffe0bd,
 			flatShading: true,
 		});
+
+		if(i.exp_dt == "25년06월25일"){
+			StockMaterial = new THREE.MeshPhongMaterial({
+				color: 0xff0000,
+				flatShading: true,
+			});
+		}
+		
+
 		if (localStorage.getItem("clicked_stock_num") == i.stock_num) {
 			StockMaterial = new THREE.MeshPhongMaterial({
 				color: 0xffff44,
