@@ -309,7 +309,7 @@ function goToShelf(e) {
 // 서브 div 띄우는 기능
 
 function changeSub(e) {
-  // console.log(e)
+  console.log(e)
   // console.log(e.shelf_info)
 
   // 선반 프로그래스 바
