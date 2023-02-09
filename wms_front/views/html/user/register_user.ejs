@@ -1,69 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- === Iconscout CSS === -->
-    <link
-      rel="stylesheet"
-      href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
-    />
-    <!-- ==== CSS ==== -->
-    <link rel="stylesheet" href="views/css/user/login.css" />
-    <!-- <script type="text/javascript" src="../../js/user/login.js" defer></script> -->
-
-    <title>Login & Registeration Form</title>
-  </head>
-  <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- === Iconscout CSS === -->
+        <link
+        rel="stylesheet"
+        href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
+        />
+      <!-- ==== CSS ==== -->
+      <link rel="stylesheet" href="views/css/user/login.css" />
+      <script type="text/javascript" src="views/js/user/register_user.js" defer></script>
+      <title>register_user</title>
+</head>
+<body>
     <div class="yucontainer">
-      <div class="yuforms">
-        <div class="yuform login">
-          <span class="yutitle">Register</span>
-
-          <form action="#">
-            <div class="yuinput-field">
-              <input type="text" placeholder="아이디를 입력해주세요" required />
-              <i class="yuuil uil-user icon"></i>
-            </div>
-            <div class="yuinput-field">
-              <input
-                type="password"
-                class="password"
-                placeholder="비밀번호를 입력해주세요"
-                required
-              />
-              <i class="uil uil-lock icon"></i>
-            </div>
-            <div class="yuinput-field">
-              <input
-                type="text"
-                placeholder="사업자 번호를 입력해주세요"
-                required
-              />
-              <i class="yuuil uil-building"></i>
-            </div>
-
-            <div class="yuinput-field button">
-              <input type="button" value="Check" onclick="openPopup()" />
-            </div>
-          </form>
-        </div>
-        
-        <div class="yupopup" id="popup">
-          <h2>회원가입이 완료되었습니다. WMS를 시작해주세요</h2>
-          <a href="./login.html" class="text signup-link"><button type="button" onclick="closePopup()">Signup now</button></a>
-        </div>
-    <script>
-      let popup = document.getElementById("popup");
-
-      function openPopup(){
-        popup.classList.add("open-popup")
-      }
-      function closePopup(){
-        popup.classList.remove("open-popup")
-      }
-    </script>
-  </body>
+        <div class="yuforms">
+          <div class="yuform login">
+            <span class="yutitle">Register</span>
+            <!-- method : 정보를 어떤 형태로 전달할건지 지정 -->
+            <form action="/register_user" method="POST">
+              <div class="yuinput-field">
+                <input type="text" id="id" name="id" placeholder="아이디를 입력해주세요" required />
+                <i class="yuuil uil-user icon"></i>
+              </div>
+              <div class="yuinput-field">
+                <input
+                  type="password"
+                  id="pw"
+                  name="pw"
+                  placeholder="비밀번호를 입력해주세요"
+                  required
+                />
+                <i class="uil uil-lock icon"></i>
+              </div>
+              <div class="yuinput-field">
+                <input
+                  type="text"
+                  id="com_num"
+                  name="com_num"
+                  placeholder="사업자 번호를 입력해주세요"
+                  required
+                />
+                <i class="yuuil uil-building"></i>
+              </div>      
+              <div class="yulogin button">
+                <button type="submit" id="button" class="btn" value="submit">회원가입</button>
+              </div>
+              <div class="yulogin-signup">
+                <span class="yutext"
+                  >
+                  <a href="./login" class="text signup-link"
+                    >Login Now</a
+                  >
+                </span>
+              </div>
+            </form>
+          </div>
+          
+          <!-- <div class="yupopup" id="popup">
+            <h2>회원가입이 완료되었습니다. WMS를 시작해주세요</h2>
+            <a href="./login" class="text signup-link"><button type="button" onclick="closePopup()">Signup now</button></a>
+          </div>
+      <script>
+        let popup = document.getElementById("popup");
+  
+        function openPopup(){
+          popup.classList.add("open-popup")
+        }
+        function closePopup(){
+          popup.classList.remove("open-popup")
+        }
+      </script> -->
+</body>
 </html>

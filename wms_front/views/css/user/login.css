@@ -151,6 +151,32 @@ body {
   transition: all 0.3s ease;
 }
 
+.yulogin button {
+  border: none;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  border-radius: 6px;
+  background-color: #11101d;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 370px;
+  height: 50px;
+}
+
+.yuinput-field button {
+  border: none;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  border-radius: 6px;
+  background-color: #11101d;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
 .button input:hover {
   background-color: #11101d;
 }
@@ -182,6 +208,7 @@ body {
   border: solid;
   padding: 30px;
 }
+
 /* 모달 */
 .yupopup button {
   border: none;
@@ -194,4 +221,26 @@ body {
   cursor: pointer;
   transition: all 0.3s ease;
   padding: 10px;
+}
+
+/* 중복확인 */
+
+.yubtn {
+  padding-top: 10px;
+}
+
+.yuinput-field .id_overlap_button {
+  border: none;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  border-radius: 6px;
+  background-color: #11101d;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 5px;
+  position: absolute;
+  top: 13px;
+  right: 0;
 }
