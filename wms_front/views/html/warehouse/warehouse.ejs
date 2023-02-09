@@ -269,8 +269,10 @@
                       )">
                       <td><input type="checkbox" name="item" id="my_checkbox" value="<%- data[i].wh_num%>" /></td>
                       <td><%- data[i].wh_name%></td>
-                      <td><%- data[i].wh_width %>   /   <%- data[i].wh_length %></td>
-                      <td><%- data[i].wh_now_avl%>   /   <%- data[i].wh_max_avl%></td>
+                      <td><%- data[i].wh_width %></td>
+                      <td><%- data[i].wh_length %></td>
+                      <td><%- data[i].wh_now_avl%></td>
+                      <td><%- data[i].wh_max_avl%></td>
                       <td>
                           <button class = "btn_small" onclick="goToShelf('<%- data[i].wh_num%>')"> 선반보기</button>
                           <button class = "btn_small" onclick="goToWarehouse('<%- data[i].wh_num%>')">3D보기</button>
