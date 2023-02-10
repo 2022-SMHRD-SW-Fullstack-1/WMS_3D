@@ -135,12 +135,12 @@ app.get("/output", (req, res) => {
       conn = await pool.getConnection();
       conn.query("USE wms");
       if (req.query.num != null && req.query.bool == "true") {
-        sql = `SELECT st.stock_num,st.stock_name,st.stock_info,st.sell_com,date_FORMAT(st.output_date,'%y년 %m월 %d일 %H시 %i분') output_date,wkr.worker_name FROM tbl_stock st left join tbl_worker wkr on st.com_num = wkr.com_num where st.com_num=1123456789 AND st.sell_com is not null AND st.output_date is not null GROUP BY st.stock_num  order by ${req.query.num} DESC`;
+        sql = `SELECT st.stock_num,st.stock_name,st.stock_info,st.sell_com,date_FORMAT(st.output_date,'%y년 %m월 %d일') output_date,wkr.worker_name FROM tbl_stock st left join tbl_worker wkr on st.com_num = wkr.com_num where st.com_num=1123456789 AND st.sell_com is not null AND st.output_date is not null GROUP BY st.stock_num  order by ${req.query.num} DESC`;
       } else if (req.query.num != null && req.query.bool == "false") {
-        sql = `SELECT st.stock_num,st.stock_name,st.stock_info,st.sell_com,date_FORMAT(st.output_date,'%y년 %m월 %d일 %H시 %i분') output_date,wkr.worker_name FROM tbl_stock st left join tbl_worker wkr on st.com_num = wkr.com_num where st.com_num=1123456789 AND st.sell_com is not null AND st.output_date is not null GROUP BY st.stock_num  order by ${req.query.num} ASC`;
+        sql = `SELECT st.stock_num,st.stock_name,st.stock_info,st.sell_com,date_FORMAT(st.output_date,'%y년 %m월 %d일') output_date,wkr.worker_name FROM tbl_stock st left join tbl_worker wkr on st.com_num = wkr.com_num where st.com_num=1123456789 AND st.sell_com is not null AND st.output_date is not null GROUP BY st.stock_num  order by ${req.query.num} ASC`;
       } else {
         sql =
-          "SELECT st.stock_num,st.stock_name,st.stock_info,st.sell_com,date_FORMAT(st.output_date,'%y년 %m월 %d일 %H시 %i분') output_date,wkr.worker_name FROM tbl_stock st left join tbl_worker wkr on st.com_num = wkr.com_num where st.com_num=1123456789 AND st.sell_com is not null AND st.output_date is not null GROUP BY st.stock_num ";
+          "SELECT st.stock_num,st.stock_name,st.stock_info,st.sell_com,date_FORMAT(st.output_date,'%y년 %m월 %d일') output_date,wkr.worker_name FROM tbl_stock st left join tbl_worker wkr on st.com_num = wkr.com_num where st.com_num=1123456789 AND st.sell_com is not null AND st.output_date is not null GROUP BY st.stock_num ";
       }
       rows = await conn.query(sql);
     } catch (err) {
@@ -183,7 +183,7 @@ app.get("/output/search", (req, res) => {
     try {
       conn = await pool.getConnection();
       conn.query("USE wms");
-      sql = `SELECT st.stock_num,st.stock_name,st.stock_info,st.sell_com,date_FORMAT(st.output_date,'%y년 %m월 %d일 %H시 %i분') output_date,wkr.worker_name FROM tbl_stock st left join tbl_worker wkr on st.com_num = wkr.com_num where st.com_num=1123456789 AND st.sell_com is not null AND st.output_date is not null AND ${cate_output} like '%${word_output}%'`;
+      sql = `SELECT st.stock_num,st.stock_name,st.stock_info,st.sell_com,date_FORMAT(st.output_date,'%y년 %m월 %d일') output_date,wkr.worker_name FROM tbl_stock st left join tbl_worker wkr on st.com_num = wkr.com_num where st.com_num=1123456789 AND st.sell_com is not null AND st.output_date is not null AND ${cate_output} like '%${word_output}%'`;
       rows = await conn.query(sql);
     } catch (err) {
       throw err;
@@ -505,12 +505,12 @@ app.get("/input", (req, res) => {
       conn = await pool.getConnection();
       conn.query("USE wms");
       if (req.query.num && req.query.bool == "true") {
-        sql = `SELECT st.stock_num,st.stock_name,st.stock_info,st.buy_com,date_FORMAT(st.wlb_input_date,'%y년 %m월 %d일 %H시 %i분') wlb_input_date, date_FORMAT(st.input_date,'%y년 %m월 %d일 %H시 %i분') input_date FROM tbl_stock st where st.com_num=1123456789 ORDER BY ${req.query.num} DESC;`;
+        sql = `SELECT st.stock_num,st.stock_name,st.stock_info,st.buy_com,date_FORMAT(st.wlb_input_date,'%y년 %m월 %d일') wlb_input_date, date_FORMAT(st.input_date,'%y년 %m월 %d일') input_date FROM tbl_stock st where st.com_num=1123456789 ORDER BY ${req.query.num} DESC;`;
       } else if (req.query.num && req.query.bool == "false") {
-        sql = `SELECT st.stock_num,st.stock_name,st.stock_info,st.buy_com,date_FORMAT(st.wlb_input_date,'%y년 %m월 %d일 %H시 %i분') wlb_input_date, date_FORMAT(st.input_date,'%y년 %m월 %d일 %H시 %i분') input_date FROM tbl_stock st where st.com_num=1123456789 ORDER BY ${req.query.num} asc;`;
+        sql = `SELECT st.stock_num,st.stock_name,st.stock_info,st.buy_com,date_FORMAT(st.wlb_input_date,'%y년 %m월 %d일') wlb_input_date, date_FORMAT(st.input_date,'%y년 %m월 %d일') input_date FROM tbl_stock st where st.com_num=1123456789 ORDER BY ${req.query.num} asc;`;
       } else {
         sql =
-          "SELECT st.stock_num,st.stock_name,st.stock_info,st.buy_com,date_FORMAT(st.wlb_input_date,'%y년 %m월 %d일 %H시 %i분') wlb_input_date, date_FORMAT(st.input_date,'%y년 %m월 %d일 %H시 %i분') input_date FROM tbl_stock st where st.com_num=1123456789 order by stock_num desc;";
+          "SELECT st.stock_num,st.stock_name,st.stock_info,st.buy_com,date_FORMAT(st.wlb_input_date,'%y년 %m월 %d일') wlb_input_date, date_FORMAT(st.input_date,'%y년 %m월 %d일') input_date FROM tbl_stock st where st.com_num=1123456789 order by stock_num desc;";
       }
       rows = await conn.query(sql);
     } catch (err) {
@@ -725,7 +725,7 @@ app.get("/input/search", (req, res) => {
     try {
       conn = await pool.getConnection();
       conn.query("USE wms");
-      sql = `SELECT st.stock_num,st.stock_name,st.stock_info,st.buy_com,date_FORMAT(st.wlb_input_date,'%y년 %m월 %d일 %H시 %i분') wlb_input_date FROM tbl_stock st where st.com_num=1123456789 and ${cate_input} like '%${word_input}%'`;
+      sql = `SELECT st.stock_num,st.stock_name,st.stock_info,st.buy_com,date_FORMAT(st.wlb_input_date,'%y년 %m월 %d일') wlb_input_date FROM tbl_stock st where st.com_num=1123456789 and ${cate_input} like '%${word_input}%'`;
       rows = await conn.query(sql);
     } catch (err) {
       throw err;
@@ -762,12 +762,12 @@ app.get("/inoutput_history", (req, res) => {
       conn = await pool.getConnection();
       conn.query("USE wms");
       if (req.query.num && req.query.bool == "true") {
-        sql = `SELECT stock_num,stock_name,stock_info,date_FORMAT(input_date,'%y년 %m월 %d일 %H시 %i분') input_date,buy_com,IFNULL(date_FORMAT(output_date,'%y년 %m월 %d일 %H시 %i분'),'-')output_date,IFNULL(sell_com,'-') sell_com FROM tbl_stock WHERE input_date IS NOT NULL ORDER BY ${req.query.num} DESC;`;
+        sql = `SELECT stock_num,stock_name,stock_info,date_FORMAT(input_date,'%y년 %m월 %d일') input_date,buy_com,IFNULL(date_FORMAT(output_date,'%y년 %m월 %d일 '),'-')output_date,IFNULL(sell_com,'-') sell_com FROM tbl_stock WHERE input_date IS NOT NULL ORDER BY ${req.query.num} DESC;`;
       } else if (req.query.num && req.query.bool == "false") {
-        sql = `SELECT stock_num,stock_name,stock_info,date_FORMAT(input_date,'%y년 %m월 %d일 %H시 %i분') input_date,buy_com,IFNULL(date_FORMAT(output_date,'%y년 %m월 %d일 %H시 %i분'),'-')output_date,IFNULL(sell_com,'-') sell_com FROM tbl_stock WHERE input_date IS NOT NULL ORDER BY ${req.query.num} ASC;`;
+        sql = `SELECT stock_num,stock_name,stock_info,date_FORMAT(input_date,'%y년 %m월 %d일') input_date,buy_com,IFNULL(date_FORMAT(output_date,'%y년 %m월 %d일'),'-')output_date,IFNULL(sell_com,'-') sell_com FROM tbl_stock WHERE input_date IS NOT NULL ORDER BY ${req.query.num} ASC;`;
       } else {
         sql =
-          "SELECT stock_num,stock_name,stock_info,date_FORMAT(input_date,'%y년 %m월 %d일 %H시 %i분') input_date,buy_com,IFNULL(date_FORMAT(output_date,'%y년 %m월 %d일 %H시 %i분'),'-')output_date,IFNULL(sell_com,'-') sell_com FROM tbl_stock WHERE input_date IS NOT NULL";
+          "SELECT stock_num,stock_name,stock_info,date_FORMAT(input_date,'%y년 %m월 %d일') input_date,buy_com,IFNULL(date_FORMAT(output_date,'%y년 %m월 %d일'),'-')output_date,IFNULL(sell_com,'-') sell_com FROM tbl_stock WHERE input_date IS NOT NULL";
       }
       rows = await conn.query(sql);
     } catch (err) {
@@ -812,7 +812,7 @@ app.get("/inoutput_history/search", (req, res) => {
     try {
       conn = await pool.getConnection();
       conn.query("USE wms");
-      sql = `SELECT stock_num,stock_name,stock_info,date_FORMAT(input_date,'%y년 %m월 %d일 %H시 %i분') input_date,buy_com,IFNULL(date_FORMAT(output_date,'%y년 %m월 %d일 %H시 %i분'),'-')output_date,IFNULL(sell_com,'-') sell_com FROM tbl_stock where ${cate_inoutput} like '%${word_inoutput}%'`;
+      sql = `SELECT stock_num,stock_name,stock_info,date_FORMAT(input_date,'%y년 %m월 %d일') input_date,buy_com,IFNULL(date_FORMAT(output_date,'%y년 %m월 %d일'),'-')output_date,IFNULL(sell_com,'-') sell_com FROM tbl_stock where ${cate_inoutput} like '%${word_inoutput}%'`;
       rows = await conn.query(sql);
     } catch (err) {
       throw err;
