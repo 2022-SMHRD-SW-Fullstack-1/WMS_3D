@@ -418,12 +418,35 @@ class App {
 			flatShading: true,
 		});
 
-		if(i.exp_dt == "25년06월25일"){
+
+
+		let today = new Date().getTime()
+		let exp = (new Date(`${(20+i.exp_dt.substr(0,2))}/${i.exp_dt.substr(3,2)}/${i.exp_dt.substr(6,2)}`)).getTime()
+
+		if((exp - today)/(1000*60*60*24)<30){
 			StockMaterial = new THREE.MeshPhongMaterial({
 				color: 0xff0000,
 				flatShading: true,
 			});
 		}
+		if((exp - today) < 0){
+			StockMaterial = new THREE.MeshPhongMaterial({
+				color: 0x444444,
+				flatShading: true,
+			});
+		}
+	
+
+		// console.log(`${(20+i.exp_dt.substr(0,2))}:${i.exp_dt.substr(3,2)}:${i.exp_dt.substr(6,2)}`);
+		// if(i.exp_dt == "25년06월25일"){
+
+		// 	StockMaterial = new THREE.MeshPhongMaterial({
+		// 		color: 0xff0000,
+		// 		flatShading: true,
+		// 	});
+		// }
+
+
 		
 
 		if (localStorage.getItem("clicked_stock_num") == i.stock_num) {
