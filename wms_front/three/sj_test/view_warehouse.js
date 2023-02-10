@@ -369,11 +369,50 @@ class App {
 
 		this._warehouse = wareHouse;
 
+		this._createArrow(wh_width_arr[0],wh_length_arr[0])
+
 		this._bringShelves();
 		this._bringStocks();
 
 		this._viewHighlight();
 	}
+
+
+	_createArrow(x,y){
+		const shape = new THREE.Shape();
+		shape.moveTo(1,2)
+		shape.lineTo(2,1)
+		shape.lineTo(1.5,1)
+		shape.lineTo(1.5,1-1)
+		shape.lineTo(0.5,1-1)
+		shape.lineTo(0.5,1)
+		shape.lineTo(0,1)
+		shape.lineTo(1,1+1)
+		shape.closePath
+	
+		const settings = {
+			step : 1,
+			depth : 0.1,
+			bevelEnabled : false,
+			bevelThickness : 0.1,
+			bevelSize : 0.1,
+			bevelSegments : 1,
+		}
+	
+		const geometry = new THREE.ExtrudeGeometry(shape,settings);
+	
+		const fill_material = new THREE.MeshPhongMaterial({color : 0xffffff})
+		const cube = new THREE.Mesh(geometry,fill_material)
+	
+		cube.rotation.x =-Math.PI/2
+		cube.position.x = -1
+		cube.position.y = 0
+		cube.position.z = y/2
+		this._scene.add(cube)
+	}
+
+
+
 	_bringStocks() {
 		for (let i = 0; i < stock_num_arr.length; i++) {
 			this._bringStock({
@@ -418,12 +457,35 @@ class App {
 			flatShading: true,
 		});
 
-		if(i.exp_dt == "25년06월25일"){
+
+
+		let today = new Date().getTime()
+		let exp = (new Date(`${(20+i.exp_dt.substr(0,2))}/${i.exp_dt.substr(3,2)}/${i.exp_dt.substr(6,2)}`)).getTime()
+
+		if((exp - today)/(1000*60*60*24)<30){
 			StockMaterial = new THREE.MeshPhongMaterial({
-				color: 0xff0000,
+				color: 0xff4444,
 				flatShading: true,
 			});
 		}
+		if((exp - today) < 0){
+			StockMaterial = new THREE.MeshPhongMaterial({
+				color: 0x444444,
+				flatShading: true,
+			});
+		}
+	
+
+		// console.log(`${(20+i.exp_dt.substr(0,2))}:${i.exp_dt.substr(3,2)}:${i.exp_dt.substr(6,2)}`);
+		// if(i.exp_dt == "25년06월25일"){
+
+		// 	StockMaterial = new THREE.MeshPhongMaterial({
+		// 		color: 0xff0000,
+		// 		flatShading: true,
+		// 	});
+		// }
+
+
 		
 
 		if (localStorage.getItem("clicked_stock_num") == i.stock_num) {
