@@ -226,10 +226,10 @@ this._createBoard();
 
 // 창고 생성
  _createBoard(){
-    const watehouse_x = 20;
-    const watehouse_y = 40;
+    const warehouse_x = 20;
+    const warehouse_y = 40;
     const wareHouse = new THREE.Object3D();
-    const planeGeometry = new THREE.PlaneGeometry(watehouse_x,watehouse_y,watehouse_x/2,watehouse_y/2)
+    const planeGeometry = new THREE.PlaneGeometry(warehouse_x,warehouse_y,warehouse_x/2,warehouse_y/2)
 
     const wareHouseMaterial = new THREE.MeshPhongMaterial({
         emissive:0x888888, flatShading:true
@@ -252,10 +252,42 @@ this._createBoard();
     this._scene.add(mesh);
 
     this._warehouse = wareHouse
-    this._createShelfs(watehouse_x,watehouse_y);
+    this._createShelfs(warehouse_x,warehouse_y);
+    this._createArrow(warehouse_x,warehouse_y);
 }
 
+_createArrow(x,y){
+    const shape = new THREE.Shape();
+    shape.moveTo(1,2)
+    shape.lineTo(2,1)
+    shape.lineTo(1.5,1)
+    shape.lineTo(1.5,1-1)
+    shape.lineTo(0.5,1-1)
+    shape.lineTo(0.5,1)
+    shape.lineTo(0,1)
+    shape.lineTo(1,1+1)
+    shape.closePath
 
+    const settings = {
+        step : 1,
+        depth : 0.1,
+        bevelEnabled : false,
+        bevelThickness : 0.1,
+        bevelSize : 0.1,
+        bevelSegments : 1,
+    }
+
+    const geometry = new THREE.ExtrudeGeometry(shape,settings);
+
+    const fill_material = new THREE.MeshPhongMaterial({color : 0x00ff00})
+    const cube = new THREE.Mesh(geometry,fill_material)
+
+    cube.rotation.x =-Math.PI/2
+    cube.position.x = -1
+    cube.position.y = 0
+    cube.position.z = y/2
+    this._scene.add(cube)
+}
 
 
 // 선반 생성
