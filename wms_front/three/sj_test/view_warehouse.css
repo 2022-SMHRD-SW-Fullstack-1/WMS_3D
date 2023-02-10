@@ -120,3 +120,40 @@ button:hover {
   display: none;
 }
 /* 상단 바 전체  */
+
+
+
+/* 온습도 div */
+#temp_humid_div{
+  margin-left: 10px;
+  width: 200px;
+  height: 100px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+#temp_humid_div img{
+  height: 30px;
+}
+#temp_humid_div p{
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+#temp_humid_div span{
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+#temp_humid_div div{
+  display: flex;
+}
+
+#btn_temp_humid{
+  width: 200px;
+  margin-bottom: 0px;
+}
+/* 온습도 div */
