@@ -42,7 +42,32 @@
 			</div>
 		</div>
 		<div id="sub-container">
-			<div></div>
+			<div>
+				<div id="t_h_btn_div">
+					<button id="btn_temp_humid" onclick="showTempHumid()">온습도 모니터링 ▼</button>
+				</div>
+				<div id="temp_humid_div" class="none_view">
+					<span>온도/습도</span>
+					<div><img src="./img/temp.png"><span> 5.8°C /</span><img src="./img/humid.png"><span> 27%</span></div>
+				</div>
+			</div>
+			<div id="search_container">
+				<div id="search_cate_div">
+					<div>
+						<button id="search_cate" onclick="viewCate()">카테고리 ▼</button>
+					</div>
+					<div id="cate_list_div" class="none_view">
+						<div class="cate_list">선반 명</div>
+						<div class="cate_list">재고 번호</div>
+						<div class="cate_list">재고 명</div>
+						<div class="cate_list">재고 정보</div>
+					</div>
+					
+					
+				</div>
+				<input type="text" id="search_text_info">
+				<button id="search_start">검색</button>
+			</div>
 			<div id="btn-container">
 				<button id="move">재고이동</button>
 				<button id="btn_save" class="none_view">저장</button>
@@ -54,6 +79,25 @@
 				document.getElementById("modal-container").className = "none_view";
 			}
 			// 모달 창 관리 함수
+			// 온습도 창 관리 함수
+			function showTempHumid(){
+				let temp_humid_div = document.getElementById("temp_humid_div")
+				if(temp_humid_div.className == "none_view"){
+					temp_humid_div.className=""
+				}else{
+					temp_humid_div.className = "none_view"
+				}
+			}
+			// 온습도 창 관리 함수
+
+
+			function viewCate(){
+	if(cate_list_div.className=="none_view"){
+		cate_list_div.className=""
+	}else{
+		cate_list_div.className="none_view"
+	}
+}
 		</script>
 	</body>
 </html>

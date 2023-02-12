@@ -22,7 +22,7 @@ body {
   width: 500px;
   height: 350px;
   position: fixed;
-  top: 150px;
+  top: 200px;
   left: 200px;
   background-color: white;
   display: flex;
@@ -120,3 +120,127 @@ button:hover {
   display: none;
 }
 /* 상단 바 전체  */
+
+
+
+/* 온습도 div */
+#temp_humid_div{
+  margin-left: 10px;
+  width: 200px;
+  height: 100px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  
+}
+#btn_temp_humid{
+  -ms-user-select: none;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+
+#temp_humid_div img{
+  height: 30px;
+  -ms-user-select: none;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+#temp_humid_div p{
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  -ms-user-select: none;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  
+}
+#temp_humid_div span{
+  font-size: 18px;
+  margin-bottom: 10px;
+  -ms-user-select: none;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  
+}
+#temp_humid_div div{
+  display: flex;
+}
+
+#btn_temp_humid{
+  width: 200px;
+  margin-bottom: 0px;
+}
+/* 온습도 div */
+
+/* 검색div */
+#search_container{
+  display: flex;
+  /* align-items: center; */
+  margin-top: 10px;
+}
+#search_container button{
+  height: 47px;
+  margin: 0px;
+  padding: 0px;
+}
+#search_container input{
+  height: 41px;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+}
+#search_cate{
+  width: 150px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  -ms-user-select: none;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+#search_start{
+  width: 60px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  -ms-user-select: none;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#search_cate_div{
+  display: flex;
+  flex-direction: column;
+}
+
+#cate_list_div div{
+  background-color: white;
+  width: 138px;
+  height: 27px;
+  border: 1px rgb(125, 125, 125) solid;
+  text-align: center;
+  padding: 5px;
+  padding-top: 8px;
+  font-size: 18px;
+  font-weight: 550;
+}
+#cate_list_div div:hover{
+  cursor: pointer;
+  background-color: rgb(232, 232, 232);
+}
+/* 검색div */
