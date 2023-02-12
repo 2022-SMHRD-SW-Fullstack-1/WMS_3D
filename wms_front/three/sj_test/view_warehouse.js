@@ -1,6 +1,26 @@
 import * as THREE from "../build/three.module.js";
 import { OrbitControls } from "../examples/jsm/controls/OrbitControls.js";
 
+// 카테고리 버튼
+const cate_list_div = document.getElementById("cate_list_div")
+const search_cate = document.getElementById("search_cate")
+const search_text_info = document.getElementById("search_text_info")
+const search_start = document.getElementById("search_start")
+let search_cate_info = -1
+const cate_arr = document.querySelectorAll(".cate_list")
+for(let i=0; i<cate_arr.length;i++){
+	cate_arr[i].addEventListener("click",()=>{
+		search_cate.innerText = cate_arr[i].innerText+" ▼";
+		cate_list_div.className="none_view"
+		search_cate_info = i
+	})
+}
+
+
+// 카테고리 버튼
+
+
+
 // 재고 이동 버튼 이벤트
 const btn_move = document.getElementById("move");
 const btn_save = document.getElementById("btn_save");
@@ -138,6 +158,73 @@ class App {
 	}
 
 	_setupEvents() {
+
+		let object_arr = this._object_arr
+
+		search_start.addEventListener("click",()=>{
+			if(search_text_info.value==""){
+				alert("정보를 입력해주세요")
+			}else if(search_cate_info==-1){
+				alert("카테고리를 선택해주세요")
+			}else{
+				searchStart(search_cate_info,search_text_info.value)
+			}
+			search_text_info.value=""
+			
+		})
+		
+		function searchStart(cate,value){
+			if(cate==0){
+				for(let i =0 ; i<object_arr.length;i++){
+					if(object_arr[i].name.shelf_name.includes(value)){
+						let old_color = object_arr[i].material.color
+						object_arr[i].material.color = {r:1,g:1,b:0,isColor: true}
+						let interval1 = setInterval(()=>object_arr[i].material.color = old_color,500)
+						let interval2 = setInterval(()=>object_arr[i].material.color = {r:1,g:1,b:0,isColor: true},1000)
+						setTimeout(()=>clearInterval(interval1),6000)
+						setTimeout(()=>clearInterval(interval2),5000)
+					}
+				}
+			}else if(cate==1){
+				for(let i =0 ; i<object_arr.length;i++){
+					if((object_arr[i].name.stock_num+"").includes(value)){
+						let old_color = object_arr[i].material.color
+						object_arr[i].material.color = {r:1,g:1,b:0,isColor: true}
+						let interval1 = setInterval(()=>object_arr[i].material.color = old_color,500)
+						let interval2 = setInterval(()=>object_arr[i].material.color = {r:1,g:1,b:0,isColor: true},1000)
+						setTimeout(()=>clearInterval(interval1),6000)
+						setTimeout(()=>clearInterval(interval2),5000)
+					}
+				}
+			}else if(cate==2){
+				for(let i =0 ; i<object_arr.length;i++){
+					if(object_arr[i].name.stock_name.includes(value)){
+						let old_color = object_arr[i].material.color
+						object_arr[i].material.color = {r:1,g:1,b:0,isColor: true}
+						let interval1 = setInterval(()=>object_arr[i].material.color = old_color,500)
+						let interval2 = setInterval(()=>object_arr[i].material.color = {r:1,g:1,b:0,isColor: true},1000)
+						setTimeout(()=>clearInterval(interval1),6000)
+						setTimeout(()=>clearInterval(interval2),5000)
+					}
+				}
+			}else if(cate==3){
+				for(let i =0 ; i<object_arr.length;i++){
+					if(object_arr[i].name.stock_info.includes(value)){
+						let old_color = object_arr[i].material.color
+						object_arr[i].material.color = {r:1,g:1,b:0,isColor: true}
+						let interval1 = setInterval(()=>object_arr[i].material.color = old_color,500)
+						let interval2 = setInterval(()=>object_arr[i].material.color = {r:1,g:1,b:0,isColor: true},1000)
+						setTimeout(()=>clearInterval(interval1),6000)
+						setTimeout(()=>clearInterval(interval2),5000)
+					}
+				}
+			}
+		}
+
+		
+
+
+
 		this._raycaster = new THREE.Raycaster();
 		// _clickedPosition : 마우스로 클릭된 scene의 좌표를 참조
 		this._raycaster._clickedPosition = new THREE.Vector2();
@@ -162,6 +249,8 @@ class App {
 
 				let oldY = this._raycaster._clickedPosition.y;
 
+
+				
 				if (move_yn != true) {
 					// 클릭한 재고 정보 띄우는 장치
 					if (clickedObj.geometry.type == "BoxGeometry") {
@@ -600,8 +689,6 @@ class App {
 				visible: false,
 			})
 		);
-
-		console.log(highlightMesh);
 
 		highlightMesh.position.set(0.5, 0, 0.5);
 		highlightMesh.rotation.x = -Math.PI / 2;
