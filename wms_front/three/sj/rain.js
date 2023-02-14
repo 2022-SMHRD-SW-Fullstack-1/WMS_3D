@@ -213,6 +213,8 @@ class App{
             emissive:0x666666, flatShading:true
         })
         
+
+        
         const wallGeometry2 = new THREE.PlaneGeometry(length/10,height/10,length,height)
         const wallMaterial2 = new THREE.MeshPhongMaterial({
             emissive:0x666666, flatShading:true
