@@ -458,10 +458,10 @@ class App {
 
 		this._warehouse = wareHouse;
 
-		// this._createArrow(wh_width_arr[0],wh_length_arr[0])
+		this._createArrow(wh_width_arr[0],wh_length_arr[0])
 
-		// this._bringShelves();
-		// this._bringStocks();
+		this._bringShelves();
+		this._bringStocks();
 
 		this._viewHighlight();
 	}
@@ -564,6 +564,17 @@ class App {
 			});
 		}
 	
+
+		// console.log(`${(20+i.exp_dt.substr(0,2))}:${i.exp_dt.substr(3,2)}:${i.exp_dt.substr(6,2)}`);
+		// if(i.exp_dt == "25년06월25일"){
+
+		// 	StockMaterial = new THREE.MeshPhongMaterial({
+		// 		color: 0xff0000,
+		// 		flatShading: true,
+		// 	});
+		// }
+
+
 		
 
 		if (localStorage.getItem("clicked_stock_num") == i.stock_num) {
