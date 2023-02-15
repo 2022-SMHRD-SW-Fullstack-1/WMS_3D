@@ -46,13 +46,25 @@ body {
   overflow: auto;
 }
 
-/* ::-webkit-scrollbar {
-    display: none;
-    } */
+::-webkit-scrollbar {
+    width: 5px;
+    }
+
+::-webkit-scrollbar-thumb{
+  background-color: #2f3542;
+  border-radius: 5px;
+    }
+
+::-webkit-scrollbar-track{
+  background-color: rgba(219, 219, 219, 0.5);
+  border-radius: 10px;
+  box-shadow: inset 0px 0px 5px white;
+    }
 
 .main_graph_div {
   width: 100%;
   /* background-color: aliceblue; */
+  border: #11101d;
 }
 /* 
 .sub_graph_div{
@@ -156,9 +168,11 @@ body {
 /* 검색 기능 디자인 */
 .search_div {
   display: flex;
+  border-radius: 5px; 
 }
 #search_btn {
-  border-radius: 0px;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
   width: 48px;
 }
 #add_warehouse_btn {
@@ -177,6 +191,8 @@ body {
   font-size: 16px;
   background-color: white;
   color: 11101D;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
 }
 #drop-content {
   position: absolute;
@@ -219,9 +235,10 @@ input {
   border-right: none;
   border-bottom: 2px #11101d solid;
   /* background-color:transparent;  */
-  background-color: white;
+  background-color: white;  
   text-align: center;
   color: 11101D;
+  
 }
 /* -- 인풋창 모양*/
 
@@ -354,34 +371,40 @@ td {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #11101d;
   opacity: 2;
   z-index: 2;
   display: none;
   animation: modal_open 0.5s;
+  border-radius: 4px;
+  background-color : rgba(0,0,0,0.3);
 }
 
 .input_modal_content {
-  background: #fff;
+  background: white;
   margin-top: 100px;
-  width: 800px;
+  width: 500px;
   height: 700px;
   margin-left: auto;
   margin-right: auto;
   padding: 8px 24px;
-  border-radius: 4px;
+  border-radius: 10px;
   z-index: 4;
+  border-color: rgb(255, 255, 255);
+  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);;
+  display: flex;
+  flex-direction: column;
 }
 
 .input_modal_header {
   font-weight: 500;
-  padding: 10px 0;
+  padding: 35px;
   font-size: 26px;
-  display: flex;
-  justify-content: space-between;
+  text-align: center;
+  /* display: flex;
+  justify-content: space-between; */
 }
 
-.input_modal_header .modal_close {
+/* .input_modal_header .modal_close {
   float: right;
   font-size: 20px;
   background: none;
@@ -389,7 +412,7 @@ td {
   outline: 0;
   padding: 5px 8px;
   border-radius: 10%;
-}
+} */
 
 .input_modal_body {
   color: #11101d;
@@ -398,30 +421,57 @@ td {
   outline: none;
   display: flex;
   flex-direction: column;
+  margin-top: 30px;
+}
+.input_modal_body div{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  align-items: center;
+
 }
 
 .input_modal_body input {
-  width: 100%;
+  width: 70%;
   padding: 0.7rem;
-  outline: none;
-  border: 1px solid #11101d;
+  outline: solid 1px;
+  border: 0.5px solid #11101d;
+  
+  border-radius: 10px;
 }
 
-.input_modal_body label {
-  font-size: 1rem;
-}
 
 .input_modal_footer {
-  padding: 15px 0;
+  padding-top: 140px;
+  padding-bottom: 0;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
 }
 
-.input_modal_footer .modal_close {
+.input_modal_footer .link.modal_close {
   padding: 8px 16px;
+  width: 220px;
   font-size: 14px;
-  /* border: none; */
+  border: none;
   outline: none;
-  border-radius: 4px;
-  color: #11101d;
+  color: white;
+  background-color: #11101d;
+  border-radius: 5px;
+  
+}
+
+.input_modal_footer .icon.modal_close {
+  padding: 8px 16px;
+  width: 220px;
+  font-size: 14px;
+  border: none;
+  outline: none;
+  color: white;
+  background-color: #11101d;
+  border-radius: 5px;
+
 }
 
 .input_date_button {
@@ -433,6 +483,7 @@ td {
   color: #11101d;
   border-radius: 4px;
 }
+
 
 /* 체크 박스 디자인 */
 
@@ -473,3 +524,88 @@ input[type="checkbox"]:checked::before {
   transform: scale(1) translate(-50%, -50%);
 }
 /* 체크 박스 디자인 */
+
+/* 목록 정렬 마우스 포인터 */
+.table.table-striped.table-hover th{
+  cursor: pointer;
+}
+
+.filebox label{
+  display: inline-block;
+  padding: 8px 16px;
+  color: #11101d;
+  font-size: inherit;
+  line-height: normal;
+  vertical-align: middle;
+  background-color: white;
+  cursor: pointer;
+  border-bottom-color: #11101d;
+  border-radius: 4px;
+  outline: auto;
+  margin-left: 10px;
+  height: 40px;
+  width: 130px;
+  font-weight: 600;
+
+  padding: 8px 16px;
+  background: white;
+  color: #11101d;
+  border-radius: 4px;
+  outline: auto;
+  border: none;
+}
+
+.excel_img{
+  width: 20px;
+  height: 20px;
+}
+
+.filebox input[type="file"]{    /*파일 숨기기*/
+   position: absolute;
+   width: 1px;
+   height: 1px;
+   padding: 0;
+   margin: -1px;
+   overflow: hidden;
+   clip:rect(0,0,0,0);
+   border: 0;
+}
+
+.input_ex{
+  display: flex;
+  align-items: row;
+
+}
+
+.excle_div_output{
+  padding-top: 15px;
+}
+
+.excle_btn_output{
+  border-radius: 4px;
+}
+
+.hr_t{
+  color: #11101d;
+}
+
+.excel_button{
+    margin: 0px;
+    width: auto;
+    height: 40px;
+    border: 3px;
+    border-color: #11101d;
+    border-top: 2px #11101d solid;
+    border-left: #11101d solid;
+    border-right: #11101d solid;
+    border-bottom: 2px #11101d solid;
+    /* background-color:transparent;  */
+    background-color: white;  
+    text-align: center;
+    color: 11101D;
+    border-radius: 5px;
+}
+
+input#file-upload-button{
+  top: 50px;
+}

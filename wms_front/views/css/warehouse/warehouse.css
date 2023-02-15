@@ -186,6 +186,7 @@ body {
   text-decoration: none;
   padding: 10px 36px;
   margin: 2px 0px 0px 0px;
+  cursor: pointer;
 }
 
 /* -- 드롭다운 */

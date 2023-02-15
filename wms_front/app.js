@@ -540,6 +540,53 @@ app.get("/input", (req, res) => {
     });
 });
 
+
+// 입고 기능
+app.post("/inputCP", (req, res) => {
+  console.log(req.body);
+
+  for (let i = 1; i < req.body.num.length; i++) {
+    console.log(req.body.inputDate[i]);
+    async function StockInputData() {
+      let conn, rows;
+      let sql =
+      "UPDATE tbl_stock SET input_date = ? ";
+      conn = await pool.getConnection();
+      conn.query("USE wms");
+      rows = await conn.query(sql, [
+        req.body.inputDate[i],
+        Number(req.body.num[i]),
+      ]);
+
+      conn.end();
+    }
+    StockInputData();
+  }
+
+  // mdbConn
+  // .getInputList()
+  // .then((rows) => {
+  //   res.render(
+  //     "views/html/stock/input.ejs",
+  //     {
+  //       data: rows,
+  //     },
+  //     function (err, html) {
+  //       if (err) {
+  //         console.log(err);
+  //       }
+  //       res.end(html);
+  //     }
+  //   );
+  // })
+  // .catch((errMsg) => {
+  //   err;
+  // });
+});
+
+
+
+
 // 출고 기능
 app.post("/stockOutput", (req, res) => {
   console.log(req.body);
@@ -583,6 +630,8 @@ app.post("/stockOutput", (req, res) => {
     });
 });
 
+
+//직접 입고
 app.post("/inputStock", (req, res) => {
   let stock_name = req.body.stock_name;
   let stock_info = req.body.stock_info;
@@ -594,7 +643,7 @@ app.post("/inputStock", (req, res) => {
     let conn;
     let sql =
       "INSERT INTO tbl_stock (stock_name, stock_info, buy_com, wlb_input_date, com_num) VALUES (?, ?, ?, ?, ?)";
-    conn = await pool.getConnection();
+    conn = await pool.getConnection(); 
     conn.query("USE wms");
     await conn.query(sql, [
       stock_name,
