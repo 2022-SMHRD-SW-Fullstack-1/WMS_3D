@@ -190,7 +190,7 @@
           <a onclick="getCateValue('buy_com')" id="buy_com">구매처</a>
           <a onclick="getCateValue('wlb_input_date')" id="wlb_input_date">입고 예정 일자</a>
         </div>
-      </div>
+      </div> 
       <input type="text" id="search_text" onkeyup="searchText()" />
       <button onclick="sendSearchText()" id="search_btn">검색</button>
     </div>
@@ -211,9 +211,8 @@
             
         <hr class="hrt"/>
         <div class="input_modal_body">
-          <form onsubmit="stockInput()" action ="/input" method="post" >
-              
-
+          <form onsubmit="stockInput()" action ="/inputStock" method="post" >
+            
             <div class="stock_name">
             <span>재고 명</span>
                 <input type="text" id="stock_name" name="stock_name" placeholder="재고명을 입력해주세요.">
@@ -235,12 +234,11 @@
               </div>
               
               <div class="input_modal_footer">
-                <div><button class="link modal_close" type="submit">완료</button></div>
-                <div><button class="icon modal_close">취소</button></div>
+                <div><button class="link_modal_close" type="submit">완료</button></div>
+                <div><button class="icon_modal_close" type="button">취소</button></div>
               </div>
             </form>
           </div>
-
         </div>
             </div>
   </div>
@@ -276,15 +274,58 @@
                   <% if(data[i].input_date) { %>
                     <%- data[i].input_date %>
                   <% } else { %>
-                    <button class="input_date_button">입고완료</button>
+                    <button class="input_date_button" data_modal2="modal2" >입고완료</button>
                   <% } %>
                 </td>
                 
               </tr>
             <% } %>  
-      
-
+            
           </tbody>
+            
+            <div>
+              <div class="input_modal2" id="modal2">
+                <div class="input_modal2_content">
+        
+                <div class="input_modal2_header">입고 완료</div>
+                    
+                <hr class="hrt"/>
+                <div class="input_modal2_body">
+                  <form onsubmit="stockInputC()" action ="/inputCpt" method="post" >
+                      
+                    <div class="wh_name">
+                    <span>창고명</span>
+                        <input type="text" id="wh_name" name="wh_nm" placeholder="">
+                      </div>
+                       
+                    <div class="shelf_name">
+                    <span>선반명</span>
+                        <input type="text" id="shelf_name" name="shelf_name" placeholder="">
+                      </div>
+                      
+                    <div class="shelf_floor"> 
+                    <span>선반층수</span>
+                        <input type="text" id="shelf_floor" name="shelf_floor" placeholder="">
+                      </div>
+
+                    <div class="stock_position"> 
+                    <span>재고위치</span>
+                        <input type="text" id="stock_position" name="stock_position" placeholder="">
+                      </div>
+               
+                    <div class="input_date">  
+                    <span>입고완료일자</span>
+                        <input type="date" id="input_date" name="input_date" placeholder="">                  
+                      </div>
+
+                      <div class="input_modal2_footer">
+                        <div><button class="link_modal2_close" type="submit">완료</button></div>
+                        <div><button class="icon_modal2_close" type="button">취소</button></div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                    </div>
         </table>
       </div>
     </div>
