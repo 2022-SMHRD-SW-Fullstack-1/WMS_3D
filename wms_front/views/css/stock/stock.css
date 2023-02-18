@@ -41,7 +41,7 @@ body {
 }
 .graph_top_div {
   width: 100%;
-  height: 80%;
+  height: 72%;
   display: flex;
   overflow: auto;
 }
