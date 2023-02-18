@@ -7,7 +7,7 @@ function dp_menu() {
     click.style.display = "block";
   } else {
     click.style.display = "none";
-  }
+  } 
 }
 
 function getCateValue(e) {

@@ -1,22 +1,3 @@
-function goToCreateInput(e) {
-  console.log(e);
-  const num = { num: e };
-  let url = "/createInput";
-
-  let form = document.createElement("form");
-  form.setAttribute("method", "post");
-  form.setAttribute("action", url);
-  document.characterSet = "utf-8";
-  for (let key in num) {
-    let hiddenField = document.createElement("input");
-    hiddenField.setAttribute("type", "hidden");
-    hiddenField.setAttribute("name", key);
-    hiddenField.setAttribute("value", num[key]);
-    form.appendChild(hiddenField);
-  }
-  document.body.appendChild(form);
-  form.submit();
-}
 
 let catevalText = {};
 let cateText = "";
@@ -348,11 +329,30 @@ modalBtns.forEach(function (btn) {
   };
 });
 
-let closeBtns = document.querySelectorAll(".modal_close");
+let closeBtns = document.querySelectorAll(".icon_modal_close");
 
 closeBtns.forEach(function (btn) {
   btn.onclick = function () {
-    let modal = (btn.closest(".input_modal").style.display = "none");
+    let modal1 = (btn.closest(".input_modal").style.display = "none");
+  };
+}); 
+
+//입고완료 모달 열기 버튼
+let modalBtns2 = document.querySelectorAll(".input_date_button");
+
+modalBtns2.forEach(function (btn) {
+  btn.onclick = function () {
+    let modal = btn.getAttribute("data_modal2");
+
+    document.getElementById(modal).style.display = "block";
+  };
+});
+
+let closeBtns2 = document.querySelectorAll(".icon_modal2_close");
+
+closeBtns2.forEach(function (btn) {
+  btn.onclick = function () {
+    let modal2 = (btn.closest(".input_modal2").style.display = "none");
   };
 });
 
@@ -365,34 +365,3 @@ function selectAll(selectAll) {
 }
 
 
-function inputDate() {
-  const query = 'input[name="item"]:checked';
-  const selectedEls = document.querySelectorAll(query);
-
-  
-  let checked_arr = [0];
-  selectedEls.forEach((e) => {
-    checked_arr.push(Number(e.value));
-  });
-
-  let inputDate = prompt("입고일자를 입력해주세요.")
-  let url = "/inputCP";
-  let form = document.createElement("form");
-  form.setAttribute("method", "post");
-  form.setAttribute("action", url);
-  document.characterSet = "utf-8";
-  for (let i = 0; i < checked_arr.length; i++) {
-    let num = { num: checked_arr[i], inputDate: inputDate };
-    for (let key in num) {
-      let hiddenField = document.createElement("input");
-      hiddenField.setAttribute("type", "hidden");
-      hiddenField.setAttribute("name", key);
-      hiddenField.setAttribute("value", num[key]);
-
-      form.appendChild(hiddenField);
-    }
-  }
-
-  document.body.appendChild(form);
-  form.submit();
-}

@@ -659,28 +659,88 @@ app.post("/inputStock", (req, res) => {
   res.redirect("/input");
 });
 
+
+//입고 완료
+// app.post("/inputCpt", (req, res) => {
+//   let wh_name = req.body.wh_name;
+//   let shelf_name = req.body.shelf_name;
+//   let shelf_floor = req.body.shelf_floor;
+//   let stock_position = req.body.stock_position;
+//   let input_date = new Date(req.body.input_date);
+
+//   async function stockInputCp() {
+//     let conn;
+//     let sql =
+//     "UPDATE tbl_stock INNER JOIN tbl_shelf ON tbl_stock.shelf_num = tbl_shelf.shelf_num INNER JOIN tbl_warehouse ON tbl_shelf.wh_num = tbl_warehouse.wh_num SET tbl_warehouse.wh_name = ?, tbl_shelf.shelf_name = ?, tbl_stock.stock_position = ?, tbl_shelf.shelf_floor = ?, tbl_stock.input_date = ?, WHERE tbl_shelf.shelf_name = ? AND tbl_warehouse.wh_name = ?";
+//     conn = await pool.getConnection(); 
+//     conn.query("USE wms");
+//     await conn.query(sql, [
+//       wh_name,
+//       shelf_name,
+//       shelf_floor,
+//       stock_position,
+//       input_date
+//     ]);
+//     conn.release();
+//   }
+
+//   stockInputCp();
+//   res.redirect("/input");
+// });
+
+
+app.post("/inputCpt", (req, res) => {
+  let wh_name = req.body.wh_nm;
+  let shelf_name = req.body.shelf_name;
+  let shelf_floor = req.body.shelf_floor;
+  let stock_position = req.body.stock_position;
+  let input_date = new Date(req.body.input_date);
+
+  async function stockInputCp() {
+    
+    let sql = "UPDATE tbl_stock INNER JOIN tbl_shelf ON tbl_stock.shelf_num = tbl_shelf.shelf_num INNER JOIN tbl_warehouse ON tbl_shelf.wh_num = tbl_warehouse.wh_num SET tbl_stock.input_date = ?, tbl_stock.stock_position = ?, tbl_shelf.shelf_floor = ?, tbl_warehouse.wh_name = ?, tbl_shelf.shelf_name = ?, tbl_shelf.shelf_floor = ? WHERE tbl_shelf.shelf_name = ? AND tbl_warehouse.wh_name = ?";
+    conn = await pool.getConnection();
+    conn.query("USE wms");
+    await conn.query(sql, [
+      input_date,
+      stock_position,
+      shelf_floor,
+      wh_name,
+      shelf_name,
+      shelf_floor, 
+      shelf_name,
+      wh_name
+    ]);
+    conn.release();
+  }
+
+  let conn;
+  stockInputCp();
+  res.redirect("/input");
+});
+
 //입고 완료버튼
 
-app.post("/put", (req, res) => {
-  console.log(req.body);
+// app.post("/put", (req, res) => {
+//   console.log(req.body);
 
-  for (let i = 1; i < req.body.num.length; i++) {
-    console.log(req.body.worker[i]);
-    async function StockOutputData() {
-      let conn, rows;
-      let sql =
-        "UPDATE tbl_stock st SET st.output_date = NOW() , st.sell_com = ? WHERE st.stock_num = ?";
-      conn = await pool.getConnection();
-      conn.query("USE wms");
-      rows = await conn.query(sql, [
-        req.body.worker[i],
-        Number(req.body.num[i]),
-      ]);
-      conn.end();
-    }
-    StockOutputData();
-  }
-});
+//   for (let i = 1; i < req.body.num.length; i++) {
+//     console.log(req.body.worker[i]);
+//     async function StockOutputData() {
+//       let conn, rows;  
+//       let sql =
+//         "UPDATE tbl_stock st SET st.output_date = NOW() , st.sell_com = ? WHERE st.stock_num = ?";
+//       conn = await pool.getConnection();
+//       conn.query("USE wms");
+//       rows = await conn.query(sql, [
+//         req.body.worker[i],
+//         Number(req.body.num[i]),
+//       ]);
+//       conn.end();
+//     }
+//     StockOutputData();
+//   }
+// });
 
 app.post("/input", (req, res) => {
   console.log(req.body);
