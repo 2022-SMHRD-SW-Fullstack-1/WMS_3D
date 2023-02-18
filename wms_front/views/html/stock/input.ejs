@@ -66,7 +66,7 @@
             </li>
   
             <li>
-              <div class="icon-link">ㅇ
+              <div class="icon-link">
                 <a href="#">
                   <i class="bx bxs-city"></i>
                   <span class="link_name">창고</span>
@@ -190,59 +190,56 @@
           <a onclick="getCateValue('buy_com')" id="buy_com">구매처</a>
           <a onclick="getCateValue('wlb_input_date')" id="wlb_input_date">입고 예정 일자</a>
         </div>
-      </div>
+      </div> 
       <input type="text" id="search_text" onkeyup="searchText()" />
       <button onclick="sendSearchText()" id="search_btn">검색</button>
     </div>
+
+
+    <div class="input_ex">
+      <button class="add_input_btn" data_modal="modal1">+ 직접 입고</button>
+      <div class="filebox">
+    <label for="ex_file"> <img src="views/image/excel_img.png" alt="excel_img" class="excel_img"> 엑셀 입고</label>
     <input type="file" onchange="readExcel()">
-    <button class="add_input_btn"
-    data_modal="modal1">+ 입고 추가</button>
+      </div>
+    </div>
     
     <div class="input_modal" id="modal1">
       <div class="input_modal_content">
-          
-        <div class="input_modal_header">입고추가 정보입력
-            <button class="icon modal_close"><i
-              class="material-icons">close</i></button></div>
 
-
-              <form onsubmit="stockInput()" action ="/input" method="post" >
-                <div class="input_modal_body">
-                  
-                  <label>재고 명</label>
-                  <div class="stock_name">
-                    <input type="text" id="stock_name" name="stock_name" placeholder="">
-
-                  </div>
-                  
-                  <label>재고정보</label>
-                  <div class="stock_info">
-
-                    <input type="text" id="stock_info" name="stock_info" placeholder="">
-
-                  </div>
-                  
-                  <label>구매처</label>
-                  <div class="buy_com">
-
-                    <input type="text" id="buy_com" name="buy_com" placeholder="">
-
-                  </div>
-                  
-                  <label>입고 예정 일자</label>
-                  <div class="wlb_input_date">
-
-                    <input type="text" id="wlb_input_date" name="wlb_input_date" placeholder="">                  
-
-                  </div>
-                  
-                </div>
-                
-                <div class="input_modal_footer">
-                  <button class="link modal_close" type="submit">완료</button>
-                </div>
-                </form>
+        <div class="input_modal_header">입고 추가</div>
+            
+        <hr class="hrt"/>
+        <div class="input_modal_body">
+          <form onsubmit="stockInput()" action ="/inputStock" method="post" >
+            
+            <div class="stock_name">
+            <span>재고 명</span>
+                <input type="text" id="stock_name" name="stock_name" placeholder="재고명을 입력해주세요.">
               </div>
+              
+              <div class="stock_info">
+              <span>재고 정보</span>
+                <input type="text" id="stock_info" name="stock_info" placeholder="재고정보를 입력해주세요.">
+              </div>
+              
+              <div class="buy_com"> 
+                <span>구매처</span>
+                <input type="text" id="buy_com" name="buy_com" placeholder="구매처를 입력해주세요.">
+              </div>
+              
+              <div class="wlb_input_date">  
+                <span>입고예정일자 </span>
+                <input type="date" id="wlb_input_date" name="wlb_input_date" placeholder="입고 예정일자를 입력해주세요.">                  
+              </div>
+              
+              <div class="input_modal_footer">
+                <div><button class="link_modal_close" type="submit">완료</button></div>
+                <div><button class="icon_modal_close" type="button">취소</button></div>
+              </div>
+            </form>
+          </div>
+        </div>
             </div>
   </div>
   
@@ -255,7 +252,7 @@
               <th><input type="checkbox" onclick="selectAll(this)" /></th>
               <th scope="col" onclick="orderListNum()">재고 번호 <img src="views/image/updown.png" height="20px"/></th>
               <th scope="col" onclick="orderListName()">재고 명 <img src="views/image/updown.png" height="20px"/></th>
-              <th scope="col" onclick="orderListInfo()  ">재고 정보 <img src="views/image/updown.png" height="20px"/></th>
+              <th scope="col" onclick="orderListInfo()">재고 정보 <img src="views/image/updown.png" height="20px"/></th>
               <th scope="col" onclick="orderListBuy()">구매처 <img src="views/image/updown.png" height="20px"/></th>
               <th scope="col" onclick="orderListDue()">입고 예정 일자 <img src="views/image/updown.png" height="20px"/></th>
               <th scope="col">입고 완료</th>
@@ -277,20 +274,66 @@
                   <% if(data[i].input_date) { %>
                     <%- data[i].input_date %>
                   <% } else { %>
-                    <button class="input_date_button">입고완료</button>
+                    <button class="input_date_button" data_modal2="modal2" >입고완료</button>
                   <% } %>
                 </td>
                 
               </tr>
             <% } %>  
-      
-
+            
           </tbody>
+            
+            <div>
+              <div class="input_modal2" id="modal2">
+                <div class="input_modal2_content">
+        
+                <div class="input_modal2_header">입고 완료</div>
+                    
+                <hr class="hrt"/>
+                <div class="input_modal2_body">
+                  <form onsubmit="stockInputC()" action ="/inputCpt" method="post" >
+                      
+                    <div class="wh_name">
+                    <span>창고명</span>
+                        <input type="text" id="wh_name" name="wh_nm" placeholder="">
+                      </div>
+                       
+                    <div class="shelf_name">
+                    <span>선반명</span>
+                        <input type="text" id="shelf_name" name="shelf_name" placeholder="">
+                      </div>
+                      
+                    <div class="shelf_floor"> 
+                    <span>선반층수</span>
+                        <input type="text" id="shelf_floor" name="shelf_floor" placeholder="">
+                      </div>
+
+                    <div class="stock_position"> 
+                    <span>재고위치</span>
+                        <input type="text" id="stock_position" name="stock_position" placeholder="">
+                      </div>
+               
+                    <div class="input_date">  
+                    <span>입고완료일자</span>
+                        <input type="date" id="input_date" name="input_date" placeholder="">                  
+                      </div>
+
+                      <div class="input_modal2_footer">
+                        <div><button class="link_modal2_close" type="submit">완료</button></div>
+                        <div><button class="icon_modal2_close" type="button">취소</button></div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                    </div>
         </table>
-        <button type="button" onclick="ExcelExport('table', 'title')">Excel</button>
       </div>
     </div>
   </div>
+<div class="excle_div_output">
+  <button class="excle_btn_output" type="button" onclick="ExcelExport('table', 'title')"><img src="views/image/excel_img.png" alt="excel_img" class="excel_img"> 내보내기</button>
+</div>
+
 </div>
 </div>
   </body>
