@@ -505,12 +505,12 @@ app.get("/input", (req, res) => {
       conn = await pool.getConnection();
       conn.query("USE wms");
       if (req.query.num && req.query.bool == "true") {
-        sql = `SELECT st.stock_num,st.stock_name,st.stock_info,st.buy_com,date_FORMAT(st.wlb_input_date,'%y년 %m월 %d일') wlb_input_date, date_FORMAT(st.input_date,'%y년 %m월 %d일') input_date FROM tbl_stock st where st.com_num=1123456789 ORDER BY ${req.query.num} DESC;`;
+        sql = `SELECT st.stock_num,st.stock_name,st.stock_info,st.buy_com,date_FORMAT(st.wlb_input_date,'20%y년 %m월 %d일') wlb_input_date, date_FORMAT(st.input_date,'20%y년 %m월 %d일') input_date FROM tbl_stock st where st.com_num=1123456789 ORDER BY ${req.query.num} DESC;`;
       } else if (req.query.num && req.query.bool == "false") {
-        sql = `SELECT st.stock_num,st.stock_name,st.stock_info,st.buy_com,date_FORMAT(st.wlb_input_date,'%y년 %m월 %d일') wlb_input_date, date_FORMAT(st.input_date,'%y년 %m월 %d일') input_date FROM tbl_stock st where st.com_num=1123456789 ORDER BY ${req.query.num} asc;`;
+        sql = `SELECT st.stock_num,st.stock_name,st.stock_info,st.buy_com,date_FORMAT(st.wlb_input_date,'20%y년 %m월 %d일') wlb_input_date, date_FORMAT(st.input_date,'20%y년 %m월 %d일') input_date FROM tbl_stock st where st.com_num=1123456789 ORDER BY ${req.query.num} asc;`;
       } else {
         sql =
-          "SELECT st.stock_num,st.stock_name,st.stock_info,st.buy_com,date_FORMAT(st.wlb_input_date,'%y년 %m월 %d일') wlb_input_date, date_FORMAT(st.input_date,'%y년 %m월 %d일') input_date FROM tbl_stock st where st.com_num=1123456789 order by stock_num desc;";
+          "SELECT st.stock_num,st.stock_name,st.stock_info,st.buy_com,date_FORMAT(st.wlb_input_date,'20%y년 %m월 %d일') wlb_input_date, date_FORMAT(st.input_date,'20%y년 %m월 %d일') input_date FROM tbl_stock st where st.com_num=1123456789 order by stock_num desc;";
       }
       rows = await conn.query(sql);
     } catch (err) {
