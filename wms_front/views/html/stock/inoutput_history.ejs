@@ -176,7 +176,7 @@
   </div>
   <hr />
   <div class="btn_div">
-      <button>수정</button>
+      <button class="inoutput_modify">수정</button>
     <div></div>
 
     <div class="search_div">
@@ -238,213 +238,22 @@
                   <div
                   class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
                   >
-                  <!-- <div class="modal-content">
-                    <div class="modal-header">
-                      <h1
-                      class="modal-title fs-5"
-                      id="exampleModalCenteredScrollableTitle"
-                      >
-                      선반 상세 정보
-                    </h1>
-                    <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                    ></button>
-                  </div> -->
-                  <!-- <div class="modal-body">
-                    <div>
-                      <span>선반 명 : </span><span><%- data[i].shelf_name%></span>
-                    </div>
-                    <div>
-                      <span>선반 너비 : </span><span><%- data[i].shelf_width%> m</span>
-                    </div>
-                    <div>
-                      <span>선반 길이 : </span><span><%- data[i].shelf_length%> m</span>
-                    </div>
-                    <div><span>선반 층수 : </span><span><%- data[i].shelf_floor%> 층</span>
-                    </div>
-                    
-                  </div> -->
-                  <!-- <div class="modal-footer">
-                    <button id="add_warehouse_btn" onclick="goToWarehouse()">
-                      선반위치보기
-                    </button>
-                  </div> -->
-                <!-- </div> -->
+                
               </div>
             </div>
-            <!-- <div class="bd-example">
-              <button
-              type="button"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModalCenteredScrollable<%- i%>"
-              >
-              상세보기
-            </button>
-          </div> -->
+           
         </td>
       </tr>
       <% } %>  
-      
 
           </tbody>
         </table>
-        <button type="button" onclick="ExcelExport('table', 'title')">Excel</button>
-        <!-- 페이지 바 -->
-        <!-- <nav aria-label="Page navigation example">
-          <ul class="pagination justify-content-center">
-            <li class="page-item disabled">
-              <a class="page-link">이전</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#">다음</a>
-            </li>
-          </ul>
-        </nav> -->
-        <!-- 페이지 바 -->
+        
       </div>
     </div>
-
-    <!-- <% for(var i = 0; i<data.length; i++){%>
-      <p><%- data[i].wh_num%></p>
-  <%}%> -->
-
-
-    <!-- <div class="sub_graph_div">
-      <div class="diagram_div">
-        <div class="wh_name_div" id="sub_warehouse_name">창고를 선택 해주세요</div>
-        <div class="circle_progress_container">
-          <div class="circle_progress_item">
-            <div class="value_container">0%</div>
-          </div>
-        </div>
-        <div class="circle_progress_info">
-          <span id="sub_now_avl">남은 공간 : 0</span><span id="sub_max_avl">총 공간 : 0</span>
-        </div>
-      </div>
-      <div class="three_option_div">
-        <div id="first_option">
-
-          <div>
-            <span>A 선반 : 2 / 10</span>
-            <div class="progress">
-              <div
-                class="progress-bar"
-                id="bg_black"
-                role="progressbar"
-                aria-label="Basic example"
-                style="width: 25%"
-                aria-valuenow="25"
-                aria-valuemin="0"
-                aria-valuemax="100"
-              ></div>
-            </div>
-          </div>
-
-          <div>
-            <span>B 선반 : 5 / 10</span>
-            <div class="progress">
-              <div
-                class="progress-bar"
-                id="bg_black"
-                role="progressbar"
-                aria-label="Basic example"
-                style="width: 50%"
-                aria-valuenow="25"
-                aria-valuemin="0"
-                aria-valuemax="100"
-              ></div>
-            </div>
-          </div>
-
-          <div>
-            <span>C 선반 : 5 / 10</span>
-            <div class="progress">
-              <div
-                class="progress-bar"
-                id="bg_black"
-                role="progressbar"
-                aria-label="Basic example"
-                style="width: 50%"
-                aria-valuenow="25"
-                aria-valuemin="0"
-                aria-valuemax="100"
-              ></div>
-            </div>
-          </div>
-
-          <div>
-            <span>D 선반 : 10 / 10</span>
-            <div class="progress">
-              <div
-                class="progress-bar"
-                id="bg_black"
-                role="progressbar"
-                aria-label="Basic example"
-                style="width: 100%"
-                aria-valuenow="25"
-                aria-valuemin="0"
-                aria-valuemax="100"
-              ></div>
-            </div>
-          </div>
-        </div>
-        <div id="second_option" class="none_view">
-          <div>
-              
-            창고 온도
-
-            <div class="progress" id="temp_bar">
-              <div
-                class="progress-bar"
-                id="bg_red"
-                role="progressbar"
-                aria-label="Basic example"
-                style="width: 50%"
-                aria-valuenow="25"
-                aria-valuemin="0"
-                aria-valuemax="100"
-              ></div>
-            </div>
-            <div class="temp_text_div">
-              <span id="min_temp">-5°C</span><span id="now_temp">now : 0°C </span><span id="max_temp">5°C</span>
-            </div>
-          </div>
-
-          <div>
-            창고 습도
-            <div class="progress" id="humid_bar">
-              <div
-                class="progress-bar"
-                id="bg_green"
-                role="progressbar"
-                aria-label="Basic example"
-                style="width: 20%"
-                aria-valuenow="25"
-                aria-valuemin="0"
-                aria-valuemax="100"
-              ></div>
-            </div>
-            <div class="temp_text_div">
-              <span id="min_humid">0%</span><span id="now_humid">now : 5% </span><span id="max_humid">20%</span>
-            </div>
-          </div>
-        </div>
-        <div id="third_option" class="none_view">
-          신석 식품 냉장 창고 입니다
-        </div>
-        <div class="choice_option_div">
-          <span onclick="optionOne()">선반 정보</span
-          ><span onclick="optionTwo()">온 / 습도</span
-          ><span onclick="optionThree()">창고 정보</span>
-        </div>
-      </div>
-    </div> -->
+  </div>
+  <div class="excel_div_output">
+    <button class="excel_btn_output" type="button" onclick="ExcelExport('table', 'title')"> <img src="views/image/excel_img.png" alt="excel_img" class="excel_img"> 내보내기</button>
   </div>
 </div>
 </div>

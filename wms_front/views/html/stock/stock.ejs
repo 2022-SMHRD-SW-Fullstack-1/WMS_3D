@@ -178,8 +178,8 @@
   <hr />
   <div class="btn_div">
     <div>
-      <button>수정</button>
-      <button onclick="stockOutput()">출고</button>
+      <button class="st_modify">수정</button>
+      <button class="st_output" onclick="stockOutput()">출고</button>
     </div>
 
     <div></div>
@@ -236,12 +236,15 @@
 
           </tbody>
         </table>
-        <button type="button" onclick="ExcelExport('table', 'title')">Excel</button>
+
       </div>
     </div>
+  </div>
+  <div class="excel_div_output">
     <!-- <% for(var i = 0; i<data.length; i++){%>
       <p><%- data[i].wh_num%></p>
-  <%}%> -->
+      <%}%> -->
+    <button class="excel_btn_output" type="button" onclick="ExcelExport('table', 'title')"><img src="views/image/excel_img.png" alt="excel_img" class="excel_img"> 내보내기</button>
   </div>
 </div>
 </div>
