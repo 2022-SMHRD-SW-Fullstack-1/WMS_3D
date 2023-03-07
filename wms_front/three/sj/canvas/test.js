@@ -1,26 +1,32 @@
 import { Line } from "../line.js";
 
 
+
+
 const zoomElement = document.querySelector("#canvas");
 const background_img = document.querySelector("#background_img")
 
+const myCanvas = document.querySelector("#myCanvas");
 
 
 let zoom = 1.5;
 const ZOOM_SPEED = 0.05;
 zoomElement.style.transform = 'scale(1.5)'
 background_img.style.transform = zoomElement.style.transform 
+myCanvas.style.transform = zoomElement.style.transform 
 
 document.addEventListener("wheel", function (e) {
   if (e.deltaY > 0) {
     if(zoomElement.style.transform != "scale(0.2)"){
     zoomElement.style.transform = `scale(${(zoom -= ZOOM_SPEED)})`;
     background_img.style.transform = zoomElement.style.transform 
+    myCanvas.style.transform = zoomElement.style.transform 
 
     }
   } else {
         zoomElement.style.transform = `scale(${(zoom += ZOOM_SPEED)})`;
         background_img.style.transform = zoomElement.style.transform 
+        myCanvas.style.transform = zoomElement.style.transform 
 
   }
 });

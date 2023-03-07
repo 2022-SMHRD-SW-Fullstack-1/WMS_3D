@@ -1,8 +1,9 @@
 import { Line } from "../line.js";
 
-
+// 캔버스
 const zoomElement = document.querySelector("#canvas");
 const background_img = document.querySelector("#background_img")
+const save_canvas = document.querySelector("#save_canvas")
 
 let zoom = 1.5;
 const ZOOM_SPEED = 0.05;
