@@ -10,7 +10,6 @@ btn_create_warehouse.addEventListener("click",()=>{
     x.push(line_arr[0].start_x)
     y.push(line_arr[0].start_y)
 
-
     for(let i=0;i<line_arr.length;i++){
       x.push(line_arr[i].end_x)
     }
@@ -22,14 +21,10 @@ btn_create_warehouse.addEventListener("click",()=>{
     localStorage.setItem("y",y)
 })
 
-
-
-
 let isDrawing = false;
 let startX, startY;
 
 const line_arr = [];
-
 
 real_canvas.addEventListener("mousedown", (e) => {
   isDrawing = true;
