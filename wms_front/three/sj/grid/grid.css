@@ -1,0 +1,19 @@
+#캔버스{
+    /*규격*/
+    width:200px;
+    height:200px;
+    /*불필요한 속성 제거*/
+    list-style:none;
+    padding:0;
+    /*칸 배치*/
+    display:flex;
+    flex-wrap:wrap;
+  }
+
+  #캔버스>li{
+    /*규격*/
+    width:10%;
+    height:10%;
+    /*테두리*/
+    outline:1px dotted grey;
+  }

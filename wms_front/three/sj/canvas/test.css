@@ -1,0 +1,99 @@
+html, body {width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden;}
+canvas { position: absolute; top: 0; left: 0;width: 100%; height: 100%; background-color:rgba(255, 255, 255, 0);}
+
+#myCanvas{
+    z-index: 2;
+  }
+  
+#canvas{
+  z-index: 3;
+}
+
+#background_img{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.5;
+}
+
+#save_canvas{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(57, 19, 19,0.1);
+}
+
+*{
+    outline :none;
+    margin : 0;
+}
+
+body{
+    /* 만약 스크롤바가 생길 경우 스크롤바 숨기기 */
+    overflow: hidden;
+}
+
+#webgl-container{
+    /* 해당 div를 화면에 꽉차게 설정 */
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#side_bar_container{
+    position: absolute;
+    top:48px;
+    left:48px;
+    width: 320px;
+    height: 100%;
+    background-color: aqua;
+}
+#cate_select_container{
+    position:absolute;
+    top: 0;
+    left: 0;
+    width: 48px;
+    height: 100%;
+    background-color: aquamarine;
+}
+#head_bar_container{
+    position:absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 48px;
+    background-color: aquamarine;
+
+}
+#sb_top_div{
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 48px;
+    background-color:cornflowerblue;
+}
+#sb_main_div{
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    width: 296px;
+    height: 100%;
+
+    background-color: aliceblue;
+
+    color: gray;
+    font-size: 14px;
+}
+#sb_main_div input{
+    height: 26px;
+    padding: 2px;
+    text-align: right;
+}
+p{
+    font-size: 16px;
+    font-weight: 600;
+    
+}
