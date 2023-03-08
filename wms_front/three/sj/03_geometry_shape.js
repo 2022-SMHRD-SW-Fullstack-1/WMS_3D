@@ -3,10 +3,10 @@ import * as THREE from '../build/three.module.js';
 import { OrbitControls } from "../examples/jsm/controls/OrbitControls.js"
 
 // 창고 생성버튼
-const btn_create_warehouse = document.querySelector("#btn_create_warehouse")
-const warehouse_width = document.querySelector("#warehouse_width");
-const warehouse_length = document.querySelector("#warehouse_length");
-const warehouse_hegiht = document.querySelector("#warehouse_hegiht");
+const btn_create_shelf = document.querySelector("#btn_create_shelf")
+const shelf_width = document.querySelector("#shelf_width");
+const shelf_length = document.querySelector("#shelf_length");
+const shelf_floor = document.querySelector("#shelf_hegiht");
 
 // three.js의 구성
 
@@ -133,16 +133,16 @@ const group = new THREE.Group();
 // 그룹안에 정육면체와 라인 넣기
         const shape = new THREE.Shape();
         
-        shape.moveTo(Number(x[0]-21),-Number(y[0])+14);      // 시작지점 설정
+        shape.moveTo(Number(x[0]-30),-Number(y[0])+14);      // 시작지점 설정
     
         for(let i=1; i<x.length;i++){
-            shape.lineTo(Number(x[i]-21),-Number(y[i])+14)
+            shape.lineTo(Number(x[i]-30),-Number(y[i])+14)
 
         }
         for(let j=1; j<x.length;j++){
             let line = new THREE.Shape();
-            line.moveTo(Number(x[j-1]-21),-Number(y[j-1])+14)
-            line.lineTo(Number(x[j]-21),-Number(y[j])+14)
+            line.moveTo(Number(x[j-1]-30),-Number(y[j-1])+14)
+            line.lineTo(Number(x[j]-30),-Number(y[j])+14)
             line.closePath();  
 
 
@@ -206,9 +206,70 @@ group.rotation.x = -Math.PI/2;
 this._scene.add(group)
 // 다른 메서드에서 참조할 수 있도록 field로 정의
 this._cube = group;
+
+
+btn_create_shelf.addEventListener("click",()=>{
+    this._createShelfs(Number(shelf_width.value),Number(shelf_length.value),Number(shelf_floor.value))
+})
+// this._createShelfs();
+
+
     }
 
+    _createShelfs(w,l,f){
+        this._createShelf("B선반",{x:0,y:0},{width : w,length :l,floor :f},false);
 
+       }
+
+    _createShelf(meshName,boardPos,shelf_info,rotation){
+            const group2 = new THREE.Group();
+            // 기본 바 생성
+            const shelfBarGeometry = new THREE.CylinderGeometry(0.03,0.03,shelf_info.floor-1+0.2)
+            const shelfBarMaterial = new THREE.MeshPhongMaterial({
+                color : 0x0000aa, emissive : 0x112244, flatShading:true
+            })
+            // 기본 판 생성
+            const shelfFloorGeometry = new THREE.BoxGeometry(shelf_info.width,0.05,shelf_info.length)
+            const shelfFloorMaterial = new THREE.MeshPhongMaterial({
+                color : 0xffaa00, emissive : 0x112244, flatShading:true
+            })
+            for(let i=0;i<4;i++){
+                // 바생성
+                const shelfBarMesh =new THREE.Mesh(shelfBarGeometry,shelfBarMaterial);
+                let x = 1;
+                let z = 1;
+                if(i==1){
+                    z=-1;
+                }else if(i==2){
+                    x=-1;
+                    z=-1;
+                }else if(i==3){
+                    x=-1;
+                }
+                shelfBarMesh.position.x = shelf_info.width/2*x;
+                shelfBarMesh.position.y = 1/2*(shelf_info.floor)+(0.6);
+                shelfBarMesh.position.z = 1/2*z*shelf_info.length;
+                group2.add(shelfBarMesh);
+            }
+            for(let i=0;i<shelf_info.floor+1;i++){
+                // 판 생성
+                const shelfFloorMesh = new THREE.Mesh(shelfFloorGeometry,shelfFloorMaterial)
+                shelfFloorMesh.position.y = (i*1)+0.1;
+                group2.add(shelfFloorMesh);
+            }
+        
+            if(rotation==true){
+                group2.rotation.y =-Math.PI/2;
+            }
+            group2.position.set(boardPos.x,0,boardPos.y)
+            group2.name = meshName;
+            this._shelf = group2;
+            this._scene.add(group2)
+        
+    
+      
+        
+    }
 
     // 창의 크기가 변경될때 발생하는 이벤트
     resize(){

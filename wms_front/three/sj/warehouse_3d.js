@@ -215,7 +215,7 @@ class App{
                 //     this._scene.add(mesh)
                 //     this._createBoard();
                 // })
-this._createBoard();
+        this._createBoard();
 
 
     }

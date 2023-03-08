@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>사이드바 예시</title>
+	<style>
+		.sidebar {
+			position: fixed;
+			top: 0;
+			left: -200px;
+			width: 200px;
+			height: 100%;
+			background-color: #f1f1f1;
+			overflow-x: hidden;
+			padding-top: 20px;
+			transition: 0.5s;
+		}
+
+		.sidebar a {
+			padding: 6px 8px 6px 16px;
+			text-decoration: none;
+			font-size: 25px;
+			color: #818181;
+			display: block;
+		}
+
+		.sidebar a:hover {
+			color: #f1f1f1;
+		}
+
+		.openbtn {
+			font-size: 20px;
+			cursor: pointer;
+			background-color: #f1f1f1;
+			color: #111;
+			padding: 10px 15px;
+			border: none;
+			position: fixed;
+			top: 0;
+			left: 0;
+			transition: 0.5s;
+		}
+
+		.openbtn:hover {
+			background-color: #111;
+			color: #f1f1f1;
+		}
+
+		.closebtn {
+			font-size: 20px;
+			cursor: pointer;
+			background-color: #f1f1f1;
+			color: #111;
+			padding: 10px 15px;
+			border: none;
+			position: fixed;
+			top: 0;
+			right: 0;
+			transition: 0.5s;
+		}
+
+		.closebtn:hover {
+			background-color: #111;
+			color: #f1f1f1;
+		}
+	</style>
+</head>
+<body>
+	<button class="openbtn" onclick="openNav()">☰</button>
+
+	<div class="sidebar" id="mySidebar">
+		<button class="closebtn" onclick="closeNav()">×</button>
+		<a href="#">메뉴1</a>
+		<a href="#">메뉴2</a>
+		<a href="#">메뉴3</a>
+		<a href="#">메뉴4</a>
+	</div>
+
+	<div class="content">
+		<h1>웹사이트 제목</h1>
+		<p>웹사이트 내용</p>
+	</div>
+
+	<script>
+		function openNav() {
+			document.getElementById("mySidebar").style.left = "0px";
+		}
+
+		function closeNav() {
+			document.getElementById("mySidebar").style.left = "-200px";
+		}
+	</script>
+</body>
+</html>

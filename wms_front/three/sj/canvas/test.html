@@ -36,22 +36,51 @@
     <div id="webgl-container"></div>
     <div id="cate_select_container"></div>
     <div id="side_bar_container">
-        <div id="sb_top_div">
+        
+        <div>
 
+                <div id="sb_top_div">
+                </div>
+            <div id="sb_main_div">
+                <!-- <p>창고 만들기</p>
+                <span>창고 너비</span>
+                <input type="text" id="warehouse_width">
+                <span>창고 길이</span>
+                <input type="text" id="warehouse_length">
+                <span>창고 높이</span>
+                <input type="text" id="warehouse_hegiht"> -->
+                <button id="btn_create_warehouse">생성</button>
+            </div>
         </div>
-        <div id="sb_main_div">
-            <!-- <p>창고 만들기</p>
-            <span>창고 너비</span>
-            <input type="text" id="warehouse_width">
-            <span>창고 길이</span>
-            <input type="text" id="warehouse_length">
-            <span>창고 높이</span>
-            <input type="text" id="warehouse_hegiht"> -->
-            <button id="btn_create_warehouse">생성</button>
+        <div id="nav_btn_div">
+            <button onclick="handleNav()"></button>
         </div>
 
     </div>
     <div id="head_bar_container"></div>
-    
+    <script>
+
+        let side_bar_container = document.getElementById("side_bar_container")
+        let open = true;
+
+        function handleNav(){
+            if(open == true){
+                closeNav();
+            }else{
+                openNav();
+            }
+        }
+
+        function openNav() {
+            side_bar_container.style.left = "48px"
+            open=true
+        }
+
+        function closeNav() {
+            side_bar_container.style.left = "-272px"
+            open=false
+        }
+
+    </script>
 </body>
 </html>
