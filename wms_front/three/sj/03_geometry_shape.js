@@ -49,6 +49,9 @@ class App{
         // 다른 메서드에서 참조할 수 있도록 field로 정의
         this._renderer = renderer; // 이 renderer는 canvas타입의 dom 객체
 
+        
+        this._raycaster = new THREE.Raycaster(); // create once
+
         // scene객체 생성
         const scene = new THREE.Scene();
         // 다른 메서드에서 참조할 수 있도록 field로 정의
@@ -60,6 +63,7 @@ class App{
         this._setupLight();
         this._setupModel();
         this._setupControls();
+        this._setupEvents();
 
         // window.onresize : 창 크기 변경시 발동되는 장치
         // renderer와 camera는 창 크기가 변경될 때마다 그 크기에 맞게 속성값을 재설정 해줘야 하기 때문
@@ -74,6 +78,105 @@ class App{
         //                      app클래스의 객체를 가르키기 위해
         requestAnimationFrame(this.render.bind(this));
     }
+
+    _setupEvents(){
+
+
+        
+        const clickMouse = new THREE.Vector2();  // create once
+        const moveMouse = new THREE.Vector2();   // create once
+        var draggable;
+
+        let raycaster = this._raycaster
+        let camera = this._camera
+        let scene = this._scene
+        let renderer = this._renderer
+
+        function intersect(pos) {
+            raycaster.setFromCamera(pos, camera);
+        return raycaster.intersectObjects(scene.children);
+        }
+
+        
+
+
+        window.addEventListener('click', event => {
+            
+        if (draggable != null) {
+            console.log(`dropping draggable ${draggable.userData.name}`)
+            draggable = null
+            return;
+        }
+
+        // THREE RAYCASTER
+        clickMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        let found = intersect(clickMouse);
+
+        if (found.length > 0) {
+            if (found[0].object.parent.userData.draggable) {
+            draggable = found[0].object.parent
+            console.log(`found draggable ${draggable.userData.name}`)
+            }
+        }
+        })
+
+        window.addEventListener('mousemove', event => {
+        moveMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        moveMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        });
+
+        var intervalId;
+        window.addEventListener('mousedown',event=>{
+             // THREE RAYCASTER
+        clickMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        let found = intersect(clickMouse);
+
+            if (found[0].object.geometry.type == "BoxGeometry") {
+
+                intervalId = setInterval(function() {
+                    
+                    found[0].object.parent.rotation.y += 0.1 
+                }, 100);
+                return;
+            }
+        })
+        window.addEventListener('mouseup', function() {
+			clearInterval(intervalId);
+		});
+
+
+
+        function animate() {
+            dragObject();
+            renderer.render(scene, camera);
+            requestAnimationFrame(animate);
+          }
+
+        function dragObject() {
+        if (draggable != null) {
+
+            
+            const found = intersect(moveMouse);
+            if (found.length > 0) {
+            for (let i = 0; i < found.length; i++) {
+                if (!found[i].object.userData.ground)
+                continue
+                
+                let target = found[i].point;
+                draggable.position.x = target.x
+                draggable.position.z = target.z
+            }
+            }
+        }
+        }
+        animate();
+    }
+
+
 
     _setupControls(){
         // OrbitControls : 마우스로 화면을 컨트롤하는 기능
@@ -145,9 +248,6 @@ const group = new THREE.Group();
             line.lineTo(Number(x[j]-30),-Number(y[j])+14)
             line.closePath();  
 
-
-            console.log(line)
-
             let set = {
                 steps: 1,   // 깊이 방향으로의 분할 수
                 depth: 5,   // 깊이 값
@@ -156,7 +256,7 @@ const group = new THREE.Group();
                 bevelSize: 0,        // shape의 기본값으로 얼마나 베벨링 할지?
                 bevelSegments: 0,   // 베벨링을 얼마나 부드럽게?
             }
-         
+
             let geo = new THREE.ExtrudeGeometry(line, set);
             let fill = new THREE.MeshPhongMaterial({color:0xffffff});
             let wall = new THREE.Mesh(geo,fill);
@@ -200,7 +300,8 @@ const line = new THREE.LineSegments(
 group.add(cube);
 // group.add(line);
 group.rotation.x = -Math.PI/2;
-    
+
+    cube.userData.ground = true;
 
 // scene객체의 구성요소로 cube추가
 this._scene.add(group)
@@ -263,12 +364,17 @@ btn_create_shelf.addEventListener("click",()=>{
             }
             group2.position.set(boardPos.x,0,boardPos.y)
             group2.name = meshName;
+
             this._shelf = group2;
+
+            group2.userData.draggable = true
+            group2.userData.name = "shelf"
+
             this._scene.add(group2)
         
-    
-      
-        
+
+
+            
     }
 
     // 창의 크기가 변경될때 발생하는 이벤트
