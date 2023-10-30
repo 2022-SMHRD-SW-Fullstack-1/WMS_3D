@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- viewport : web page가 pc의 web browser에서 뿐만아니라 mobile에서도 문제
+                    없이 표시 가능하도록 도와준다 -->
+    <meta value="viewport" content="width-device-width,inital-scale=1">
+    <link rel="stylesheet" href="earth.css">
+    <!-- js를 module type으로 가져온 이유 : three.js 라이브러리를
+                    모듈버전으로 import하기 위해서 -->
+    <!-- defer : 페이지가 모두 로딩된 이후에 자바 스크립트가 실행되도록 하는 장치 -->
+    <title>GIS Developer's Three.js Tutorials</title>
+</head>
+<body>
+    <div id="webgl-container"></div>
+    <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
+
+    <!-- <script type="importmap">
+        {
+            "imports": {
+                "three": "../build/three.module.js",
+                "three/addons/": "./jsm/"
+            }
+        }
+    </script> -->
+
+    <script type="module">
+
+        import * as THREE from "../../build/three.module.js";
+        import {OrbitControls} from '../jsm/controls/OrbitControls.js'
+        // import { OrbitControls } from '../../examples/controls/OrbitControls.js';
+        // import Stats from '../../examples/libs/stats.module.js';
+        // import { FlyControls } from '../../examples/controls/FlyControls.js';
+        // import { EffectComposer } from '../../examples/postprocessing/EffectComposer.js';
+        // import { RenderPass } from '../../examples/postprocessing/RenderPass.js';
+        // import { FilmPass } from '../../examples/postprocessing/FilmPass.js';
+
+class App{
+    constructor() {
+        
+        const divContainer = document.querySelector("#webgl-container");
+        
+        this._divContainer = divContainer;
+
+        const renderer = new THREE.WebGLRenderer({antialias:true});
+        renderer.setPixelRatio(window.devicePixelRatio);
+
+        divContainer.appendChild(renderer.domElement);
+        this._renderer = renderer; 
+
+        const scene = new THREE.Scene();
+        this._scene = scene;
+
+        this._setupCamera();
+        this._setupLight();
+        this._setupModel();
+
+        window.onresize = this.resize.bind(this);
+        this.resize();
+
+        requestAnimationFrame(this.render.bind(this));
+    }
+
+    
+    _setupCamera(){
+        
+        const width = this._divContainer.clientWidth;
+        const height = this._divContainer.clientHeight;
+        
+        const camera = new THREE.PerspectiveCamera(
+            75,
+            width / height,
+            0.1,
+            100
+        );
+        camera.position.z = 10;
+        this._camera = camera;
+    }
+    _setupLight(){
+        const color = 0xffffff;
+        const intensity = 1;
+        const light = new THREE.DirectionalLight(color,intensity);
+        light.position.set(-1, 2, 4);
+        this._scene.add(light);
+    }
+    
+    _setupModel(){
+        
+        const solarSystem = new THREE.Object3D();
+        this._scene.add(solarSystem);
+
+        
+        const radius = 1;           
+        const widthSegments = 120;   
+        const heightSegments = 120;  
+        
+        const sphereGeometry = new THREE.SphereGeometry(radius,
+            widthSegments, heightSegments);
+        
+        const sunMaterial = new THREE.MeshPhongMaterial({
+            emissive:0xffff00, flatShading:true});
+            
+            const sunMesh = new THREE.Mesh(sphereGeometry,sunMaterial);
+            
+            sunMesh.scale.set(3,3,3);
+            
+            solarSystem.add(sunMesh);
+
+        const earthOrbit = new THREE.Object3D();
+        solarSystem.add(earthOrbit);
+
+        const earthMaterial = new THREE.MeshPhongMaterial({
+            color : 0x2233ff, emissive: 0x112244, flatShading:true});
+            const earthMesh = new THREE.Mesh(sphereGeometry, earthMaterial);
+            earthOrbit.position.x = 7;
+            earthOrbit.add(earthMesh);
+        
+            this._solarSystem = solarSystem
+            this._earthOrbit = earthOrbit
+    }
+
+    
+    resize(){
+        
+        const width = this._divContainer.clientWidth;
+        const height = this._divContainer.clientHeight;
+
+        this._camera.aspect = width / height;
+        this._camera.updateProjectionMatrix();
+
+        this._renderer.setSize(width,height);
+    }
+    
+    
+    
+    render(time){
+        
+        this._renderer.render(this._scene, this._camera);
+        
+        this.update(time);
+        requestAnimationFrame(this.render.bind(this));
+    }
+    
+    update(time){
+        time *= 0.001;  
+        
+        
+
+        this._solarSystem.rotation.y = time/2;
+        this._earthOrbit.rotation.y = time*2;
+    }
+
+}
+
+window.onload = function(){
+    new App();
+}
+
+
+
+
+
+
+    </script>
+    
+</body>
+</html>

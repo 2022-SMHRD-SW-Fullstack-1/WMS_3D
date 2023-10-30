@@ -87,6 +87,7 @@
 		<div id="menu">
 			<button id="table">TABLE</button>
 			<button id="sphere">SPHERE</button>
+			<button id="cylinder">CYLINDER</button>
 			<button id="helix">HELIX</button>
 			<button id="grid">GRID</button>
 		</div>
@@ -237,7 +238,7 @@
 			let controls;
 
 			const objects = [];
-			const targets = { table: [], sphere: [], helix: [], grid: [] };
+			const targets = { table: [], sphere: [], cylinder: [], helix: [], grid: [] };
 
 			init();
 			animate();
@@ -311,6 +312,31 @@
 
 				}
 
+				// cylinder
+				
+				const radius = 3000; // 원하는 실린더의 반지름
+
+				const height = 0; // 원하는 실린더의 높이
+
+				const numOfObjects = objects.length;
+
+				for (let i = 0; i < numOfObjects; i++) {
+					const theta = (i / numOfObjects) * 2 * Math.PI;
+					
+					const object = new THREE.Object3D();
+					
+					// 원하는 실린더 형태에 맞게 위치 설정
+					object.position.x = radius * Math.cos(theta);
+					object.position.y = (i / numOfObjects) * height - height / 2; // 높이 분포 설정
+					object.position.z = radius * Math.sin(theta);
+					
+					vector.copy(object.position).multiplyScalar(2);
+					
+					object.lookAt(vector);
+					
+					targets.cylinder.push(object);
+				}
+
 				// helix
 
 				for ( let i = 0, l = objects.length; i < l; i ++ ) {
@@ -370,6 +396,13 @@
 				buttonSphere.addEventListener( 'click', function () {
 
 					transform( targets.sphere, 2000 );
+
+				} );
+
+				const buttonCylinder = document.getElementById( 'cylinder' );
+				buttonCylinder.addEventListener( 'click', function () {
+
+					transform( targets.cylinder, 2000 );
 
 				} );
 

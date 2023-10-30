@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- viewport : web page가 pc의 web browser에서 뿐만아니라 mobile에서도 문제
+                    없이 표시 가능하도록 도와준다 -->
+    <meta value="viewport" content="width-device-width,inital-scale=1">
+    <link rel="stylesheet" href="earth.css">
+    <!-- js를 module type으로 가져온 이유 : three.js 라이브러리를
+                    모듈버전으로 import하기 위해서 -->
+    <!-- defer : 페이지가 모두 로딩된 이후에 자바 스크립트가 실행되도록 하는 장치 -->
+    <title>GIS Developer's Three.js Tutorials</title>
+</head>
+<body>
+    <div id="webgl-container"></div>
+    <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "../build/three.module.js",
+                "three/addons/": "./jsm/"
+            }
+        }
+    </script>
+
+<script type="module">
+
+    import * as THREE from "three";
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    import Stats from 'three/addons/libs/stats.module.js';
+
+    import { FlyControls } from 'three/addons/controls/FlyControls.js';
+    import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+    import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+    import { FilmPass } from 'three/addons/postprocessing/FilmPass.js';
+
+
+    const radius = 6371;
+    const cloudsScale =3.015;
+    const tilt = 0.41;
+    const widthSegments = 100;
+    const heightSegments = 50;
+
+    let sphereGeometry, meshPlanet, meshMoon;
+
+    const textureLoader = new THREE.TextureLoader();
+    const dMoonVec = new THREE.Vector3();
+    const clock = new THREE.Clock();
+
+class App{
+    constructor() {
+        
+        const divContainer = document.querySelector("#webgl-container");
+        
+        this._divContainer = divContainer;
+
+        const renderer = new THREE.WebGLRenderer({antialias:true});
+        renderer.setPixelRatio(window.devicePixelRatio);
+
+        divContainer.appendChild(renderer.domElement);
+        this._renderer = renderer; 
+
+        const scene = new THREE.Scene();
+        this._scene = scene;
+
+        this._setupCamera();
+        this._setupLight();
+        this._setupModel();
+        this._setupControls();
+
+        window.onresize = this.resize.bind(this);
+        this.resize();
+
+        requestAnimationFrame(this.render.bind(this));
+    }
+    _setupControls(){
+        new OrbitControls(this._camera, this._divContainer);
+    }
+    
+    _setupCamera() {
+        const width = this._divContainer.clientWidth;
+        const height = this._divContainer.clientHeight;
+
+        const camera = new THREE.PerspectiveCamera(
+            25,
+            width / height,
+            50,
+            1e7
+        );
+        camera.position.z = radius * 20;
+        camera.position.y = radius * 8;
+        this._camera = camera;
+    }
+    _setupLight() {
+        const color = 0xffffff;
+        const intensity = 1;
+
+        // Create a light based on the camera's position and direction
+        const cameraLight = new THREE.DirectionalLight(color, intensity);
+        cameraLight.position.copy(this._camera.position); // Set light position to camera position
+        cameraLight.target = this._scene; // Set light's target to the scene
+
+        // Add the camera light to the scene
+        this._scene.add(cameraLight);
+
+        // Ambient light to provide overall illumination
+        const ambientLight = new THREE.AmbientLight(0x404040);
+        this._scene.add(ambientLight);
+    }
+    
+    _setupModel() {
+        
+        sphereGeometry = new THREE.SphereGeometry(
+            radius,
+            widthSegments,
+            heightSegments
+        );
+
+        const earthOrbit = new THREE.Object3D();
+        this._scene.add(earthOrbit);
+        const cloudOrbit = new THREE.Object3D();
+        this._scene.add(cloudOrbit);
+        const moonOrbit = new THREE.Object3D();
+        earthOrbit.add(moonOrbit);
+
+        const materialNormalMap = new THREE.MeshPhongMaterial({
+            specular: 0x333333,
+            shininess: 15,
+            map: textureLoader.load('textures/planets/earth_atmos_2048.jpg'),
+            specularMap: textureLoader.load('textures/planets/earth_specular_2048.jpg'),
+            normalMap: textureLoader.load('textures/planets/earth_normal_2048.jpg'),
+            normalScale: new THREE.Vector2(0.85, -0.85),
+        });
+
+        const materialClouds = new THREE.MeshLambertMaterial({
+            map: textureLoader.load('textures/planets/earth_clouds_1024.png'),
+            transparent: true,
+        });
+
+        const materialMoon = new THREE.MeshPhongMaterial({
+            map: textureLoader.load('textures/planets/moon_1024.jpg'),
+        });
+
+        
+        const earthMesh = new THREE.Mesh(sphereGeometry, materialNormalMap);
+        earthMesh.scale.set(3, 3, 3);
+        
+        const cloudMesh = new THREE.Mesh(sphereGeometry, materialClouds);
+        cloudMesh.scale.set(cloudsScale, cloudsScale, cloudsScale);
+
+        const moonMesh = new THREE.Mesh(sphereGeometry, materialMoon);
+        moonOrbit.position.set(radius * 10, 0, 0);
+
+        earthOrbit.add(earthMesh);
+        cloudOrbit.add(cloudMesh);
+        moonOrbit.add(moonMesh);
+
+        this._earthOrbit = earthOrbit;
+        this._cloudOrbit = cloudOrbit;
+        this._moonOrbit = moonOrbit;
+
+
+        const r = radius * 3;
+        const latitudeLinesGroup = new THREE.Group();
+let currentBlinkingIndex = 0;
+
+
+
+
+// 이전에 만든 그래픽을 저장할 배열
+const torusMeshes = [];
+let i = 10;
+
+setInterval(() => {
+    if(i >= 180){
+        i = 10;
+    }
+
+    // 기존에 생성된 그래픽을 삭제
+    torusMeshes.forEach(mesh => {
+        latitudeLinesGroup.remove(mesh); // 그래픽을 Group에서 제거
+        mesh.geometry.dispose(); // 그래픽의 geometry 메모리 해제
+        mesh.material.dispose(); // 그래픽의 material 메모리 해제
+    });
+    torusMeshes.length = 0; // 배열 초기화
+
+    const phi = THREE.MathUtils.degToRad(90 - i);
+    const y = r * Math.sin(phi);
+    const circleRadius = r * Math.cos(phi);
+
+    const torusGeometry = new THREE.TorusGeometry(circleRadius + (300 * (i > 0 ? 1 : -1)) - 100, 200, 6, 60);
+    
+    const torusMaterial = new THREE.MeshBasicMaterial({
+        color: 0xff0000,
+        side: THREE.DoubleSide
+    });
+
+    const torusMesh = new THREE.Mesh(torusGeometry, torusMaterial);
+    torusMesh.rotation.x = Math.PI / 2; // 도넛을 수평으로 정렬
+    torusMesh.position.y = y * (i > 0 ? 1 : -1);
+
+    latitudeLinesGroup.add(torusMesh);
+    torusMeshes.push(torusMesh);
+
+    i += 10;
+}, 2000);
+// Group을 scene에 추가합니다.
+this._scene.add(latitudeLinesGroup);
+
+
+
+    }
+
+
+    
+    resize(){
+        
+        const width = this._divContainer.clientWidth;
+        const height = this._divContainer.clientHeight;
+
+        this._camera.aspect = width / height;
+        this._camera.updateProjectionMatrix();
+
+        this._renderer.setSize(width,height);
+    }
+    
+    
+    
+    render(time){
+        
+        this._renderer.render(this._scene, this._camera);
+        
+        this.update(time);
+        requestAnimationFrame(this.render.bind(this));
+    }
+    
+    update(time){
+        time *= 0.0005;  
+        
+        
+
+        this._earthOrbit.rotation.y = time/2;
+        this._cloudOrbit.rotation.y = time/1.2;
+        this._moonOrbit.rotation.y = time/10;
+        
+    }
+
+}
+
+window.onload = function(){
+    new App();
+}
+
+
+
+
+
+
+    </script>
+    
+</body>
+</html>
